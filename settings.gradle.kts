@@ -16,4 +16,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "HK-Bank-Locator"
 include(":app")
- 
