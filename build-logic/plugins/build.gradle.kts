@@ -1,0 +1,36 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
+plugins {
+    `java-gradle-plugin`
+    alias(libs.plugins.kotlin.jvm)
+}
+
+group = "ch.app.hk.bank.locator.buildlogic"
+
+// Configure the build-logic plugins to target JDK 17
+// This matches the JDK used to build the project, and is not related to what is running on device.
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType<KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+}
+
+dependencies {
+    implementation(gradleKotlinDsl())
+    implementation(libs.ktlint.gradle)
+}
+
+gradlePlugin {
+    plugins {
+        create("app-ktlint-plugin") {
+            id = "app-ktlint-plugin"
+            implementationClass = "$group.ktlint.KtlintPlugin"
+        }
+    }
+}

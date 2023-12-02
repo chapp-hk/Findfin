@@ -1,0 +1,9 @@
+[versions]
+kotlin = "1.9.0"
+ktlintGradle = "11.6.1"
+
+[libraries]
+ktlint-gradle = { module = "org.jlleitschuh.gradle:ktlint-gradle", version.ref = "ktlintGradle" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
