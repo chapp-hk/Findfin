@@ -28,8 +28,8 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        create("app-ktlint-plugin") {
-            id = "app-ktlint-plugin"
+        create("app-plugin-ktlint") {
+            id = "app-plugin-ktlint"
             implementationClass = "$group.ktlint.KtlintPlugin"
         }
     }
