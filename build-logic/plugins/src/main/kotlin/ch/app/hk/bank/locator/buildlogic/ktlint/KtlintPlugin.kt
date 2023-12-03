@@ -57,13 +57,15 @@ class KtlintPlugin : Plugin<Project> {
             it.commandLine = listOf("chmod")
             it.args("-R", "+x", ".git/hooks/")
             it.dependsOn("copyGitHooks")
-            it.doLast {
-                it.logger.info("Git hook installed successfully.")
+            it.doLast { task ->
+                task.logger.info("Git hook installed successfully.")
             }
         }
 
         rootProject.afterEvaluate {
-            it.tasks.getByPath(":app:preBuild").dependsOn(":installGitHooks")
+            it.tasks
+                .getByPath(":app:preBuild")
+                .dependsOn(":installGitHooks")
         }
     }
 }
