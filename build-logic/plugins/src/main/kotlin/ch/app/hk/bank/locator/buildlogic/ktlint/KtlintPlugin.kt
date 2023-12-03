@@ -23,7 +23,7 @@ class KtlintPlugin : Plugin<Project> {
     private fun assertRootProject(rootProject: Project) {
         if (rootProject.rootProject !== rootProject) {
             throw GradleException(
-                "The \"app-ktlint-plugin\" plugin cannot be applied to project '${rootProject.name}'" +
+                "The \"app-plugin-ktlint\" plugin cannot be applied to project '${rootProject.name}'" +
                         "because it is not the root project. Build file: ${rootProject.buildFile}"
             )
         }
