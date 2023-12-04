@@ -21,6 +21,8 @@ tasks.withType<KotlinCompile>().configureEach {
 }
 
 dependencies {
+    compileOnly(libs.android.gradlePlugin.api)
+    compileOnly(libs.org.jetbrains.kotlin.gradle.plugin)
     implementation(gradleKotlinDsl())
     implementation(libs.ktlint.gradle)
 }
@@ -30,6 +32,11 @@ gradlePlugin {
         create("ktlint") {
             id = "app.plugin.ktlint"
             implementationClass = "$group.ktlint.KtlintPlugin"
+        }
+
+        create("android-common") {
+            id = "app.plugin.android.common"
+            implementationClass = "$group.android.AndroidCommonPlugin"
         }
     }
 }
