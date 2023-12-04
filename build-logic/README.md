@@ -14,3 +14,7 @@ Current list of convention plugins:
   - configure `buildToolsVersion`
   - configure `minSdk`
   - configure java version
+- [app.plugin.compose](plugins/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/compose/ComposePlugin.kt)
+  - configure buildFeatures compose 
+  - configure `kotlinCompilerExtensionVersion`
+  - add basic compose dependencies

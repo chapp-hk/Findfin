@@ -38,5 +38,10 @@ gradlePlugin {
             id = "app.plugin.android.common"
             implementationClass = "$group.android.AndroidCommonPlugin"
         }
+
+        create("compose") {
+            id = "app.plugin.compose"
+            implementationClass = "$group.compose.ComposePlugin"
+        }
     }
 }
