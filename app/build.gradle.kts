@@ -17,11 +17,13 @@ android {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":core:design")))
 
     implementation(libs.core.ktx)
     implementation(libs.material)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.activity.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
