@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
     id("app.plugin.android.common")
     id("app.plugin.compose")
+    id("io.gitlab.arturbosch.detekt")
 }
 
 android {
