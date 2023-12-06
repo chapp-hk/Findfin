@@ -1,3 +1,5 @@
+@file:Suppress("MagicNumber")
+
 package ch.app.hk.bank.locator.core.design.theme
 
 import androidx.compose.ui.graphics.Color
