@@ -1,8 +1,7 @@
-name: Android CI
+name: Android CI Lint
 
 on:
-  pull_request:
-    types: [ opened, synchronize ]
+  workflow_call:
 
 jobs:
   ktlint:
