@@ -6,4 +6,5 @@ on:
 
 jobs:
   call-workflow:
+    name: Lint
     uses: ./.github/workflows/android-ci-lint.yml
