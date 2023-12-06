@@ -11,13 +11,14 @@ import java.io.File
 class ComposePlugin : Plugin<Project> {
     override fun apply(project: Project) {
         val androidComponents = project.extensions.getByType(AndroidComponentsExtension::class.java)
+        @Suppress("UnstableApiUsage")
         androidComponents.finalizeDsl { extension ->
             extension.buildFeatures {
                 compose = true
             }
 
             extension.composeOptions {
-                kotlinCompilerExtensionVersion = "1.5.2"
+                kotlinCompilerExtensionVersion = "1.5.5"
             }
 
             project.dependencies {
