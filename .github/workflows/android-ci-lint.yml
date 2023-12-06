@@ -1,11 +1,11 @@
-name: Android CI Lint
+name: android ci lint
 
 on:
   workflow_call:
 
 jobs:
   android-lint:
-    name: Android Lint
+    name: android lint
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -14,7 +14,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
-#      - uses: android-actions/setup-android@v3
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
       - name: lint
@@ -23,7 +22,7 @@ jobs:
           cat app/build/reports/lint-results-debug.txt
 
   ktlint:
-    name: Ktlint
+    name: ktlint
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -32,7 +31,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'zulu'
-#      - uses: android-actions/setup-android@v3
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
       - name: ktlint check
@@ -49,7 +47,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'zulu'
-#      - uses: android-actions/setup-android@v3
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
       - name: detekt check
