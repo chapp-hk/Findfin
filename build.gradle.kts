@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.com.android.library) apply false
     alias(libs.plugins.org.jetbrains.kotlin.android) apply false
     id("app.plugin.ktlint")
+    id("app.plugin.detekt")
 }
 
 true // Needed to make the Suppress annotation work for the plugins block

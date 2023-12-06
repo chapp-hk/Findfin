@@ -25,7 +25,7 @@ dependencies {
     compileOnly(libs.org.jetbrains.kotlin.gradle.plugin)
     implementation(gradleKotlinDsl())
     implementation(libs.ktlint.gradle)
-    implementation("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.18.1")
+    implementation(libs.detekt.gradle)
 }
 
 gradlePlugin {
@@ -33,6 +33,11 @@ gradlePlugin {
         create("ktlint") {
             id = "app.plugin.ktlint"
             implementationClass = "$group.ktlint.KtlintPlugin"
+        }
+
+        create("detekt") {
+            id = "app.plugin.detekt"
+            implementationClass = "$group.detekt.DetektPlugin"
         }
 
         create("android-common") {
