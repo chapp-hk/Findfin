@@ -1,0 +1,14 @@
+name: pull request
+
+on:
+  pull_request:
+    types: [ opened, synchronize ]
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  call-workflow-lint:
+    name: lint
+    uses: ./.github/workflows/android-ci-lint.yml
