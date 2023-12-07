@@ -1,0 +1,12 @@
+name: merge release
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  call-workflow-instrument-test:
+    name: instrument test
+    needs: call-workflow-lint
+    uses: ./.github/workflows/android-ci-instrument-test.yml
