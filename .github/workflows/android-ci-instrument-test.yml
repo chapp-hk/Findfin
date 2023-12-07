@@ -35,7 +35,7 @@ jobs:
           disable-animations: true
           disk-size: 6000M
           heap-size: 600M
-          script: ./gradlew pixel2api30DebugAndroidTest
+          script: ./gradlew cAT --daemon
 
       - name: Upload test reports
         if: always()
