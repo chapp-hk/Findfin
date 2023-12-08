@@ -1,6 +1,6 @@
-package ch.app.hk.bank.locator.buildlogic.ktlint
+package ch.app.hk.bank.locator.buildlogic.plugin.ktlint
 
-import ch.app.hk.bank.locator.buildlogic.assertRootProjectAppliedPlugin
+import ch.app.hk.bank.locator.buildlogic.util.assertRootProjectAppliedPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Copy

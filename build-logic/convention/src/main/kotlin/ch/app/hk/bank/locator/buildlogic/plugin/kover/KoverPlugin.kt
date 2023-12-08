@@ -1,6 +1,6 @@
-package ch.app.hk.bank.locator.buildlogic.kover
+package ch.app.hk.bank.locator.buildlogic.plugin.kover
 
-import ch.app.hk.bank.locator.buildlogic.assertRootProjectAppliedPlugin
+import ch.app.hk.bank.locator.buildlogic.util.assertRootProjectAppliedPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply

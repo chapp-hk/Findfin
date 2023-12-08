@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.buildlogic.compose
+package ch.app.hk.bank.locator.buildlogic.plugin.compose
 
 import com.android.build.api.variant.AndroidComponentsExtension
 import org.gradle.api.Plugin

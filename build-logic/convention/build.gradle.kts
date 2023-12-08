@@ -23,7 +23,6 @@ tasks.withType<KotlinCompile>().configureEach {
 dependencies {
     compileOnly(libs.android.gradlePlugin.api)
     compileOnly(libs.org.jetbrains.kotlin.gradle.plugin)
-    implementation(project(mapOf("path" to ":core")))
     implementation(gradleKotlinDsl())
     implementation(libs.ktlint.gradle)
     implementation(libs.detekt.gradle)
@@ -34,27 +33,27 @@ gradlePlugin {
     plugins {
         create("ktlint") {
             id = "app.plugin.ktlint"
-            implementationClass = "$group.ktlint.KtlintPlugin"
+            implementationClass = "$group.plugin.ktlint.KtlintPlugin"
         }
 
         create("detekt") {
             id = "app.plugin.detekt"
-            implementationClass = "$group.detekt.DetektPlugin"
+            implementationClass = "$group.plugin.detekt.DetektPlugin"
         }
 
         create("kover") {
             id = "app.plugin.kover"
-            implementationClass = "$group.kover.KoverPlugin"
+            implementationClass = "$group.plugin.kover.KoverPlugin"
         }
 
         create("android-common") {
             id = "app.plugin.android.common"
-            implementationClass = "$group.android.AndroidCommonPlugin"
+            implementationClass = "$group.plugin.android.AndroidCommonPlugin"
         }
 
         create("compose") {
             id = "app.plugin.compose"
-            implementationClass = "$group.compose.ComposePlugin"
+            implementationClass = "$group.plugin.compose.ComposePlugin"
         }
     }
 }
