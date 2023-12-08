@@ -6,8 +6,6 @@ on:
 jobs:
   unitTest:
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK
