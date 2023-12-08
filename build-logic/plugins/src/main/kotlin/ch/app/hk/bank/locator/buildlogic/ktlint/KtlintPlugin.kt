@@ -1,6 +1,6 @@
 package ch.app.hk.bank.locator.buildlogic.ktlint
 
-import org.gradle.api.GradleException
+import ch.app.hk.bank.locator.buildlogic.assertRootProjectAppliedPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Copy
@@ -14,19 +14,10 @@ class KtlintPlugin : Plugin<Project> {
     private val ktlintVersion = "1.0.1"
 
     override fun apply(project: Project) {
-        assertRootProject(rootProject = project)
+        project.assertRootProjectAppliedPlugin(pluginId = "app.plugin.ktlint")
         project.plugins.apply(ktlintGradlePluginId)
         configureSubProjects(rootProject = project)
         configureGitHook(rootProject = project)
-    }
-
-    private fun assertRootProject(rootProject: Project) {
-        if (rootProject.rootProject !== rootProject) {
-            throw GradleException(
-                "The \"app.plugin.ktlint\" plugin cannot be applied to project '${rootProject.name}'" +
-                        "because it is not the root project. Build file: ${rootProject.buildFile}"
-            )
-        }
     }
 
     private fun configureSubProjects(rootProject: Project) {

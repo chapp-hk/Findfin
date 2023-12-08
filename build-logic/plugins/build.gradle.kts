@@ -23,6 +23,7 @@ tasks.withType<KotlinCompile>().configureEach {
 dependencies {
     compileOnly(libs.android.gradlePlugin.api)
     compileOnly(libs.org.jetbrains.kotlin.gradle.plugin)
+    implementation(project(mapOf("path" to ":core")))
     implementation(gradleKotlinDsl())
     implementation(libs.ktlint.gradle)
     implementation(libs.detekt.gradle)
