@@ -15,8 +15,11 @@ class DetektPlugin : Plugin<Project> {
     }
 
     private fun configureSubProjects(rootProject: Project) {
-        rootProject.subprojects {
-            it.apply(plugin = detektGradlePluginId)
-        }
+        rootProject
+            .subprojects
+            .filter { it.buildFile.exists() }
+            .forEach{
+                it.apply(plugin = detektGradlePluginId)
+            }
     }
 }

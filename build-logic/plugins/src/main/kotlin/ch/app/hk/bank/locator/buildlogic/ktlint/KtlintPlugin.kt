@@ -8,6 +8,7 @@ import org.gradle.api.tasks.Exec
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.register
+import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
 class KtlintPlugin : Plugin<Project> {
     private val ktlintGradlePluginId = "org.jlleitschuh.gradle.ktlint"
@@ -21,15 +22,18 @@ class KtlintPlugin : Plugin<Project> {
     }
 
     private fun configureSubProjects(rootProject: Project) {
-        rootProject.subprojects {
-            it.apply(plugin = ktlintGradlePluginId)
+        rootProject
+            .subprojects
+            .filter { it.buildFile.exists() }
+            .forEach{
+                it.apply(plugin = ktlintGradlePluginId)
 
-            // configure plugin
-            it.configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
-                version.set(ktlintVersion)
-                debug.set(true)
+                // configure plugin
+                it.configure<KtlintExtension> {
+                    version.set(ktlintVersion)
+                    debug.set(true)
+                }
             }
-        }
     }
 
     private fun configureGitHook(rootProject: Project) {

@@ -8,6 +8,7 @@ import org.gradle.kotlin.dsl.dependencies
 
 class KoverPlugin : Plugin<Project> {
     private val koverGradlePluginId = "org.jetbrains.kotlinx.kover"
+
     override fun apply(project: Project) {
         project.assertRootProjectAppliedPlugin(pluginId = "app.plugin.kover")
         project.plugins.apply(koverGradlePluginId)
@@ -16,9 +17,12 @@ class KoverPlugin : Plugin<Project> {
     }
 
     private fun subProjectsApplyKoverPlugins(rootProject: Project) {
-        rootProject.subprojects {
-            it.apply(plugin = koverGradlePluginId)
-        }
+        rootProject
+            .subprojects
+            .filter { it.buildFile.exists() }
+            .forEach {
+                it.apply(plugin = koverGradlePluginId)
+            }
     }
 
     private fun configureKoverDependencies(rootProject: Project) {
