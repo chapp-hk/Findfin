@@ -1,6 +1,6 @@
-package ch.app.hk.bank.locator.buildlogic.ktlint
+package ch.app.hk.bank.locator.buildlogic.plugin.ktlint
 
-import org.gradle.api.GradleException
+import ch.app.hk.bank.locator.buildlogic.util.assertRootProjectAppliedPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Copy
@@ -8,37 +8,32 @@ import org.gradle.api.tasks.Exec
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.register
+import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
 class KtlintPlugin : Plugin<Project> {
     private val ktlintGradlePluginId = "org.jlleitschuh.gradle.ktlint"
     private val ktlintVersion = "1.0.1"
 
     override fun apply(project: Project) {
-        assertRootProject(rootProject = project)
+        project.assertRootProjectAppliedPlugin(pluginId = "app.plugin.ktlint")
         project.plugins.apply(ktlintGradlePluginId)
         configureSubProjects(rootProject = project)
         configureGitHook(rootProject = project)
     }
 
-    private fun assertRootProject(rootProject: Project) {
-        if (rootProject.rootProject !== rootProject) {
-            throw GradleException(
-                "The \"app.plugin.ktlint\" plugin cannot be applied to project '${rootProject.name}'" +
-                        "because it is not the root project. Build file: ${rootProject.buildFile}"
-            )
-        }
-    }
-
     private fun configureSubProjects(rootProject: Project) {
-        rootProject.subprojects {
-            it.apply(plugin = ktlintGradlePluginId)
+        rootProject
+            .subprojects
+            .filter { it.buildFile.exists() }
+            .forEach{
+                it.apply(plugin = ktlintGradlePluginId)
 
-            // configure plugin
-            it.configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
-                version.set(ktlintVersion)
-                debug.set(true)
+                // configure plugin
+                it.configure<KtlintExtension> {
+                    version.set(ktlintVersion)
+                    debug.set(true)
+                }
             }
-        }
     }
 
     private fun configureGitHook(rootProject: Project) {

@@ -1,6 +1,6 @@
-package ch.app.hk.bank.locator.buildlogic.android
+package ch.app.hk.bank.locator.buildlogic.plugin.android
 
-import ch.app.hk.bank.locator.buildlogic.testing.AndroidTestPlugin
+import ch.app.hk.bank.locator.buildlogic.plugin.testing.AndroidTestPlugin
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.variant.AndroidComponentsExtension
 import org.gradle.api.JavaVersion
