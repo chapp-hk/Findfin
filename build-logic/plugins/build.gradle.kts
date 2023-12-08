@@ -26,6 +26,7 @@ dependencies {
     implementation(gradleKotlinDsl())
     implementation(libs.ktlint.gradle)
     implementation(libs.detekt.gradle)
+    implementation(libs.kover.gradle)
 }
 
 gradlePlugin {
@@ -38,6 +39,11 @@ gradlePlugin {
         create("detekt") {
             id = "app.plugin.detekt"
             implementationClass = "$group.detekt.DetektPlugin"
+        }
+
+        create("kover") {
+            id = "app.plugin.kover"
+            implementationClass = "$group.kover.KoverPlugin"
         }
 
         create("android-common") {

@@ -11,12 +11,15 @@ Current list of convention plugins:
   - configure `ktlintFormat` pre-commit git hook
 - [app.plugin.detekt](plugins/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/detekt/DetektPlugin.kt)
   - apply [detekt gradle plugin](https://github.com/detekt/detekt) to root project and all subprojects
+- [app.plugin.kover](plugins/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/kover/KoverPlugin.kt)
+  - apply [kover_gradle_plugin](https://github.com/Kotlin/kotlinx-kover) to root project and all subprojects
+  - add all subprojects to kover dependencies
 - [app.plugin.android.common](plugins/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/android/AndroidCommonPlugin.kt)
   - configure `compileSdk`
   - configure `buildToolsVersion`
   - configure `minSdk`
   - configure java version
 - [app.plugin.compose](plugins/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/compose/ComposePlugin.kt)
-  - configure buildFeatures compose 
+  - configure buildFeatures compose
   - configure `kotlinCompilerExtensionVersion`
   - add basic compose dependencies
