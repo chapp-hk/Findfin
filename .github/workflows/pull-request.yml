@@ -12,3 +12,7 @@ jobs:
   call-workflow-lint:
     name: lint
     uses: ./.github/workflows/android-ci-lint.yml
+  call-workflow-unit-test:
+    needs: call-workflow-lint
+    name: unit test
+    uses: ./.github/workflows/android-ci-unit-test.yml
