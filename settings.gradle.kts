@@ -19,3 +19,4 @@ rootProject.name = "HK-Bank-Locator"
 include(":app")
 include(":core:design")
 include(":feature:bank:data:remote")
+include(":core:network")
