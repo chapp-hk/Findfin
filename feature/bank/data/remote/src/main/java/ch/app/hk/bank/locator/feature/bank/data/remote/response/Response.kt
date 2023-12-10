@@ -4,9 +4,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Response(
+data class Response<T>(
     @SerialName("header")
     val header: Header,
+    @SerialName("result")
+    val result: Result<T>,
 ) {
     @Serializable
     data class Header(
@@ -19,10 +21,10 @@ data class Response(
     )
 
     @Serializable
-    data class Result(
+    data class Result<T>(
         @SerialName("datasize")
         val dataSize: Int,
         @SerialName("records")
-        val records: List<Int>,
+        val records: List<T>,
     )
 }
