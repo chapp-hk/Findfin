@@ -8,7 +8,7 @@ data class Response<T>(
     @SerialName("header")
     val header: Header,
     @SerialName("result")
-    val result: Result<T>,
+    val result: Result<T>?,
 ) {
     @Serializable
     data class Header(

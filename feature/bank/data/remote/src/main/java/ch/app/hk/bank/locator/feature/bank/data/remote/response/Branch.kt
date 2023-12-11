@@ -9,8 +9,8 @@ data class Branch(
     val district: String?,
     @SerialName("bank_name")
     val bankName: String,
-    @SerialName("type_of_machine")
-    val typeOfMachine: String,
+    @SerialName("branch_name")
+    val branchName: String,
     @SerialName("address")
     val address: String,
     @SerialName("service_hours")

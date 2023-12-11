@@ -1,0 +1,11 @@
+{
+  "header": {
+    "success": true,
+    "err_code": "1001",
+    "err_msg": "No result found"
+  },
+  "result": {
+    "datasize": 0,
+    "records": []
+  }
+}
