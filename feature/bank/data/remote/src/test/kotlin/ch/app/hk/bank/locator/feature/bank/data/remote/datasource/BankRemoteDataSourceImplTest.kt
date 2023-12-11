@@ -27,11 +27,17 @@ class BankRemoteDataSourceImplTest {
     @DisplayName("when BankApi.getBankBranches() return success, getBankBranches() should return bank branch list")
     fun testGetBankBranchesSuccess() =
         runTest(testDispatcher.scheduler) {
-            coEvery { bankApi.getBankBranches(any(), any()) } returns
-                readResourceAsJson("branch/success.json")
+            coEvery {
+                bankApi.getBankBranches(
+                    lang = any(),
+                    pageSize = any(),
+                    offset = any(),
+                )
+            } returns readResourceAsJson("branch/success.json")
 
             val result =
                 bankRemoteDataSource.getBankBranches(
+                    language = "en",
                     pageSize = 5,
                     offset = 100,
                 )
@@ -43,11 +49,17 @@ class BankRemoteDataSourceImplTest {
     @DisplayName("when BankApi.getBankBranches() return empty list, getBankBranches() should return empty list")
     fun testGetBankBranchesEmpty() =
         runTest(testDispatcher.scheduler) {
-            coEvery { bankApi.getBankBranches(any(), any()) } returns
-                readResourceAsJson("branch/empty.json")
+            coEvery {
+                bankApi.getBankBranches(
+                    lang = any(),
+                    pageSize = any(),
+                    offset = any(),
+                )
+            } returns readResourceAsJson("branch/empty.json")
 
             val result =
                 bankRemoteDataSource.getBankBranches(
+                    language = "en",
                     pageSize = 5,
                     offset = 200,
                 )
@@ -59,11 +71,17 @@ class BankRemoteDataSourceImplTest {
     @DisplayName("when BankApi.getBankBranches() return error, getBankBranches() should throw BankApiError")
     fun testGetBankBranchesError() =
         runTest(testDispatcher.scheduler) {
-            coEvery { bankApi.getBankBranches(any(), any()) } returns
-                readResourceAsJson("branch/error.json")
+            coEvery {
+                bankApi.getBankBranches(
+                    lang = any(),
+                    pageSize = any(),
+                    offset = any(),
+                )
+            } returns readResourceAsJson("branch/error.json")
 
             shouldThrowExactly<BankApiError> {
                 bankRemoteDataSource.getBankBranches(
+                    language = "en",
                     pageSize = 5,
                     offset = 200,
                 )

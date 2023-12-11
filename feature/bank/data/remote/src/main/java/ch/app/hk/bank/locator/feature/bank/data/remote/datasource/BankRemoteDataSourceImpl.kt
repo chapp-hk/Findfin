@@ -12,12 +12,14 @@ internal class BankRemoteDataSourceImpl
         private val bankApi: BankApi,
     ) : BankRemoteDataSource {
         override suspend fun getBankBranches(
+            language: String,
             pageSize: Int,
             offset: Int,
         ): List<Branch> {
             return withContext(ioDispatcher) {
                 val response =
                     bankApi.getBankBranches(
+                        lang = language,
                         pageSize = pageSize,
                         offset = offset,
                     )

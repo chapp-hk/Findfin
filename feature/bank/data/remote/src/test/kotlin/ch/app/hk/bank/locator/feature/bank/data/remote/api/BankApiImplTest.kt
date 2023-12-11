@@ -60,13 +60,14 @@ class BankApiImplTest {
         runTest(StandardTestDispatcher()) {
             shouldThrowAny {
                 bankApi.getBankBranches(
+                    lang = "en",
                     pageSize = 1000,
                     offset = 500,
                 )
             }
 
             mockEngine.requestHistory.first().let {
-                it.url.toString() shouldBe "$mockBaseUrl/public/bank-svf-info/banks-branch-locator?pagesize=1000&offset=500"
+                it.url.toString() shouldBe "$mockBaseUrl/public/bank-svf-info/banks-branch-locator?lang=en&pagesize=1000&offset=500"
                 it.method shouldBe HttpMethod.Get
             }
         }
