@@ -1,6 +1,0 @@
-{
-  "name": "test entity",
-  "module": ":test:room",
-  "packageName": "ch.app.hktransport.testing.room.entity",
-  "version": 1
-}

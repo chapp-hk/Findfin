@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.org.jetbrains.kotlin.jvm)
+    kotlin("plugin.serialization") version "1.9.20"
 }
 
 java {
@@ -12,7 +13,8 @@ tasks.withType<Test>().configureEach {
 }
 
 dependencies {
-    implementation(libs.gson)
+    implementation(libs.ktor.serialization.json)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.assertions.core)
+    testImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
 }
