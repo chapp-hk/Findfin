@@ -12,6 +12,7 @@ tasks.withType<Test>().configureEach {
 }
 
 dependencies {
+    implementation(libs.gson)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.assertions.core)
 }

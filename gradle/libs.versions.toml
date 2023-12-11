@@ -38,6 +38,8 @@ ktor-resources = { group = "io.ktor", name = "ktor-client-resources", version.re
 ktor-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
 ktor-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+#gson
+gson = { module = "com.google.code.gson:gson", version = "2.10.1" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
