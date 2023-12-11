@@ -9,16 +9,25 @@ Current list of convention plugins:
 - [app.plugin.ktlint](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/ktlint/KtlintPlugin.kt)
   - apply [ktlint gradle plugin](https://github.com/JLLeitschuh/ktlint-gradle) to root project and all subprojects
   - configure `ktlintFormat` pre-commit git hook
+
 - [app.plugin.detekt](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/detekt/DetektPlugin.kt)
   - apply [detekt gradle plugin](https://github.com/detekt/detekt) to root project and all subprojects
+
 - [app.plugin.kover](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/kover/KoverPlugin.kt)
   - apply [kover_gradle_plugin](https://github.com/Kotlin/kotlinx-kover) to root project and all subprojects
   - add all subprojects to kover dependencies
+
+- [app.plugin.jvm](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/jvm/JvmPlugin.kt)
+  - configure java version
+  - configure kotlin `jvmTarget` version
+  - configure junit
+
 - [app.plugin.android.common](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/android/AndroidCommonPlugin.kt)
   - configure `compileSdk`
   - configure `buildToolsVersion`
   - configure `minSdk`
   - configure java version
+
 - [app.plugin.compose](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/compose/ComposePlugin.kt)
   - configure buildFeatures compose
   - configure `kotlinCompilerExtensionVersion`

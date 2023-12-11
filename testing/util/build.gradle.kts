@@ -1,15 +1,7 @@
 plugins {
     alias(libs.plugins.org.jetbrains.kotlin.jvm)
+    id("app.plugin.jvm")
     kotlin("plugin.serialization") version "1.9.20"
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
-tasks.withType<Test>().configureEach {
-    useJUnitPlatform()
 }
 
 dependencies {
