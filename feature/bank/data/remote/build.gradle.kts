@@ -8,6 +8,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
+}
+
 dependencies {
     implementation(project(mapOf("path" to ":core:network")))
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
@@ -16,5 +20,9 @@ dependencies {
     implementation(libs.ktor.resources)
     implementation(libs.ktor.android)
 
+    testImplementation(libs.junit.jupiter)
     testImplementation(libs.ktor.mock)
+    testImplementation(libs.ktor.logging)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.kotest.assertions.core)
 }
