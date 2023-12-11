@@ -5,7 +5,6 @@ import ch.app.hk.bank.locator.feature.bank.data.remote.response.Response
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
-import io.ktor.http.parameters
 import io.ktor.resources.Resource
 import kotlinx.serialization.Serializable
 
@@ -19,15 +18,10 @@ internal class BankApiImpl
         ): Response<Branch> {
             return httpClient.get(
                 BankResource.Branch(
-                    pageSize = pageSize,
+                    pagesize = pageSize,
                     offset = offset,
                 ),
-            ) {
-                parameters {
-                    append("pagesize", pageSize.toString())
-                    append("offset", offset.toString())
-                }
-            }.body()
+            ).body()
         }
 
         @Serializable
@@ -36,7 +30,7 @@ internal class BankApiImpl
             @Resource("/banks-branch-locator")
             class Branch(
                 val parent: BankResource = BankResource(),
-                val pageSize: Int,
+                val pagesize: Int,
                 val offset: Int,
             )
         }
