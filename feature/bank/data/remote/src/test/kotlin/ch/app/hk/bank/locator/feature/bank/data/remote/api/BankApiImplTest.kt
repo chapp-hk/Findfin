@@ -67,8 +67,11 @@ class BankApiImplTest {
             }
 
             mockEngine.requestHistory.first().let {
-                it.url.toString() shouldBe "$mockBaseUrl/public/bank-svf-info/banks-branch-locator?lang=en&pagesize=1000&offset=500"
-                it.method shouldBe HttpMethod.Get
+                it.url.toString() shouldBe
+                    "$mockBaseUrl/public/bank-svf-info/banks-branch-locator?lang=en&pagesize=1000&offset=500"
+
+                it.method shouldBe
+                    HttpMethod.Get
             }
         }
 }
