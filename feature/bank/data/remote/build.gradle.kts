@@ -15,7 +15,7 @@ tasks.withType<Test>().configureEach {
 dependencies {
     implementation(project(mapOf("path" to ":core:network")))
     implementation(project(mapOf("path" to ":core:threading")))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.core)
     implementation(libs.ktor.serialization.json)
     implementation(libs.ktor.resources)
