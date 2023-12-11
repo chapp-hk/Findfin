@@ -1,0 +1,6 @@
+{
+  "name": "test data",
+  "module": ":testing:util",
+  "package_name": "ch.app.hk.bank.locator",
+  "version": 1
+}
