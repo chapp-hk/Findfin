@@ -1,0 +1,57 @@
+{
+  "header": {
+    "success": true,
+    "err_code": "0000",
+    "err_msg": "No error found"
+  },
+  "result": {
+    "datasize": 5,
+    "records": [
+      {
+        "district": "YuenLong",
+        "bank_name": "The Bank of East Asia Limited",
+        "branch_name": "Yuen Long i-Teller",
+        "address": "G/F, 77 Castle Peak Road, Yuen Long",
+        "service_hours": "Monday - Saturday (9:00 am - 7:00 pm)",
+        "latitude": "22.444588",
+        "longitude": "114.029541"
+      },
+      {
+        "district": "YuenLong",
+        "bank_name": "The Bank of East Asia Limited",
+        "branch_name": "Yuen Long SupremeGold Centre",
+        "address": "1/F, 77 Castle Peak Road, Yuen Long",
+        "service_hours": "Monday - Friday (9:00 am - 5:00 pm), Saturday (9:00 am - 1:00 pm)",
+        "latitude": "22.444588",
+        "longitude": "114.029541"
+      },
+      {
+        "district": "YuenLong",
+        "bank_name": "The Bank of East Asia Limited",
+        "branch_name": "Yuen Long Branch",
+        "address": "G/F, 77 Castle Peak Road, Yuen Long",
+        "service_hours": "Monday - Friday (9:00 am - 5:00 pm), Saturday (9:00 am - 1:00 pm)",
+        "latitude": "22.444588",
+        "longitude": "114.029541"
+      },
+      {
+        "district": "YuenLong",
+        "bank_name": "The Bank of East Asia Limited",
+        "branch_name": "Tin Shui Wai i-Teller",
+        "address": "Shop 103 & 103A, 1/F, +WOO Phase 2, 18 Tin Yan Road, Tin Shui Wai",
+        "service_hours": "Monday - Saturday (9:00 am - 7:00 pm)",
+        "latitude": "22.457358",
+        "longitude": "114.004225"
+      },
+      {
+        "district": "YuenLong",
+        "bank_name": "The Bank of East Asia Limited",
+        "branch_name": "Tin Shui Wai One Sky Mall i-Teller",
+        "address": "Shop 1095-1096, 1/F, One Sky Mall, 8 Tin Sau Road, Tin Shui Wai",
+        "service_hours": "Monday - Saturday (9:00 am - 7:00 pm)",
+        "latitude": "22.4644",
+        "longitude": "114.003754"
+      }
+    ]
+  }
+}
