@@ -7,6 +7,7 @@ import ch.app.hk.bank.locator.testing.util.readResourceAsJson
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -18,7 +19,7 @@ class LocatorRemoteDataSourceImplTest {
     private val testDispatcher = StandardTestDispatcher()
     private val locatorApi = mockk<LocatorApi>()
 
-    private val bankRemoteDataSource =
+    private val locatorRemoteDataSource =
         LocatorRemoteDataSourceImpl(
             ioDispatcher = testDispatcher,
             locatorApi = locatorApi,
@@ -26,7 +27,7 @@ class LocatorRemoteDataSourceImplTest {
 
     @Test
     @DisplayName(
-        "When LocatorApi.getBanks() return success," +
+        "When LocatorApi.getBanks() return success, " +
             "getBanks() should return bank branch list",
     )
     fun testGetBanksSuccess() =
@@ -34,8 +35,8 @@ class LocatorRemoteDataSourceImplTest {
             mockApiResponse("branch/success.json")
 
             val result =
-                bankRemoteDataSource.getBanks(
-                    type = "banks-branch-locator",
+                locatorRemoteDataSource.getBanks(
+                    type = LocatorRemoteDataSource.Type.BRANCH,
                     language = "en",
                     pageSize = 5,
                     offset = 100,
@@ -46,7 +47,7 @@ class LocatorRemoteDataSourceImplTest {
 
     @Test
     @DisplayName(
-        "When LocatorApi.getBanks() return error," +
+        "When LocatorApi.getBanks() return error, " +
             "getBanks() should throw LocatorApiError",
     )
     fun testGetBanksError() =
@@ -54,8 +55,8 @@ class LocatorRemoteDataSourceImplTest {
             mockApiResponse("branch/error.json")
 
             shouldThrowExactly<LocatorApiError> {
-                bankRemoteDataSource.getBanks(
-                    type = "banks-branch-locator",
+                locatorRemoteDataSource.getBanks(
+                    type = LocatorRemoteDataSource.Type.BRANCH,
                     language = "en",
                     pageSize = 10,
                     offset = 40,
@@ -65,7 +66,7 @@ class LocatorRemoteDataSourceImplTest {
 
     @Test
     @DisplayName(
-        "When LocatorApi.getBanks() return empty result records," +
+        "When LocatorApi.getBanks() return empty result records, " +
             "getBanks() should return empty list",
     )
     fun testGetBanksEmptyResult() =
@@ -73,8 +74,8 @@ class LocatorRemoteDataSourceImplTest {
             mockApiResponse("branch/empty-result-records.json")
 
             val result =
-                bankRemoteDataSource.getBanks(
-                    type = "banks-branch-locator",
+                locatorRemoteDataSource.getBanks(
+                    type = LocatorRemoteDataSource.Type.BRANCH,
                     language = "en",
                     pageSize = 20,
                     offset = 60,
@@ -85,7 +86,7 @@ class LocatorRemoteDataSourceImplTest {
 
     @Test
     @DisplayName(
-        "When LocatorApi.getBanks() return empty json," +
+        "When LocatorApi.getBanks() return empty json, " +
             "getBanks() should throw LocatorApiError",
     )
     fun testGetBanksEmptyJson() =
@@ -93,8 +94,8 @@ class LocatorRemoteDataSourceImplTest {
             mockApiResponse("branch/all-empty.json")
 
             shouldThrowExactly<LocatorApiError> {
-                bankRemoteDataSource.getBanks(
-                    type = "banks-branch-locator",
+                locatorRemoteDataSource.getBanks(
+                    type = LocatorRemoteDataSource.Type.BRANCH,
                     language = "en",
                     pageSize = 20,
                     offset = 60,
@@ -104,7 +105,7 @@ class LocatorRemoteDataSourceImplTest {
 
     @Test
     @DisplayName(
-        "When LocatorApi.getBanks() return success but some fields missing," +
+        "When LocatorApi.getBanks() return success but some fields missing, " +
             "getBanks() should return list items with default values",
     )
     fun testGetBanksWithMissingFields() =
@@ -112,8 +113,8 @@ class LocatorRemoteDataSourceImplTest {
             mockApiResponse("branch/success-missing-field.json")
 
             val result =
-                bankRemoteDataSource.getBanks(
-                    type = "banks-branch-locator",
+                locatorRemoteDataSource.getBanks(
+                    type = LocatorRemoteDataSource.Type.BRANCH,
                     language = "en",
                     pageSize = 20,
                     offset = 60,
@@ -144,7 +145,7 @@ class LocatorRemoteDataSourceImplTest {
 
     @Test
     @DisplayName(
-        "When LocatorApi.getBanks() return atm success," +
+        "When LocatorApi.getBanks() return atm success, " +
             "getBanks() should return list",
     )
     fun testGetBankAtmsSuccess() =
@@ -152,14 +153,66 @@ class LocatorRemoteDataSourceImplTest {
             mockApiResponse("atm/success.json")
 
             val result =
-                bankRemoteDataSource.getBanks(
-                    type = "banks-branch-locator",
+                locatorRemoteDataSource.getBanks(
+                    type = LocatorRemoteDataSource.Type.ATM,
                     language = "en",
                     pageSize = 5,
                     offset = 100,
                 )
 
             result.size shouldBe 5
+        }
+
+    @Test
+    @DisplayName(
+        "When invoke getBanks() with BRANCH type, " +
+            "should pass \"banks-branch-locator\" to LocatorApi.getBanks()",
+    )
+    fun testGetBanksWithBranchType() =
+        runTest(testDispatcher.scheduler) {
+            mockApiResponse("branch/success.json")
+
+            locatorRemoteDataSource.getBanks(
+                type = LocatorRemoteDataSource.Type.BRANCH,
+                language = "en",
+                pageSize = 5,
+                offset = 100,
+            )
+
+            coVerify {
+                locatorApi.getBanks(
+                    type = LocatorRemoteDataSource.Type.BRANCH.value,
+                    lang = "en",
+                    pageSize = 5,
+                    offset = 100,
+                )
+            }
+        }
+
+    @Test
+    @DisplayName(
+        "When invoke getBanks() with ATM type, " +
+            "should pass \"banks-atm-locator\" to LocatorApi.getBanks()",
+    )
+    fun testGetBanksWithAtmType() =
+        runTest(testDispatcher.scheduler) {
+            mockApiResponse("atm/success.json")
+
+            locatorRemoteDataSource.getBanks(
+                type = LocatorRemoteDataSource.Type.ATM,
+                language = "en",
+                pageSize = 5,
+                offset = 100,
+            )
+
+            coVerify {
+                locatorApi.getBanks(
+                    type = LocatorRemoteDataSource.Type.ATM.value,
+                    lang = "en",
+                    pageSize = 5,
+                    offset = 100,
+                )
+            }
         }
 
     private fun mockApiResponse(filePath: String) {
