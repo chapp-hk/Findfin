@@ -56,7 +56,10 @@ class BankRemoteDataSourceImplTest {
         }
 
     @Test
-    @DisplayName("When BankApi.getBankBranches() return empty result records, getBankBranches() should return empty list")
+    @DisplayName(
+        "When BankApi.getBankBranches() return empty result records," +
+            "getBankBranches() should return empty list",
+    )
     fun testGetBankBranchesEmptyResult() =
         runTest(testDispatcher.scheduler) {
             mockBankApiResponse("branch/empty-result-records.json")
