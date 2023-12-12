@@ -60,6 +60,7 @@ class BankApiImplTest {
         runTest(StandardTestDispatcher()) {
             shouldThrowAny {
                 bankApi.getBankBranches(
+                    type = "banks-branch-locator",
                     lang = "en",
                     pageSize = 1000,
                     offset = 500,

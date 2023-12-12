@@ -12,6 +12,7 @@ internal class BankRemoteDataSourceImpl
         private val bankApi: BankApi,
     ) : BankRemoteDataSource {
         override suspend fun getBankBranches(
+            type: String,
             language: String,
             pageSize: Int,
             offset: Int,
@@ -19,6 +20,7 @@ internal class BankRemoteDataSourceImpl
             return withContext(ioDispatcher) {
                 val response =
                     bankApi.getBankBranches(
+                        type = type,
                         lang = language,
                         pageSize = pageSize,
                         offset = offset,

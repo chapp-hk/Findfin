@@ -1,0 +1,57 @@
+{
+  "header": {
+    "success": true,
+    "err_code": "0000",
+    "err_msg": "No error found"
+  },
+  "result": {
+    "datasize": 5,
+    "records": [
+      {
+        "district": "YuenLong",
+        "bank_name": "The Bank of East Asia Limited",
+        "type_of_machine": "Automatic Teller Machine",
+        "address": "Shop 1095-1096, 1/F, One Sky Mall, 8 Tin Sau Road, Tin Shui Wai",
+        "service_hours": "7:00 am - 11:00 pm",
+        "latitude": "22.4647433",
+        "longitude": "114.0030365"
+      },
+      {
+        "district": "YuenLong",
+        "bank_name": "The Bank of East Asia Limited",
+        "type_of_machine": "Automatic Teller Machine",
+        "address": "Shop 103 & 103A, 1/F, +WOO Phase 2, 18 Tin Yan Road, Tin Shui Wai",
+        "service_hours": "8:30 am - 10:00 pm",
+        "latitude": "22.45713",
+        "longitude": "114.004396"
+      },
+      {
+        "district": "YuenLong",
+        "bank_name": "The Bank of East Asia Limited",
+        "type_of_machine": "Automatic Teller Machine",
+        "address": "ATM 1, G/F, Tin Yiu Plaza, 2 Tin Wu Road, Tin Shui Wai",
+        "service_hours": "6:00 am - 12:00 am",
+        "latitude": "22.450977",
+        "longitude": "114.002353"
+      },
+      {
+        "district": "YuenLong",
+        "bank_name": "The Bank of East Asia Limited",
+        "type_of_machine": "Automatic Teller Machine",
+        "address": "77 Castle Peak Road, Yuen Long",
+        "service_hours": "24 hours",
+        "latitude": "22.444588",
+        "longitude": "114.029541"
+      },
+      {
+        "district": "YuenLong",
+        "bank_name": "The Bank of East Asia Limited",
+        "type_of_machine": "Automatic Teller Machine",
+        "address": "1/F, Yuen Long Plaza, 249 - 251 Castle Peak Road, Yuen Long",
+        "service_hours": "7:00 am - 11:00 pm",
+        "latitude": "22.444895",
+        "longitude": "114.023903"
+      }
+    ]
+  }
+}

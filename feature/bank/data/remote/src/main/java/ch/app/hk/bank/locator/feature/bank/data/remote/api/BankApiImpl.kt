@@ -13,12 +13,14 @@ internal class BankApiImpl
         private val httpClient: HttpClient,
     ) : BankApi {
         override suspend fun getBankBranches(
+            type: String,
             lang: String,
             pageSize: Int,
             offset: Int,
         ): Response<Branch> {
             return httpClient.get(
                 BankResource.Branch(
+                    type = type,
                     lang = lang,
                     pagesize = pageSize,
                     offset = offset,
@@ -29,9 +31,10 @@ internal class BankApiImpl
         @Serializable
         @Resource("/public/bank-svf-info")
         internal class BankResource {
-            @Resource("/banks-branch-locator")
+            @Resource("/{type}")
             class Branch(
                 val parent: BankResource = BankResource(),
+                val type: String,
                 val lang: String,
                 val pagesize: Int,
                 val offset: Int,

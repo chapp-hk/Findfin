@@ -5,6 +5,7 @@ import ch.app.hk.bank.locator.feature.bank.data.remote.response.Response
 
 internal interface BankApi {
     suspend fun getBankBranches(
+        type: String,
         lang: String,
         pageSize: Int,
         offset: Int,
