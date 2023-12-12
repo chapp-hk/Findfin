@@ -6,6 +6,7 @@ import kotlinx.serialization.json.Json
 @OptIn(ExperimentalSerializationApi::class)
 val json =
     Json {
+        coerceInputValues = true
         encodeDefaults = true
         ignoreUnknownKeys = true
         explicitNulls = false
