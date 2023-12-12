@@ -2,6 +2,7 @@ package ch.app.hk.bank.locator.feature.bank.data.remote.datasource
 
 import ch.app.hk.bank.locator.feature.bank.data.remote.api.BankApi
 import ch.app.hk.bank.locator.feature.bank.data.remote.response.BankApiError
+import ch.app.hk.bank.locator.feature.bank.data.remote.response.Branch
 import ch.app.hk.bank.locator.testing.util.readResourceAsJson
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.shouldBe
@@ -24,16 +25,10 @@ class BankRemoteDataSourceImplTest {
         )
 
     @Test
-    @DisplayName("when BankApi.getBankBranches() return success, getBankBranches() should return bank branch list")
+    @DisplayName("When BankApi.getBankBranches() return success, getBankBranches() should return bank branch list")
     fun testGetBankBranchesSuccess() =
         runTest(testDispatcher.scheduler) {
-            coEvery {
-                bankApi.getBankBranches(
-                    lang = any(),
-                    pageSize = any(),
-                    offset = any(),
-                )
-            } returns readResourceAsJson("branch/success.json")
+            mockBankApiResponse("branch/success.json")
 
             val result =
                 bankRemoteDataSource.getBankBranches(
@@ -46,45 +41,97 @@ class BankRemoteDataSourceImplTest {
         }
 
     @Test
-    @DisplayName("when BankApi.getBankBranches() return empty list, getBankBranches() should return empty list")
-    fun testGetBankBranchesEmpty() =
+    @DisplayName("When BankApi.getBankBranches() return error, getBankBranches() should throw BankApiError")
+    fun testGetBankBranchesError() =
         runTest(testDispatcher.scheduler) {
-            coEvery {
-                bankApi.getBankBranches(
-                    lang = any(),
-                    pageSize = any(),
-                    offset = any(),
+            mockBankApiResponse("branch/error.json")
+
+            shouldThrowExactly<BankApiError> {
+                bankRemoteDataSource.getBankBranches(
+                    language = "en",
+                    pageSize = 10,
+                    offset = 40,
                 )
-            } returns readResourceAsJson("branch/empty.json")
+            }
+        }
+
+    @Test
+    @DisplayName("When BankApi.getBankBranches() return empty result records, getBankBranches() should return empty list")
+    fun testGetBankBranchesEmptyResult() =
+        runTest(testDispatcher.scheduler) {
+            mockBankApiResponse("branch/empty-result-records.json")
 
             val result =
                 bankRemoteDataSource.getBankBranches(
                     language = "en",
-                    pageSize = 5,
-                    offset = 200,
+                    pageSize = 20,
+                    offset = 60,
                 )
 
             result shouldBe emptyList()
         }
 
     @Test
-    @DisplayName("when BankApi.getBankBranches() return error, getBankBranches() should throw BankApiError")
-    fun testGetBankBranchesError() =
+    @DisplayName("When BankApi.getBankBranches() return empty json, getBankBranches() should throw BankApiError")
+    fun testGetBankBranchesEmptyJson() =
         runTest(testDispatcher.scheduler) {
-            coEvery {
-                bankApi.getBankBranches(
-                    lang = any(),
-                    pageSize = any(),
-                    offset = any(),
-                )
-            } returns readResourceAsJson("branch/error.json")
+            mockBankApiResponse("branch/all-empty.json")
 
             shouldThrowExactly<BankApiError> {
                 bankRemoteDataSource.getBankBranches(
                     language = "en",
-                    pageSize = 5,
-                    offset = 200,
+                    pageSize = 20,
+                    offset = 60,
                 )
             }
         }
+
+    @Test
+    @DisplayName(
+        "When BankApi.getBankBranches() return success but some fields missing," +
+            "getBankBranches() should return list items with default values",
+    )
+    fun testGetBankBranchesWithMissingFields() =
+        runTest(testDispatcher.scheduler) {
+            mockBankApiResponse("branch/success-missing-field.json")
+
+            val result =
+                bankRemoteDataSource.getBankBranches(
+                    language = "en",
+                    pageSize = 20,
+                    offset = 60,
+                )
+
+            result shouldBe
+                listOf(
+                    Branch(
+                        district = "",
+                        bankName = "The Bank of East Asia Limited",
+                        branchName = "Yuen Long i-Teller",
+                        address = "G/F, 77 Castle Peak Road, Yuen Long",
+                        serviceHours = "Monday - Saturday (9:00 am - 7:00 pm)",
+                        latitude = 22.444588,
+                        longitude = 114.029541,
+                    ),
+                    Branch(
+                        district = "YuenLong",
+                        bankName = "The Bank of East Asia Limited",
+                        branchName = "Yuen Long SupremeGold Centre",
+                        address = "1/F, 77 Castle Peak Road, Yuen Long",
+                        serviceHours = "Monday - Friday (9:00 am - 5:00 pm), Saturday (9:00 am - 1:00 pm)",
+                        latitude = 0.0,
+                        longitude = 0.0,
+                    ),
+                )
+        }
+
+    private fun mockBankApiResponse(filePath: String) {
+        coEvery {
+            bankApi.getBankBranches(
+                lang = any(),
+                pageSize = any(),
+                offset = any(),
+            )
+        } returns readResourceAsJson(filePath)
+    }
 }
