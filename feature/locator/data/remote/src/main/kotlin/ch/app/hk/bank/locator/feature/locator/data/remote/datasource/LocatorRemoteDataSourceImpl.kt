@@ -12,7 +12,7 @@ internal class LocatorRemoteDataSourceImpl
         private val locatorApi: LocatorApi,
     ) : LocatorRemoteDataSource {
         override suspend fun getBanks(
-            type: String,
+            type: LocatorRemoteDataSource.Type,
             language: String,
             pageSize: Int,
             offset: Int,
@@ -20,7 +20,7 @@ internal class LocatorRemoteDataSourceImpl
             return withContext(ioDispatcher) {
                 val response =
                     locatorApi.getBanks(
-                        type = type,
+                        type = type.value,
                         lang = language,
                         pageSize = pageSize,
                         offset = offset,
