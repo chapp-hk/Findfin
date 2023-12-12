@@ -32,6 +32,7 @@ class BankRemoteDataSourceImplTest {
 
             val result =
                 bankRemoteDataSource.getBankBranches(
+                    type = "banks-branch-locator",
                     language = "en",
                     pageSize = 5,
                     offset = 100,
@@ -48,6 +49,7 @@ class BankRemoteDataSourceImplTest {
 
             shouldThrowExactly<BankApiError> {
                 bankRemoteDataSource.getBankBranches(
+                    type = "banks-branch-locator",
                     language = "en",
                     pageSize = 10,
                     offset = 40,
@@ -66,6 +68,7 @@ class BankRemoteDataSourceImplTest {
 
             val result =
                 bankRemoteDataSource.getBankBranches(
+                    type = "banks-branch-locator",
                     language = "en",
                     pageSize = 20,
                     offset = 60,
@@ -82,6 +85,7 @@ class BankRemoteDataSourceImplTest {
 
             shouldThrowExactly<BankApiError> {
                 bankRemoteDataSource.getBankBranches(
+                    type = "banks-branch-locator",
                     language = "en",
                     pageSize = 20,
                     offset = 60,
@@ -100,6 +104,7 @@ class BankRemoteDataSourceImplTest {
 
             val result =
                 bankRemoteDataSource.getBankBranches(
+                    type = "banks-branch-locator",
                     language = "en",
                     pageSize = 20,
                     offset = 60,
@@ -110,7 +115,7 @@ class BankRemoteDataSourceImplTest {
                     Branch(
                         district = "",
                         bankName = "The Bank of East Asia Limited",
-                        branchName = "Yuen Long i-Teller",
+                        typeName = "Yuen Long i-Teller",
                         address = "G/F, 77 Castle Peak Road, Yuen Long",
                         serviceHours = "Monday - Saturday (9:00 am - 7:00 pm)",
                         latitude = 22.444588,
@@ -119,7 +124,7 @@ class BankRemoteDataSourceImplTest {
                     Branch(
                         district = "YuenLong",
                         bankName = "The Bank of East Asia Limited",
-                        branchName = "Yuen Long SupremeGold Centre",
+                        typeName = "Yuen Long SupremeGold Centre",
                         address = "1/F, 77 Castle Peak Road, Yuen Long",
                         serviceHours = "Monday - Friday (9:00 am - 5:00 pm), Saturday (9:00 am - 1:00 pm)",
                         latitude = 0.0,
@@ -128,9 +133,27 @@ class BankRemoteDataSourceImplTest {
                 )
         }
 
+    @Test
+    @DisplayName("When BankApi.getBankBranches() return atm success, getBankBranches() should return list")
+    fun testGetBankAtmsSuccess() =
+        runTest(testDispatcher.scheduler) {
+            mockBankApiResponse("atm/success.json")
+
+            val result =
+                bankRemoteDataSource.getBankBranches(
+                    type = "banks-branch-locator",
+                    language = "en",
+                    pageSize = 5,
+                    offset = 100,
+                )
+
+            result.size shouldBe 5
+        }
+
     private fun mockBankApiResponse(filePath: String) {
         coEvery {
             bankApi.getBankBranches(
+                type = any(),
                 lang = any(),
                 pageSize = any(),
                 offset = any(),
