@@ -24,6 +24,7 @@ fun createKtor(
     install(ContentNegotiation) {
         json(
             Json {
+                coerceInputValues = true
                 encodeDefaults = true
                 ignoreUnknownKeys = true
                 explicitNulls = false
