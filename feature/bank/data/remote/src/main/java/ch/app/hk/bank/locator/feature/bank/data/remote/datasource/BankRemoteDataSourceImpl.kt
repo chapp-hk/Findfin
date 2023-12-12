@@ -24,14 +24,21 @@ internal class BankRemoteDataSourceImpl
                         offset = offset,
                     )
 
-                if (response.header.success) {
-                    response.result?.records.orEmpty()
-                } else {
+                if (response.header == null) {
+                    throw BankApiError(
+                        errorCode = "",
+                        errorMessage = "",
+                    )
+                }
+
+                if (response.header.success.not()) {
                     throw BankApiError(
                         errorCode = response.header.errorCode,
                         errorMessage = response.header.errorMessage,
                     )
                 }
+
+                response.result!!.records
             }
         }
     }
