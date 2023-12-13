@@ -7,9 +7,16 @@ import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.ksp.toClassName
 import kotlin.reflect.KClass
 
-fun KSAnnotated.findAnnotation(klass: KClass<*>) =
-    annotations.filter { it.annotationType.resolve().toClassName() == klass.asClassName() }.first()
+fun KSAnnotated.findAnnotation(klass: KClass<*>): KSAnnotation {
+    return annotations
+        .filter { it.annotationType.resolve().toClassName() == klass.asClassName() }
+        .first()
+}
 
-inline fun <reified T> KSAnnotation.findNamedValue(name: String): T = arguments.find { it.name?.asString() == name }!!.value!! as T
+inline fun <reified T> KSAnnotation.findNamedValue(name: String): T {
+    return arguments.find { it.name?.asString() == name }!!.value!! as T
+}
 
-fun KSType.isNothing() = toClassName() == Nothing::class.asClassName()
+fun KSType.isNothing(): Boolean {
+    return toClassName() == Nothing::class.asClassName()
+}

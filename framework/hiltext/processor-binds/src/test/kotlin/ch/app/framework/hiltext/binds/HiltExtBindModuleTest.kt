@@ -33,7 +33,8 @@ class HiltExtBindModuleTest {
         val compilation = compileKotlinSource(kotlinSource)
         compilation.compile()
 
-        File("${compilation.kspSourcesDir.path}/kotlin/ch/app/framework/hiltext/TestClassDefaultHiltExtBindModule.kt")
+        val generatedFilePath = "kotlin/ch/app/framework/hiltext/TestClassDefaultHiltExtBindModule.kt"
+        File("${compilation.kspSourcesDir.path}/$generatedFilePath")
             .readText() shouldBe
             """
             package ch.app.framework.hiltext
@@ -83,7 +84,8 @@ class HiltExtBindModuleTest {
         val compilation = compileKotlinSource(kotlinSource)
         compilation.compile()
 
-        File("${compilation.kspSourcesDir.path}/kotlin/ch/app/framework/hiltext/TestClassParametersHiltExtBindModule.kt")
+        val generatedFilePath = "kotlin/ch/app/framework/hiltext/TestClassParametersHiltExtBindModule.kt"
+        File("${compilation.kspSourcesDir.path}/$generatedFilePath")
             .readText() shouldBe
             """
             package ch.app.framework.hiltext
