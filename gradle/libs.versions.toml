@@ -46,6 +46,8 @@ com-android-application = { id = "com.android.application", version.ref = "agp" 
 com-android-library = { id = "com.android.library", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.48" }
+com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "1.9.20-1.0.14" }
 
 [bundles]
 

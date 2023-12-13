@@ -60,5 +60,15 @@ gradlePlugin {
             id = "app.plugin.compose"
             implementationClass = "$group.plugin.compose.ComposePlugin"
         }
+
+        create("hilt-android") {
+            id = "app.plugin.hilt.android"
+            implementationClass = "$group.plugin.hilt.HiltAndroidPlugin"
+        }
+
+        create("hilt-jvm") {
+            id = "app.plugin.hilt.jvm"
+            implementationClass = "$group.plugin.hilt.HiltJvmPlugin"
+        }
     }
 }

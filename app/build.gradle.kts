@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
     id("app.plugin.android.common")
     id("app.plugin.compose")
+    id("app.plugin.hilt.android")
 }
 
 android {
@@ -18,6 +19,8 @@ android {
 
 dependencies {
     implementation(project(mapOf("path" to ":core:design")))
+
+    implementation(project(mapOf("path" to ":feature:locator:data:remote")))
 
     implementation(libs.core.ktx)
     implementation(libs.material)
