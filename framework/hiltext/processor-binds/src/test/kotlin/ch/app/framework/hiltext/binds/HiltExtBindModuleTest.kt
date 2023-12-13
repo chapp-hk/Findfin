@@ -47,8 +47,8 @@ class HiltExtBindModuleTest {
             @Module
             @InstallIn(SingletonComponent::class)
             internal interface TestClassDefaultHiltExtBindModule {
-              @Binds
-              public fun bindToSuperType(`impl`: TestClassDefault): TestInterface
+                @Binds
+                public fun bindToSuperType(`impl`: TestClassDefault): TestInterface
             }
 
             """.trimIndent()
@@ -98,9 +98,9 @@ class HiltExtBindModuleTest {
             @Module
             @InstallIn(TestComponent::class)
             internal interface TestClassParametersHiltExtBindModule {
-              @Binds
-              @Singleton
-              public fun bindToSuperType(`impl`: TestClassParameters): TestInterface
+                @Binds
+                @Singleton
+                public fun bindToSuperType(`impl`: TestClassParameters): TestInterface
             }
 
             """.trimIndent()

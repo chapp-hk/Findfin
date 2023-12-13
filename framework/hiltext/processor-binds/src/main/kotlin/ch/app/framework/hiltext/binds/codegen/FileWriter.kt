@@ -25,6 +25,7 @@ class FileWriter(
                 fileName = data.generatedClassName,
             )
             .addType(createType())
+            .indent("    ")
             .build()
             .writeTo(codeGenerator, Dependencies(true))
     }
