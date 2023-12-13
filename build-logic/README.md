@@ -16,6 +16,7 @@ Current list of convention plugins:
 - [app.plugin.kover](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/kover/KoverPlugin.kt)
   - apply [kover_gradle_plugin](https://github.com/Kotlin/kotlinx-kover) to root project and all subprojects
   - add all subprojects to kover dependencies
+  - add filter for generated classes
 
 - [app.plugin.jvm](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/jvm/JvmPlugin.kt)
   - configure java version
@@ -32,3 +33,12 @@ Current list of convention plugins:
   - configure buildFeatures compose
   - configure `kotlinCompilerExtensionVersion`
   - add basic compose dependencies
+
+- [app.plugin.hilt.android](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/hilt/HiltAndroidPlugin.kt)
+  - configure Hilt Android plugin
+  - configure KSP plugin
+  - add Hilt Android dependencies
+
+- [app.plugin.hilt.jvm]
+  - configure KSP plugin
+  - add Hilt core dependencies
