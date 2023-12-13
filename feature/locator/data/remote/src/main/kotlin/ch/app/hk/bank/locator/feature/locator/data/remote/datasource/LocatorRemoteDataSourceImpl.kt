@@ -1,5 +1,6 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.datasource
 
+import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorApi
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.Bank
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorApiError
@@ -14,7 +15,7 @@ import javax.inject.Inject
 internal class LocatorRemoteDataSourceImpl
     @Inject
     constructor(
-        private val ioDispatcher: CoroutineDispatcher,
+        @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
         private val locatorApi: LocatorApi,
     ) : LocatorRemoteDataSource {
         override suspend fun getBanks(
