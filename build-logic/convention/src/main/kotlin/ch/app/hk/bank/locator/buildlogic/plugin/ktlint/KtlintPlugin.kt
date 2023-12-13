@@ -25,13 +25,19 @@ class KtlintPlugin : Plugin<Project> {
         rootProject
             .subprojects
             .filter { it.buildFile.exists() }
-            .forEach{
+            .forEach {
                 it.apply(plugin = ktlintGradlePluginId)
 
                 // configure plugin
                 it.configure<KtlintExtension> {
                     version.set(ktlintVersion)
                     debug.set(true)
+
+                    filter { pattern ->
+                        pattern.exclude(
+                            "**/*HiltExtBindModule.kt",
+                        )
+                    }
                 }
             }
     }

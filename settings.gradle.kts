@@ -17,9 +17,20 @@ dependencyResolutionManagement {
 
 rootProject.name = "HK-Bank-Locator"
 include(":app")
+
+// core modules
 include(":core:design")
 include(":core:network")
 include(":core:threading")
+
+// feature modules
 include(":feature:locator:data:remote")
+
+// framework modules
+include(":framework:hiltext:annotation")
+include(":framework:hiltext:processor-binds")
+include(":framework:hiltext:util")
+
+// testing modules
 include(":testing:network")
 include(":testing:util")
