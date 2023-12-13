@@ -39,6 +39,6 @@ Current list of convention plugins:
   - configure KSP plugin
   - add Hilt Android dependencies
 
-- [app.plugin.hilt.jvm]
+- [app.plugin.hilt.jvm](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/hilt/HiltJvmPlugin.kt)
   - configure KSP plugin
   - add Hilt core dependencies
