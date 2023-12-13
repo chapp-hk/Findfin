@@ -1,17 +1,15 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.datasource
 
+import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorApi
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.Bank
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorApiError
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+@HiltExtBindModule
 internal class LocatorRemoteDataSourceImpl
     @Inject
     constructor(
@@ -51,10 +49,3 @@ internal class LocatorRemoteDataSourceImpl
             }
         }
     }
-
-@Module
-@InstallIn(SingletonComponent::class)
-internal interface LocatorRemoteDataSourceModule {
-    @Binds
-    fun bindLocatorRemoteDataSource(impl: LocatorRemoteDataSourceImpl): LocatorRemoteDataSource
-}

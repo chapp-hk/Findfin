@@ -15,6 +15,9 @@ class HiltAndroidPlugin : Plugin<Project> {
             dependencies {
                 "implementation"("com.google.dagger:hilt-android:2.48")
                 "ksp"("com.google.dagger:hilt-compiler:2.48")
+
+                "implementation"(project(mapOf("path" to ":framework:hiltext:annotation")))
+                "ksp"(project(mapOf("path" to ":framework:hiltext:processor-binds")))
             }
         }
     }
