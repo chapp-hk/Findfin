@@ -2,13 +2,19 @@ package ch.app.hk.bank.locator.feature.locator.data.remote.api
 
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.Bank
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.Response
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
 import io.ktor.resources.Resource
 import kotlinx.serialization.Serializable
+import javax.inject.Inject
 
 internal class LocatorApiImpl
+    @Inject
     constructor(
         private val httpClient: HttpClient,
     ) : LocatorApi {
@@ -41,3 +47,10 @@ internal class LocatorApiImpl
             )
         }
     }
+
+@Module
+@InstallIn(SingletonComponent::class)
+internal interface LocatorApiModule {
+    @Binds
+    fun bindLocatorApi(impl: LocatorApiImpl): LocatorApi
+}
