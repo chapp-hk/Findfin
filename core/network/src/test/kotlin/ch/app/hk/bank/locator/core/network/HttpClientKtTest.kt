@@ -10,7 +10,7 @@ class HttpClientKtTest {
         runTest {
             val httpClient = HttpClientProvider("localhost").provide()
 
-            // todo: find a way to test the base url
+            // TODO - find a way to test the base url
             httpClient shouldNotBe null
         }
 }
