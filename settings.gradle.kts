@@ -24,6 +24,8 @@ include(":core:network")
 include(":core:threading")
 
 // feature modules
+include(":feature:locator:data:local")
+include(":feature:locator:data:local-database")
 include(":feature:locator:data:remote")
 
 // framework modules
