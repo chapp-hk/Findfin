@@ -1,9 +1,11 @@
 package ch.app.hk.bank.locator.buildlogic.plugin.kover
 
 import ch.app.hk.bank.locator.buildlogic.util.assertRootProjectAppliedPlugin
+import kotlinx.kover.gradle.plugin.dsl.KoverReportExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
 class KoverPlugin : Plugin<Project> {
@@ -34,6 +36,20 @@ class KoverPlugin : Plugin<Project> {
                 .forEach {
                     add("kover", project(mapOf("path" to it.path)))
                 }
+        }
+
+        appProject.extensions.configure(KoverReportExtension::class) { extenstion ->
+            extenstion.filters { filters ->
+                filters.excludes {
+                    it.classes(
+                        "hilt_aggregated_deps*",
+                        "*HiltWrapper_*",
+                        "*_Factory*",
+                        "*_Impl*",
+                        "*_Provide*",
+                    )
+                }
+            }
         }
     }
 }
