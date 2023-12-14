@@ -28,6 +28,13 @@ class AndroidTestPlugin : Plugin<Project> {
                         it.systemImageSource = "aosp"
                     }
                 }
+
+                unitTests.all { test ->
+                    test.useJUnitPlatform()
+                    test.testLogging {
+                        it.events("passed", "skipped", "failed")
+                    }
+                }
             }
         }
     }
