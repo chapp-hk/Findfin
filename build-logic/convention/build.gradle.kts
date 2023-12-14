@@ -70,5 +70,10 @@ gradlePlugin {
             id = "app.plugin.hilt.jvm"
             implementationClass = "$group.plugin.hilt.HiltJvmPlugin"
         }
+
+        create("mapstruct") {
+            id = "app.plugin.mapstruct"
+            implementationClass = "$group.plugin.mapstruct.MapStructPlugin"
+        }
     }
 }

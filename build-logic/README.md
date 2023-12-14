@@ -42,3 +42,7 @@ Current list of convention plugins:
 - [app.plugin.hilt.jvm](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/hilt/HiltJvmPlugin.kt)
   - configure KSP plugin
   - add Hilt core dependencies
+
+- [app.plugin.mapstruct](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/mapstruct/MapStructPlugin.kt)
+  - add kapt plugin
+  - add MapStruct dependencies
