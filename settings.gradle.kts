@@ -22,6 +22,8 @@ include(":app")
 include(":core:design")
 include(":core:network")
 include(":core:threading")
+include(":core:database:api")
+include(":core:database:impl")
 
 // feature modules
 include(":feature:locator:data:local")
