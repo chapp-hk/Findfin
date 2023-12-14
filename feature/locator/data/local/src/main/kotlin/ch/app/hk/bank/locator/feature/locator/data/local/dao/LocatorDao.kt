@@ -1,7 +1,7 @@
-package ch.app.hk.bank.locator.feature.locator.data.local.database
+package ch.app.hk.bank.locator.feature.locator.data.local.dao
 
 import ch.app.hk.bank.locator.feature.locator.data.local.entity.BankLocal
 
-internal interface LocatorDatabase {
+interface LocatorDao {
     suspend fun insertAll(banks: List<BankLocal>)
 }
