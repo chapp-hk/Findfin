@@ -18,6 +18,9 @@ Current list of convention plugins:
   - add all subprojects to kover dependencies
   - add filter for generated classes
 
+- [app.plugin.kover.android](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/kover/KoverAndroidPlugin.kt)
+  - configure kover mergeWith
+
 - [app.plugin.jvm](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/jvm/JvmPlugin.kt)
   - configure java version
   - configure kotlin `jvmTarget` version

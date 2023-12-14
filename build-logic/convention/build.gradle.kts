@@ -46,6 +46,11 @@ gradlePlugin {
             implementationClass = "$group.plugin.kover.KoverPlugin"
         }
 
+        create("kover-android") {
+            id = "app.plugin.kover.android"
+            implementationClass = "$group.plugin.kover.KoverAndroidPlugin"
+        }
+
         create("jvm") {
             id = "app.plugin.jvm"
             implementationClass = "$group.plugin.jvm.JvmPlugin"
