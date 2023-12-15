@@ -1,6 +1,7 @@
 # Hilt extension annotation processors
 
-KSP annotation processors to reduce @Binds boilerplate
+## @HiltExtBindModule
+KSP annotation processor to generate @Binds
 e.g.
 ````kotlin
 @Module
@@ -12,3 +13,6 @@ interface SomeHiltModule {
 
 }
 ````
+
+## @HiltExtRoomModule
+KSP annotation processor to generate

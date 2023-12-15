@@ -1,0 +1,25 @@
+package ch.app.framework.hiltext.room
+
+import android.content.Context
+import androidx.room.Room
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+
+@Module
+@InstallIn(SingletonComponent::class)
+internal class TestDatabaseDefaultParametersHiltExtRoomModule {
+  @Provides
+  public fun providesDatabase(@ApplicationContext context: Context): TestDatabaseDefaultParameters =
+      Room.databaseBuilder(context, TestDatabaseDefaultParameters::class.java,
+      "test_database").build()
+
+  @Provides
+  public fun provideTestDao1(database: TestDatabaseDefaultParameters): TestDao1 =
+      database.testDao1()
+
+  @Provides
+  public fun provideTestDao2(database: TestDatabaseDefaultParameters): TestDao2 = database.testDao2
+}

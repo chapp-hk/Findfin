@@ -34,3 +34,4 @@ include(":framework:hiltext:util")
 // testing modules
 include(":testing:network")
 include(":testing:util")
+include(":framework:hiltext:processor-room")
