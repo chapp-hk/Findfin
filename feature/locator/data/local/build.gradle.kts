@@ -3,3 +3,13 @@ plugins {
     id("app.plugin.jvm")
     id("app.plugin.hilt.jvm")
 }
+
+dependencies {
+    implementation(project(mapOf("path" to ":core:threading")))
+    implementation(libs.kotlinx.coroutines.core)
+
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
+}
