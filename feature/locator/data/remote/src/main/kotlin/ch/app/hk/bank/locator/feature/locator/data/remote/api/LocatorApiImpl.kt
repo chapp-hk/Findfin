@@ -16,7 +16,7 @@ internal class LocatorApiImpl
     constructor(
         private val httpClientFactory: HttpClientFactory,
     ) : LocatorApi {
-        override suspend fun getBanks(
+        override suspend fun getLocators(
             type: String,
             lang: String,
             pageSize: Int,
@@ -26,7 +26,7 @@ internal class LocatorApiImpl
                 .create("https://api.hkma.gov.hk")
                 .provide()
                 .get(
-                    BankInfoResource.Type(
+                    LocatorResource.Type(
                         type = type,
                         lang = lang,
                         pagesize = pageSize,
@@ -37,10 +37,10 @@ internal class LocatorApiImpl
 
         @Serializable
         @Resource("/public/bank-svf-info")
-        internal class BankInfoResource {
+        internal class LocatorResource {
             @Resource("/{type}")
             class Type(
-                val parent: BankInfoResource = BankInfoResource(),
+                val parent: LocatorResource = LocatorResource(),
                 val type: String,
                 val lang: String,
                 val pagesize: Int,

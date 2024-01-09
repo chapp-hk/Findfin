@@ -17,7 +17,7 @@ internal class LocatorRemoteDataSourceImpl
         @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
         private val locatorApi: LocatorApi,
     ) : LocatorRemoteDataSource {
-        override suspend fun getBanks(
+        override suspend fun getLocators(
             type: LocatorType,
             language: String,
             pageSize: Int,
@@ -25,7 +25,7 @@ internal class LocatorRemoteDataSourceImpl
         ): List<LocatorResponse> {
             return withContext(ioDispatcher) {
                 val response =
-                    locatorApi.getBanks(
+                    locatorApi.getLocators(
                         type = type.value,
                         lang = language,
                         pageSize = pageSize,

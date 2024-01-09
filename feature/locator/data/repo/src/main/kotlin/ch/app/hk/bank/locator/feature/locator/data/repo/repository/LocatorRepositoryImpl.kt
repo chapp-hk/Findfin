@@ -24,7 +24,7 @@ class LocatorRepositoryImpl
             var page = 0
             do {
                 val remoteBanks =
-                    locatorRemoteDataSource.getBanks(
+                    locatorRemoteDataSource.getLocators(
                         type = type,
                         language = language,
                         pageSize = pageSize,
