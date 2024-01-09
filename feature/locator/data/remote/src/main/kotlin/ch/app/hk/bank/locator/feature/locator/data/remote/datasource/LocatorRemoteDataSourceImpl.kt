@@ -4,8 +4,8 @@ import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorApi
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorType
-import ch.app.hk.bank.locator.feature.locator.data.remote.response.Bank
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorApiError
+import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -22,7 +22,7 @@ internal class LocatorRemoteDataSourceImpl
             language: String,
             pageSize: Int,
             offset: Int,
-        ): List<Bank> {
+        ): List<LocatorResponse> {
             return withContext(ioDispatcher) {
                 val response =
                     locatorApi.getBanks(

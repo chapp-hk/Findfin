@@ -7,7 +7,7 @@ import kotlinx.serialization.json.JsonNames
 
 @OptIn(ExperimentalSerializationApi::class)
 @Serializable
-data class Bank(
+data class LocatorResponse(
     @SerialName("district")
     val district: String = "",
     @SerialName("bank_name")

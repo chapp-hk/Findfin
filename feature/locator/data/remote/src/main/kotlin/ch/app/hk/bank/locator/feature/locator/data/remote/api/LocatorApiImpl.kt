@@ -2,7 +2,7 @@ package ch.app.hk.bank.locator.feature.locator.data.remote.api
 
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.network.HttpClientFactory
-import ch.app.hk.bank.locator.feature.locator.data.remote.response.Bank
+import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorResponse
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.Response
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
@@ -21,7 +21,7 @@ internal class LocatorApiImpl
             lang: String,
             pageSize: Int,
             offset: Int,
-        ): Response<Bank> {
+        ): Response<LocatorResponse> {
             return httpClientFactory
                 .create("https://api.hkma.gov.hk")
                 .provide()

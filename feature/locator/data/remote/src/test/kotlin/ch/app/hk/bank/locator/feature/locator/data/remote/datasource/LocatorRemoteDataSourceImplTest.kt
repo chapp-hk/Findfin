@@ -2,8 +2,8 @@ package ch.app.hk.bank.locator.feature.locator.data.remote.datasource
 
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorApi
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorType
-import ch.app.hk.bank.locator.feature.locator.data.remote.response.Bank
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorApiError
+import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorResponse
 import ch.app.hk.bank.locator.testing.util.readResourceAsJson
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.shouldBe
@@ -123,7 +123,7 @@ class LocatorRemoteDataSourceImplTest {
 
             result shouldBe
                 listOf(
-                    Bank(
+                    LocatorResponse(
                         district = "",
                         bankName = "The Bank of East Asia Limited",
                         typeName = "Yuen Long i-Teller",
@@ -132,7 +132,7 @@ class LocatorRemoteDataSourceImplTest {
                         latitude = 22.444588,
                         longitude = 114.029541,
                     ),
-                    Bank(
+                    LocatorResponse(
                         district = "YuenLong",
                         bankName = "The Bank of East Asia Limited",
                         typeName = "Yuen Long SupremeGold Centre",

@@ -2,7 +2,7 @@ package ch.app.hk.bank.locator.feature.locator.data.repo.model
 
 import ch.app.hk.bank.locator.feature.locator.data.local.entity.BankLocal
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorType
-import ch.app.hk.bank.locator.feature.locator.data.remote.response.Bank
+import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorResponse
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.params.ParameterizedTest
@@ -18,8 +18,8 @@ class LocatorMapperTest {
     )
     @EnumSource(LocatorType::class)
     fun testConvertToLocal(input: LocatorType) {
-        val bank =
-            Bank(
+        val locatorResponse =
+            LocatorResponse(
                 district = "mock district",
                 bankName = "mock bank name",
                 typeName = "bank",
@@ -31,7 +31,7 @@ class LocatorMapperTest {
 
         locatorMapper.convertToLocal(
             type = input,
-            bank = bank,
+            locator = locatorResponse,
         ) shouldBe
             BankLocal(
                 type = input.name,
