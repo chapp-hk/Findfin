@@ -1,19 +1,19 @@
 package ch.app.hk.bank.locator.feature.locator.data.local.database.entity
 
-import ch.app.hk.bank.locator.feature.locator.data.local.entity.BankLocal
+import ch.app.hk.bank.locator.feature.locator.data.local.entity.LocatorLocal
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.mapstruct.factory.Mappers
 
 
-@DisplayName("BankMapper unit tests")
-class BankMapperTest {
-    private val bankMapper = Mappers.getMapper(BankMapper::class.java)
+@DisplayName("LocatorMapper unit tests")
+class LocatorMapperTest {
+    private val locatorMapper = Mappers.getMapper(LocatorMapper::class.java)
 
     @Test
     fun `test clone`() {
-        val bank = BankLocal(
+        val locator = LocatorLocal(
             type = "some type",
             district = "somewhere",
             bankName = "mock bank",
@@ -24,8 +24,8 @@ class BankMapperTest {
             longitude = 144.5325,
         )
 
-        bankMapper.clone(bank) shouldBe
-            BankEntity(
+        locatorMapper.clone(locator) shouldBe
+            LocatorEntity(
                 type = "some type",
                 district = "somewhere",
                 bankName = "mock bank",

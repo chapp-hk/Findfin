@@ -4,13 +4,13 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 
 @Entity(
-    tableName = "bank",
+    tableName = "locator",
     primaryKeys = [
         "latitude",
         "longitude",
     ],
 )
-data class BankEntity(
+data class LocatorEntity(
     @ColumnInfo(name = "type")
     val type: String,
     @ColumnInfo(name = "district")
