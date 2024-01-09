@@ -4,7 +4,7 @@ import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorRespon
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.Response
 
 internal interface LocatorApi {
-    suspend fun getBanks(
+    suspend fun getLocators(
         type: String,
         lang: String,
         pageSize: Int,
