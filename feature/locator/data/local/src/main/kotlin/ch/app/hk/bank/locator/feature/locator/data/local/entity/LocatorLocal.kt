@@ -1,6 +1,6 @@
 package ch.app.hk.bank.locator.feature.locator.data.local.entity
 
-data class BankLocal(
+data class LocatorLocal(
     val type: String,
     val district: String,
     val bankName: String,

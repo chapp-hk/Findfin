@@ -1,6 +1,6 @@
 package ch.app.hk.bank.locator.feature.locator.data.local.database.dao
 
-import ch.app.hk.bank.locator.feature.locator.data.local.database.entity.BankEntity
+import ch.app.hk.bank.locator.feature.locator.data.local.database.entity.LocatorEntity
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -24,20 +24,20 @@ class LocatorLocalDaoImplTest {
     @Test
     @DisplayName(
         "When invoke insertAll() with list of BankLocal, " +
-            "should convert to list of BankEntity and invoke LocatorLocalDaoImpl.insertAll()",
+            "should convert to list of LocatorEntity and invoke LocatorLocalDaoImpl.insertAll()",
     )
     fun testInsertAll() =
         runTest(StandardTestDispatcher()) {
-            val bankEntityListSlot = slot<List<BankEntity>>()
+            val locatorEntityListSlot = slot<List<LocatorEntity>>()
 
             coEvery {
-                locatorRoomDao.insertAll(capture(bankEntityListSlot))
+                locatorRoomDao.insertAll(capture(locatorEntityListSlot))
             } just Runs
 
             locatorLocalDaoImpl.insertAll(listOf(mockk(relaxed = true)))
 
             coVerify {
-                locatorRoomDao.insertAll(bankEntityListSlot.captured)
+                locatorRoomDao.insertAll(locatorEntityListSlot.captured)
             }
         }
 }

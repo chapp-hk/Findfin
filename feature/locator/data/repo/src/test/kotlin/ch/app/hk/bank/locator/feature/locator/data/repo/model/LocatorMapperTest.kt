@@ -1,6 +1,6 @@
 package ch.app.hk.bank.locator.feature.locator.data.repo.model
 
-import ch.app.hk.bank.locator.feature.locator.data.local.entity.BankLocal
+import ch.app.hk.bank.locator.feature.locator.data.local.entity.LocatorLocal
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorType
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorResponse
 import io.kotest.matchers.shouldBe
@@ -33,7 +33,7 @@ class LocatorMapperTest {
             type = input,
             locator = locatorResponse,
         ) shouldBe
-            BankLocal(
+            LocatorLocal(
                 type = input.name,
                 district = "mock district",
                 bankName = "mock bank name",
