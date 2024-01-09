@@ -1,6 +1,7 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.datasource
 
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorApi
+import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorType
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.Bank
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorApiError
 import ch.app.hk.bank.locator.testing.util.readResourceAsJson
@@ -36,7 +37,7 @@ class LocatorRemoteDataSourceImplTest {
 
             val result =
                 locatorRemoteDataSource.getBanks(
-                    type = LocatorRemoteDataSource.Type.BRANCH,
+                    type = LocatorType.BRANCH,
                     language = "en",
                     pageSize = 5,
                     offset = 100,
@@ -56,7 +57,7 @@ class LocatorRemoteDataSourceImplTest {
 
             shouldThrowExactly<LocatorApiError> {
                 locatorRemoteDataSource.getBanks(
-                    type = LocatorRemoteDataSource.Type.BRANCH,
+                    type = LocatorType.BRANCH,
                     language = "en",
                     pageSize = 10,
                     offset = 40,
@@ -75,7 +76,7 @@ class LocatorRemoteDataSourceImplTest {
 
             val result =
                 locatorRemoteDataSource.getBanks(
-                    type = LocatorRemoteDataSource.Type.BRANCH,
+                    type = LocatorType.BRANCH,
                     language = "en",
                     pageSize = 20,
                     offset = 60,
@@ -95,7 +96,7 @@ class LocatorRemoteDataSourceImplTest {
 
             shouldThrowExactly<LocatorApiError> {
                 locatorRemoteDataSource.getBanks(
-                    type = LocatorRemoteDataSource.Type.BRANCH,
+                    type = LocatorType.BRANCH,
                     language = "en",
                     pageSize = 20,
                     offset = 60,
@@ -114,7 +115,7 @@ class LocatorRemoteDataSourceImplTest {
 
             val result =
                 locatorRemoteDataSource.getBanks(
-                    type = LocatorRemoteDataSource.Type.BRANCH,
+                    type = LocatorType.BRANCH,
                     language = "en",
                     pageSize = 20,
                     offset = 60,
@@ -154,7 +155,7 @@ class LocatorRemoteDataSourceImplTest {
 
             val result =
                 locatorRemoteDataSource.getBanks(
-                    type = LocatorRemoteDataSource.Type.ATM,
+                    type = LocatorType.ATM,
                     language = "en",
                     pageSize = 5,
                     offset = 100,
@@ -173,7 +174,7 @@ class LocatorRemoteDataSourceImplTest {
             mockApiResponse("branch/success.json")
 
             locatorRemoteDataSource.getBanks(
-                type = LocatorRemoteDataSource.Type.BRANCH,
+                type = LocatorType.BRANCH,
                 language = "en",
                 pageSize = 5,
                 offset = 100,
@@ -181,7 +182,7 @@ class LocatorRemoteDataSourceImplTest {
 
             coVerify {
                 locatorApi.getBanks(
-                    type = LocatorRemoteDataSource.Type.BRANCH.value,
+                    type = LocatorType.BRANCH.value,
                     lang = "en",
                     pageSize = 5,
                     offset = 100,
@@ -199,7 +200,7 @@ class LocatorRemoteDataSourceImplTest {
             mockApiResponse("atm/success.json")
 
             locatorRemoteDataSource.getBanks(
-                type = LocatorRemoteDataSource.Type.ATM,
+                type = LocatorType.ATM,
                 language = "en",
                 pageSize = 5,
                 offset = 100,
@@ -207,7 +208,7 @@ class LocatorRemoteDataSourceImplTest {
 
             coVerify {
                 locatorApi.getBanks(
-                    type = LocatorRemoteDataSource.Type.ATM.value,
+                    type = LocatorType.ATM.value,
                     lang = "en",
                     pageSize = 5,
                     offset = 100,

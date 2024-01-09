@@ -2,6 +2,7 @@ package ch.app.hk.bank.locator.feature.locator.data.repo.repository
 
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.feature.locator.data.local.datasource.LocatorLocalDataSource
+import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorType
 import ch.app.hk.bank.locator.feature.locator.data.remote.datasource.LocatorRemoteDataSource
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorMapper
 import org.mapstruct.factory.Mappers
@@ -15,7 +16,7 @@ class LocatorRepositoryImpl
         private val locatorRemoteDataSource: LocatorRemoteDataSource,
     ) : LocatorRepository {
         override suspend fun fetchBanks(
-            type: LocatorRemoteDataSource.Type,
+            type: LocatorType,
             language: String,
             pageSize: Int,
         ) {
@@ -24,7 +25,7 @@ class LocatorRepositoryImpl
             do {
                 val remoteBanks =
                     locatorRemoteDataSource.getBanks(
-                        type = LocatorRemoteDataSource.Type.ATM,
+                        type = type,
                         language = language,
                         pageSize = pageSize,
                         offset = page * pageSize,
