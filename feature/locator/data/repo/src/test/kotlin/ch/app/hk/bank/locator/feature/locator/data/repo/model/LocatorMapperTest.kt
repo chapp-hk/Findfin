@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.locator.data.repo.model
 
 import ch.app.hk.bank.locator.feature.locator.data.local.entity.BankLocal
-import ch.app.hk.bank.locator.feature.locator.data.remote.datasource.LocatorRemoteDataSource
+import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorType
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.Bank
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
@@ -16,8 +16,8 @@ class LocatorMapperTest {
     @ParameterizedTest(
         name = "When type is {0}, target BankLocal should have {0} as type",
     )
-    @EnumSource(LocatorRemoteDataSource.Type::class)
-    fun testConvertToLocal(input: LocatorRemoteDataSource.Type) {
+    @EnumSource(LocatorType::class)
+    fun testConvertToLocal(input: LocatorType) {
         val bank =
             Bank(
                 district = "mock district",

@@ -1,6 +1,7 @@
 package ch.app.hk.bank.locator.feature.locator.data.repo.repository
 
 import ch.app.hk.bank.locator.feature.locator.data.local.datasource.LocatorLocalDataSource
+import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorType
 import ch.app.hk.bank.locator.feature.locator.data.remote.datasource.LocatorRemoteDataSource
 import io.mockk.Runs
 import io.mockk.coEvery
@@ -64,14 +65,14 @@ class LocatorRepositoryImplTest {
             } returns (1..500).map { mockk(relaxed = true) }
 
             locatorRepositoryImpl.fetchBanks(
-                type = LocatorRemoteDataSource.Type.ATM,
+                type = LocatorType.ATM,
                 language = "en",
                 pageSize = 1000,
             )
 
             coVerify(exactly = 3) {
                 locatorRemoteDataSource.getBanks(
-                    type = LocatorRemoteDataSource.Type.ATM,
+                    type = LocatorType.ATM,
                     language = "en",
                     pageSize = 1000,
                     offset = any(),

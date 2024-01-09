@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.locator.data.repo.model
 
 import ch.app.hk.bank.locator.feature.locator.data.local.entity.BankLocal
-import ch.app.hk.bank.locator.feature.locator.data.remote.datasource.LocatorRemoteDataSource
+import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorType
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.Bank
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
@@ -13,7 +13,7 @@ interface LocatorMapper {
         target = "type",
     )
     fun convertToLocal(
-        type: LocatorRemoteDataSource.Type,
+        type: LocatorType,
         bank: Bank,
     ): BankLocal
 }
