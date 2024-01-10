@@ -31,7 +31,7 @@ class LocatorRemoteDataSourceImplTest {
         "When LocatorApi.getLocators() return success, " +
             "getLocators() should return bank branch list",
     )
-    fun testGetBanksSuccess() =
+    fun testGetLocatorsSuccess() =
         runTest(testDispatcher.scheduler) {
             mockApiResponse("branch/success.json")
 
@@ -51,7 +51,7 @@ class LocatorRemoteDataSourceImplTest {
         "When LocatorApi.getLocators() return error, " +
             "getLocators() should throw LocatorApiError",
     )
-    fun testGetBanksError() =
+    fun testGetLocatorsError() =
         runTest(testDispatcher.scheduler) {
             mockApiResponse("branch/error.json")
 
@@ -70,7 +70,7 @@ class LocatorRemoteDataSourceImplTest {
         "When LocatorApi.getLocators() return empty result records, " +
             "getLocators() should return empty list",
     )
-    fun testGetBanksEmptyResult() =
+    fun testGetLocatorsEmptyResult() =
         runTest(testDispatcher.scheduler) {
             mockApiResponse("branch/empty-result-records.json")
 
@@ -90,7 +90,7 @@ class LocatorRemoteDataSourceImplTest {
         "When LocatorApi.getLocators() return empty json, " +
             "getLocators() should throw LocatorApiError",
     )
-    fun testGetBanksEmptyJson() =
+    fun testGetLocatorsEmptyJson() =
         runTest(testDispatcher.scheduler) {
             mockApiResponse("branch/all-empty.json")
 
@@ -109,7 +109,7 @@ class LocatorRemoteDataSourceImplTest {
         "When LocatorApi.getLocators() return success but some fields missing, " +
             "getLocators() should return list items with default values",
     )
-    fun testGetBanksWithMissingFields() =
+    fun testGetLocatorsWithMissingFields() =
         runTest(testDispatcher.scheduler) {
             mockApiResponse("branch/success-missing-field.json")
 
@@ -149,7 +149,7 @@ class LocatorRemoteDataSourceImplTest {
         "When LocatorApi.getLocators() return atm success, " +
             "getLocators() should return list",
     )
-    fun testGetBankAtmsSuccess() =
+    fun testGetLocatorsAtmsSuccess() =
         runTest(testDispatcher.scheduler) {
             mockApiResponse("atm/success.json")
 
@@ -169,7 +169,7 @@ class LocatorRemoteDataSourceImplTest {
         "When invoke getLocators() with BRANCH type, " +
             "should pass \"banks-branch-locator\" to LocatorApi.getLocators()",
     )
-    fun testGetBanksWithBranchType() =
+    fun testGetLocatorsWithBranchType() =
         runTest(testDispatcher.scheduler) {
             mockApiResponse("branch/success.json")
 
@@ -195,7 +195,7 @@ class LocatorRemoteDataSourceImplTest {
         "When invoke getLocators() with ATM type, " +
             "should pass \"banks-atm-locator\" to LocatorApi.getLocators()",
     )
-    fun testGetBanksWithAtmType() =
+    fun testGetLocatorsWithAtmType() =
         runTest(testDispatcher.scheduler) {
             mockApiResponse("atm/success.json")
 

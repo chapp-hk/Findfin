@@ -15,7 +15,7 @@ class LocatorRepositoryImpl
         private val locatorLocalDataSource: LocatorLocalDataSource,
         private val locatorRemoteDataSource: LocatorRemoteDataSource,
     ) : LocatorRepository {
-        override suspend fun fetchBanks(
+        override suspend fun fetchLocators(
             type: LocatorType,
             language: String,
             pageSize: Int,

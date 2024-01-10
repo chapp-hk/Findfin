@@ -58,7 +58,7 @@ class LocatorApiImplTest {
 
     @Test
     @DisplayName("When invoke getLocators(), should request correct url with get method")
-    fun `test getBanks`() =
+    fun `test getLocators`() =
         runTest(StandardTestDispatcher()) {
             shouldThrowAny {
                 bankApi.getLocators(
