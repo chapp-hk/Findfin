@@ -46,6 +46,10 @@ Current list of convention plugins:
   - configure KSP plugin
   - add Hilt core dependencies
 
+- [app.plugin.room.android](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/room/RoomAndroidPlugin.kt)
+  - configure KSP plugin
+  - add room dependencies
+
 - [app.plugin.mapstruct](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/mapstruct/MapStructPlugin.kt)
   - add kapt plugin
   - add MapStruct dependencies
