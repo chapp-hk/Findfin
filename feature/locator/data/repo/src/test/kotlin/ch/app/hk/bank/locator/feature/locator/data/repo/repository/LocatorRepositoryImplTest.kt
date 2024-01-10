@@ -35,7 +35,7 @@ class LocatorRepositoryImplTest {
         "When 3rd page return list smaller then pageSize, " +
             "then should only invoke locatorRemoteDataSource.getLocators() 3 times",
     )
-    fun testFetchBanks3rdPageSizeNotFull() =
+    fun testFetchLocators3rdPageSizeNotFull() =
         runTest(StandardTestDispatcher()) {
             coEvery {
                 locatorRemoteDataSource.getLocators(
@@ -64,7 +64,7 @@ class LocatorRepositoryImplTest {
                 )
             } returns (1..500).map { mockk(relaxed = true) }
 
-            locatorRepositoryImpl.fetchBanks(
+            locatorRepositoryImpl.fetchLocators(
                 type = LocatorType.ATM,
                 language = "en",
                 pageSize = 1000,
