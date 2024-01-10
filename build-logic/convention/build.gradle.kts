@@ -76,6 +76,11 @@ gradlePlugin {
             implementationClass = "$group.plugin.hilt.HiltJvmPlugin"
         }
 
+        create("room") {
+            id = "app.plugin.room.android"
+            implementationClass = "$group.plugin.room.RoomAndroidPlugin"
+        }
+
         create("mapstruct") {
             id = "app.plugin.mapstruct"
             implementationClass = "$group.plugin.mapstruct.MapStructPlugin"
