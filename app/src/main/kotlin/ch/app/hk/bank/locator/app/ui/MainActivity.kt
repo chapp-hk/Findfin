@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.app
+package ch.app.hk.bank.locator.app.ui
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
