@@ -7,7 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-internal fun LandingScreen(
+fun LandingScreen(
     back: () -> Unit,
 ) {
     Scaffold {

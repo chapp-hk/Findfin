@@ -22,7 +22,7 @@ dependencies {
     implementation(project(mapOf("path" to ":core:navigation")))
 
     implementation(project(mapOf("path" to ":feature:locator:data:remote")))
-    implementation(project(mapOf("path" to ":feature:onboarding:ui")))
+    implementation(project(mapOf("path" to ":feature:onboarding:navigation")))
 
     implementation(libs.core.ktx)
     implementation(libs.material)

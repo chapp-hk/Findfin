@@ -17,7 +17,7 @@ fun AppNavHost(
     NavHost(
         modifier = modifier.fillMaxSize(),
         navController = navController,
-        startDestination = LandingNavGraphDestination.navGraphId,
+        startDestination = ch.app.hk.bank.locator.feature.onboarding.navigation.LandingNavGraphDestination.navGraphId,
     ) {
         landingNavGraph(navController)
     }
