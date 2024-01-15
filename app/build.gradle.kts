@@ -19,14 +19,17 @@ android {
 
 dependencies {
     implementation(project(mapOf("path" to ":core:design")))
+    implementation(project(mapOf("path" to ":core:navigation")))
 
     implementation(project(mapOf("path" to ":feature:locator:data:remote")))
+    implementation(project(mapOf("path" to ":feature:onboarding:ui")))
 
     implementation(libs.core.ktx)
     implementation(libs.material)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.navigation.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
