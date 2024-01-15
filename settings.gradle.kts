@@ -20,10 +20,11 @@ include(":app")
 
 // core modules
 include(":core:design")
+include(":core:navigation")
 include(":core:network")
 include(":core:threading")
 
-// feature modules
+// feature locator modules
 include(":feature:locator:data:local")
 include(":feature:locator:data:local-database")
 include(":feature:locator:data:remote")
