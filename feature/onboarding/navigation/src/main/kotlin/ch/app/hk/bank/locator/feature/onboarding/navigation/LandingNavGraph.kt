@@ -15,7 +15,7 @@ fun NavGraphBuilder.landingNavGraph(
     ) {
         composable(route = LandingDestination.route) {
             LandingScreen(
-                back = { navController.popBackStack() },
+                back = navController::popBackStack,
             )
         }
     }

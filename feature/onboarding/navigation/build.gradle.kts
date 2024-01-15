@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.feature.onboarding.ui"
+    namespace = "ch.app.hk.bank.locator.feature.onboarding.navigation"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
@@ -14,6 +14,8 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.material)
+    implementation(project(mapOf("path" to ":core:navigation")))
+    implementation(project(mapOf("path" to ":feature:onboarding:ui")))
+
+    implementation(libs.androidx.navigation.compose)
 }
