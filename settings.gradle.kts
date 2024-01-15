@@ -29,6 +29,9 @@ include(":feature:locator:data:local")
 include(":feature:locator:data:local-database")
 include(":feature:locator:data:remote")
 
+// feature onboarding modules
+include(":feature:onboarding:ui")
+
 // framework modules
 include(":framework:hiltext:annotation")
 include(":framework:hiltext:processor-binds")
