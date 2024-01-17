@@ -22,6 +22,8 @@ include(":app")
 include(":core:design")
 include(":core:navigation")
 include(":core:network")
+include(":core:preferences:api")
+include(":core:preferences:impl")
 include(":core:threading")
 
 // feature locator modules
