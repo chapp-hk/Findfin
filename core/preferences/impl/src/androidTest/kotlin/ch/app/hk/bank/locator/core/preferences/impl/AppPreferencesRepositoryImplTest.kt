@@ -15,7 +15,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
 @SmallTest
-class AppPreferencesImplTest {
+class AppPreferencesRepositoryImplTest {
     private val context = InstrumentationRegistry.getInstrumentation().context
     private val testScope = TestScope(StandardTestDispatcher())
     private val testDataStore: DataStore<Preferences> =
@@ -24,7 +24,7 @@ class AppPreferencesImplTest {
             produceFile = { context.preferencesDataStoreFile("test_datastore") },
         )
 
-    private val appPreferences = AppPreferencesImpl(dataStore = testDataStore)
+    private val appPreferences = AppPreferencesRepositoryImpl(dataStore = testDataStore)
 
     @Test
     fun test_initial_locale_value() =
