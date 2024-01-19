@@ -14,11 +14,22 @@ android {
     }
 
     packaging {
-        resources.excludes += "META-INF/LICENSE.md"
+        resources.excludes +=
+            setOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+            )
     }
 }
 
 dependencies {
     implementation(project(mapOf("path" to ":core:preferences:api")))
+    implementation(project(mapOf("path" to ":core:threading")))
     implementation(libs.androidx.datastore.preferences)
+
+    androidTestImplementation(libs.mockk)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.kotest.assertions.core)
+    androidTestImplementation(libs.cash.app.turbine)
+    androidTestImplementation(libs.androidx.test.runner)
 }
