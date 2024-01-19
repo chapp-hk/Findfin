@@ -5,15 +5,15 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
-import ch.app.hk.bank.locator.core.preferences.api.AppPreferences
+import ch.app.hk.bank.locator.core.preferences.api.AppPreferencesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltExtBindModule
-internal class AppPreferencesImpl @Inject constructor(
+internal class AppPreferencesRepositoryImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>,
-) : AppPreferences {
+) : AppPreferencesRepository {
     private val appLocale = stringPreferencesKey("app_locale")
 
     override suspend fun setLocale(locale: String) {
