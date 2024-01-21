@@ -6,8 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import ch.app.hk.bank.locator.feature.onboarding.navigation.LandingNavGraphDestination
-import ch.app.hk.bank.locator.feature.onboarding.navigation.landingNavGraph
+import ch.app.hk.bank.locator.feature.onboarding.navigation.OnboardingNavGraphDestination
+import ch.app.hk.bank.locator.feature.onboarding.navigation.onboardingNavGraph
 
 @Composable
 fun AppNavHost(
@@ -17,8 +17,8 @@ fun AppNavHost(
     NavHost(
         modifier = modifier.fillMaxSize(),
         navController = navController,
-        startDestination = ch.app.hk.bank.locator.feature.onboarding.navigation.LandingNavGraphDestination.navGraphId,
+        startDestination = OnboardingNavGraphDestination.navGraphId,
     ) {
-        landingNavGraph(navController)
+        onboardingNavGraph(navController)
     }
 }

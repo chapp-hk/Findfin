@@ -7,6 +7,7 @@ plugins {
 
 android {
     namespace = "ch.app.hk.bank.locator.feature.onboarding.ui"
+    resourcePrefix = "onboarding_"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
