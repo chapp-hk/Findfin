@@ -23,6 +23,7 @@ androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-mani
 androidx-compose-material = { module = "androidx.compose.material3:material3" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version = "1.1.0-beta01" }
 androidx-hilt-compose = { module = "androidx.hilt:hilt-navigation-compose", version = "1.1.0" }
+androidx-lifecycle-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version = "2.7.0" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.7.6" }
 androidx-test-runner = { module = "androidx.test:runner", version = "1.5.2" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
