@@ -4,6 +4,7 @@ plugins {
     id("app.plugin.android.common")
     id("app.plugin.compose")
     id("app.plugin.hilt.android")
+    id("app.plugin.kover.android")
 }
 
 android {
