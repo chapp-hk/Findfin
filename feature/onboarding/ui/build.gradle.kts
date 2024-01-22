@@ -22,4 +22,11 @@ dependencies {
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.lifecycle.compose)
     implementation(libs.androidx.hilt.compose)
+
+    testImplementation(project(mapOf("path" to ":testing:extension")))
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.cash.app.turbine)
 }

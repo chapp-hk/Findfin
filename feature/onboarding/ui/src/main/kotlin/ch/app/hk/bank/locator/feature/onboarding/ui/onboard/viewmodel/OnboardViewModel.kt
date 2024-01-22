@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.onboarding.ui.onboard.viewmodel
 
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 
 interface OnboardViewModel {
-    val uiState: SharedFlow<OnboardUiState>
+    val uiState: StateFlow<OnboardUiState>
 }
