@@ -18,6 +18,9 @@ class JvmPlugin : Plugin<Project> {
         project.tasks.withType<KotlinCompile>().configureEach {
             it.kotlinOptions {
                 jvmTarget = JavaVersion.VERSION_17.toString()
+                freeCompilerArgs += listOf(
+                    "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+                )
             }
         }
 
