@@ -30,16 +30,20 @@ include(":core:threading")
 include(":feature:locator:data:local")
 include(":feature:locator:data:local-database")
 include(":feature:locator:data:remote")
+include(":feature:locator:data:repo")
 
 // feature onboarding modules
+include(":feature:onboarding:navigation")
 include(":feature:onboarding:ui")
 
 // framework modules
 include(":framework:hiltext:annotation")
 include(":framework:hiltext:processor-binds")
+include(":framework:hiltext:processor-room")
 include(":framework:hiltext:util")
 
 // testing modules
+include(":testing:extension")
 include(":testing:network")
 include(":testing:util")
 include(":framework:hiltext:processor-room")
