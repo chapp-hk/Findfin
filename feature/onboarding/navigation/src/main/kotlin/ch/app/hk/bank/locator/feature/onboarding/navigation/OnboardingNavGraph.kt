@@ -15,6 +15,7 @@ fun NavGraphBuilder.onboardingNavGraph(
     ) {
         composable(route = OnboardingDestination.route) {
             OnboardScreen(
+                navigateToHome = {},
             )
         }
     }
