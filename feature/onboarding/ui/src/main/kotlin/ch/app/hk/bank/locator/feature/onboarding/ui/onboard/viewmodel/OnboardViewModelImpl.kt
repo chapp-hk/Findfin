@@ -26,7 +26,7 @@ class OnboardViewModelImpl @Inject constructor(
             }
             .stateIn(
                 scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000L),
+                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
                 initialValue = OnboardUiState.None,
             )
 }
