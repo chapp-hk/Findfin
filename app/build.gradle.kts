@@ -15,6 +15,11 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+
+    androidResources {
+        @Suppress("UnstableApiUsage")
+        generateLocaleConfig = true
+    }
 }
 
 dependencies {
