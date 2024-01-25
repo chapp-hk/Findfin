@@ -20,6 +20,7 @@ include(":app")
 
 // core modules
 include(":core:design")
+include(":core:locale")
 include(":core:navigation")
 include(":core:network")
 include(":core:preferences:api")
