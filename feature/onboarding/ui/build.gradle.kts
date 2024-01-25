@@ -30,4 +30,6 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.cash.app.turbine)
+
+    androidTestImplementation(libs.androidx.test.runner)
 }
