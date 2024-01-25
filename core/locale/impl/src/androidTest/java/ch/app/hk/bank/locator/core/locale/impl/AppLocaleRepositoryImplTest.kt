@@ -1,17 +1,21 @@
-package ch.app.hk.bank.locator.core.locale
+package ch.app.hk.bank.locator.core.locale.impl
 
-import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
+import ch.app.hk.bank.locator.core.locale.api.AppLocale
 import io.kotest.matchers.shouldBe
 import org.junit.Test
 
-@SmallTest
-class AppLocaleManagerTest {
+class AppLocaleRepositoryImplTest {
     private val testContext = InstrumentationRegistry.getInstrumentation().context
+
+    private val appLocaleRepository =
+        AppLocaleRepositoryImpl(
+            context = testContext,
+        )
 
     @Test
     fun test_availableLocales() {
-        AppLocaleManager.availableLocales(testContext) shouldBe
+        appLocaleRepository.availableLocales() shouldBe
             listOf(
                 AppLocale(
                     displayName = "English",

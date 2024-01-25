@@ -2,10 +2,12 @@ plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     id("app.plugin.android.common")
+    id("app.plugin.hilt.android")
+    id("app.plugin.kover.android")
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.core.locale"
+    namespace = "ch.app.hk.bank.locator.core.locale.impl"
     resourcePrefix = "locale_"
 
     defaultConfig {
@@ -22,6 +24,7 @@ android {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":core:locale:api")))
     implementation(libs.androidx.appcompat)
 
     androidTestImplementation(libs.androidx.test.runner)
