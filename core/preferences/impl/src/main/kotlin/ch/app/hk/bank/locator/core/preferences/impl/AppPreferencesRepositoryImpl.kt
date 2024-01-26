@@ -20,9 +20,9 @@ internal class AppPreferencesRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getBoolean(key: String): Flow<Boolean?> {
+    override fun getBoolean(key: String): Flow<Boolean> {
         return dataStore.data.map { preferences ->
-            preferences[booleanPreferencesKey(key)]
+            preferences[booleanPreferencesKey(key)] ?: false
         }
     }
 }

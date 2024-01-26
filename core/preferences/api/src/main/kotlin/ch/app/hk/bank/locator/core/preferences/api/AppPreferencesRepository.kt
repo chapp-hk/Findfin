@@ -8,5 +8,5 @@ interface AppPreferencesRepository {
         value: Boolean,
     )
 
-    fun getBoolean(key: String): Flow<Boolean?>
+    fun getBoolean(key: String): Flow<Boolean>
 }
