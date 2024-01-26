@@ -5,20 +5,29 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import ch.app.hk.bank.locator.feature.onboarding.ui.R
+import ch.app.hk.bank.locator.feature.onboarding.ui.language.viewmodel.SelectLanguageViewModel
+import ch.app.hk.bank.locator.feature.onboarding.ui.language.viewmodel.SelectLanguageViewModelImpl
 
 @Composable
-fun SelectLanguageScreen() {
+fun SelectLanguageScreen(
+    selectLanguageViewModel: SelectLanguageViewModel = hiltViewModel<SelectLanguageViewModelImpl>(),
+) {
     Scaffold {
         Column(
             modifier = Modifier
@@ -38,40 +47,35 @@ fun SelectLanguageScreen() {
                 style = MaterialTheme.typography.headlineSmall,
             )
 
-            OutlinedButton(
+            LazyColumn(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 24.dp),
-                onClick = {},
-                shape = RoundedCornerShape(10.dp),
+                    .padding(top = 16.dp)
             ) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(40.dp)
-                        .wrapContentHeight(),
-                    text = "English",
-                    textAlign = TextAlign.Start,
-                    style = MaterialTheme.typography.titleMedium,
-                )
-            }
+                items(selectLanguageViewModel.availableLanguages) { language ->
+                    OutlinedButton(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        onClick = {
+                            selectLanguageViewModel.setLanguage(language.tag)
+                        },
+                        shape = RoundedCornerShape(10.dp),
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(40.dp)
+                                .wrapContentHeight(),
+                            text = language.displayName,
+                            textAlign = TextAlign.Start,
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                    }
 
-            OutlinedButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
-                onClick = {},
-                shape = RoundedCornerShape(10.dp),
-            ) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(40.dp)
-                        .wrapContentHeight(),
-                    text = "中文",
-                    textAlign = TextAlign.Start,
-                    style = MaterialTheme.typography.titleMedium,
-                )
+                    Divider(
+                        color = Color.Transparent,
+                        thickness = 8.dp,
+                    )
+                }
             }
         }
     }
