@@ -27,20 +27,20 @@ class AppPreferencesRepositoryImplTest {
     private val appPreferences = AppPreferencesRepositoryImpl(dataStore = testDataStore)
 
     @Test
-    fun test_initial_locale_value() =
+    fun test_initial_boolean_value() =
         testScope.runTest {
-            appPreferences.getLocale().test {
+            appPreferences.getBoolean("boolean").test {
                 awaitItem() shouldBe null
                 cancelAndIgnoreRemainingEvents()
             }
         }
 
     @Test
-    fun testLocale() =
+    fun testBoolean() =
         testScope.runTest {
-            appPreferences.setLocale("zh-HK")
-            appPreferences.getLocale().test {
-                awaitItem() shouldBe "zh-HK"
+            appPreferences.setBoolean("boolean", true)
+            appPreferences.getBoolean("boolean").test {
+                awaitItem() shouldBe true
                 cancelAndIgnoreRemainingEvents()
             }
 
