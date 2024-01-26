@@ -14,14 +14,16 @@ import javax.inject.Inject
 class OnboardViewModelImpl @Inject constructor(
     appPreferencesRepository: AppPreferencesRepository,
 ) : ViewModel(), OnboardViewModel {
+    private val prefKeyIsAppInitialized = "pref_key_is_app_initialized"
+
     override val uiState: StateFlow<OnboardUiState> =
         appPreferencesRepository
-            .getLocale()
-            .map { locale ->
-                if (locale == null) {
-                    OnboardUiState.SelectLanguage
-                } else {
+            .getBoolean(key = prefKeyIsAppInitialized)
+            .map { isAppInitialized ->
+                if (isAppInitialized == true) {
                     OnboardUiState.NavigateToHome
+                } else {
+                    OnboardUiState.SelectLanguage
                 }
             }
             .stateIn(

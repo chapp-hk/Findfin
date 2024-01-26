@@ -9,41 +9,44 @@ import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments.arguments
+import org.junit.jupiter.params.provider.MethodSource
 
 @ExtendWith(MainDispatcherExtension::class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("OnboardViewModelImpl unit tests")
 class OnboardViewModelImplTest {
     private val appPreferencesRepository = mockk<AppPreferencesRepository>()
 
-    @Test
-    fun `test uiState with locale is null`() =
-        runTest {
-            every { appPreferencesRepository.getLocale() } returns flowOf(null)
+    @ParameterizedTest(
+        name = "test uiState, when appPreferencesRepository.getBoolean() returns {0}, " +
+            "then OnboardViewModelImpl.uiState should be {1}"
+    )
+    @MethodSource("uiStateArguments")
+    fun testUiState(
+        mockedReturnValue: Boolean?,
+        expectedResult: OnboardUiState,
+    ) = runTest {
+        every { appPreferencesRepository.getBoolean(any()) } returns flowOf(mockedReturnValue)
 
-            val onboardViewModel = createOnboardViewModel()
+        val onboardViewModel = createOnboardViewModel()
 
-            onboardViewModel.uiState.test {
-                awaitItem() shouldBe OnboardUiState.None
-                awaitItem() shouldBe OnboardUiState.SelectLanguage
-                cancelAndIgnoreRemainingEvents()
-            }
+        onboardViewModel.uiState.test {
+            awaitItem() shouldBe OnboardUiState.None
+            awaitItem() shouldBe expectedResult
+            cancelAndIgnoreRemainingEvents()
         }
+    }
 
-    @Test
-    fun `test uiState with locale is not null`() =
-        runTest {
-            every { appPreferencesRepository.getLocale() } returns flowOf("zh-HK")
-
-            val onboardViewModel = createOnboardViewModel()
-
-            onboardViewModel.uiState.test {
-                awaitItem() shouldBe OnboardUiState.None
-                awaitItem() shouldBe OnboardUiState.NavigateToHome
-                cancelAndIgnoreRemainingEvents()
-            }
-        }
+    private fun uiStateArguments() =
+        listOf(
+            arguments(null, OnboardUiState.SelectLanguage),
+            arguments(false, OnboardUiState.SelectLanguage),
+            arguments(true, OnboardUiState.NavigateToHome),
+        )
 
     private fun createOnboardViewModel() =
         OnboardViewModelImpl(appPreferencesRepository = appPreferencesRepository)
