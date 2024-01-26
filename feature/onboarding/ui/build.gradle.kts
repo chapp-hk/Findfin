@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
     id("app.plugin.android.common")
     id("app.plugin.compose")
+    id("app.plugin.mapstruct")
     id("app.plugin.hilt.android")
     id("app.plugin.kover.android")
 }
@@ -19,6 +20,8 @@ android {
 dependencies {
     implementation(project(mapOf("path" to ":core:preferences:api")))
     implementation(project(mapOf("path" to ":core:preferences:impl")))
+    implementation(project(mapOf("path" to ":core:locale:api")))
+    implementation(project(mapOf("path" to ":core:locale:impl")))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.lifecycle.compose)
