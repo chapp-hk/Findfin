@@ -30,7 +30,7 @@ class AppPreferencesRepositoryImplTest {
     fun test_initial_boolean_value() =
         testScope.runTest {
             appPreferences.getBoolean("boolean").test {
-                awaitItem() shouldBe null
+                awaitItem() shouldBe false
                 cancelAndIgnoreRemainingEvents()
             }
         }
