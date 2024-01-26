@@ -2,8 +2,8 @@ package ch.app.hk.bank.locator.core.preferences.impl
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.preferences.api.AppPreferencesRepository
 import kotlinx.coroutines.flow.Flow
@@ -14,17 +14,15 @@ import javax.inject.Inject
 internal class AppPreferencesRepositoryImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>,
 ) : AppPreferencesRepository {
-    private val appLocale = stringPreferencesKey("app_locale")
-
-    override suspend fun setLocale(locale: String) {
-        dataStore.edit { preferences ->
-            preferences[appLocale] = locale
+    override suspend fun setBoolean(key: String, value: Boolean) {
+        dataStore.edit {preferences ->
+            preferences[booleanPreferencesKey(key)] = value
         }
     }
 
-    override fun getLocale(): Flow<String?> {
+    override fun getBoolean(key: String): Flow<Boolean?> {
         return dataStore.data.map { preferences ->
-            preferences[appLocale]
+            preferences[booleanPreferencesKey(key)]
         }
     }
 }
