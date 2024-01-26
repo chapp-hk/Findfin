@@ -27,7 +27,7 @@ class OnboardViewModelImplTest {
     )
     @MethodSource("uiStateArguments")
     fun testUiState(
-        mockedReturnValue: Boolean?,
+        mockedReturnValue: Boolean,
         expectedResult: OnboardUiState,
     ) = runTest {
         every { appPreferencesRepository.getBoolean(any()) } returns flowOf(mockedReturnValue)
@@ -43,7 +43,6 @@ class OnboardViewModelImplTest {
 
     private fun uiStateArguments() =
         listOf(
-            arguments(null, OnboardUiState.SelectLanguage),
             arguments(false, OnboardUiState.SelectLanguage),
             arguments(true, OnboardUiState.NavigateToHome),
         )
