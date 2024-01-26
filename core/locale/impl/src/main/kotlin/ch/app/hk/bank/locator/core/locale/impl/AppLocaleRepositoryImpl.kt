@@ -11,7 +11,7 @@ import java.util.Locale
 import javax.inject.Inject
 
 @HiltExtBindModule
-class AppLocaleRepositoryImpl @Inject constructor(
+internal class AppLocaleRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
 ) : AppLocaleRepository {
     override fun setLocale(locale: String) {
