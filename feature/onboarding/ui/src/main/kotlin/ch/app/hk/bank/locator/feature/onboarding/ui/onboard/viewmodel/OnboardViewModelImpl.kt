@@ -20,7 +20,7 @@ class OnboardViewModelImpl @Inject constructor(
         appPreferencesRepository
             .getBoolean(key = prefKeyIsAppInitialized)
             .map { isAppInitialized ->
-                if (isAppInitialized == true) {
+                if (isAppInitialized) {
                     OnboardUiState.NavigateToHome
                 } else {
                     OnboardUiState.SelectLanguage
