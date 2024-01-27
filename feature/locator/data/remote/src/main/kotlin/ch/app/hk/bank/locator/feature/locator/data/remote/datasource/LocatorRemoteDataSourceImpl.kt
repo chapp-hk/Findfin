@@ -3,7 +3,7 @@ package ch.app.hk.bank.locator.feature.locator.data.remote.datasource
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorApi
-import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorType
+import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorApiError
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorResponse
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,7 +18,7 @@ internal class LocatorRemoteDataSourceImpl
         private val locatorApi: LocatorApi,
     ) : LocatorRemoteDataSource {
         override suspend fun getLocators(
-            type: LocatorType,
+            path: LocatorPath,
             language: String,
             pageSize: Int,
             offset: Int,
@@ -26,7 +26,7 @@ internal class LocatorRemoteDataSourceImpl
             return withContext(ioDispatcher) {
                 val response =
                     locatorApi.getLocators(
-                        type = type.value,
+                        path = path.value,
                         lang = language,
                         pageSize = pageSize,
                         offset = offset,
