@@ -1,8 +1,9 @@
 package ch.app.hk.bank.locator.feature.locator.data.repo.repository
 
 import ch.app.hk.bank.locator.feature.locator.data.local.datasource.LocatorLocalDataSource
-import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorType
+import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.remote.datasource.LocatorRemoteDataSource
+import ch.app.hk.bank.locator.feature.locator.data.repo.model.Locator
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -39,7 +40,7 @@ class LocatorRepositoryImplTest {
         runTest(StandardTestDispatcher()) {
             coEvery {
                 locatorRemoteDataSource.getLocators(
-                    type = any(),
+                    path = any(),
                     language = any(),
                     pageSize = any(),
                     offset = 0,
@@ -48,7 +49,7 @@ class LocatorRepositoryImplTest {
 
             coEvery {
                 locatorRemoteDataSource.getLocators(
-                    type = any(),
+                    path = any(),
                     language = any(),
                     pageSize = any(),
                     offset = 1000,
@@ -57,7 +58,7 @@ class LocatorRepositoryImplTest {
 
             coEvery {
                 locatorRemoteDataSource.getLocators(
-                    type = any(),
+                    path = any(),
                     language = any(),
                     pageSize = any(),
                     offset = 2000,
@@ -65,14 +66,14 @@ class LocatorRepositoryImplTest {
             } returns (1..500).map { mockk(relaxed = true) }
 
             locatorRepositoryImpl.fetchLocators(
-                type = LocatorType.ATM,
+                type = Locator.ATM,
                 language = "en",
                 pageSize = 1000,
             )
 
             coVerify(exactly = 3) {
                 locatorRemoteDataSource.getLocators(
-                    type = LocatorType.ATM,
+                    path = LocatorPath.ATM,
                     language = "en",
                     pageSize = 1000,
                     offset = any(),
