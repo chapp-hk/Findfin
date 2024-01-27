@@ -60,14 +60,17 @@ class LocatorApiImplTest {
     @DisplayName("When invoke getLocators(), should request correct url with get method")
     fun `test getLocators`() =
         runTest(StandardTestDispatcher()) {
-            shouldThrowAny {
-                bankApi.getLocators(
-                    type = "banks-branch-locator",
-                    lang = "en",
-                    pageSize = 1000,
-                    offset = 500,
-                )
-            }
+            val throwable =
+                shouldThrowAny {
+                    bankApi.getLocators(
+                        path = "banks-branch-locator",
+                        lang = "en",
+                        pageSize = 1000,
+                        offset = 500,
+                    )
+                }
+
+            throwable.cause
 
             mockEngine.requestHistory.first().let {
                 it.url.toString() shouldBe

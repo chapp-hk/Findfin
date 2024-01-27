@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.datasource
 
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorApi
-import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorType
+import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorApiError
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorResponse
 import ch.app.hk.bank.locator.testing.util.readResourceAsJson
@@ -37,7 +37,7 @@ class LocatorRemoteDataSourceImplTest {
 
             val result =
                 locatorRemoteDataSource.getLocators(
-                    type = LocatorType.BRANCH,
+                    path = LocatorPath.BRANCH,
                     language = "en",
                     pageSize = 5,
                     offset = 100,
@@ -57,7 +57,7 @@ class LocatorRemoteDataSourceImplTest {
 
             shouldThrowExactly<LocatorApiError> {
                 locatorRemoteDataSource.getLocators(
-                    type = LocatorType.BRANCH,
+                    path = LocatorPath.BRANCH,
                     language = "en",
                     pageSize = 10,
                     offset = 40,
@@ -76,7 +76,7 @@ class LocatorRemoteDataSourceImplTest {
 
             val result =
                 locatorRemoteDataSource.getLocators(
-                    type = LocatorType.BRANCH,
+                    path = LocatorPath.BRANCH,
                     language = "en",
                     pageSize = 20,
                     offset = 60,
@@ -96,7 +96,7 @@ class LocatorRemoteDataSourceImplTest {
 
             shouldThrowExactly<LocatorApiError> {
                 locatorRemoteDataSource.getLocators(
-                    type = LocatorType.BRANCH,
+                    path = LocatorPath.BRANCH,
                     language = "en",
                     pageSize = 20,
                     offset = 60,
@@ -115,7 +115,7 @@ class LocatorRemoteDataSourceImplTest {
 
             val result =
                 locatorRemoteDataSource.getLocators(
-                    type = LocatorType.BRANCH,
+                    path = LocatorPath.BRANCH,
                     language = "en",
                     pageSize = 20,
                     offset = 60,
@@ -155,7 +155,7 @@ class LocatorRemoteDataSourceImplTest {
 
             val result =
                 locatorRemoteDataSource.getLocators(
-                    type = LocatorType.ATM,
+                    path = LocatorPath.ATM,
                     language = "en",
                     pageSize = 5,
                     offset = 100,
@@ -174,7 +174,7 @@ class LocatorRemoteDataSourceImplTest {
             mockApiResponse("branch/success.json")
 
             locatorRemoteDataSource.getLocators(
-                type = LocatorType.BRANCH,
+                path = LocatorPath.BRANCH,
                 language = "en",
                 pageSize = 5,
                 offset = 100,
@@ -182,7 +182,7 @@ class LocatorRemoteDataSourceImplTest {
 
             coVerify {
                 locatorApi.getLocators(
-                    type = LocatorType.BRANCH.value,
+                    path = LocatorPath.BRANCH.value,
                     lang = "en",
                     pageSize = 5,
                     offset = 100,
@@ -200,7 +200,7 @@ class LocatorRemoteDataSourceImplTest {
             mockApiResponse("atm/success.json")
 
             locatorRemoteDataSource.getLocators(
-                type = LocatorType.ATM,
+                path = LocatorPath.ATM,
                 language = "en",
                 pageSize = 5,
                 offset = 100,
@@ -208,7 +208,7 @@ class LocatorRemoteDataSourceImplTest {
 
             coVerify {
                 locatorApi.getLocators(
-                    type = LocatorType.ATM.value,
+                    path = LocatorPath.ATM.value,
                     lang = "en",
                     pageSize = 5,
                     offset = 100,
@@ -219,7 +219,7 @@ class LocatorRemoteDataSourceImplTest {
     private fun mockApiResponse(filePath: String) {
         coEvery {
             locatorApi.getLocators(
-                type = any(),
+                path = any(),
                 lang = any(),
                 pageSize = any(),
                 offset = any(),
