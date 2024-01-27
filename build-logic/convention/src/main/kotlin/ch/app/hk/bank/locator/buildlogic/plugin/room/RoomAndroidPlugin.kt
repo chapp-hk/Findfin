@@ -31,6 +31,9 @@ class RoomAndroidPlugin : Plugin<Project> {
                 "implementation"("androidx.room:room-runtime:$roomVersion")
                 "implementation"("androidx.room:room-ktx:$roomVersion")
                 "ksp"("androidx.room:room-compiler:$roomVersion")
+
+                "implementation"(project(mapOf("path" to ":framework:hiltext:annotation")))
+                "ksp"(project(mapOf("path" to ":framework:hiltext:processor-room")))
             }
         }
     }
