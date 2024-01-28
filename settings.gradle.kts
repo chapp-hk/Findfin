@@ -35,6 +35,7 @@ include(":feature:locator:data:remote")
 include(":feature:locator:data:repo")
 
 // feature onboarding modules
+include(":feature:onboarding:domain")
 include(":feature:onboarding:navigation")
 include(":feature:onboarding:ui")
 
