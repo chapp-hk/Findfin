@@ -1,12 +1,13 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.datasource
 
+import ch.app.hk.bank.locator.core.network.ApiResult
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorApi
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorApiError
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorResponse
 import ch.app.hk.bank.locator.testing.util.readResourceAsJson
-import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -43,26 +44,34 @@ class LocatorRemoteDataSourceImplTest {
                     offset = 100,
                 )
 
-            result.size shouldBe 5
+            result.shouldBeInstanceOf<ApiResult.Success<List<LocatorResponse>>>()
+                .data.size shouldBe 5
         }
 
     @Test
     @DisplayName(
         "When LocatorApi.getLocators() return error, " +
-            "getLocators() should throw LocatorApiError",
+            "getLocators() should return ApiResult.Error",
     )
     fun testGetLocatorsError() =
         runTest(testDispatcher.scheduler) {
             mockApiResponse("branch/error.json")
 
-            shouldThrowExactly<LocatorApiError> {
+            val result =
                 locatorRemoteDataSource.getLocators(
                     path = LocatorPath.BRANCH,
                     language = "en",
                     pageSize = 10,
                     offset = 40,
                 )
-            }
+
+            result
+                .shouldBeInstanceOf<ApiResult.Error>()
+                .cause shouldBe
+                LocatorApiError(
+                    errorCode = "1002",
+                    errorMessage = "Invalid input value: offset must be non-negative integer",
+                )
         }
 
     @Test
@@ -82,26 +91,28 @@ class LocatorRemoteDataSourceImplTest {
                     offset = 60,
                 )
 
-            result shouldBe emptyList()
+            result.shouldBeInstanceOf<ApiResult.Success<List<LocatorResponse>>>()
+                .data shouldBe emptyList()
         }
 
     @Test
     @DisplayName(
         "When LocatorApi.getLocators() return empty json, " +
-            "getLocators() should throw LocatorApiError",
+            "getLocators() should return ApiResult.Error",
     )
     fun testGetLocatorsEmptyJson() =
         runTest(testDispatcher.scheduler) {
             mockApiResponse("branch/all-empty.json")
 
-            shouldThrowExactly<LocatorApiError> {
+            val result =
                 locatorRemoteDataSource.getLocators(
                     path = LocatorPath.BRANCH,
                     language = "en",
                     pageSize = 20,
                     offset = 60,
                 )
-            }
+
+            result.shouldBeInstanceOf<ApiResult.Error>()
         }
 
     @Test
@@ -121,7 +132,8 @@ class LocatorRemoteDataSourceImplTest {
                     offset = 60,
                 )
 
-            result shouldBe
+            result.shouldBeInstanceOf<ApiResult.Success<List<LocatorResponse>>>()
+                .data shouldBe
                 listOf(
                     LocatorResponse(
                         district = "",
@@ -161,7 +173,8 @@ class LocatorRemoteDataSourceImplTest {
                     offset = 100,
                 )
 
-            result.size shouldBe 5
+            result.shouldBeInstanceOf<ApiResult.Success<List<LocatorResponse>>>()
+                .data.size shouldBe 5
         }
 
     @Test
