@@ -6,6 +6,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":core:network")))
     implementation(project(mapOf("path" to ":feature:locator:data:local")))
     implementation(project(mapOf("path" to ":feature:locator:data:remote")))
 
