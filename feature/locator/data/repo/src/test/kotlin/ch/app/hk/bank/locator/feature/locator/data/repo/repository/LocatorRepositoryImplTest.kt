@@ -1,9 +1,14 @@
 package ch.app.hk.bank.locator.feature.locator.data.repo.repository
 
+import ch.app.hk.bank.locator.core.network.ApiResult
 import ch.app.hk.bank.locator.feature.locator.data.local.datasource.LocatorLocalDataSource
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.remote.datasource.LocatorRemoteDataSource
+import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorApiError
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.Locator
+import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorResult
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -33,51 +38,161 @@ class LocatorRepositoryImplTest {
 
     @Test
     @DisplayName(
-        "When 3rd page return list smaller then pageSize, " +
-            "then should only invoke locatorRemoteDataSource.getLocators() 3 times",
+        "locatorRemoteDataSource.getLocators() should invoke with correct offset value: " +
+            "page * pageSize",
     )
-    fun testFetchLocators3rdPageSizeNotFull() =
+    fun testOffsetValue() =
         runTest(StandardTestDispatcher()) {
             coEvery {
                 locatorRemoteDataSource.getLocators(
                     path = any(),
                     language = any(),
                     pageSize = any(),
-                    offset = 0,
+                    offset = any(),
                 )
-            } returns (1..1000).map { mockk(relaxed = true) }
-
-            coEvery {
-                locatorRemoteDataSource.getLocators(
-                    path = any(),
-                    language = any(),
-                    pageSize = any(),
-                    offset = 1000,
-                )
-            } returns (1..1000).map { mockk(relaxed = true) }
-
-            coEvery {
-                locatorRemoteDataSource.getLocators(
-                    path = any(),
-                    language = any(),
-                    pageSize = any(),
-                    offset = 2000,
-                )
-            } returns (1..500).map { mockk(relaxed = true) }
+            } returns ApiResult.Error(Throwable())
 
             locatorRepositoryImpl.fetchLocators(
                 type = Locator.ATM,
-                language = "en",
+                localeTag = "en",
+                page = 2,
                 pageSize = 1000,
             )
 
-            coVerify(exactly = 3) {
+            coVerify {
                 locatorRemoteDataSource.getLocators(
                     path = LocatorPath.ATM,
                     language = "en",
                     pageSize = 1000,
-                    offset = any(),
+                    offset = 2000,
                 )
             }
+        }
+
+    @Test
+    @DisplayName(
+        "When locatorRemoteDataSource.getLocators() returns ApiResult.Error, " +
+            "fetchLocators() should return LocatorResult.Error with correct cause value",
+    )
+    fun testFetchLocatorsError() =
+        runTest(StandardTestDispatcher()) {
+            val apiError =
+                LocatorApiError(
+                    errorCode = "1001",
+                    errorMessage = "some error message",
+                )
+
+            coEvery {
+                locatorRemoteDataSource.getLocators(
+                    path = any(),
+                    language = any(),
+                    pageSize = any(),
+                    offset = any(),
+                )
+            } returns ApiResult.Error(apiError)
+
+            val result =
+                locatorRepositoryImpl.fetchLocators(
+                    type = Locator.ATM,
+                    localeTag = "en",
+                    page = 2,
+                    pageSize = 1000,
+                )
+
+            result.shouldBeInstanceOf<LocatorResult.Error>()
+                .cause shouldBe apiError
+        }
+
+    @Test
+    @DisplayName(
+        "When locatorRemoteDataSource.getLocators() returns list with size equals pageSize, " +
+            "then fetchLocators() should return LocatorResult.HasNext",
+    )
+    fun testFetchLocatorsResultListEqualsPageSize() =
+        runTest(StandardTestDispatcher()) {
+            val pageSize = 1000
+
+            coEvery {
+                locatorRemoteDataSource.getLocators(
+                    path = any(),
+                    language = any(),
+                    pageSize = any(),
+                    offset = any(),
+                )
+            } returns ApiResult.Success(
+                (1..pageSize).map { mockk(relaxed = true) },
+            )
+
+            val result =
+                locatorRepositoryImpl.fetchLocators(
+                    type = Locator.ATM,
+                    localeTag = "en",
+                    page = 2,
+                    pageSize = pageSize,
+                )
+
+            result shouldBe LocatorResult.HasNext
+        }
+
+    @Test
+    @DisplayName(
+        "When locatorRemoteDataSource.getLocators() returns list with size larger than pageSize, " +
+            "then fetchLocators() should return LocatorResult.HasNext",
+    )
+    fun testFetchLocatorsResultListLargerThanPageSize() =
+        runTest(StandardTestDispatcher()) {
+            val pageSize = 1000
+
+            coEvery {
+                locatorRemoteDataSource.getLocators(
+                    path = any(),
+                    language = any(),
+                    pageSize = any(),
+                    offset = any(),
+                )
+            } returns ApiResult.Success(
+                (1..pageSize + 1).map { mockk(relaxed = true) },
+            )
+
+            val result =
+                locatorRepositoryImpl.fetchLocators(
+                    type = Locator.ATM,
+                    localeTag = "en",
+                    page = 2,
+                    pageSize = pageSize,
+                )
+
+            result shouldBe LocatorResult.HasNext
+        }
+
+    @Test
+    @DisplayName(
+        "When locatorRemoteDataSource.getLocators() returns list with size smaller than pageSize, " +
+            "then fetchLocators() should return LocatorResult.End",
+    )
+    fun testFetchLocatorsEnd() =
+        runTest(StandardTestDispatcher()) {
+            val pageSize = 1000
+
+            coEvery {
+                locatorRemoteDataSource.getLocators(
+                    path = any(),
+                    language = any(),
+                    pageSize = any(),
+                    offset = any(),
+                )
+            } returns ApiResult.Success(
+                (1..pageSize - 10).map { mockk(relaxed = true) },
+            )
+
+            val result =
+                locatorRepositoryImpl.fetchLocators(
+                    type = Locator.ATM,
+                    localeTag = "en",
+                    page = 2,
+                    pageSize = pageSize,
+                )
+
+            result shouldBe LocatorResult.End
         }
 }
