@@ -1,6 +1,7 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.datasource
 
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
+import ch.app.hk.bank.locator.core.network.ApiResult
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorApi
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
@@ -22,31 +23,35 @@ internal class LocatorRemoteDataSourceImpl
             language: String,
             pageSize: Int,
             offset: Int,
-        ): List<LocatorResponse> {
+        ): ApiResult<List<LocatorResponse>> {
             return withContext(ioDispatcher) {
-                val response =
-                    locatorApi.getLocators(
-                        path = path.value,
-                        lang = language,
-                        pageSize = pageSize,
-                        offset = offset,
-                    )
+                try {
+                    val response =
+                        locatorApi.getLocators(
+                            path = path.value,
+                            lang = language,
+                            pageSize = pageSize,
+                            offset = offset,
+                        )
 
-                if (response.header == null) {
-                    throw LocatorApiError(
-                        errorCode = "",
-                        errorMessage = "",
-                    )
+                    if (response.header == null) {
+                        throw LocatorApiError(
+                            errorCode = "",
+                            errorMessage = "",
+                        )
+                    }
+
+                    if (response.header.success.not()) {
+                        throw LocatorApiError(
+                            errorCode = response.header.errorCode,
+                            errorMessage = response.header.errorMessage,
+                        )
+                    }
+
+                    ApiResult.Success(response.result!!.records)
+                } catch (error: Throwable) {
+                    ApiResult.Error(error)
                 }
-
-                if (response.header.success.not()) {
-                    throw LocatorApiError(
-                        errorCode = response.header.errorCode,
-                        errorMessage = response.header.errorMessage,
-                    )
-                }
-
-                response.result!!.records
             }
         }
     }
