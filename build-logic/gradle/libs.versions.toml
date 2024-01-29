@@ -9,6 +9,7 @@ org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gra
 ktlint-gradle = { module = "org.jlleitschuh.gradle:ktlint-gradle", version.ref = "ktlintGradle" }
 detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version = "1.18.1" }
 kover-gradle = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.5" }
+ksp-gradle = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "1.9.20-1.0.14" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
