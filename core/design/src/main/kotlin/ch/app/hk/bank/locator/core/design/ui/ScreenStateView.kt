@@ -10,7 +10,7 @@ sealed interface ScreenState<out T> {
 }
 
 @Composable
-fun <T> ScreenStateComponent(
+fun <T> ScreenStateView(
     state: ScreenState<T>,
     empty: @Composable () -> Unit = {},
     error: @Composable (Throwable) -> Unit = {},
