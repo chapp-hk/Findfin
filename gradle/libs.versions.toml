@@ -47,6 +47,8 @@ ktor-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor"
 ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 #turbine
 cash-app-turbine = { module = "app.cash.turbine:turbine", version = "1.0.0" }
+#konsist
+lemon-app-dev-konsist = { module = "com.lemonappdev:konsist", version = "0.13.0" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
