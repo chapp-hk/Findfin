@@ -65,6 +65,6 @@ jobs:
           distribution: 'zulu'
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
-      - name: detekt check
+      - name: konsist check
         run: |
           ./gradlew :framework:konsist:test
