@@ -47,8 +47,8 @@ class OnboardViewModelImplTest {
     private class UiStateArgumentProvider : ArgumentsProvider {
         override fun provideArguments(p0: ExtensionContext?): Stream<out Arguments> {
             return Stream.of(
-                arguments(false, OnboardUiState.SelectLanguage),
-                arguments(true, OnboardUiState.NavigateToHome),
+                arguments(false, OnboardUiState.ShowSelectLanguage),
+                arguments(true, OnboardUiState.GoToHome),
             )
         }
     }
