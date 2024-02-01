@@ -23,9 +23,9 @@ class OnboardViewModelImpl @Inject constructor(
             .map { isAppInitialized ->
                 val onboardUiState =
                     if (isAppInitialized) {
-                        OnboardUiState.NavigateToHome
+                        OnboardUiState.GoToHome
                     } else {
-                        OnboardUiState.SelectLanguage
+                        OnboardUiState.ShowSelectLanguage
                     }
 
                 ScreenState.Success(onboardUiState)
