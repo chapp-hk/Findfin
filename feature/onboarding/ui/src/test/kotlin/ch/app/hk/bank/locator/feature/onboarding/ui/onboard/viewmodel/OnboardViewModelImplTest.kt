@@ -1,6 +1,7 @@
 package ch.app.hk.bank.locator.feature.onboarding.ui.onboard.viewmodel
 
 import app.cash.turbine.test
+import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.core.preferences.api.AppPreferencesRepository
 import ch.app.hk.bank.locator.testing.extension.MainDispatcherExtension
 import io.kotest.matchers.shouldBe
@@ -37,8 +38,8 @@ class OnboardViewModelImplTest {
         val onboardViewModel = createOnboardViewModel()
 
         onboardViewModel.uiState.test {
-            awaitItem() shouldBe OnboardUiState.None
-            awaitItem() shouldBe expectedResult
+            awaitItem() shouldBe ScreenState.Loading
+            awaitItem() shouldBe ScreenState.Success(expectedResult)
             cancelAndIgnoreRemainingEvents()
         }
     }
