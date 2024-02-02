@@ -23,6 +23,8 @@ dependencies {
     implementation(project(mapOf("path" to ":core:preferences:impl")))
     implementation(project(mapOf("path" to ":core:locale:api")))
     implementation(project(mapOf("path" to ":core:locale:impl")))
+    implementation(project(mapOf("path" to ":feature:locator:data:local-database")))
+    implementation(project(mapOf("path" to ":feature:onboarding:domain")))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.lifecycle.compose)

@@ -12,8 +12,11 @@ import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.viewmodel.OnboardVie
 @Composable
 fun OnboardScreen(
     onboardViewModel: OnboardViewModel = hiltViewModel<OnboardViewModelImpl>(),
-    showSelectLanguage: @Composable () -> Unit = { SelectLanguageScreen() },
     goToHome: () -> Unit,
+    goToRequestPermission: () -> Unit,
+    showSelectLanguage: @Composable () -> Unit = {
+        SelectLanguageScreen(goToRequestPermission = goToRequestPermission)
+    },
 ) {
     ScreenStateView(
         state = onboardViewModel.uiState.collectAsStateWithLifecycle().value,
@@ -22,6 +25,6 @@ fun OnboardScreen(
                 OnboardUiState.GoToHome -> goToHome()
                 OnboardUiState.ShowSelectLanguage -> showSelectLanguage()
             }
-        }
+        },
     )
 }

@@ -11,3 +11,8 @@ object OnboardingDestination : Destination() {
     override val navGraphId: String = ""
     override val route: String = "onboarding"
 }
+
+object OnboardingRequestPermissionDestination : Destination() {
+    override val navGraphId: String = ""
+    override val route: String = "onboarding-request-permission"
+}
