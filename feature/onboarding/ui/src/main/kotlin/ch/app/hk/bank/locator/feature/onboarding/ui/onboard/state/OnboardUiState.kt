@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.onboarding.ui.onboard.viewmodel
+package ch.app.hk.bank.locator.feature.onboarding.ui.onboard.state
 
 sealed interface OnboardUiState {
     data object ShowSelectLanguage : OnboardUiState

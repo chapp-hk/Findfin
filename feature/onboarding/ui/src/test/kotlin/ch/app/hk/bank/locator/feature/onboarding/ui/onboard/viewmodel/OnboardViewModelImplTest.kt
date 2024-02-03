@@ -3,6 +3,7 @@ package ch.app.hk.bank.locator.feature.onboarding.ui.onboard.viewmodel
 import app.cash.turbine.test
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.core.preferences.api.AppPreferencesRepository
+import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.state.OnboardUiState
 import ch.app.hk.bank.locator.testing.extension.MainDispatcherExtension
 import io.kotest.matchers.shouldBe
 import io.mockk.every
