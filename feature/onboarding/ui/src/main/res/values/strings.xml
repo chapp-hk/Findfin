@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="onboarding_title_language">Please select language</string>
+    <string name="onboarding_error_message">Something went wrong</string>
+    <string name="onboarding_retry_button">Retry</string>
 </resources>
