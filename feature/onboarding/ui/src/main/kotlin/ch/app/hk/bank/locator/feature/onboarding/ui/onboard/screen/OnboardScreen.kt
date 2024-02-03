@@ -5,7 +5,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ch.app.hk.bank.locator.core.design.ui.ScreenStateView
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.screen.SelectLanguageScreen
-import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.viewmodel.OnboardUiState
+import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.state.OnboardUiState
 import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.viewmodel.OnboardViewModel
 import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.viewmodel.OnboardViewModelImpl
 
