@@ -29,6 +29,7 @@ dependencies {
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.lifecycle.compose)
     implementation(libs.androidx.hilt.compose)
+    implementation(libs.airbnb.lottie.compose)
 
     testImplementation(project(mapOf("path" to ":testing:extension")))
     testImplementation(libs.junit.jupiter)
