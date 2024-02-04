@@ -14,7 +14,7 @@ fun OnboardScreen(
     onboardViewModel: OnboardViewModel = hiltViewModel<OnboardViewModelImpl>(),
     goToHome: () -> Unit,
     goToRequestPermission: () -> Unit,
-    showSelectLanguage: @Composable () -> Unit = {
+    startOnboarding: @Composable () -> Unit = {
         SelectLanguageScreen(goToRequestPermission = goToRequestPermission)
     },
 ) {
@@ -23,7 +23,7 @@ fun OnboardScreen(
         success = { onboardUiState ->
             when (onboardUiState) {
                 OnboardUiState.GoToHome -> goToHome()
-                OnboardUiState.ShowSelectLanguage -> showSelectLanguage()
+                OnboardUiState.StartOnboarding -> startOnboarding()
             }
         },
     )

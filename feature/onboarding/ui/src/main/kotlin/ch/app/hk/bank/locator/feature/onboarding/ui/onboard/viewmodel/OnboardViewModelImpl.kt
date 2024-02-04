@@ -26,7 +26,7 @@ class OnboardViewModelImpl @Inject constructor(
                     if (isAppInitialized) {
                         OnboardUiState.GoToHome
                     } else {
-                        OnboardUiState.ShowSelectLanguage
+                        OnboardUiState.StartOnboarding
                     }
 
                 ScreenState.Success(onboardUiState)
