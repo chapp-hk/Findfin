@@ -1,13 +1,12 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.datasource
 
-import ch.app.hk.bank.locator.core.network.ApiResult
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorApi
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorApiError
 import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorResponse
 import ch.app.hk.bank.locator.testing.util.readResourceAsJson
+import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeInstanceOf
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -44,14 +43,14 @@ class LocatorRemoteDataSourceImplTest {
                     offset = 100,
                 )
 
-            result.shouldBeInstanceOf<ApiResult.Success<List<LocatorResponse>>>()
-                .data.size shouldBe 5
+            result.getOrNull().shouldNotBeNull()
+                .size shouldBe 5
         }
 
     @Test
     @DisplayName(
         "When LocatorApi.getLocators() return error, " +
-            "getLocators() should return ApiResult.Error",
+            "getLocators() should return Result.failure",
     )
     fun testGetLocatorsError() =
         runTest(testDispatcher.scheduler) {
@@ -65,13 +64,13 @@ class LocatorRemoteDataSourceImplTest {
                     offset = 40,
                 )
 
-            result
-                .shouldBeInstanceOf<ApiResult.Error>()
-                .cause shouldBe
-                LocatorApiError(
-                    errorCode = "1002",
-                    errorMessage = "Invalid input value: offset must be non-negative integer",
-                )
+            result.getOrElse { error ->
+                error shouldBe
+                    LocatorApiError(
+                        errorCode = "1002",
+                        errorMessage = "Invalid input value: offset must be non-negative integer",
+                    )
+            }
         }
 
     @Test
@@ -91,14 +90,16 @@ class LocatorRemoteDataSourceImplTest {
                     offset = 60,
                 )
 
-            result.shouldBeInstanceOf<ApiResult.Success<List<LocatorResponse>>>()
-                .data shouldBe emptyList()
+            result
+                .getOrNull()
+                .shouldNotBeNull()
+                .shouldBe(emptyList())
         }
 
     @Test
     @DisplayName(
         "When LocatorApi.getLocators() return empty json, " +
-            "getLocators() should return ApiResult.Error",
+            "getLocators() should return Result.failure",
     )
     fun testGetLocatorsEmptyJson() =
         runTest(testDispatcher.scheduler) {
@@ -112,7 +113,7 @@ class LocatorRemoteDataSourceImplTest {
                     offset = 60,
                 )
 
-            result.shouldBeInstanceOf<ApiResult.Error>()
+            result.isFailure shouldBe true
         }
 
     @Test
@@ -132,8 +133,9 @@ class LocatorRemoteDataSourceImplTest {
                     offset = 60,
                 )
 
-            result.shouldBeInstanceOf<ApiResult.Success<List<LocatorResponse>>>()
-                .data shouldBe
+            result
+                .getOrNull()
+                .shouldNotBeNull() shouldBe
                 listOf(
                     LocatorResponse(
                         district = "",
@@ -173,8 +175,10 @@ class LocatorRemoteDataSourceImplTest {
                     offset = 100,
                 )
 
-            result.shouldBeInstanceOf<ApiResult.Success<List<LocatorResponse>>>()
-                .data.size shouldBe 5
+            result
+                .getOrNull()
+                .shouldNotBeNull()
+                .size shouldBe 5
         }
 
     @Test
