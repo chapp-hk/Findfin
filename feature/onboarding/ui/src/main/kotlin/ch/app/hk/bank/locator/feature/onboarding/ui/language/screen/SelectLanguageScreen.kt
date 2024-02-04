@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -33,17 +34,21 @@ fun SelectLanguageScreen(
     loading: @Composable () -> Unit = {
         CircularProgressIndicator(
             modifier = Modifier
+                .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_LOADING)
                 .fillMaxSize()
                 .wrapContentSize(Alignment.Center),
         )
     },
     error: @Composable (SelectLanguageUiState) -> Unit = { data ->
-        SelectLanguageError {
+        SelectLanguageError(
+            modifier = Modifier.testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_ERROR),
+        ) {
             selectLanguageViewModel.setLanguage(data.selectedLanguageTag)
         }
     },
     content: @Composable () -> Unit = {
         SelectLanguageContent(
+            modifier = Modifier.testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT),
             availableLanguages = selectLanguageViewModel.availableLanguages,
             onLanguageSelect = { localeTag ->
                 selectLanguageViewModel.setLanguage(localeTag)
@@ -53,7 +58,7 @@ fun SelectLanguageScreen(
 ) {
     Scaffold(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
     ) {
         Column(
             modifier = Modifier
@@ -98,3 +103,10 @@ fun SelectLanguageScreen(
         }
     }
 }
+
+internal const val TEST_TAG_ONBOARDING_SELECT_LANGUAGE_LOADING =
+    "onboarding-select-language-loading"
+internal const val TEST_TAG_ONBOARDING_SELECT_LANGUAGE_ERROR =
+    "onboarding-select-language-error"
+internal const val TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT =
+    "onboarding-select-language-content"

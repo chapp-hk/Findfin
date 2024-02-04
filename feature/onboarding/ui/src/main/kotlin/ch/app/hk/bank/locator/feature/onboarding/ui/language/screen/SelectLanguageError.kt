@@ -16,11 +16,12 @@ import androidx.compose.ui.unit.dp
 import ch.app.hk.bank.locator.feature.onboarding.ui.R
 
 @Composable
-fun SelectLanguageError(
+internal fun SelectLanguageError(
+    modifier: Modifier = Modifier,
     retry: () -> Unit,
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .wrapContentSize(Alignment.Center),
         verticalArrangement = Arrangement.Center,

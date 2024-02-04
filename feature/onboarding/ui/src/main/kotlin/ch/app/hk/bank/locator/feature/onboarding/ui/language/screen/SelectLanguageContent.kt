@@ -25,7 +25,7 @@ internal fun SelectLanguageContent(
     onLanguageSelect: (String) -> Unit,
 ) {
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .padding(top = 16.dp),
     ) {
         items(availableLanguages) { language ->
