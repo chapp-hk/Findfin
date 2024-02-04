@@ -1,7 +1,6 @@
 package ch.app.hk.bank.locator.core.design.ui
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 
 sealed interface ScreenState<out T> {
     data object Empty : ScreenState<Nothing>
@@ -12,7 +11,6 @@ sealed interface ScreenState<out T> {
 
 @Composable
 fun <T> ScreenStateView(
-    modifier: Modifier = Modifier,
     state: ScreenState<T>,
     empty: @Composable () -> Unit = {},
     error: @Composable (Throwable, data: T) -> Unit = { _, _ -> },
