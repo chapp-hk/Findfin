@@ -1,6 +1,5 @@
 package ch.app.hk.bank.locator.feature.locator.data.repo.repository
 
-import ch.app.hk.bank.locator.core.network.ApiResult
 import ch.app.hk.bank.locator.feature.locator.data.local.datasource.LocatorLocalDataSource
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.remote.datasource.LocatorRemoteDataSource
@@ -50,7 +49,7 @@ class LocatorRepositoryImplTest {
                     pageSize = any(),
                     offset = any(),
                 )
-            } returns ApiResult.Error(Throwable())
+            } returns Result.failure(Throwable())
 
             locatorRepositoryImpl.fetchLocators(
                 type = Locator.ATM,
@@ -89,7 +88,7 @@ class LocatorRepositoryImplTest {
                     pageSize = any(),
                     offset = any(),
                 )
-            } returns ApiResult.Error(apiError)
+            } returns Result.failure(apiError)
 
             val result =
                 locatorRepositoryImpl.fetchLocators(
@@ -119,9 +118,10 @@ class LocatorRepositoryImplTest {
                     pageSize = any(),
                     offset = any(),
                 )
-            } returns ApiResult.Success(
-                (1..pageSize).map { mockk(relaxed = true) },
-            )
+            } returns
+                Result.success(
+                    (1..pageSize).map { mockk(relaxed = true) },
+                )
 
             val result =
                 locatorRepositoryImpl.fetchLocators(
@@ -150,9 +150,10 @@ class LocatorRepositoryImplTest {
                     pageSize = any(),
                     offset = any(),
                 )
-            } returns ApiResult.Success(
-                (1..pageSize + 1).map { mockk(relaxed = true) },
-            )
+            } returns
+                Result.success(
+                    (1..pageSize + 1).map { mockk(relaxed = true) },
+                )
 
             val result =
                 locatorRepositoryImpl.fetchLocators(
@@ -181,9 +182,10 @@ class LocatorRepositoryImplTest {
                     pageSize = any(),
                     offset = any(),
                 )
-            } returns ApiResult.Success(
-                (1..pageSize - 10).map { mockk(relaxed = true) },
-            )
+            } returns
+                Result.success(
+                    (1..pageSize - 10).map { mockk(relaxed = true) },
+                )
 
             val result =
                 locatorRepositoryImpl.fetchLocators(

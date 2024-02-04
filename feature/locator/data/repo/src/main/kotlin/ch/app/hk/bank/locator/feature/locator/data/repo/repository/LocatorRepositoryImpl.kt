@@ -1,7 +1,6 @@
 package ch.app.hk.bank.locator.feature.locator.data.repo.repository
 
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
-import ch.app.hk.bank.locator.core.network.ApiResult
 import ch.app.hk.bank.locator.feature.locator.data.local.datasource.LocatorLocalDataSource
 import ch.app.hk.bank.locator.feature.locator.data.remote.datasource.LocatorRemoteDataSource
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.Locator
@@ -36,22 +35,20 @@ class LocatorRepositoryImpl
                     offset = page * pageSize,
                 )
 
-            return when (remoteBanks) {
-                is ApiResult.Error -> LocatorResult.Error(remoteBanks.cause)
-
-                is ApiResult.Success -> {
-                    remoteBanks
-                        .data
-                        .map { mapper.convertToLocal(locatorPath, it) }
-                        .also { locatorLocalDataSource.insertAll(it) }
-                        .let { list ->
-                            if (list.size < pageSize) {
-                                LocatorResult.End
-                            } else {
-                                LocatorResult.HasNext
-                            }
+            return try {
+                remoteBanks
+                    .getOrThrow()
+                    .map { mapper.convertToLocal(locatorPath, it) }
+                    .also { locatorLocalDataSource.insertAll(it) }
+                    .let { list ->
+                        if (list.size < pageSize) {
+                            LocatorResult.End
+                        } else {
+                            LocatorResult.HasNext
                         }
-                }
+                    }
+            } catch (error: Throwable) {
+                LocatorResult.Error(error)
             }
         }
     }

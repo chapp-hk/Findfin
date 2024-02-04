@@ -1,7 +1,6 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.datasource
 
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
-import ch.app.hk.bank.locator.core.network.ApiResult
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorApi
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
@@ -23,9 +22,9 @@ internal class LocatorRemoteDataSourceImpl
             language: String,
             pageSize: Int,
             offset: Int,
-        ): ApiResult<List<LocatorResponse>> {
+        ): Result<List<LocatorResponse>> {
             return withContext(ioDispatcher) {
-                try {
+                runCatching {
                     val response =
                         locatorApi.getLocators(
                             path = path.value,
@@ -48,9 +47,7 @@ internal class LocatorRemoteDataSourceImpl
                         )
                     }
 
-                    ApiResult.Success(response.result!!.records)
-                } catch (error: Throwable) {
-                    ApiResult.Error(error)
+                    response.result!!.records
                 }
             }
         }
