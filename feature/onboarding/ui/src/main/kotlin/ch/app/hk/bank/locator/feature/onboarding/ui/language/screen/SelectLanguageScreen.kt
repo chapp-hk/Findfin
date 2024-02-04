@@ -87,7 +87,6 @@ fun SelectLanguageScreen(
             )
 
             ScreenStateView(
-                modifier = Modifier,
                 state = selectLanguageViewModel.uiState.collectAsStateWithLifecycle().value,
                 loading = loading,
                 empty = content,
