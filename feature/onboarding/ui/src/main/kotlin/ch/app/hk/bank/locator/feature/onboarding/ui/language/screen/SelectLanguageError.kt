@@ -1,5 +1,7 @@
 package ch.app.hk.bank.locator.feature.onboarding.ui.language.screen
 
+import android.content.res.Configuration
+import android.graphics.Color
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,7 +15,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ch.app.hk.bank.locator.core.design.theme.AppTheme
 import ch.app.hk.bank.locator.feature.onboarding.ui.R
 
 @Composable
@@ -42,6 +46,30 @@ internal fun SelectLanguageError(
         ) {
             Text(text = stringResource(id = R.string.onboarding_retry_button))
         }
+    }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = Color.WHITE.toLong(),
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Composable
+private fun SelectLanguageErrorPreviewDay() {
+    AppTheme {
+        SelectLanguageError(retry = {})
+    }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = Color.BLACK.toLong(),
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+@Composable
+private fun SelectLanguageErrorPreviewNight() {
+    AppTheme {
+        SelectLanguageError(retry = {})
     }
 }
 
