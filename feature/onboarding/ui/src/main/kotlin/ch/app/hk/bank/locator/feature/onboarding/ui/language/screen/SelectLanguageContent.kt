@@ -1,5 +1,6 @@
 package ch.app.hk.bank.locator.feature.onboarding.ui.language.screen
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,7 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import ch.app.hk.bank.locator.core.design.theme.AppTheme
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.model.SelectLanguageUiModel
 
 @Composable
@@ -58,6 +63,59 @@ internal fun SelectLanguageContent(
             )
         }
     }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = android.graphics.Color.WHITE.toLong(),
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Composable
+private fun SelectLanguageContentPreviewDay(
+    @PreviewParameter(AvailableLanguagesParameterProvider::class)
+    availableLanguages: List<SelectLanguageUiModel>,
+) {
+    AppTheme {
+        SelectLanguageContent(
+            availableLanguages = availableLanguages,
+            onLanguageSelect = {},
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = android.graphics.Color.BLACK.toLong(),
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+@Composable
+private fun SelectLanguageContentPreviewNight(
+    @PreviewParameter(AvailableLanguagesParameterProvider::class)
+    availableLanguages: List<SelectLanguageUiModel>,
+) {
+    AppTheme {
+        SelectLanguageContent(
+            availableLanguages = availableLanguages,
+            onLanguageSelect = {},
+        )
+    }
+}
+
+private class AvailableLanguagesParameterProvider :
+    PreviewParameterProvider<List<SelectLanguageUiModel>> {
+    override val values: Sequence<List<SelectLanguageUiModel>> =
+        sequenceOf(
+            listOf(
+                SelectLanguageUiModel(
+                    displayName = "English",
+                    tag = "en",
+                ),
+                SelectLanguageUiModel(
+                    displayName = "Chinese",
+                    tag = "zh",
+                ),
+            ),
+        )
 }
 
 internal const val TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST =
