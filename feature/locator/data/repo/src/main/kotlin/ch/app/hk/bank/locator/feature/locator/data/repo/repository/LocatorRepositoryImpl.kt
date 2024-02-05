@@ -35,7 +35,7 @@ class LocatorRepositoryImpl
                     offset = page * pageSize,
                 )
 
-            return try {
+            return runCatching {
                 remoteBanks
                     .getOrThrow()
                     .map { mapper.convertToLocal(locatorPath, it) }
@@ -47,7 +47,7 @@ class LocatorRepositoryImpl
                             LocatorResult.HasNext
                         }
                     }
-            } catch (error: Throwable) {
+            }.getOrElse { error ->
                 LocatorResult.Error(error)
             }
         }
