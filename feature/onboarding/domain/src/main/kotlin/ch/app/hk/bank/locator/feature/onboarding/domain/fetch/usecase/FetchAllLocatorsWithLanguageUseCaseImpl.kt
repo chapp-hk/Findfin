@@ -27,7 +27,6 @@ class FetchAllLocatorsWithLanguageUseCaseImpl
         }
 
         private suspend fun getLocators(type: Locator): Boolean {
-            val pageSize = 1000
             var page = 0
 
             do {
@@ -36,7 +35,7 @@ class FetchAllLocatorsWithLanguageUseCaseImpl
                         type = type,
                         localeTag = appLocaleRepository.getCurrentLocale()?.toLanguageTag().orEmpty(),
                         page = page,
-                        pageSize = pageSize,
+                        pageSize = 1000,
                     )
                 page++
 
