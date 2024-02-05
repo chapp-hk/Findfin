@@ -85,7 +85,7 @@ fun SelectLanguageScreen(
             val composition by rememberLottieComposition(lottieResource)
             LottieAnimation(
                 modifier = Modifier
-                    .fillMaxSize(0.5f)
+                    .fillMaxSize(fraction = 0.5f)
                     .align(alignment = Alignment.CenterHorizontally),
                 composition = composition,
                 iterations = LottieConstants.IterateForever,
