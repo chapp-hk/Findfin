@@ -65,8 +65,8 @@ class HiltExtRoomVisitor(
     private fun getDatabaseName(annotation: KSAnnotation): String {
         val databaseName = annotation.findNamedValue<String>("databaseName")
 
-        if (databaseName.isEmpty()) {
-            throw IllegalArgumentException("databaseName should not be empty")
+        require(databaseName.isEmpty()) {
+            "databaseName should not be empty"
         }
 
         return databaseName
