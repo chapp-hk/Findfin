@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.model.SelectLanguageUiModel
@@ -26,11 +27,14 @@ internal fun SelectLanguageContent(
 ) {
     LazyColumn(
         modifier = modifier
+            .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST)
             .padding(top = 16.dp),
     ) {
         items(availableLanguages) { language ->
             OutlinedButton(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST_BUTTON)
+                    .fillMaxWidth(),
                 onClick = { onLanguageSelect(language.tag) },
                 shape = RoundedCornerShape(10.dp),
             ) {
@@ -52,3 +56,8 @@ internal fun SelectLanguageContent(
         }
     }
 }
+
+internal const val TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST =
+    "onboarding_select_language_content_list"
+internal const val TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST_BUTTON =
+    "onboarding_select_language_content_list_button"
