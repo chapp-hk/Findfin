@@ -43,9 +43,6 @@ class SelectLanguageContentTest {
             .onNodeWithTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST)
             .onChildAt(0)
             .assertTextEquals("English")
-
-        composeTestRule
-            .onNodeWithTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST)
             .onChildAt(1)
             .assertTextEquals("Chinese")
     }

@@ -12,7 +12,6 @@ import io.mockk.verify
 import org.junit.Rule
 import org.junit.Test
 
-
 class SelectLanguageErrorTest {
     @get:Rule
     val composeTestRule = createComposeRule()
