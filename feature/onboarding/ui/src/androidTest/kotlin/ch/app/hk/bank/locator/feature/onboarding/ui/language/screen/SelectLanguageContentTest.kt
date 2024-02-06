@@ -24,16 +24,17 @@ class SelectLanguageContentTest {
         composeTestRule.setContent {
             AppTheme {
                 SelectLanguageContent(
-                    availableLanguages = listOf(
-                        SelectLanguageUiModel(
-                            displayName = "English",
-                            tag = "en",
+                    availableLanguages =
+                        listOf(
+                            SelectLanguageUiModel(
+                                displayName = "English",
+                                tag = "en",
+                            ),
+                            SelectLanguageUiModel(
+                                displayName = "Chinese",
+                                tag = "zh",
+                            ),
                         ),
-                        SelectLanguageUiModel(
-                            displayName = "Chinese",
-                            tag = "zh",
-                        ),
-                    ),
                     onLanguageSelect = {},
                 )
             }
@@ -43,6 +44,9 @@ class SelectLanguageContentTest {
             .onNodeWithTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST)
             .onChildAt(0)
             .assertTextEquals("English")
+
+        composeTestRule
+            .onNodeWithTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST)
             .onChildAt(1)
             .assertTextEquals("Chinese")
     }
@@ -55,12 +59,13 @@ class SelectLanguageContentTest {
         composeTestRule.setContent {
             AppTheme {
                 SelectLanguageContent(
-                    availableLanguages = listOf(
-                        SelectLanguageUiModel(
-                            displayName = "English",
-                            tag = "en",
+                    availableLanguages =
+                        listOf(
+                            SelectLanguageUiModel(
+                                displayName = "English",
+                                tag = "en",
+                            ),
                         ),
-                    ),
                     onLanguageSelect = mockOnLanguageSelect,
                 )
             }
