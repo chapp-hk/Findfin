@@ -26,8 +26,9 @@ class OnboardViewModelImplTest {
     private val appPreferencesRepository = mockk<AppPreferencesRepository>()
 
     @ParameterizedTest(
-        name = "test uiState, when appPreferencesRepository.getBoolean() returns {0}, " +
-            "then OnboardViewModelImpl.uiState should be {1}",
+        name =
+            "test uiState, when appPreferencesRepository.getBoolean() returns {0}, " +
+                "then OnboardViewModelImpl.uiState should be {1}",
     )
     @ArgumentsSource(UiStateArgumentProvider::class)
     fun testUiState(
@@ -54,6 +55,5 @@ class OnboardViewModelImplTest {
         }
     }
 
-    private fun createOnboardViewModel() =
-        OnboardViewModelImpl(appPreferencesRepository = appPreferencesRepository)
+    private fun createOnboardViewModel() = OnboardViewModelImpl(appPreferencesRepository = appPreferencesRepository)
 }

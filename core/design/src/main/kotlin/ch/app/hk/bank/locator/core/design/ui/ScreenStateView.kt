@@ -20,7 +20,10 @@ fun <T> ScreenStateView(
 
 sealed interface ScreenState<out T> {
     data object Empty : ScreenState<Nothing>
+
     data object Loading : ScreenState<Nothing>
+
     data class Error<T>(val cause: Throwable, val data: T) : ScreenState<T>
+
     data class Success<T>(val data: T) : ScreenState<T>
 }

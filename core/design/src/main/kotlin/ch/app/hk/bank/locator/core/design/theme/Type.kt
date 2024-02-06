@@ -3,23 +3,7 @@ package ch.app.hk.bank.locator.core.design.theme
 import androidx.compose.material3.Typography
 
 // Set of Material typography styles to start with
-val Typography = Typography(
-    //default text styles to override
-    /*
-    body1 = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
-    ),
-    button = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
-    ),
-    caption = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
+val Typography =
+    Typography(
+        // default text styles to override
     )
-    */
-)

@@ -60,7 +60,7 @@ class OnboardScreenTest {
                     startOnboarding = {
                         Text(
                             modifier = Modifier.testTag("test"),
-                            text = "some text"
+                            text = "some text",
                         )
                     },
                 )

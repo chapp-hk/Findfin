@@ -33,10 +33,11 @@ fun SelectLanguageScreen(
     goToRequestPermission: () -> Unit,
     loading: @Composable () -> Unit = {
         CircularProgressIndicator(
-            modifier = Modifier
-                .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_LOADING)
-                .fillMaxSize()
-                .wrapContentSize(Alignment.Center),
+            modifier =
+                Modifier
+                    .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_LOADING)
+                    .fillMaxSize()
+                    .wrapContentSize(Alignment.Center),
         )
     },
     error: @Composable (SelectLanguageUiState) -> Unit = { data ->
@@ -57,25 +58,28 @@ fun SelectLanguageScreen(
     },
 ) {
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier =
+            Modifier
+                .fillMaxSize(),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(
-                    top = it.calculateTopPadding(),
-                    bottom = it.calculateBottomPadding(),
-                )
-                .padding(
-                    top = 55.dp,
-                    start = 16.dp,
-                    end = 16.dp,
-                ),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(
+                        top = it.calculateTopPadding(),
+                        bottom = it.calculateBottomPadding(),
+                    )
+                    .padding(
+                        top = 55.dp,
+                        start = 16.dp,
+                        end = 16.dp,
+                    ),
         ) {
             Text(
-                modifier = Modifier
-                    .align(alignment = Alignment.CenterHorizontally),
+                modifier =
+                    Modifier
+                        .align(alignment = Alignment.CenterHorizontally),
                 text = stringResource(id = R.string.onboarding_title_language),
                 style = MaterialTheme.typography.headlineSmall,
             )
@@ -84,9 +88,10 @@ fun SelectLanguageScreen(
                 LottieCompositionSpec.RawRes(R.raw.onboarding_select_language_loading)
             val composition by rememberLottieComposition(lottieResource)
             LottieAnimation(
-                modifier = Modifier
-                    .fillMaxSize(fraction = 0.5f)
-                    .align(alignment = Alignment.CenterHorizontally),
+                modifier =
+                    Modifier
+                        .fillMaxSize(fraction = 0.5f)
+                        .align(alignment = Alignment.CenterHorizontally),
                 composition = composition,
                 iterations = LottieConstants.IterateForever,
             )

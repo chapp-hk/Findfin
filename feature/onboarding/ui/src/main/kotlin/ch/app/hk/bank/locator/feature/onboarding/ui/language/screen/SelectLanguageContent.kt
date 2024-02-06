@@ -31,26 +31,29 @@ internal fun SelectLanguageContent(
     onLanguageSelect: (String) -> Unit,
 ) {
     LazyColumn(
-        modifier = modifier
-            .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST)
-            .padding(top = 16.dp),
+        modifier =
+            modifier
+                .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST)
+                .padding(top = 16.dp),
     ) {
         items(
             items = availableLanguages,
             key = { it.tag },
         ) { language ->
             OutlinedButton(
-                modifier = Modifier
-                    .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST_BUTTON)
-                    .fillMaxWidth(),
+                modifier =
+                    Modifier
+                        .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST_BUTTON)
+                        .fillMaxWidth(),
                 onClick = { onLanguageSelect(language.tag) },
                 shape = RoundedCornerShape(10.dp),
             ) {
                 Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(40.dp)
-                        .wrapContentHeight(),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(40.dp)
+                            .wrapContentHeight(),
                     text = language.displayName,
                     textAlign = TextAlign.Start,
                     style = MaterialTheme.typography.titleMedium,
