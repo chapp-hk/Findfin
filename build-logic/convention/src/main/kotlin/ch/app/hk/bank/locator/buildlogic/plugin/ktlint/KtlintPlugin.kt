@@ -12,7 +12,7 @@ import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
 class KtlintPlugin : Plugin<Project> {
     private val ktlintGradlePluginId = "org.jlleitschuh.gradle.ktlint"
-    private val ktlintVersion = "1.0.1"
+    private val ktlintVersion = "1.1.1"
 
     override fun apply(project: Project) {
         project.assertRootProjectAppliedPlugin(pluginId = "app.plugin.ktlint")
