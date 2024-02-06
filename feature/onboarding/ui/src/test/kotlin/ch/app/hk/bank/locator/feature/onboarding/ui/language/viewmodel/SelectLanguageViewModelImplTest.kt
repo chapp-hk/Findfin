@@ -78,39 +78,41 @@ class SelectLanguageViewModelImplTest {
         "test uiState, when fetchAllLocatorsWithLanguage() returns true, " +
             "then SelectLanguageViewModelImpl.uiState should be ScreenState.Success",
     )
-    fun testUiStateSuccess() = runTest {
-        every { appLocaleRepository.setLocale(any()) } just Runs
-        coEvery { fetchAllLocatorsWithLanguage() } returns true
+    fun testUiStateSuccess() =
+        runTest {
+            every { appLocaleRepository.setLocale(any()) } just Runs
+            coEvery { fetchAllLocatorsWithLanguage() } returns true
 
-        val viewModel = createViewModel()
-        viewModel.setLanguage("en")
+            val viewModel = createViewModel()
+            viewModel.setLanguage("en")
 
-        viewModel.uiState.test {
-            awaitItem() shouldBe ScreenState.Empty
-            awaitItem() shouldBe ScreenState.Loading
-            awaitItem() shouldBe ScreenState.Success(SelectLanguageUiState("en"))
+            viewModel.uiState.test {
+                awaitItem() shouldBe ScreenState.Empty
+                awaitItem() shouldBe ScreenState.Loading
+                awaitItem() shouldBe ScreenState.Success(SelectLanguageUiState("en"))
+            }
         }
-    }
 
     @Test
     @DisplayName(
         "test uiState, when fetchAllLocatorsWithLanguage() returns false, " +
             "then SelectLanguageViewModelImpl.uiState should be ScreenState.Error",
     )
-    fun testUiStateError() = runTest {
-        every { appLocaleRepository.setLocale(any()) } just Runs
-        coEvery { fetchAllLocatorsWithLanguage() } returns false
+    fun testUiStateError() =
+        runTest {
+            every { appLocaleRepository.setLocale(any()) } just Runs
+            coEvery { fetchAllLocatorsWithLanguage() } returns false
 
-        val viewModel = createViewModel()
-        viewModel.setLanguage("en")
+            val viewModel = createViewModel()
+            viewModel.setLanguage("en")
 
-        viewModel.uiState.test {
-            awaitItem() shouldBe ScreenState.Empty
-            awaitItem() shouldBe ScreenState.Loading
-            awaitItem().shouldBeInstanceOf<ScreenState.Error<SelectLanguageUiState>>()
-                .data shouldBe SelectLanguageUiState("en")
+            viewModel.uiState.test {
+                awaitItem() shouldBe ScreenState.Empty
+                awaitItem() shouldBe ScreenState.Loading
+                awaitItem().shouldBeInstanceOf<ScreenState.Error<SelectLanguageUiState>>()
+                    .data shouldBe SelectLanguageUiState("en")
+            }
         }
-    }
 
     private fun createViewModel() =
         SelectLanguageViewModelImpl(

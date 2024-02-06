@@ -26,9 +26,10 @@ internal fun SelectLanguageError(
     retry: () -> Unit,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .wrapContentSize(Alignment.Center),
+        modifier =
+            modifier
+                .fillMaxSize()
+                .wrapContentSize(Alignment.Center),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -39,9 +40,10 @@ internal fun SelectLanguageError(
         )
 
         OutlinedButton(
-            modifier = Modifier
-                .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_ERROR_RETRY)
-                .padding(top = 8.dp),
+            modifier =
+                Modifier
+                    .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_ERROR_RETRY)
+                    .padding(top = 8.dp),
             onClick = retry,
         ) {
             Text(text = stringResource(id = R.string.onboarding_retry_button))

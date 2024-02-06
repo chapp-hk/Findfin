@@ -16,5 +16,7 @@ internal val Context.dataStore: DataStore<Preferences> by preferencesDataStore(n
 @InstallIn(SingletonComponent::class)
 internal class DataStoreHiltModule {
     @Provides
-    fun provideDataStore(@ApplicationContext context: Context) = context.dataStore
+    fun provideDataStore(
+        @ApplicationContext context: Context,
+    ) = context.dataStore
 }

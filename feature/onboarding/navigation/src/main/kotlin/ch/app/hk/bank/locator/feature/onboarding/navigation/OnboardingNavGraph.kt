@@ -7,9 +7,7 @@ import androidx.navigation.navigation
 import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.screen.OnboardScreen
 import ch.app.hk.bank.locator.feature.onboarding.ui.permission.screen.RequestLocationPermissionScreen
 
-fun NavGraphBuilder.onboardingNavGraph(
-    navController: NavController,
-) {
+fun NavGraphBuilder.onboardingNavGraph(navController: NavController) {
     navigation(
         startDestination = OnboardingDestination.route,
         route = OnboardingNavGraphDestination.navGraphId,
