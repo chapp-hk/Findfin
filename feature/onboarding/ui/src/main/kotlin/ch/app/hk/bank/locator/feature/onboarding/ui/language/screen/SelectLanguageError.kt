@@ -46,7 +46,7 @@ internal fun SelectLanguageError(
                     .padding(top = 8.dp),
             onClick = retry,
         ) {
-            Text(text = stringResource(id = R.string.onboarding_retry_button))
+            Text(text = stringResource(id = R.string.onboarding_button_retry))
         }
     }
 }
