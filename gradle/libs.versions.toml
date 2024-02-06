@@ -1,16 +1,16 @@
 [versions]
-agp = "8.2.1"
-kotlin = "1.9.20"
+agp = "8.2.2"
+kotlin = "1.9.22"
 core-ktx = "1.12.0"
 kotlinxCoroutines = "1.7.3"
 junit = "4.13.2"
-mockk = "1.13.8"
+mockk = "1.13.9"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 appcompat = "1.6.1"
 activity-compose = "1.8.2"
 material = "1.11.0"
-ktor = "2.3.7"
+ktor = "2.3.8"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -28,7 +28,7 @@ androidx-navigation-compose = { module = "androidx.navigation:navigation-compose
 androidx-test-runner = { module = "androidx.test:runner", version = "1.5.2" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version = "5.10.0" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version = "5.10.2" }
 kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version = "5.8.0" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
@@ -60,7 +60,7 @@ com-android-library = { id = "com.android.library", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.48" }
-com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "1.9.20-1.0.14" }
+com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "1.9.22-1.0.17" }
 
 [bundles]
 
