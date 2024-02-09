@@ -29,6 +29,7 @@ dependencies {
     implementation(project(mapOf("path" to ":core:design")))
     implementation(project(mapOf("path" to ":core:preferences:api")))
     implementation(project(mapOf("path" to ":core:preferences:impl")))
+    implementation(project(mapOf("path" to ":core:location")))
     implementation(project(mapOf("path" to ":core:locale:api")))
     implementation(project(mapOf("path" to ":core:locale:impl")))
     implementation(project(mapOf("path" to ":feature:locator:data:local-database")))

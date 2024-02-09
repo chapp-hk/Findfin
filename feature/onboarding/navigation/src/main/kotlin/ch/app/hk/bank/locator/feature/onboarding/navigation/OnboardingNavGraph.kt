@@ -7,7 +7,10 @@ import androidx.navigation.navigation
 import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.screen.OnboardScreen
 import ch.app.hk.bank.locator.feature.onboarding.ui.permission.screen.RequestLocationPermissionScreen
 
-fun NavGraphBuilder.onboardingNavGraph(navController: NavController) {
+fun NavGraphBuilder.onboardingNavGraph(
+    navController: NavController,
+    goToHome: () -> Unit,
+) {
     navigation(
         startDestination = OnboardingDestination.route,
         route = OnboardingNavGraphDestination.navGraphId,
@@ -21,15 +24,12 @@ fun NavGraphBuilder.onboardingNavGraph(navController: NavController) {
                         }
                     }
                 },
-                goToHome = {
-                    // TODO : navigate to correct route
-                    navController.context
-                },
+                goToHome = goToHome,
             )
         }
 
         composable(route = OnboardingRequestPermissionDestination.route) {
-            RequestLocationPermissionScreen()
+            RequestLocationPermissionScreen(goToHome = goToHome)
         }
     }
 }
