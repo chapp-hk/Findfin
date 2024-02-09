@@ -1,17 +1,24 @@
 package ch.app.hk.bank.locator.feature.onboarding.ui.permission.screen
 
+import android.Manifest
 import android.content.res.Configuration
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -26,10 +33,44 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 
 @Composable
-fun RequestLocationPermissionScreen() {
+fun RequestLocationPermissionScreen(goToHome: () -> Unit) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
     ) {
+        val showDialog = remember { mutableStateOf(false) }
+        if (showDialog.value) {
+            AlertDialog(
+                title = {
+                    Text(text = stringResource(id = R.string.onboarding_title_permission_denied))
+                },
+                text = {
+                    Text(text = stringResource(id = R.string.onboarding_message_guide_location_permission_setting))
+                },
+                onDismissRequest = {},
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            showDialog.value = false
+                            goToHome()
+                        },
+                    ) {
+                        Text(text = stringResource(id = R.string.onboarding_button_ok))
+                    }
+                },
+            )
+        }
+
+        val launcher =
+            rememberLauncherForActivityResult(
+                ActivityResultContracts.RequestPermission(),
+            ) { isGranted: Boolean ->
+                if (isGranted) {
+                    goToHome()
+                } else {
+                    showDialog.value = true
+                }
+            }
+
         Column(
             modifier =
                 Modifier
@@ -78,14 +119,18 @@ fun RequestLocationPermissionScreen() {
 
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = {},
+                onClick = {
+                    launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+                },
             ) {
                 Text(text = stringResource(id = R.string.onboarding_button_grant_permission))
             }
 
             OutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { },
+                onClick = {
+                    showDialog.value = true
+                },
             ) {
                 Text(text = stringResource(id = R.string.onboarding_button_skip))
             }
@@ -101,7 +146,7 @@ fun RequestLocationPermissionScreen() {
 @Composable
 private fun RequestLocationPermissionScreenPreviewDay() {
     AppTheme {
-        RequestLocationPermissionScreen()
+        RequestLocationPermissionScreen {}
     }
 }
 
@@ -113,6 +158,6 @@ private fun RequestLocationPermissionScreenPreviewDay() {
 @Composable
 private fun RequestLocationPermissionScreenPreviewNight() {
     AppTheme {
-        RequestLocationPermissionScreen()
+        RequestLocationPermissionScreen {}
     }
 }
