@@ -6,6 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import ch.app.hk.bank.locator.feature.home.navigation.HomeNavGraphDestination
+import ch.app.hk.bank.locator.feature.home.navigation.homeNavGraph
 import ch.app.hk.bank.locator.feature.onboarding.navigation.OnboardingNavGraphDestination
 import ch.app.hk.bank.locator.feature.onboarding.navigation.onboardingNavGraph
 
@@ -19,6 +21,16 @@ fun AppNavHost(
         navController = navController,
         startDestination = OnboardingNavGraphDestination.navGraphId,
     ) {
-        onboardingNavGraph(navController)
+        onboardingNavGraph(
+            navController = navController,
+            goToHome = {
+                navController.navigate(HomeNavGraphDestination.navGraphId) {
+                    popUpTo(OnboardingNavGraphDestination.navGraphId) {
+                        inclusive = true
+                    }
+                }
+            },
+        )
+        homeNavGraph(navController)
     }
 }
