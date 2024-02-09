@@ -40,6 +40,9 @@ include(":feature:onboarding:domain")
 include(":feature:onboarding:navigation")
 include(":feature:onboarding:ui")
 
+// feature home modules
+include(":feature:home:navigation")
+
 // framework modules
 include(":framework:hiltext:annotation")
 include(":framework:hiltext:processor-binds")
