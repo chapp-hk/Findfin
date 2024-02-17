@@ -8,17 +8,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -37,28 +33,10 @@ fun RequestLocationPermissionScreen(goToHome: () -> Unit) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
     ) {
-        val showDialog = remember { mutableStateOf(false) }
-        if (showDialog.value) {
-            AlertDialog(
-                title = {
-                    Text(text = stringResource(id = R.string.onboarding_title_permission_denied))
-                },
-                text = {
-                    Text(text = stringResource(id = R.string.onboarding_message_guide_location_permission_setting))
-                },
-                onDismissRequest = {},
-                confirmButton = {
-                    TextButton(
-                        onClick = {
-                            showDialog.value = false
-                            goToHome()
-                        },
-                    ) {
-                        Text(text = stringResource(id = R.string.onboarding_button_ok))
-                    }
-                },
-            )
-        }
+        val dialogController =
+            locationPermissionNotGrantedDialogController {
+                goToHome()
+            }
 
         val launcher =
             rememberLauncherForActivityResult(
@@ -67,7 +45,7 @@ fun RequestLocationPermissionScreen(goToHome: () -> Unit) {
                 if (isGranted) {
                     goToHome()
                 } else {
-                    showDialog.value = true
+                    dialogController.value = true
                 }
             }
 
@@ -129,7 +107,7 @@ fun RequestLocationPermissionScreen(goToHome: () -> Unit) {
             OutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
-                    showDialog.value = true
+                    dialogController.value = true
                 },
             ) {
                 Text(text = stringResource(id = R.string.onboarding_button_skip))
