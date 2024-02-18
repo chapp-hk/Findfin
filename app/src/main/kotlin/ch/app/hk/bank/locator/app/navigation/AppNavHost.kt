@@ -25,6 +25,7 @@ fun AppNavHost(
             navController = navController,
             goToHome = {
                 navController.navigate(HomeNavGraphDestination.navGraphId) {
+                    launchSingleTop = true
                     popUpTo(OnboardingNavGraphDestination.navGraphId) {
                         inclusive = true
                     }
