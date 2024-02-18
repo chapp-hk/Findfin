@@ -17,7 +17,7 @@ fun RequestLocationPermissionScreen(
     ScreenStateView(
         state = permissionViewModel.uiState.collectAsStateWithLifecycle().value,
         empty = {
-            RequestLocationPermissionContent(
+            RequestLocationPermissionController(
                 modifier = Modifier.testTag(tag = TEST_TAG_ONBOARDING_REQUEST_LOCATION_PERMISSION_SCREEN),
             ) {
                 permissionViewModel.completeOnboarding()

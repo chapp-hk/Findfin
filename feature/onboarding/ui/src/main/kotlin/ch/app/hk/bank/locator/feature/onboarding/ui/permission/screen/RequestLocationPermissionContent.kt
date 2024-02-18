@@ -1,9 +1,6 @@
 package ch.app.hk.bank.locator.feature.onboarding.ui.permission.screen
 
-import android.Manifest
 import android.content.res.Configuration
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,8 +12,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -33,29 +28,10 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 @Composable
 fun RequestLocationPermissionContent(
     modifier: Modifier = Modifier,
-    completeOnboarding: () -> Unit,
+    onGrantPermission: () -> Unit,
+    onSkip: () -> Unit,
 ) {
-    val isShowDialog = remember { mutableStateOf(false) }
-    LocationPermissionNotGrantedDialog(
-        isShowDialog = isShowDialog.value,
-    ) {
-        completeOnboarding()
-    }
-
-    val launcher =
-        rememberLauncherForActivityResult(
-            ActivityResultContracts.RequestPermission(),
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                completeOnboarding()
-            } else {
-                isShowDialog.value = true
-            }
-        }
-
-    Scaffold(
-        modifier = modifier.fillMaxSize(),
-    ) {
+    Scaffold(modifier = modifier.fillMaxSize()) {
         Column(
             modifier =
                 Modifier
@@ -64,10 +40,9 @@ fun RequestLocationPermissionContent(
                         top = it.calculateTopPadding(),
                         bottom = it.calculateBottomPadding(),
                     )
+                    .padding(horizontal = 16.dp)
                     .padding(
                         top = 55.dp,
-                        start = 16.dp,
-                        end = 16.dp,
                         bottom = 24.dp,
                     ),
         ) {
@@ -104,18 +79,14 @@ fun RequestLocationPermissionContent(
 
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = {
-                    launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-                },
+                onClick = onGrantPermission,
             ) {
                 Text(text = stringResource(id = R.string.onboarding_button_grant_permission))
             }
 
             OutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = {
-                    isShowDialog.value = true
-                },
+                onClick = onSkip,
             ) {
                 Text(text = stringResource(id = R.string.onboarding_button_skip))
             }
@@ -131,7 +102,7 @@ fun RequestLocationPermissionContent(
 @Composable
 private fun RequestLocationPermissionContentPreviewDay() {
     AppTheme {
-        RequestLocationPermissionContent {}
+        RequestLocationPermissionController {}
     }
 }
 
@@ -143,6 +114,6 @@ private fun RequestLocationPermissionContentPreviewDay() {
 @Composable
 private fun RequestLocationPermissionContentPreviewNight() {
     AppTheme {
-        RequestLocationPermissionContent {}
+        RequestLocationPermissionController {}
     }
 }
