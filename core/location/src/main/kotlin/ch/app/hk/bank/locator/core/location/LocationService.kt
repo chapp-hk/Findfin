@@ -12,5 +12,6 @@ class LocationService : Service(), LocationListener {
     }
 
     override fun onLocationChanged(location: Location) {
+        // no implementation
     }
 }
