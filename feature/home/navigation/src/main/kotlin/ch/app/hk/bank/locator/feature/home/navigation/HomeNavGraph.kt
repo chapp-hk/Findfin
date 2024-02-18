@@ -11,6 +11,8 @@ fun NavGraphBuilder.homeNavGraph(navController: NavController) {
         startDestination = HomeDestination.route,
         route = HomeNavGraphDestination.navGraphId,
     ) {
+        // TODO - proper use of navController
+        navController.toString()
         composable(route = HomeDestination.route) {
             Text(text = "home")
         }
