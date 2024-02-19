@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.jvm)
     id("app.plugin.jvm")
     id("app.plugin.hilt.jvm")
-    kotlin("plugin.serialization") version "1.9.20"
+    kotlin("plugin.serialization") version libs.versions.kotlin
 }
 
 dependencies {
