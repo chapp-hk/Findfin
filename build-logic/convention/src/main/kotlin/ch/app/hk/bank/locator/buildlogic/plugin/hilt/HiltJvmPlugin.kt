@@ -12,8 +12,8 @@ class HiltJvmPlugin : Plugin<Project> {
             }
 
             dependencies {
-                "implementation"("com.google.dagger:hilt-core:2.48")
-                "ksp"("com.google.dagger:hilt-compiler:2.48")
+                "implementation"("com.google.dagger:hilt-core:2.50")
+                "ksp"("com.google.dagger:hilt-compiler:2.50")
 
                 "implementation"(project(mapOf("path" to ":framework:hiltext:annotation")))
                 "ksp"(project(mapOf("path" to ":framework:hiltext:processor-binds")))
