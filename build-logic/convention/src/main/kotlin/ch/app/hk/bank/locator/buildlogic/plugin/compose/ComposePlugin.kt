@@ -22,7 +22,7 @@ class ComposePlugin : Plugin<Project> {
             }
 
             project.dependencies {
-                val composeBom = platform("androidx.compose:compose-bom:2024.01.00")
+                val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
                 add("implementation", composeBom)
                 add("implementation", "androidx.compose.runtime:runtime")
                 add("androidTestImplementation", composeBom)
