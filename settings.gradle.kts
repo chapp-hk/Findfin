@@ -52,5 +52,6 @@ include(":framework:konsist")
 
 // testing modules
 include(":testing:extension")
+include(":testing:instrument")
 include(":testing:network")
 include(":testing:util")
