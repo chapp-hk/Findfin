@@ -47,22 +47,7 @@ fun RequestLocationPermissionContent(
                         bottom = 24.dp,
                     ),
         ) {
-            Text(
-                modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                text = stringResource(id = R.string.onboarding_title_enable_location),
-                style = MaterialTheme.typography.headlineSmall,
-            )
-
-            Text(
-                modifier =
-                    Modifier
-                        .padding(top = 8.dp)
-                        .align(alignment = Alignment.CenterHorizontally),
-                text = stringResource(id = R.string.onboarding_subtitle_enable_location),
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.secondary,
-                style = MaterialTheme.typography.bodySmall,
-            )
+            RequestLocationPermissionContentHeader()
 
             val lottieResource =
                 LottieCompositionSpec.RawRes(R.raw.onboarding_request_location_permission)
@@ -99,6 +84,27 @@ fun RequestLocationPermissionContent(
             }
         }
     }
+}
+
+@Composable
+private fun RequestLocationPermissionContentHeader() {
+    Text(
+        modifier = Modifier.fillMaxWidth(),
+        text = stringResource(id = R.string.onboarding_title_enable_location),
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.headlineSmall,
+    )
+
+    Text(
+        modifier =
+            Modifier
+                .padding(top = 8.dp)
+                .fillMaxWidth(),
+        text = stringResource(id = R.string.onboarding_subtitle_enable_location),
+        textAlign = TextAlign.Center,
+        color = MaterialTheme.colorScheme.secondary,
+        style = MaterialTheme.typography.bodySmall,
+    )
 }
 
 internal const val TEST_TAG_ONBOARDING_REQUEST_LOCATION_PERMISSION_BUTTON_GRANT =

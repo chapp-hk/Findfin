@@ -29,7 +29,6 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 @Composable
 fun SelectLanguageScreen(
     modifier: Modifier = Modifier,
-    selectLanguageViewModel: SelectLanguageViewModel = hiltViewModel<SelectLanguageViewModelImpl>(),
     goToRequestPermission: () -> Unit,
 ) {
     Scaffold(
@@ -67,39 +66,47 @@ fun SelectLanguageScreen(
                 iterations = LottieConstants.IterateForever,
             )
 
-            ScreenStateView(
-                state = selectLanguageViewModel.uiState.collectAsStateWithLifecycle().value,
-                loading = {
-                    CircularProgressIndicator(
-                        modifier =
-                            Modifier
-                                .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_LOADING)
-                                .fillMaxSize()
-                                .wrapContentSize(Alignment.Center),
-                    )
-                },
-                empty = {
-                    SelectLanguageContent(
-                        modifier = Modifier.testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT),
-                        availableLanguages = selectLanguageViewModel.availableLanguages,
-                        onLanguageSelect = { localeTag ->
-                            selectLanguageViewModel.setLanguage(localeTag)
-                        },
-                    )
-                },
-                error = { _, data ->
-                    SelectLanguageError(
-                        modifier = Modifier.testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_ERROR),
-                    ) {
-                        selectLanguageViewModel.setLanguage(data.selectedLanguageTag)
-                    }
-                },
-                success = {
-                    goToRequestPermission()
-                },
-            )
+            SelectLanguageScreenStateView(goToRequestPermission = goToRequestPermission)
         }
     }
+}
+
+@Composable
+private fun SelectLanguageScreenStateView(
+    selectLanguageViewModel: SelectLanguageViewModel = hiltViewModel<SelectLanguageViewModelImpl>(),
+    goToRequestPermission: () -> Unit,
+) {
+    ScreenStateView(
+        state = selectLanguageViewModel.uiState.collectAsStateWithLifecycle().value,
+        loading = {
+            CircularProgressIndicator(
+                modifier =
+                    Modifier
+                        .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_LOADING)
+                        .fillMaxSize()
+                        .wrapContentSize(Alignment.Center),
+            )
+        },
+        empty = {
+            SelectLanguageContent(
+                modifier = Modifier.testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT),
+                availableLanguages = selectLanguageViewModel.availableLanguages,
+                onLanguageSelect = { localeTag ->
+                    selectLanguageViewModel.setLanguage(localeTag)
+                },
+            )
+        },
+        error = { _, data ->
+            SelectLanguageError(
+                modifier = Modifier.testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_ERROR),
+            ) {
+                selectLanguageViewModel.setLanguage(data.selectedLanguageTag)
+            }
+        },
+        success = {
+            goToRequestPermission()
+        },
+    )
 }
 
 internal const val TEST_TAG_ONBOARDING_SELECT_LANGUAGE_LOADING =
