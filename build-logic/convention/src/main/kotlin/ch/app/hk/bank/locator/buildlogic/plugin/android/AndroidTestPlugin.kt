@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.buildlogic.plugin.testing
+package ch.app.hk.bank.locator.buildlogic.plugin.android
 
 import com.android.build.api.variant.AndroidComponentsExtension
 import org.gradle.api.Plugin
@@ -10,6 +10,10 @@ class AndroidTestPlugin : Plugin<Project> {
 
         @Suppress("UnstableApiUsage")
         androidComponents.finalizeDsl { extension ->
+            extension.defaultConfig {
+                testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+            }
+
             extension.buildTypes {
                 getByName("debug") {
                     it.enableUnitTestCoverage = true
