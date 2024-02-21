@@ -5,6 +5,7 @@ plugins {
     id("app.plugin.compose")
     id("app.plugin.mapstruct")
     id("app.plugin.hilt.android")
+    id("app.plugin.hilt.android.test")
     id("app.plugin.kover.android")
 }
 
