@@ -29,6 +29,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 
 @Composable
 fun SelectLanguageScreen(
+    modifier: Modifier = Modifier,
     selectLanguageViewModel: SelectLanguageViewModel = hiltViewModel<SelectLanguageViewModelImpl>(),
     goToRequestPermission: () -> Unit,
     loading: @Composable () -> Unit = {
@@ -58,9 +59,7 @@ fun SelectLanguageScreen(
     },
 ) {
     Scaffold(
-        modifier =
-            Modifier
-                .fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
     ) {
         Column(
             modifier =
@@ -77,9 +76,7 @@ fun SelectLanguageScreen(
                     ),
         ) {
             Text(
-                modifier =
-                    Modifier
-                        .align(alignment = Alignment.CenterHorizontally),
+                modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
                 text = stringResource(id = R.string.onboarding_title_language),
                 style = MaterialTheme.typography.headlineSmall,
             )

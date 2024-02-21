@@ -1,29 +1,39 @@
 package ch.app.hk.bank.locator.feature.onboarding.ui.onboard.screen
 
-import androidx.compose.material3.Text
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import ch.app.hk.bank.locator.core.design.theme.AppTheme
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.state.OnboardUiState
 import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.viewmodel.OnboardViewModel
+import ch.app.hk.bank.locator.testing.instrument.HiltComponentActivity
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.flow.MutableStateFlow
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+@HiltAndroidTest
 class OnboardScreenTest {
-    @get:Rule
-    val composeTestRule = createComposeRule()
+    @get:Rule(order = 0)
+    val hiltTestRule = HiltAndroidRule(this)
+
+    @get:Rule(order = 1)
+    val composeTestRule = createAndroidComposeRule<HiltComponentActivity>()
 
     private val onboardViewModel = mockk<OnboardViewModel>()
+
+    @Before
+    fun setup() {
+        hiltTestRule.inject()
+    }
 
     @Test
     fun testGoToHome() {
@@ -57,18 +67,12 @@ class OnboardScreenTest {
                     onboardViewModel = onboardViewModel,
                     goToHome = {},
                     goToRequestPermission = {},
-                    startOnboarding = {
-                        Text(
-                            modifier = Modifier.testTag("test"),
-                            text = "some text",
-                        )
-                    },
                 )
             }
         }
 
         composeTestRule
-            .onNodeWithTag("test")
+            .onNodeWithTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_SCREEN)
             .assertIsDisplayed()
     }
 }
