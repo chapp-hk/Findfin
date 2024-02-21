@@ -72,6 +72,11 @@ gradlePlugin {
             implementationClass = "$group.plugin.hilt.HiltAndroidPlugin"
         }
 
+        create("hilt-android-test") {
+            id = "app.plugin.hilt.android.test"
+            implementationClass = "$group.plugin.hilt.HiltAndroidTestPlugin"
+        }
+
         create("hilt-jvm") {
             id = "app.plugin.hilt.jvm"
             implementationClass = "$group.plugin.hilt.HiltJvmPlugin"
