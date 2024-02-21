@@ -23,7 +23,7 @@ import ch.app.hk.bank.locator.feature.onboarding.ui.R
 @Composable
 internal fun SelectLanguageError(
     modifier: Modifier = Modifier,
-    retry: () -> Unit,
+    onRetry: () -> Unit,
 ) {
     Column(
         modifier =
@@ -44,7 +44,7 @@ internal fun SelectLanguageError(
                 Modifier
                     .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_ERROR_RETRY)
                     .padding(top = 8.dp),
-            onClick = retry,
+            onClick = onRetry,
         ) {
             Text(text = stringResource(id = R.string.onboarding_button_retry))
         }
@@ -59,7 +59,7 @@ internal fun SelectLanguageError(
 @Composable
 private fun SelectLanguageErrorPreviewDay() {
     AppTheme {
-        SelectLanguageError(retry = {})
+        SelectLanguageError(onRetry = {})
     }
 }
 
@@ -71,7 +71,7 @@ private fun SelectLanguageErrorPreviewDay() {
 @Composable
 private fun SelectLanguageErrorPreviewNight() {
     AppTheme {
-        SelectLanguageError(retry = {})
+        SelectLanguageError(onRetry = {})
     }
 }
 

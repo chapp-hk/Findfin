@@ -19,7 +19,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ch.app.hk.bank.locator.core.design.ui.ScreenStateView
 import ch.app.hk.bank.locator.feature.onboarding.ui.R
-import ch.app.hk.bank.locator.feature.onboarding.ui.language.state.SelectLanguageUiState
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.viewmodel.SelectLanguageViewModel
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.viewmodel.SelectLanguageViewModelImpl
 import com.airbnb.lottie.compose.LottieAnimation
@@ -32,31 +31,6 @@ fun SelectLanguageScreen(
     modifier: Modifier = Modifier,
     selectLanguageViewModel: SelectLanguageViewModel = hiltViewModel<SelectLanguageViewModelImpl>(),
     goToRequestPermission: () -> Unit,
-    loading: @Composable () -> Unit = {
-        CircularProgressIndicator(
-            modifier =
-                Modifier
-                    .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_LOADING)
-                    .fillMaxSize()
-                    .wrapContentSize(Alignment.Center),
-        )
-    },
-    error: @Composable (SelectLanguageUiState) -> Unit = { data ->
-        SelectLanguageError(
-            modifier = Modifier.testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_ERROR),
-        ) {
-            selectLanguageViewModel.setLanguage(data.selectedLanguageTag)
-        }
-    },
-    content: @Composable () -> Unit = {
-        SelectLanguageContent(
-            modifier = Modifier.testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT),
-            availableLanguages = selectLanguageViewModel.availableLanguages,
-            onLanguageSelect = { localeTag ->
-                selectLanguageViewModel.setLanguage(localeTag)
-            },
-        )
-    },
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -95,9 +69,31 @@ fun SelectLanguageScreen(
 
             ScreenStateView(
                 state = selectLanguageViewModel.uiState.collectAsStateWithLifecycle().value,
-                loading = loading,
-                empty = content,
-                error = { _, data -> error(data) },
+                loading = {
+                    CircularProgressIndicator(
+                        modifier =
+                            Modifier
+                                .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_LOADING)
+                                .fillMaxSize()
+                                .wrapContentSize(Alignment.Center),
+                    )
+                },
+                empty = {
+                    SelectLanguageContent(
+                        modifier = Modifier.testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT),
+                        availableLanguages = selectLanguageViewModel.availableLanguages,
+                        onLanguageSelect = { localeTag ->
+                            selectLanguageViewModel.setLanguage(localeTag)
+                        },
+                    )
+                },
+                error = { _, data ->
+                    SelectLanguageError(
+                        modifier = Modifier.testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_ERROR),
+                    ) {
+                        selectLanguageViewModel.setLanguage(data.selectedLanguageTag)
+                    }
+                },
                 success = {
                     goToRequestPermission()
                 },

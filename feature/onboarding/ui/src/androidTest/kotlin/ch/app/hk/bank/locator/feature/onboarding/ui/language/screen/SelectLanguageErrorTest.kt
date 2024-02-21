@@ -24,7 +24,7 @@ class SelectLanguageErrorTest {
         composeTestRule.setContent {
             AppTheme {
                 SelectLanguageError(
-                    retry = mockRetry,
+                    onRetry = mockRetry,
                 )
             }
         }
