@@ -30,7 +30,7 @@ class SelectLanguageScreenTest {
     val composeTestRule = createAndroidComposeRule<HiltComponentActivity>()
 
     @BindValue
-    val selectLanguageViewModel: SelectLanguageViewModelImpl = mockk(relaxed = true)
+    val selectLanguageViewModel = mockk<SelectLanguageViewModelImpl>(relaxed = true)
 
     @Before
     fun setup() {
