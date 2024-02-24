@@ -18,7 +18,7 @@ class ComposePlugin : Plugin<Project> {
             }
 
             extension.composeOptions {
-                kotlinCompilerExtensionVersion = "1.5.8"
+                kotlinCompilerExtensionVersion = "1.5.10"
             }
 
             project.dependencies {
