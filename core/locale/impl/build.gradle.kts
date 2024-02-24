@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":core:locale:api")))
+    implementation(projects.core.locale.api)
     implementation(libs.androidx.appcompat)
 
     androidTestImplementation(libs.androidx.test.runner)

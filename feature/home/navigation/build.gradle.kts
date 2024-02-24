@@ -14,7 +14,7 @@ android {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":core:navigation")))
+    implementation(projects.core.navigation)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.compose.material)
 }

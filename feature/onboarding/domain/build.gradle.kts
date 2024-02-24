@@ -5,9 +5,9 @@ plugins {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":core:threading")))
-    implementation(project(mapOf("path" to ":core:locale:api")))
-    implementation(project(mapOf("path" to ":feature:locator:data:repo")))
+    implementation(projects.core.threading)
+    implementation(projects.core.locale.api)
+    implementation(projects.feature.locator.data.repo)
     implementation(libs.kotlinx.coroutines.core)
 
     testImplementation(libs.junit.jupiter)

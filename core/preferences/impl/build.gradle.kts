@@ -23,8 +23,8 @@ android {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":core:preferences:api")))
-    implementation(project(mapOf("path" to ":core:threading")))
+    implementation(projects.core.preferences.api)
+    implementation(projects.core.threading)
     implementation(libs.androidx.datastore.preferences)
 
     androidTestImplementation(libs.mockk)

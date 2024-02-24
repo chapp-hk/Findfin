@@ -4,8 +4,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":core:network")))
-    implementation(project(mapOf("path" to ":testing:util")))
+    implementation(projects.core.network)
+    implementation(projects.testing.util)
     implementation(libs.ktor.mock)
     implementation(libs.ktor.logging)
 

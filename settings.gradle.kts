@@ -16,6 +16,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "HK-Bank-Locator"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 include(":app")
 
 // core modules

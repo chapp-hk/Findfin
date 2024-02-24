@@ -23,10 +23,10 @@ android {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":core:design")))
-    implementation(project(mapOf("path" to ":core:navigation")))
-    implementation(project(mapOf("path" to ":feature:onboarding:navigation")))
-    implementation(project(mapOf("path" to ":feature:home:navigation")))
+    implementation(projects.core.design)
+    implementation(projects.core.navigation)
+    implementation(projects.feature.onboarding.navigation)
+    implementation(projects.feature.home.navigation)
 
     implementation(libs.core.ktx)
     implementation(libs.material)
