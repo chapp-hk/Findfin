@@ -5,8 +5,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":framework:hiltext:annotation")))
-    implementation(project(mapOf("path" to ":framework:hiltext:util")))
+    implementation(projects.framework.hiltext.annotation)
+    implementation(projects.framework.hiltext.util)
 
     val kotlinPoetVersion = "1.16.0"
     implementation("com.google.devtools.ksp:symbol-processing-api:1.9.22-1.0.17")
@@ -15,8 +15,8 @@ dependencies {
     implementation("com.google.dagger:hilt-core:2.50")
     implementation("androidx.room:room-common:2.6.1")
 
-    testImplementation(project(mapOf("path" to ":testing:util")))
-    kspTest(project(mapOf("path" to ":framework:hiltext:processor-room")))
+    testImplementation(projects.testing.util)
+    kspTest(projects.framework.hiltext.processorRoom)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.assertions.core)
     testImplementation("com.github.tschuchortdev:kotlin-compile-testing-ksp:1.5.0")

@@ -14,8 +14,8 @@ android {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":core:navigation")))
-    implementation(project(mapOf("path" to ":feature:onboarding:ui")))
+    implementation(projects.core.navigation)
+    implementation(projects.feature.onboarding.ui)
 
     implementation(libs.androidx.navigation.compose)
 }

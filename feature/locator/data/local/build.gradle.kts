@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":core:threading")))
+    implementation(projects.core.threading)
     implementation(libs.kotlinx.coroutines.core)
 
     testImplementation(libs.junit.jupiter)

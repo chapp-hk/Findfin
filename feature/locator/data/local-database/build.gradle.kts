@@ -17,7 +17,7 @@ android {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":feature:locator:data:local")))
+    implementation(projects.feature.locator.data.local)
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.assertions.core)
