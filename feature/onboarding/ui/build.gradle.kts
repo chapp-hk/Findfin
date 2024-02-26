@@ -1,12 +1,12 @@
 plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
-    id("app.plugin.android.common")
-    id("app.plugin.compose")
-    id("app.plugin.mapstruct")
-    id("app.plugin.hilt.android")
-    id("app.plugin.hilt.android.test")
-    id("app.plugin.kover.android")
+    alias(libs.plugins.app.android.common)
+    alias(libs.plugins.app.compose)
+    alias(libs.plugins.app.mapstruct)
+    alias(libs.plugins.app.hilt.android)
+    alias(libs.plugins.app.hilt.android.test)
+    alias(libs.plugins.app.kover.android)
 }
 
 android {

@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.org.jetbrains.kotlin.jvm)
     alias(libs.plugins.com.google.devtools.ksp)
-    id("app.plugin.jvm")
+    alias(libs.plugins.app.jvm)
 }
 
 dependencies {

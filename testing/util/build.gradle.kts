@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.org.jetbrains.kotlin.jvm)
-    id("app.plugin.jvm")
+    alias(libs.plugins.app.jvm)
     kotlin("plugin.serialization") version libs.versions.kotlin
 }
 
