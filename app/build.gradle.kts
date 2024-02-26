@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
-    id("app.plugin.android.common")
-    id("app.plugin.compose")
-    id("app.plugin.hilt.android")
+    alias(libs.plugins.app.android.common)
+    alias(libs.plugins.app.compose)
+    alias(libs.plugins.app.hilt.android)
 }
 
 android {

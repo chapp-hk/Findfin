@@ -60,5 +60,19 @@ org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kot
 com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.50" }
 com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "1.9.22-1.0.17" }
 
+#convention plugins
+app-ktlint = { id = "app.plugin.ktlint", version = "unspecified" }
+app-detekt = { id = "app.plugin.detekt", version = "unspecified" }
+app-kover = { id = "app.plugin.kover", version = "unspecified" }
+app-kover-android = { id = "app.plugin.kover.android", version = "unspecified" }
+app-jvm = { id = "app.plugin.jvm", version = "unspecified" }
+app-android-common = { id = "app.plugin.android.common", version = "unspecified" }
+app-compose = { id = "app.plugin.compose", version = "unspecified" }
+app-hilt-android = { id = "app.plugin.hilt.android", version = "unspecified" }
+app-hilt-android-test = { id = "app.plugin.hilt.android.test", version = "unspecified" }
+app-hilt-jvm = { id = "app.plugin.hilt.jvm", version = "unspecified" }
+app-room-android = { id = "app.plugin.room.android", version = "unspecified" }
+app-mapstruct = { id = "app.plugin.mapstruct", version = "unspecified" }
+
 [bundles]
 

@@ -6,9 +6,18 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.jvm) apply false
     alias(libs.plugins.com.google.devtools.ksp) apply false
     alias(libs.plugins.com.google.dagger.hilt.android) apply false
-    id("app.plugin.ktlint")
-    id("app.plugin.detekt")
-    id("app.plugin.kover")
-}
 
-true // Needed to make the Suppress annotation work for the plugins block
+    // convention plugins
+    alias(libs.plugins.app.ktlint)
+    alias(libs.plugins.app.detekt)
+    alias(libs.plugins.app.kover)
+    alias(libs.plugins.app.jvm) apply false
+    alias(libs.plugins.app.kover.android) apply false
+    alias(libs.plugins.app.android.common) apply false
+    alias(libs.plugins.app.compose) apply false
+    alias(libs.plugins.app.hilt.android) apply false
+    alias(libs.plugins.app.hilt.android.test) apply false
+    alias(libs.plugins.app.hilt.jvm) apply false
+    alias(libs.plugins.app.room.android) apply false
+    alias(libs.plugins.app.mapstruct) apply false
+}
