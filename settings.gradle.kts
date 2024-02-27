@@ -18,6 +18,7 @@ dependencyResolutionManagement {
 rootProject.name = "HK-Bank-Locator"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
+// app module
 include(":app")
 
 // core modules
@@ -44,6 +45,7 @@ include(":feature:onboarding:ui")
 
 // feature home modules
 include(":feature:home:navigation")
+include(":feature:home:ui")
 
 // framework modules
 include(":framework:hiltext:annotation")
