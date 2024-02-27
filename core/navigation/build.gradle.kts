@@ -7,6 +7,7 @@ plugins {
 
 android {
     namespace = "ch.app.hk.bank.locator.core.navigation"
+    resourcePrefix = "navigation_"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
@@ -15,4 +16,10 @@ android {
 
 dependencies {
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.compose.material)
+
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    androidTestImplementation("androidx.navigation:navigation-testing:2.7.7")
 }
