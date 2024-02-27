@@ -15,6 +15,7 @@ android {
 
 dependencies {
     implementation(projects.core.navigation)
+    implementation(projects.feature.home.ui)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.compose.material)
 }
