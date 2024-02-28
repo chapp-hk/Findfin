@@ -22,7 +22,7 @@ androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 androidx-compose-material = { module = "androidx.compose.material3:material3", version = "1.2.0" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version = "1.1.0-beta01" }
-androidx-hilt-compose = { module = "androidx.hilt:hilt-navigation-compose", version = "1.1.0" }
+androidx-hilt-compose = { module = "androidx.hilt:hilt-navigation-compose", version = "1.2.0" }
 androidx-lifecycle-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version = "2.7.0" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "androidx-navigation" }
