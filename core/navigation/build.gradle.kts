@@ -22,5 +22,5 @@ dependencies {
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    androidTestImplementation("androidx.navigation:navigation-testing:2.7.7")
+    androidTestImplementation(libs.androidx.navigation.testing)
 }
