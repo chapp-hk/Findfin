@@ -4,9 +4,7 @@ kotlin = "1.9.22"
 core-ktx = "1.12.0"
 kotlinxCoroutines = "1.8.0"
 mockk = "1.13.9"
-androidx-test-ext-junit = "1.1.5"
 androidx-navigation = "2.7.7"
-espresso-core = "3.5.1"
 appcompat = "1.6.1"
 activity-compose = "1.8.2"
 material = "1.11.0"
@@ -30,8 +28,6 @@ androidx-test-runner = { module = "androidx.test:runner", version = "1.5.2" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version = "5.10.2" }
 kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version = "5.8.0" }
-androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 #mockk
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
