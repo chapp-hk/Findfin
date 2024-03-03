@@ -30,7 +30,7 @@ class RequestLocationPermissionScreenTest {
             AppTheme {
                 RequestLocationPermissionScreen(
                     permissionViewModel = permissionViewModel,
-                    goToHome = {},
+                    finishOnboarding = {},
                 )
             }
         }
@@ -45,18 +45,18 @@ class RequestLocationPermissionScreenTest {
         every { permissionViewModel.uiState } returns
             MutableStateFlow(ScreenState.Success(true))
 
-        val mockGoToHome = mockk<() -> Unit>()
-        every { mockGoToHome() } just Runs
+        val mockFinishOnboarding = mockk<() -> Unit>()
+        every { mockFinishOnboarding() } just Runs
 
         composeTestRule.setContent {
             AppTheme {
                 RequestLocationPermissionScreen(
                     permissionViewModel = permissionViewModel,
-                    goToHome = mockGoToHome,
+                    finishOnboarding = mockFinishOnboarding,
                 )
             }
         }
 
-        verify { mockGoToHome() }
+        verify { mockFinishOnboarding() }
     }
 }

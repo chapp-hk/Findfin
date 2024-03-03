@@ -14,7 +14,7 @@ import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.viewmodel.OnboardVie
 @Composable
 fun OnboardScreen(
     onboardViewModel: OnboardViewModel = hiltViewModel<OnboardViewModelImpl>(),
-    goToHome: () -> Unit,
+    finishOnboarding: () -> Unit,
     goToRequestPermission: () -> Unit,
 ) {
     val state = onboardViewModel.uiState.collectAsStateWithLifecycle()
@@ -22,7 +22,7 @@ fun OnboardScreen(
         state = state,
         success = { onboardUiState ->
             when (onboardUiState) {
-                OnboardUiState.GoToHome -> goToHome()
+                OnboardUiState.GoToHome -> finishOnboarding()
                 OnboardUiState.StartOnboarding -> {
                     SelectLanguageScreen(
                         modifier = Modifier.testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_SCREEN),

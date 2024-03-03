@@ -36,9 +36,9 @@ class OnboardScreenTest {
     }
 
     @Test
-    fun testGoToHome() {
-        val mockGoToHome = mockk<() -> Unit>()
-        every { mockGoToHome() } just Runs
+    fun testFinishOnboarding() {
+        val mockFinishOnboarding = mockk<() -> Unit>()
+        every { mockFinishOnboarding() } just Runs
 
         every { onboardViewModel.uiState } returns
             MutableStateFlow(ScreenState.Success(OnboardUiState.GoToHome))
@@ -47,13 +47,13 @@ class OnboardScreenTest {
             AppTheme {
                 OnboardScreen(
                     onboardViewModel = onboardViewModel,
-                    goToHome = mockGoToHome,
+                    finishOnboarding = mockFinishOnboarding,
                     goToRequestPermission = {},
                 )
             }
         }
 
-        verify { mockGoToHome() }
+        verify { mockFinishOnboarding() }
     }
 
     @Test
@@ -65,7 +65,7 @@ class OnboardScreenTest {
             AppTheme {
                 OnboardScreen(
                     onboardViewModel = onboardViewModel,
-                    goToHome = {},
+                    finishOnboarding = {},
                     goToRequestPermission = {},
                 )
             }

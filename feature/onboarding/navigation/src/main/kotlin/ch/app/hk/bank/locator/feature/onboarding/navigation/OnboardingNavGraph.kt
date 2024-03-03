@@ -9,7 +9,7 @@ import ch.app.hk.bank.locator.feature.onboarding.ui.permission.view.RequestLocat
 
 fun NavGraphBuilder.onboardingNavGraph(
     navController: NavController,
-    goToHome: () -> Unit,
+    finishOnboarding: () -> Unit,
 ) {
     navigation(
         startDestination = OnboardingDestination.route,
@@ -24,12 +24,12 @@ fun NavGraphBuilder.onboardingNavGraph(
                         }
                     }
                 },
-                goToHome = goToHome,
+                finishOnboarding = finishOnboarding,
             )
         }
 
         composable(route = OnboardingRequestPermissionDestination.route) {
-            RequestLocationPermissionScreen(goToHome = goToHome)
+            RequestLocationPermissionScreen(finishOnboarding = finishOnboarding)
         }
     }
 }
