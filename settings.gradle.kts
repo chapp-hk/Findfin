@@ -32,6 +32,9 @@ include(":core:preferences:api")
 include(":core:preferences:impl")
 include(":core:threading")
 
+// feature auth modules
+include(":feature:auth:ui")
+
 // feature locator modules
 include(":feature:locator:data:local")
 include(":feature:locator:data:local-database")
