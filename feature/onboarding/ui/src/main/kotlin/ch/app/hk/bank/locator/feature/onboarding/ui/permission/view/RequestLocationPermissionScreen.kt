@@ -12,7 +12,7 @@ import ch.app.hk.bank.locator.feature.onboarding.ui.permission.viewmodel.Permiss
 @Composable
 fun RequestLocationPermissionScreen(
     permissionViewModel: PermissionViewModel = hiltViewModel<PermissionViewModelImpl>(),
-    goToHome: () -> Unit,
+    finishOnboarding: () -> Unit,
 ) {
     ScreenStateView(
         state = permissionViewModel.uiState.collectAsStateWithLifecycle(),
@@ -24,7 +24,7 @@ fun RequestLocationPermissionScreen(
             }
         },
         success = {
-            goToHome()
+            finishOnboarding()
         },
     )
 }
