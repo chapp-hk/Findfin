@@ -6,6 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import ch.app.hk.bank.locator.feature.auth.navigation.AuthNavGraphDestination
+import ch.app.hk.bank.locator.feature.auth.navigation.authNavGraph
 import ch.app.hk.bank.locator.feature.home.navigation.HomeNavGraphDestination
 import ch.app.hk.bank.locator.feature.home.navigation.homeNavGraph
 import ch.app.hk.bank.locator.feature.onboarding.navigation.OnboardingNavGraphDestination
@@ -23,8 +25,8 @@ fun AppNavHost(
     ) {
         onboardingNavGraph(
             navController = navController,
-            goToHome = {
-                navController.navigate(HomeNavGraphDestination.navGraphId) {
+            finishOnboarding = {
+                navController.navigate(AuthNavGraphDestination.navGraphId) {
                     launchSingleTop = true
                     popUpTo(OnboardingNavGraphDestination.navGraphId) {
                         inclusive = true
@@ -32,6 +34,19 @@ fun AppNavHost(
                 }
             },
         )
+
+        authNavGraph(
+            navController = navController,
+            finishAuth = {
+                navController.navigate(HomeNavGraphDestination.navGraphId) {
+                    launchSingleTop = true
+                    popUpTo(AuthNavGraphDestination.navGraphId) {
+                        inclusive = true
+                    }
+                }
+            },
+        )
+
         homeNavGraph(navController)
     }
 }

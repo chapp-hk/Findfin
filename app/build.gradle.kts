@@ -33,6 +33,7 @@ dependencies {
     implementation(projects.core.design)
     implementation(projects.core.navigation)
     implementation(projects.feature.onboarding.navigation)
+    implementation(projects.feature.auth.navigation)
     implementation(projects.feature.home.navigation)
 
     implementation(libs.core.ktx)
