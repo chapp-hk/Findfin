@@ -1,6 +1,8 @@
 package ch.app.hk.bank.locator.feature.locator.data.local.database.dao
 
+import ch.app.hk.bank.locator.feature.locator.data.local.database.datasource.LocatorLocalDataSourceImpl
 import ch.app.hk.bank.locator.feature.locator.data.local.database.entity.LocatorEntity
+import ch.app.hk.bank.locator.feature.locator.data.local.database.room.LocatorDao
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -13,12 +15,14 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("LocatorLocalDaoImpl unit tests")
-class LocatorLocalDaoImplTest {
-    private val locatorRoomDao = mockk<LocatorRoomDao>()
+class LocatorLocalDataSourceImplTest {
+    private val testDispatcher = StandardTestDispatcher()
+    private val locatorDao = mockk<LocatorDao>()
 
-    private val locatorLocalDaoImpl =
-        LocatorLocalDaoImpl(
-            locatorRoomDao = locatorRoomDao,
+    private val locatorLocalDataSourceImpl =
+        LocatorLocalDataSourceImpl(
+            ioDispatcher = testDispatcher,
+            locatorDao = locatorDao,
         )
 
     @Test
@@ -27,17 +31,17 @@ class LocatorLocalDaoImplTest {
             "should convert to list of LocatorEntity and invoke LocatorLocalDaoImpl.insertAll()",
     )
     fun testInsertAll() =
-        runTest(StandardTestDispatcher()) {
+        runTest(testDispatcher) {
             val locatorEntityListSlot = slot<List<LocatorEntity>>()
 
             coEvery {
-                locatorRoomDao.insertAll(capture(locatorEntityListSlot))
+                locatorDao.insertAll(capture(locatorEntityListSlot))
             } just Runs
 
-            locatorLocalDaoImpl.insertAll(listOf(mockk(relaxed = true)))
+            locatorLocalDataSourceImpl.insertAll(listOf(mockk(relaxed = true)))
 
             coVerify {
-                locatorRoomDao.insertAll(locatorEntityListSlot.captured)
+                locatorDao.insertAll(locatorEntityListSlot.captured)
             }
         }
 }

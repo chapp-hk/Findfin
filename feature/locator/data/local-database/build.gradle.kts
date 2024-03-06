@@ -17,6 +17,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.threading)
     implementation(projects.feature.locator.data.local)
 
     testImplementation(libs.junit.jupiter)

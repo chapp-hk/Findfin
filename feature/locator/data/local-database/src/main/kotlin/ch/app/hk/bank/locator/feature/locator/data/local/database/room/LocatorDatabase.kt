@@ -4,7 +4,6 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import ch.app.framework.hiltext.annotation.HiltExtRoomDao
 import ch.app.framework.hiltext.annotation.HiltExtRoomModule
-import ch.app.hk.bank.locator.feature.locator.data.local.database.dao.LocatorRoomDao
 import ch.app.hk.bank.locator.feature.locator.data.local.database.entity.LocatorEntity
 
 @Database(
@@ -19,5 +18,5 @@ import ch.app.hk.bank.locator.feature.locator.data.local.database.entity.Locator
 )
 internal abstract class LocatorDatabase : RoomDatabase() {
     @HiltExtRoomDao
-    abstract val locatorRoomDao: LocatorRoomDao
+    abstract val locatorDao: LocatorDao
 }
