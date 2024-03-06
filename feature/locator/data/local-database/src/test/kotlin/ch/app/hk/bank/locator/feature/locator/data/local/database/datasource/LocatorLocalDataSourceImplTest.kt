@@ -1,6 +1,5 @@
-package ch.app.hk.bank.locator.feature.locator.data.local.database.dao
+package ch.app.hk.bank.locator.feature.locator.data.local.database.datasource
 
-import ch.app.hk.bank.locator.feature.locator.data.local.database.datasource.LocatorLocalDataSourceImpl
 import ch.app.hk.bank.locator.feature.locator.data.local.database.entity.LocatorEntity
 import ch.app.hk.bank.locator.feature.locator.data.local.database.room.LocatorDao
 import io.mockk.Runs
@@ -14,7 +13,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("LocatorLocalDaoImpl unit tests")
+@DisplayName("LocatorLocalDataSourceImpl unit tests")
 class LocatorLocalDataSourceImplTest {
     private val testDispatcher = StandardTestDispatcher()
     private val locatorDao = mockk<LocatorDao>()
@@ -28,7 +27,7 @@ class LocatorLocalDataSourceImplTest {
     @Test
     @DisplayName(
         "When invoke insertAll() with list of BankLocal, " +
-            "should convert to list of LocatorEntity and invoke LocatorLocalDaoImpl.insertAll()",
+            "should convert to list of LocatorEntity and invoke LocatorDao.insertAll()",
     )
     fun testInsertAll() =
         runTest(testDispatcher) {
