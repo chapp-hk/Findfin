@@ -23,7 +23,7 @@ class AndroidCommonPlugin : Plugin<Project> {
         configKotlin(project = project)
     }
 
-    private fun configureVersion(extension: CommonExtension<*, *, *, *, *>) {
+    private fun configureVersion(extension: CommonExtension<*, *, *, *, *, *>) {
         extension.compileSdk = 34
         extension.buildToolsVersion = "34.0.0"
 
@@ -38,7 +38,7 @@ class AndroidCommonPlugin : Plugin<Project> {
         }
     }
 
-    private fun configureBuiltTypes(extension: CommonExtension<*, *, *, *, *>) {
+    private fun configureBuiltTypes(extension: CommonExtension<*, *, *, *, *, *>) {
         extension.buildTypes {
             getByName("release") {
                 it.isMinifyEnabled = false
