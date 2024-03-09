@@ -28,12 +28,16 @@ androidx-test-runner = { module = "androidx.test:runner", version = "1.5.2" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version = "5.10.2" }
 kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version = "5.8.0" }
+#firebase
+google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "32.7.4" }
+google-firebase-auth = { module = "com.google.firebase:firebase-auth" }
 #mockk
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 #kotlinx
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version = "1.8.0" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.6.2" }
 #ktor
 ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
