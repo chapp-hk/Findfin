@@ -57,6 +57,7 @@ org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.re
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.50" }
 com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "1.9.22-1.0.17" }
+com-google-gms-services = { id = "com.google.gms.google-services", version = "4.4.1" }
 
 #convention plugins
 app-ktlint = { id = "app.plugin.ktlint", version = "unspecified" }
