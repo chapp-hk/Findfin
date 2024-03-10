@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="auth_button_skip">Skip</string>
+    <string name="auth_error_message">Something went wrong</string>
+    <string name="auth_content_description_register">Auth register</string>
+    <string name="auth_content_description_loading">Loading</string>
+</resources>
