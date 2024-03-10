@@ -17,5 +17,4 @@ dependencies {
     implementation(projects.core.navigation)
     implementation(projects.feature.auth.ui)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.compose.material)
 }
