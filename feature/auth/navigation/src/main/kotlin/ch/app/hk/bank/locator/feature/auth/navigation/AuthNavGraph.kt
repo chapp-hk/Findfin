@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import ch.app.hk.bank.locator.feature.auth.ui.entry.screen.AuthEntryScreen
+import ch.app.hk.bank.locator.feature.auth.ui.entry.view.AuthEntryScreenRoute
 
 fun NavGraphBuilder.authNavGraph(
     navController: NavController,
@@ -15,7 +15,7 @@ fun NavGraphBuilder.authNavGraph(
         route = AuthNavGraphDestination.navGraphId,
     ) {
         composable(route = AuthEntryDestination.route) {
-            AuthEntryScreen(finishAuth = finishAuth)
+            AuthEntryScreenRoute(finishAuth = finishAuth)
         }
     }
 }
