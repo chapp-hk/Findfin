@@ -20,7 +20,7 @@ class AppPreferencesRepositoryImplTest {
     private val testScope = TestScope(StandardTestDispatcher())
     private val testDataStore: DataStore<Preferences> =
         PreferenceDataStoreFactory.create(
-            scope = testScope,
+            scope = testScope.backgroundScope,
             produceFile = { context.preferencesDataStoreFile("test_datastore") },
         )
 
