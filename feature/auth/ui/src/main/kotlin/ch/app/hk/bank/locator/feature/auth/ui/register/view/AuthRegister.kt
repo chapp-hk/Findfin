@@ -33,7 +33,7 @@ internal fun AuthRegister(
         AuthRegisterForm(onSkip = authRegisterViewModel::anonymousLogin)
 
         ScreenStateView(
-            state = authRegisterViewModel.uiState.collectAsStateWithLifecycle().value,
+            state = authRegisterViewModel.uiState.collectAsStateWithLifecycle(),
             loading = {
                 val description = stringResource(id = R.string.auth_content_description_loading)
                 CircularProgressIndicator(

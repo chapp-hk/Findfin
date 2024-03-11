@@ -19,7 +19,7 @@ fun AuthEntryScreenRoute(
     authEntryViewModel: AuthEntryViewModel = hiltViewModel<AuthEntryViewModelImpl>(),
     finishAuth: () -> Unit,
 ) = ScreenStateView(
-    state = authEntryViewModel.uiState.collectAsStateWithLifecycle().value,
+    state = authEntryViewModel.uiState.collectAsStateWithLifecycle(),
     success = { uiState ->
         when (uiState) {
             AuthEntryUiState.Authorized -> {
