@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.onboarding.ui.permission.screen
+package ch.app.hk.bank.locator.feature.onboarding.ui.permission.view
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.test.assertIsDisplayed

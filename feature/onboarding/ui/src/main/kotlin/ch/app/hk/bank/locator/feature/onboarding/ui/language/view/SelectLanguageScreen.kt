@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.onboarding.ui.language.screen
+package ch.app.hk.bank.locator.feature.onboarding.ui.language.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -77,7 +77,7 @@ private fun SelectLanguageScreenStateView(
     goToRequestPermission: () -> Unit,
 ) {
     ScreenStateView(
-        state = selectLanguageViewModel.uiState.collectAsStateWithLifecycle().value,
+        state = selectLanguageViewModel.uiState.collectAsStateWithLifecycle(),
         loading = {
             CircularProgressIndicator(
                 modifier =

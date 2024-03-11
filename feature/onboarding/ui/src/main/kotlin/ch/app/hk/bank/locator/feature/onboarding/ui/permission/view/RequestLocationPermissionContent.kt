@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.onboarding.ui.permission.screen
+package ch.app.hk.bank.locator.feature.onboarding.ui.permission.view
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column

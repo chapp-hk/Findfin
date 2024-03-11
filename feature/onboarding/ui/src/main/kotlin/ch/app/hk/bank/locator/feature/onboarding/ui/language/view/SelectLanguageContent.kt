@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.onboarding.ui.language.screen
+package ch.app.hk.bank.locator.feature.onboarding.ui.language.view
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxWidth

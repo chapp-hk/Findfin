@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.onboarding.ui.onboard.screen
+package ch.app.hk.bank.locator.feature.onboarding.ui.onboard.view
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -6,7 +6,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ch.app.hk.bank.locator.core.design.ui.ScreenStateView
-import ch.app.hk.bank.locator.feature.onboarding.ui.language.screen.SelectLanguageScreen
+import ch.app.hk.bank.locator.feature.onboarding.ui.language.view.SelectLanguageScreen
 import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.state.OnboardUiState
 import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.viewmodel.OnboardViewModel
 import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.viewmodel.OnboardViewModelImpl
@@ -17,8 +17,9 @@ fun OnboardScreen(
     goToHome: () -> Unit,
     goToRequestPermission: () -> Unit,
 ) {
+    val state = onboardViewModel.uiState.collectAsStateWithLifecycle()
     ScreenStateView(
-        state = onboardViewModel.uiState.collectAsStateWithLifecycle().value,
+        state = state,
         success = { onboardUiState ->
             when (onboardUiState) {
                 OnboardUiState.GoToHome -> goToHome()
