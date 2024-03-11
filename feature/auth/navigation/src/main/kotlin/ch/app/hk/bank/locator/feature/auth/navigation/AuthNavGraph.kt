@@ -10,6 +10,8 @@ fun NavGraphBuilder.authNavGraph(
     navController: NavController,
     finishAuth: () -> Unit,
 ) {
+    // todo - route to correct destination
+    navController.toString()
     navigation(
         startDestination = AuthEntryDestination.route,
         route = AuthNavGraphDestination.navGraphId,
