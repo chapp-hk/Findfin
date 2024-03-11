@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.onboarding.ui.permission.screen
+package ch.app.hk.bank.locator.feature.onboarding.ui.permission.view
 
 import android.content.res.Configuration
 import androidx.compose.material3.AlertDialog
@@ -29,7 +29,10 @@ fun LocationPermissionNotGrantedDialog(
             onDismissRequest = {},
             confirmButton = {
                 TextButton(
-                    modifier = Modifier.testTag(TEST_TAG_ONBOARDING_LOCATION_PERMISSION_NOT_GRANTED_DIALOG_BUTTON),
+                    modifier =
+                        Modifier.testTag(
+                            TEST_TAG_ONBOARDING_LOCATION_PERMISSION_NOT_GRANTED_DIALOG_BUTTON,
+                        ),
                     onClick = {
                         onConfirm()
                     },

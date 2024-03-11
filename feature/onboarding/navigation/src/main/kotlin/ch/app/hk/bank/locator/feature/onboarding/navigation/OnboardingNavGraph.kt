@@ -4,8 +4,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.screen.OnboardScreen
-import ch.app.hk.bank.locator.feature.onboarding.ui.permission.screen.RequestLocationPermissionScreen
+import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.view.OnboardScreen
+import ch.app.hk.bank.locator.feature.onboarding.ui.permission.view.RequestLocationPermissionScreen
 
 fun NavGraphBuilder.onboardingNavGraph(
     navController: NavController,

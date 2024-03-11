@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.onboarding.ui.language.screen
+package ch.app.hk.bank.locator.feature.onboarding.ui.language.view
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule

@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.onboarding.ui.permission.screen
+package ch.app.hk.bank.locator.feature.onboarding.ui.permission.view
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,7 +15,7 @@ fun RequestLocationPermissionScreen(
     goToHome: () -> Unit,
 ) {
     ScreenStateView(
-        state = permissionViewModel.uiState.collectAsStateWithLifecycle().value,
+        state = permissionViewModel.uiState.collectAsStateWithLifecycle(),
         empty = {
             RequestLocationPermissionController(
                 modifier = Modifier.testTag(tag = TEST_TAG_ONBOARDING_REQUEST_LOCATION_PERMISSION_SCREEN),

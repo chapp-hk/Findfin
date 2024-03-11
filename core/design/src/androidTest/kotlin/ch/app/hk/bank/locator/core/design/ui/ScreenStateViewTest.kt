@@ -1,6 +1,7 @@
 package ch.app.hk.bank.locator.core.design.ui
 
 import androidx.compose.material3.Text
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -14,7 +15,7 @@ class ScreenStateViewTest {
 
     @Test
     fun testEmpty() {
-        val state = ScreenState.Empty
+        val state = mutableStateOf(ScreenState.Empty)
 
         composeTestRule.setContent {
             AppTheme {
@@ -33,7 +34,7 @@ class ScreenStateViewTest {
 
     @Test
     fun testLoading() {
-        val state = ScreenState.Loading
+        val state = mutableStateOf(ScreenState.Loading)
 
         composeTestRule.setContent {
             AppTheme {
@@ -52,7 +53,7 @@ class ScreenStateViewTest {
 
     @Test
     fun testError() {
-        val state = ScreenState.Error(cause = Throwable("test-error"), data = "test-data")
+        val state = mutableStateOf(ScreenState.Error(cause = Throwable("test-error"), data = "test-data"))
 
         composeTestRule.setContent {
             AppTheme {
@@ -73,7 +74,7 @@ class ScreenStateViewTest {
 
     @Test
     fun testSuccess() {
-        val state = ScreenState.Success("test-success")
+        val state = mutableStateOf(ScreenState.Success("test-success"))
 
         composeTestRule.setContent {
             AppTheme {
