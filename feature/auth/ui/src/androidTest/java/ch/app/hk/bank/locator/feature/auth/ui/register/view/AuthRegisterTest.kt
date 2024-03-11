@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithText
 import androidx.test.core.app.ApplicationProvider
 import ch.app.hk.bank.locator.core.design.theme.AppTheme
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
@@ -42,6 +43,25 @@ class AuthRegisterTest {
 
         composeTestRule
             .onNodeWithContentDescription(context.getString(R.string.auth_content_description_loading))
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun testError() {
+        every { authRegisterViewModel.uiState } returns
+            MutableStateFlow(ScreenState.Error(Throwable(), AuthRegisterUiState.Failed))
+
+        composeTestRule.setContent {
+            AppTheme {
+                AuthRegister(
+                    authRegisterViewModel = authRegisterViewModel,
+                    onAuthorized = {},
+                )
+            }
+        }
+
+        composeTestRule
+            .onNodeWithText(context.getString(R.string.auth_error_message))
             .assertIsDisplayed()
     }
 
