@@ -33,7 +33,7 @@ class AuthRegisterViewModelImpl
 
                         is AuthResult.Failed ->
                             ScreenState.Error(
-                                Throwable(),
+                                Error(),
                                 AuthRegisterUiState.Failed,
                             )
                     }
