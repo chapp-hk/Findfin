@@ -16,6 +16,11 @@ jobs:
           java-version: '17'
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
+      - name: Create Google Services JSON File
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICE_JSON_DEBUG }}
+        run: |
+          echo $GOOGLE_SERVICES_JSON | base64 --decode > app/google-services.json
       - name: lint
         run: |
           ./gradlew lintDebug
