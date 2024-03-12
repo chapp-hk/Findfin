@@ -86,4 +86,41 @@ class AuthServiceTest {
 
             authService.anonymousLogin().exceptionOrNull() shouldBe Exception()
         }
+
+    @Test
+    @DisplayName(
+        "When firebaseAuth.createUserWithEmailAndPassword() returns success, " +
+            "then emailPasswordRegister() should return AuthResponse",
+    )
+    fun testEmailPasswordRegisterSuccess() =
+        runTest(testDispatcher) {
+            val result =
+                mockk<AuthResult>(relaxed = true) {
+                    every { user?.isAnonymous } returns true
+                }
+
+            every { firebaseAuth.createUserWithEmailAndPassword(any(), any()) } returns
+                mockTaskResult(result)
+
+            authService.emailPasswordRegister(
+                email = "test@domain.com",
+                password = "*****",
+            ).getOrThrow() shouldBe AuthResponse(isAnonymous = true)
+        }
+
+    @Test
+    @DisplayName(
+        "When firebaseAuth.createUserWithEmailAndPassword() returns exception, " +
+            "then emailPasswordRegister() should return exception",
+    )
+    fun testEmailPasswordRegisterError() =
+        runTest(testDispatcher) {
+            every { firebaseAuth.createUserWithEmailAndPassword(any(), any()) } returns
+                mockTaskError<AuthResult>(Exception())
+
+            authService.emailPasswordRegister(
+                email = "test@domain.com",
+                password = "*****",
+            ).exceptionOrNull() shouldBe Exception()
+        }
 }

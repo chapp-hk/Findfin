@@ -29,4 +29,16 @@ internal class AuthService
                 }
             }
         }
+
+        override suspend fun emailPasswordRegister(
+            email: String,
+            password: String,
+        ): Result<AuthResponse> {
+            return withContext(ioDispatcher) {
+                runCatching {
+                    val auth = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+                    AuthResponse(auth.user!!.isAnonymous)
+                }
+            }
+        }
     }
