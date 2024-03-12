@@ -64,6 +64,7 @@ include(":framework:konsist")
 
 // testing modules
 include(":testing:extension")
+include(":testing:google-play-services-tasks")
 include(":testing:instrument")
 include(":testing:network")
 include(":testing:util")

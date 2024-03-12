@@ -31,6 +31,7 @@ kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core",
 #firebase
 google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "32.7.4" }
 google-firebase-auth = { module = "com.google.firebase:firebase-auth" }
+google-play-services-tasks = { module = "com.google.android.gms:play-services-tasks", version = "18.1.0" }
 #mockk
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
