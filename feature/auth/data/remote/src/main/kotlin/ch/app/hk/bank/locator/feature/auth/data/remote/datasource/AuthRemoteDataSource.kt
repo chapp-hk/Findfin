@@ -6,4 +6,9 @@ interface AuthRemoteDataSource {
     fun isAuthorized(): Boolean
 
     suspend fun anonymousLogin(): Result<AuthResponse>
+
+    suspend fun emailPasswordRegister(
+        email: String,
+        password: String,
+    ): Result<AuthResponse>
 }
