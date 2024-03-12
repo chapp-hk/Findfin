@@ -1,7 +1,8 @@
 package ch.app.hk.bank.locator.feature.auth.data.remote.firebase.service
 
 import ch.app.hk.bank.locator.feature.auth.data.remote.response.AuthResponse
-import com.google.android.gms.tasks.Task
+import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskError
+import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskResult
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -62,14 +63,13 @@ class AuthServiceTest {
     )
     fun testAnonymousLoginSuccess() =
         runTest(testDispatcher) {
-            val task = mockk<Task<AuthResult>>()
-            every { task.isComplete } returns true
-            every { task.exception } returns null
-            every { task.isCanceled } returns false
-            every { task.result } returns mockk(relaxed = true)
-            every { task.result.user?.isAnonymous } returns true
+            val result =
+                mockk<AuthResult>(relaxed = true) {
+                    every { user?.isAnonymous } returns true
+                }
 
-            every { firebaseAuth.signInAnonymously() } returns task
+            every { firebaseAuth.signInAnonymously() } returns
+                mockTaskResult(result)
 
             authService.anonymousLogin().getOrThrow() shouldBe AuthResponse(isAnonymous = true)
         }
@@ -81,11 +81,8 @@ class AuthServiceTest {
     )
     fun testAnonymousLoginError() =
         runTest(testDispatcher) {
-            val task = mockk<Task<AuthResult>>()
-            every { task.isComplete } returns true
-            every { task.exception } returns Exception()
-
-            every { firebaseAuth.signInAnonymously() } returns task
+            every { firebaseAuth.signInAnonymously() } returns
+                mockTaskError<AuthResult>(Exception())
 
             authService.anonymousLogin().exceptionOrNull() shouldBe Exception()
         }
