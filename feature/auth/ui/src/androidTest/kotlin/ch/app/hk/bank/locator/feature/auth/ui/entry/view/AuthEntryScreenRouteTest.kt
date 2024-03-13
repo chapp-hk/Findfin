@@ -6,7 +6,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.test.core.app.ApplicationProvider
 import ch.app.hk.bank.locator.core.design.theme.AppTheme
-import ch.app.hk.bank.locator.core.ui.ScreenState
+import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.auth.ui.R
 import ch.app.hk.bank.locator.feature.auth.ui.entry.state.AuthEntryUiState
 import ch.app.hk.bank.locator.feature.auth.ui.entry.viewmodel.AuthEntryViewModel

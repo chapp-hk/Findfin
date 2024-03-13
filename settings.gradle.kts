@@ -22,7 +22,8 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 
 // core modules
-include(":core:theme")
+include(":core:design:theme")
+include(":core:design:ui")
 include(":core:locale:api")
 include(":core:locale:impl")
 include(":core:location")
@@ -31,7 +32,6 @@ include(":core:network")
 include(":core:preferences:api")
 include(":core:preferences:impl")
 include(":core:threading")
-include(":core:ui")
 
 // feature auth modules
 include(":feature:auth:data:remote")

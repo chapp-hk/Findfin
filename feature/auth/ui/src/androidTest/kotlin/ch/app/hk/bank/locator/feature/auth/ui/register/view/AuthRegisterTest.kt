@@ -7,7 +7,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.core.app.ApplicationProvider
 import ch.app.hk.bank.locator.core.design.theme.AppTheme
-import ch.app.hk.bank.locator.core.ui.ScreenState
+import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.auth.ui.R
 import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterUiState
 import ch.app.hk.bank.locator.feature.auth.ui.register.viewmodel.AuthRegisterViewModel
