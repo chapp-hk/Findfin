@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.auth.ui.register.viewmodel
 
 import app.cash.turbine.test
-import ch.app.hk.bank.locator.core.ui.ScreenState
+import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.auth.data.repo.model.AuthResult
 import ch.app.hk.bank.locator.feature.auth.data.repo.repository.AuthRepository
 import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterUiState

@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.core.theme"
+    namespace = "ch.app.hk.bank.locator.core.design.theme"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

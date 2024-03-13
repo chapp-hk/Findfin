@@ -4,7 +4,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import ch.app.hk.bank.locator.core.design.theme.AppTheme
-import ch.app.hk.bank.locator.core.ui.ScreenState
+import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.onboarding.ui.permission.viewmodel.PermissionViewModel
 import io.mockk.Runs
 import io.mockk.every

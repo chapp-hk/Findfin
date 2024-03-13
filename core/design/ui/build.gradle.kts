@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.core.ui"
+    namespace = "ch.app.hk.bank.locator.core.design.ui"
     resourcePrefix = "core_ui_"
 
     defaultConfig {
@@ -16,7 +16,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.theme)
+    implementation(projects.core.design.theme)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
 
