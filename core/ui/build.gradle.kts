@@ -16,7 +16,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.design)
+    implementation(projects.core.theme)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
 
