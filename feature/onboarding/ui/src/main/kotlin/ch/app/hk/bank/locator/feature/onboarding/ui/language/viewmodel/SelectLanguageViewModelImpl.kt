@@ -2,8 +2,8 @@ package ch.app.hk.bank.locator.feature.onboarding.ui.language.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.core.locale.api.AppLocaleRepository
+import ch.app.hk.bank.locator.core.ui.ScreenState
 import ch.app.hk.bank.locator.feature.onboarding.domain.fetch.usecase.FetchAllLocatorsWithLanguageUseCase
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.model.SelectLanguageUiModel
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.model.SelectLanguageUiModelMapper

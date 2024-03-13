@@ -2,8 +2,8 @@ package ch.app.hk.bank.locator.feature.onboarding.ui.permission.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.core.preferences.api.AppPreferencesRepository
+import ch.app.hk.bank.locator.core.ui.ScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -31,6 +31,7 @@ include(":core:network")
 include(":core:preferences:api")
 include(":core:preferences:impl")
 include(":core:threading")
+include(":core:ui")
 
 // feature auth modules
 include(":feature:auth:data:remote")
