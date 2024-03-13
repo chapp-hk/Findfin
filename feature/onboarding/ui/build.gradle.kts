@@ -28,6 +28,7 @@ android {
 
 dependencies {
     implementation(projects.core.design)
+    implementation(projects.core.ui)
     implementation(projects.core.preferences.api)
     implementation(projects.core.preferences.impl)
     implementation(projects.core.location)

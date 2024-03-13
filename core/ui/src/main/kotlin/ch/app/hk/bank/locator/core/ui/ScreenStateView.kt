@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.design.ui
+package ch.app.hk.bank.locator.core.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable

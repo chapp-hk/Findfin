@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ch.app.hk.bank.locator.core.design.ui.ScreenStateView
+import ch.app.hk.bank.locator.core.ui.ScreenStateView
 import ch.app.hk.bank.locator.feature.onboarding.ui.R
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.viewmodel.SelectLanguageViewModel
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.viewmodel.SelectLanguageViewModelImpl

@@ -18,7 +18,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ch.app.hk.bank.locator.core.design.ui.ScreenStateView
+import ch.app.hk.bank.locator.core.ui.ScreenStateView
 import ch.app.hk.bank.locator.feature.auth.ui.R
 import ch.app.hk.bank.locator.feature.auth.ui.register.viewmodel.AuthRegisterViewModel
 import ch.app.hk.bank.locator.feature.auth.ui.register.viewmodel.AuthRegisterViewModelImpl

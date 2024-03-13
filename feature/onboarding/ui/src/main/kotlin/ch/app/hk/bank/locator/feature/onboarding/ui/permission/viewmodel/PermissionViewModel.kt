@@ -1,6 +1,6 @@
 package ch.app.hk.bank.locator.feature.onboarding.ui.permission.viewmodel
 
-import ch.app.hk.bank.locator.core.design.ui.ScreenState
+import ch.app.hk.bank.locator.core.ui.ScreenState
 import kotlinx.coroutines.flow.StateFlow
 
 interface PermissionViewModel {
