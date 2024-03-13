@@ -22,7 +22,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 
 // core modules
-include(":core:design")
+include(":core:theme")
 include(":core:locale:api")
 include(":core:locale:impl")
 include(":core:location")

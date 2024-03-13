@@ -31,7 +31,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.design)
+    implementation(projects.core.theme)
     implementation(projects.core.navigation)
     implementation(projects.feature.onboarding.navigation)
     implementation(projects.feature.auth.navigation)
