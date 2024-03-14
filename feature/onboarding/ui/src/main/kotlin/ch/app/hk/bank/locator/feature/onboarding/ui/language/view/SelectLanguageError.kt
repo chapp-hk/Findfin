@@ -17,7 +17,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ch.app.hk.bank.locator.core.design.theme.AppTheme
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.feature.onboarding.ui.R
 
 @Composable
@@ -58,7 +58,7 @@ internal fun SelectLanguageError(
 )
 @Composable
 private fun SelectLanguageErrorPreviewDay() {
-    AppTheme {
+    AppContent {
         SelectLanguageError(onRetry = {})
     }
 }
@@ -70,7 +70,7 @@ private fun SelectLanguageErrorPreviewDay() {
 )
 @Composable
 private fun SelectLanguageErrorPreviewNight() {
-    AppTheme {
+    AppContent {
         SelectLanguageError(onRetry = {})
     }
 }

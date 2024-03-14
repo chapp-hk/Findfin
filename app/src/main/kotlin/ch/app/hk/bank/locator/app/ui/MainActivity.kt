@@ -5,7 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import ch.app.hk.bank.locator.app.navigation.AppNavHost
-import ch.app.hk.bank.locator.core.design.theme.AppTheme
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            AppTheme {
+            AppContent {
                 AppNavHost()
             }
         }

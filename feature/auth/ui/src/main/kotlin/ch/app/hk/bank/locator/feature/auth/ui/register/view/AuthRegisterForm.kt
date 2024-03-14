@@ -17,7 +17,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ch.app.hk.bank.locator.core.design.theme.AppTheme
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.feature.auth.ui.R
 
 @Composable
@@ -53,7 +53,7 @@ internal fun AuthRegisterForm(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 private fun AuthRegisterFormPreviewDayMode() {
-    AppTheme {
+    AppContent {
         AuthRegisterForm {}
     }
 }
@@ -61,7 +61,7 @@ private fun AuthRegisterFormPreviewDayMode() {
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun AuthRegisterFormPreviewNightMode() {
-    AppTheme {
+    AppContent {
         AuthRegisterForm {}
     }
 }

@@ -5,7 +5,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.test.core.app.ApplicationProvider
-import ch.app.hk.bank.locator.core.design.theme.AppTheme
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.auth.ui.R
 import ch.app.hk.bank.locator.feature.auth.ui.entry.state.AuthEntryUiState
@@ -53,7 +53,7 @@ class AuthEntryScreenRouteTest {
             MutableStateFlow(ScreenState.Success(AuthEntryUiState.Authorized))
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 AuthEntryScreenRoute(
                     authEntryViewModel = authEntryViewModel,
                     finishAuth = mockFinishAuth,
@@ -73,7 +73,7 @@ class AuthEntryScreenRouteTest {
             MutableStateFlow(ScreenState.Success(AuthEntryUiState.StartAuth))
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 AuthEntryScreenRoute(
                     authEntryViewModel = authEntryViewModel,
                     finishAuth = {},

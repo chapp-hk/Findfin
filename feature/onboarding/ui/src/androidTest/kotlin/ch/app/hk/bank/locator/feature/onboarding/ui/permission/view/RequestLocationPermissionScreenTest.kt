@@ -3,7 +3,7 @@ package ch.app.hk.bank.locator.feature.onboarding.ui.permission.view
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import ch.app.hk.bank.locator.core.design.theme.AppTheme
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.onboarding.ui.permission.viewmodel.PermissionViewModel
 import io.mockk.Runs
@@ -27,7 +27,7 @@ class RequestLocationPermissionScreenTest {
             MutableStateFlow(ScreenState.Empty)
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 RequestLocationPermissionScreen(
                     permissionViewModel = permissionViewModel,
                     finishOnboarding = {},
@@ -49,7 +49,7 @@ class RequestLocationPermissionScreenTest {
         every { mockFinishOnboarding() } just Runs
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 RequestLocationPermissionScreen(
                     permissionViewModel = permissionViewModel,
                     finishOnboarding = mockFinishOnboarding,

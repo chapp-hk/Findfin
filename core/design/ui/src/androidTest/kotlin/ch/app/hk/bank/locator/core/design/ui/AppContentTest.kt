@@ -1,20 +1,22 @@
-package ch.app.hk.bank.locator.core.design.theme
+package ch.app.hk.bank.locator.core.design.ui
 
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.test.junit4.createComposeRule
+import ch.app.hk.bank.locator.core.design.theme.DarkColors
+import ch.app.hk.bank.locator.core.design.theme.LightColors
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 
-class ThemeTest {
+class AppContentTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
     @Test
     fun darkThemeFalse() {
         composeTestRule.setContent {
-            AppTheme(
+            AppContent(
                 useDarkTheme = false,
             ) {
                 assertColorSchemesEqual(
@@ -28,7 +30,7 @@ class ThemeTest {
     @Test
     fun darkThemeTrue() {
         composeTestRule.setContent {
-            AppTheme(
+            AppContent(
                 useDarkTheme = true,
             ) {
                 assertColorSchemesEqual(
@@ -53,10 +55,7 @@ class ThemeTest {
         assertEquals(expectedColorScheme.secondary, actualColorScheme.secondary)
         assertEquals(expectedColorScheme.onSecondary, actualColorScheme.onSecondary)
         assertEquals(expectedColorScheme.secondaryContainer, actualColorScheme.secondaryContainer)
-        assertEquals(
-            expectedColorScheme.onSecondaryContainer,
-            actualColorScheme.onSecondaryContainer,
-        )
+        assertEquals(expectedColorScheme.onSecondaryContainer, actualColorScheme.onSecondaryContainer)
         assertEquals(expectedColorScheme.tertiary, actualColorScheme.tertiary)
         assertEquals(expectedColorScheme.onTertiary, actualColorScheme.onTertiary)
         assertEquals(expectedColorScheme.tertiaryContainer, actualColorScheme.tertiaryContainer)

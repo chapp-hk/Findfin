@@ -5,7 +5,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onChildAt
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import ch.app.hk.bank.locator.core.design.theme.AppTheme
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.model.SelectLanguageUiModel
 import io.mockk.Runs
 import io.mockk.every
@@ -22,7 +22,7 @@ class SelectLanguageContentTest {
     @Test
     fun assertAvailableLanguagesItemsDisplayed() {
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 SelectLanguageContent(
                     availableLanguages =
                         listOf(
@@ -57,7 +57,7 @@ class SelectLanguageContentTest {
         every { mockOnLanguageSelect(any()) } just Runs
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 SelectLanguageContent(
                     availableLanguages =
                         listOf(
