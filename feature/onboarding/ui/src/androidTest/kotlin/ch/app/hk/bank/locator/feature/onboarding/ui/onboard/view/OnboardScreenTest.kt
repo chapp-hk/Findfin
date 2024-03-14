@@ -3,7 +3,7 @@ package ch.app.hk.bank.locator.feature.onboarding.ui.onboard.view
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import ch.app.hk.bank.locator.core.design.theme.AppTheme
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.state.OnboardUiState
 import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.viewmodel.OnboardViewModel
@@ -44,7 +44,7 @@ class OnboardScreenTest {
             MutableStateFlow(ScreenState.Success(OnboardUiState.GoToHome))
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 OnboardScreen(
                     onboardViewModel = onboardViewModel,
                     finishOnboarding = mockFinishOnboarding,
@@ -62,7 +62,7 @@ class OnboardScreenTest {
             MutableStateFlow(ScreenState.Success(OnboardUiState.StartOnboarding))
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 OnboardScreen(
                     onboardViewModel = onboardViewModel,
                     finishOnboarding = {},

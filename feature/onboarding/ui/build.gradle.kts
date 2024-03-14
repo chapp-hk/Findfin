@@ -27,7 +27,6 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.design.theme)
     implementation(projects.core.design.ui)
     implementation(projects.core.preferences.api)
     implementation(projects.core.preferences.impl)

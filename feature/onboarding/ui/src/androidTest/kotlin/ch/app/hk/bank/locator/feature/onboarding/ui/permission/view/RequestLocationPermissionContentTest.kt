@@ -3,7 +3,7 @@ package ch.app.hk.bank.locator.feature.onboarding.ui.permission.view
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import ch.app.hk.bank.locator.core.design.theme.AppTheme
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
@@ -22,7 +22,7 @@ class RequestLocationPermissionContentTest {
         every { mockOnGrantPermission() } just Runs
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 RequestLocationPermissionContent(
                     onGrantPermission = mockOnGrantPermission,
                     onSkip = {},
@@ -43,7 +43,7 @@ class RequestLocationPermissionContentTest {
         every { mockOnSkip() } just Runs
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 RequestLocationPermissionContent(
                     onGrantPermission = {},
                     onSkip = mockOnSkip,

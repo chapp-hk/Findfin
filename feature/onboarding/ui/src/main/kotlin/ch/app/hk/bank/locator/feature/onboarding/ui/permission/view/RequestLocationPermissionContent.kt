@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ch.app.hk.bank.locator.core.design.theme.AppTheme
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.feature.onboarding.ui.R
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -119,7 +119,7 @@ internal const val TEST_TAG_ONBOARDING_REQUEST_LOCATION_PERMISSION_BUTTON_SKIP =
 )
 @Composable
 private fun RequestLocationPermissionContentPreviewDay() {
-    AppTheme {
+    AppContent {
         RequestLocationPermissionController {}
     }
 }
@@ -131,7 +131,7 @@ private fun RequestLocationPermissionContentPreviewDay() {
 )
 @Composable
 private fun RequestLocationPermissionContentPreviewNight() {
-    AppTheme {
+    AppContent {
         RequestLocationPermissionController {}
     }
 }

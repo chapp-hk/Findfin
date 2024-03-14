@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import ch.app.hk.bank.locator.core.design.theme.AppTheme
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.feature.onboarding.ui.R
 
 @Composable
@@ -56,7 +56,7 @@ internal const val TEST_TAG_ONBOARDING_LOCATION_PERMISSION_NOT_GRANTED_DIALOG_BU
 )
 @Composable
 private fun LocationPermissionNotGrantedDialogPreviewDay() {
-    AppTheme {
+    AppContent {
         LocationPermissionNotGrantedDialog(true) {}
     }
 }
@@ -68,7 +68,7 @@ private fun LocationPermissionNotGrantedDialogPreviewDay() {
 )
 @Composable
 private fun LocationPermissionNotGrantedDialogPreviewNight() {
-    AppTheme {
+    AppContent {
         LocationPermissionNotGrantedDialog(true) {}
     }
 }

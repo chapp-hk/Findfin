@@ -6,7 +6,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.core.app.ApplicationProvider
-import ch.app.hk.bank.locator.core.design.theme.AppTheme
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.auth.ui.R
 import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterUiState
@@ -33,7 +33,7 @@ class AuthRegisterTest {
             MutableStateFlow(ScreenState.Loading)
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 AuthRegister(
                     authRegisterViewModel = authRegisterViewModel,
                     onAuthorized = {},
@@ -52,7 +52,7 @@ class AuthRegisterTest {
             MutableStateFlow(ScreenState.Error(Throwable(), AuthRegisterUiState.Failed))
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 AuthRegister(
                     authRegisterViewModel = authRegisterViewModel,
                     onAuthorized = {},
@@ -74,7 +74,7 @@ class AuthRegisterTest {
             MutableStateFlow(ScreenState.Success(AuthRegisterUiState.Authorized))
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 AuthRegister(
                     authRegisterViewModel = authRegisterViewModel,
                     onAuthorized = mockAuthorized,

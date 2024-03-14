@@ -1,12 +1,9 @@
 package ch.app.hk.bank.locator.core.design.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
-import androidx.compose.runtime.Composable
 
-internal val LightColors =
+val LightColors =
     lightColorScheme(
         primary = md_theme_light_primary,
         onPrimary = md_theme_light_onPrimary,
@@ -39,7 +36,7 @@ internal val LightColors =
         scrim = md_theme_light_scrim,
     )
 
-internal val DarkColors =
+val DarkColors =
     darkColorScheme(
         primary = md_theme_dark_primary,
         onPrimary = md_theme_dark_onPrimary,
@@ -71,23 +68,3 @@ internal val DarkColors =
         outlineVariant = md_theme_dark_outlineVariant,
         scrim = md_theme_dark_scrim,
     )
-
-@Composable
-fun AppTheme(
-    useDarkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit,
-) {
-    val colors =
-        if (!useDarkTheme) {
-            LightColors
-        } else {
-            DarkColors
-        }
-
-    MaterialTheme(
-        colorScheme = colors,
-        shapes = Shapes,
-        typography = Typography,
-        content = content,
-    )
-}

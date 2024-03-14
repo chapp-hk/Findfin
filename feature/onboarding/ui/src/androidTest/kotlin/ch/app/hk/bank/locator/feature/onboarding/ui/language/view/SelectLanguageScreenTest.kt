@@ -3,7 +3,7 @@ package ch.app.hk.bank.locator.feature.onboarding.ui.language.view
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import ch.app.hk.bank.locator.core.design.theme.AppTheme
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.state.SelectLanguageUiState
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.viewmodel.SelectLanguageViewModelImpl
@@ -43,7 +43,7 @@ class SelectLanguageScreenTest {
             MutableStateFlow(ScreenState.Loading)
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 SelectLanguageScreen(
                     goToRequestPermission = {},
                 )
@@ -61,7 +61,7 @@ class SelectLanguageScreenTest {
             MutableStateFlow(ScreenState.Error(Throwable(), SelectLanguageUiState("en")))
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 SelectLanguageScreen(
                     goToRequestPermission = {},
                 )
@@ -81,7 +81,7 @@ class SelectLanguageScreenTest {
             MutableStateFlow(ScreenState.Empty)
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 SelectLanguageScreen(
                     goToRequestPermission = {},
                 )
@@ -102,7 +102,7 @@ class SelectLanguageScreenTest {
             MutableStateFlow(ScreenState.Success(SelectLanguageUiState("en")))
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 SelectLanguageScreen(
                     goToRequestPermission = mockGoToRequestPermission,
                 )

@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import ch.app.hk.bank.locator.core.design.theme.AppTheme
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.model.SelectLanguageUiModel
 
 @Composable
@@ -78,7 +78,7 @@ private fun SelectLanguageContentPreviewDay(
     @PreviewParameter(AvailableLanguagesParameterProvider::class)
     availableLanguages: List<SelectLanguageUiModel>,
 ) {
-    AppTheme {
+    AppContent {
         SelectLanguageContent(
             availableLanguages = availableLanguages,
             onLanguageSelect = {},
@@ -96,7 +96,7 @@ private fun SelectLanguageContentPreviewNight(
     @PreviewParameter(AvailableLanguagesParameterProvider::class)
     availableLanguages: List<SelectLanguageUiModel>,
 ) {
-    AppTheme {
+    AppContent {
         SelectLanguageContent(
             availableLanguages = availableLanguages,
             onLanguageSelect = {},

@@ -5,7 +5,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import ch.app.hk.bank.locator.core.design.theme.AppTheme
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
@@ -21,7 +21,7 @@ class LocationPermissionNotGrantedDialogTest {
     @Test
     fun assertDialogIsDisplayed() {
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 Scaffold {
                     it.calculateBottomPadding()
                     LocationPermissionNotGrantedDialog(true) {
@@ -41,7 +41,7 @@ class LocationPermissionNotGrantedDialogTest {
         every { mockedOnConfirm() } just Runs
 
         composeTestRule.setContent {
-            AppTheme {
+            AppContent {
                 Scaffold {
                     it.calculateBottomPadding()
                     LocationPermissionNotGrantedDialog(
