@@ -17,4 +17,7 @@ android {
 dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
+
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.kotest.assertions.core)
 }
