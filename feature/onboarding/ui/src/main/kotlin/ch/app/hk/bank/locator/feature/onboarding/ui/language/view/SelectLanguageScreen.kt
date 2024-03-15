@@ -12,8 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -79,27 +80,25 @@ private fun SelectLanguageScreenStateView(
     ScreenStateView(
         state = selectLanguageViewModel.uiState.collectAsStateWithLifecycle(),
         loading = {
+            val loadingContentDescription =
+                stringResource(id = R.string.onboarding_content_description_loading)
+
             CircularProgressIndicator(
                 modifier =
                     Modifier
-                        .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_LOADING)
+                        .semantics { contentDescription = loadingContentDescription }
                         .fillMaxSize()
                         .wrapContentSize(Alignment.Center),
             )
         },
         empty = {
             SelectLanguageContent(
-                modifier = Modifier.testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT),
                 availableLanguages = selectLanguageViewModel.availableLanguages,
-                onLanguageSelect = { localeTag ->
-                    selectLanguageViewModel.setLanguage(localeTag)
-                },
+                onLanguageSelect = selectLanguageViewModel::setLanguage,
             )
         },
         error = { _, data ->
-            SelectLanguageError(
-                modifier = Modifier.testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_ERROR),
-            ) {
+            SelectLanguageError {
                 selectLanguageViewModel.setLanguage(data.selectedLanguageTag)
             }
         },
@@ -108,10 +107,3 @@ private fun SelectLanguageScreenStateView(
         },
     )
 }
-
-internal const val TEST_TAG_ONBOARDING_SELECT_LANGUAGE_LOADING =
-    "onboarding-select-language-loading"
-internal const val TEST_TAG_ONBOARDING_SELECT_LANGUAGE_ERROR =
-    "onboarding-select-language-error"
-internal const val TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT =
-    "onboarding-select-language-content"

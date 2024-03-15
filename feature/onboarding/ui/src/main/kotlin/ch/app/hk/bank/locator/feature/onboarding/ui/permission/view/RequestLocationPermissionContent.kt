@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -64,20 +63,14 @@ fun RequestLocationPermissionContent(
             )
 
             Button(
-                modifier =
-                    Modifier
-                        .testTag(TEST_TAG_ONBOARDING_REQUEST_LOCATION_PERMISSION_BUTTON_GRANT)
-                        .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 onClick = onGrantPermission,
             ) {
                 Text(text = stringResource(id = R.string.onboarding_button_grant_permission))
             }
 
             OutlinedButton(
-                modifier =
-                    Modifier
-                        .testTag(TEST_TAG_ONBOARDING_REQUEST_LOCATION_PERMISSION_BUTTON_SKIP)
-                        .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 onClick = onSkip,
             ) {
                 Text(text = stringResource(id = R.string.onboarding_button_skip))
@@ -106,11 +99,6 @@ private fun RequestLocationPermissionContentHeader() {
         style = MaterialTheme.typography.bodySmall,
     )
 }
-
-internal const val TEST_TAG_ONBOARDING_REQUEST_LOCATION_PERMISSION_BUTTON_GRANT =
-    "onboarding_request_location_permission_button_grant"
-internal const val TEST_TAG_ONBOARDING_REQUEST_LOCATION_PERMISSION_BUTTON_SKIP =
-    "onboarding_request_location_permission_button_skip"
 
 @Preview(
     showBackground = true,

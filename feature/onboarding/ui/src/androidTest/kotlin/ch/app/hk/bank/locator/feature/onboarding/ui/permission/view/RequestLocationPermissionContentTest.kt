@@ -1,9 +1,11 @@
 package ch.app.hk.bank.locator.feature.onboarding.ui.permission.view
 
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import ch.app.hk.bank.locator.core.design.ui.AppContent
+import ch.app.hk.bank.locator.feature.onboarding.ui.R
+import ch.app.hk.bank.locator.testing.instrument.getResourceString
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
@@ -31,7 +33,7 @@ class RequestLocationPermissionContentTest {
         }
 
         composeTestRule
-            .onNodeWithTag(TEST_TAG_ONBOARDING_REQUEST_LOCATION_PERMISSION_BUTTON_GRANT)
+            .onNodeWithText(getResourceString(R.string.onboarding_button_grant_permission))
             .performClick()
 
         verify { mockOnGrantPermission() }
@@ -52,7 +54,7 @@ class RequestLocationPermissionContentTest {
         }
 
         composeTestRule
-            .onNodeWithTag(TEST_TAG_ONBOARDING_REQUEST_LOCATION_PERMISSION_BUTTON_SKIP)
+            .onNodeWithText(getResourceString(R.string.onboarding_button_skip))
             .performClick()
 
         verify { mockOnSkip() }

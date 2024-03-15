@@ -1,11 +1,14 @@
 package ch.app.hk.bank.locator.feature.onboarding.ui.language.view
 
+import android.content.Context
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onChildAt
-import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
+import androidx.test.core.app.ApplicationProvider
 import ch.app.hk.bank.locator.core.design.ui.AppContent
+import ch.app.hk.bank.locator.feature.onboarding.ui.R
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.model.SelectLanguageUiModel
 import io.mockk.Runs
 import io.mockk.every
@@ -18,6 +21,10 @@ import org.junit.Test
 class SelectLanguageContentTest {
     @get:Rule
     val composeTestRule = createComposeRule()
+
+    private val context = ApplicationProvider.getApplicationContext<Context>()
+    private val languageListContentDescription =
+        context.getString(R.string.onboarding_content_description_language_list)
 
     @Test
     fun assertAvailableLanguagesItemsDisplayed() {
@@ -41,12 +48,12 @@ class SelectLanguageContentTest {
         }
 
         composeTestRule
-            .onNodeWithTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST)
+            .onNodeWithContentDescription(languageListContentDescription)
             .onChildAt(0)
             .assertTextEquals("English")
 
         composeTestRule
-            .onNodeWithTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST)
+            .onNodeWithContentDescription(languageListContentDescription)
             .onChildAt(1)
             .assertTextEquals("Chinese")
     }
@@ -72,7 +79,7 @@ class SelectLanguageContentTest {
         }
 
         composeTestRule
-            .onNodeWithTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST)
+            .onNodeWithContentDescription(languageListContentDescription)
             .onChildAt(0)
             .performClick()
 

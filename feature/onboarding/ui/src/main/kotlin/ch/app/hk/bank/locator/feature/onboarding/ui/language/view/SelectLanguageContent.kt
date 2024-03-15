@@ -15,13 +15,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import ch.app.hk.bank.locator.core.design.ui.AppContent
+import ch.app.hk.bank.locator.feature.onboarding.ui.R
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.model.SelectLanguageUiModel
 
 @Composable
@@ -30,10 +33,13 @@ internal fun SelectLanguageContent(
     availableLanguages: List<SelectLanguageUiModel>,
     onLanguageSelect: (String) -> Unit,
 ) {
+    val languageListContentDescription =
+        stringResource(id = R.string.onboarding_content_description_language_list)
+
     LazyColumn(
         modifier =
             modifier
-                .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST)
+                .semantics { contentDescription = languageListContentDescription }
                 .padding(top = 16.dp),
     ) {
         items(
@@ -43,7 +49,6 @@ internal fun SelectLanguageContent(
             OutlinedButton(
                 modifier =
                     Modifier
-                        .testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST_BUTTON)
                         .fillMaxWidth(),
                 onClick = { onLanguageSelect(language.tag) },
                 shape = RoundedCornerShape(10.dp),
@@ -120,8 +125,3 @@ private class AvailableLanguagesParameterProvider :
             ),
         )
 }
-
-internal const val TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST =
-    "onboarding_select_language_content_list"
-internal const val TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT_LIST_BUTTON =
-    "onboarding_select_language_content_list_button"

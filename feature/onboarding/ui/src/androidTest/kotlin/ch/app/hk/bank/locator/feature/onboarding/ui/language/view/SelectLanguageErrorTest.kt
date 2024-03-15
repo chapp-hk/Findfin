@@ -1,9 +1,11 @@
 package ch.app.hk.bank.locator.feature.onboarding.ui.language.view
 
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import ch.app.hk.bank.locator.core.design.ui.AppContent
+import ch.app.hk.bank.locator.feature.onboarding.ui.R
+import ch.app.hk.bank.locator.testing.instrument.getResourceString
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
@@ -30,7 +32,7 @@ class SelectLanguageErrorTest {
         }
 
         composeTestRule
-            .onNodeWithTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_ERROR_RETRY)
+            .onNodeWithText(getResourceString(R.string.onboarding_button_retry))
             .performClick()
 
         verify { mockRetry() }

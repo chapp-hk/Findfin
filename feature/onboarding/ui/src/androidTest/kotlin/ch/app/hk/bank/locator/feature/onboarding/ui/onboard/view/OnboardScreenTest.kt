@@ -2,12 +2,14 @@ package ch.app.hk.bank.locator.feature.onboarding.ui.onboard.view
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
+import ch.app.hk.bank.locator.feature.onboarding.ui.R
 import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.state.OnboardUiState
 import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.viewmodel.OnboardViewModel
 import ch.app.hk.bank.locator.testing.instrument.HiltComponentActivity
+import ch.app.hk.bank.locator.testing.instrument.getResourceString
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.Runs
@@ -72,7 +74,7 @@ class OnboardScreenTest {
         }
 
         composeTestRule
-            .onNodeWithTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_SCREEN)
+            .onNodeWithText(getResourceString(R.string.onboarding_title_language))
             .assertIsDisplayed()
     }
 }

@@ -2,10 +2,12 @@ package ch.app.hk.bank.locator.feature.onboarding.ui.permission.view
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
+import ch.app.hk.bank.locator.feature.onboarding.ui.R
 import ch.app.hk.bank.locator.feature.onboarding.ui.permission.viewmodel.PermissionViewModel
+import ch.app.hk.bank.locator.testing.instrument.getResourceString
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
@@ -36,7 +38,7 @@ class RequestLocationPermissionScreenTest {
         }
 
         composeTestRule
-            .onNodeWithTag(TEST_TAG_ONBOARDING_REQUEST_LOCATION_PERMISSION_SCREEN)
+            .onNodeWithText(getResourceString(R.string.onboarding_title_enable_location))
             .assertIsDisplayed()
     }
 

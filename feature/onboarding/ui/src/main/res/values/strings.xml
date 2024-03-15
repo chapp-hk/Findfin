@@ -10,4 +10,7 @@
     <string name="onboarding_button_grant_permission">Grant permission</string>
     <string name="onboarding_button_skip">Skip</string>
     <string name="onboarding_button_ok">OK</string>
+
+    <string name="onboarding_content_description_language_list">Language list</string>
+    <string name="onboarding_content_description_loading">Loading</string>
 </resources>
