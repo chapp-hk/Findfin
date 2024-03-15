@@ -1,8 +1,6 @@
 package ch.app.hk.bank.locator.feature.onboarding.ui.onboard.view
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ch.app.hk.bank.locator.core.design.ui.ScreenStateView
@@ -25,7 +23,6 @@ fun OnboardScreen(
                 OnboardUiState.GoToHome -> finishOnboarding()
                 OnboardUiState.StartOnboarding -> {
                     SelectLanguageScreen(
-                        modifier = Modifier.testTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_SCREEN),
                         goToRequestPermission = goToRequestPermission,
                     )
                 }
@@ -33,6 +30,3 @@ fun OnboardScreen(
         },
     )
 }
-
-internal const val TEST_TAG_ONBOARDING_SELECT_LANGUAGE_SCREEN =
-    "onboarding_select_language_screen"

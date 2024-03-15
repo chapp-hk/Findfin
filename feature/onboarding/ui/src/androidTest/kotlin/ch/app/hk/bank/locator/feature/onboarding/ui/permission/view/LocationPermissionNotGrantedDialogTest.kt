@@ -3,9 +3,11 @@ package ch.app.hk.bank.locator.feature.onboarding.ui.permission.view
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import ch.app.hk.bank.locator.core.design.ui.AppContent
+import ch.app.hk.bank.locator.feature.onboarding.ui.R
+import ch.app.hk.bank.locator.testing.instrument.getResourceString
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
@@ -31,7 +33,7 @@ class LocationPermissionNotGrantedDialogTest {
         }
 
         composeTestRule
-            .onNodeWithTag(TEST_TAG_ONBOARDING_LOCATION_PERMISSION_NOT_GRANTED_DIALOG)
+            .onNodeWithText(getResourceString(R.string.onboarding_title_permission_denied))
             .assertIsDisplayed()
     }
 
@@ -53,7 +55,7 @@ class LocationPermissionNotGrantedDialogTest {
         }
 
         composeTestRule
-            .onNodeWithTag(TEST_TAG_ONBOARDING_LOCATION_PERMISSION_NOT_GRANTED_DIALOG_BUTTON)
+            .onNodeWithText(getResourceString(R.string.onboarding_button_ok))
             .performClick()
 
         verify { mockedOnConfirm() }

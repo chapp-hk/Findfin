@@ -2,12 +2,15 @@ package ch.app.hk.bank.locator.feature.onboarding.ui.language.view
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithText
 import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
+import ch.app.hk.bank.locator.feature.onboarding.ui.R
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.state.SelectLanguageUiState
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.viewmodel.SelectLanguageViewModelImpl
 import ch.app.hk.bank.locator.testing.instrument.HiltComponentActivity
+import ch.app.hk.bank.locator.testing.instrument.getResourceString
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -51,7 +54,7 @@ class SelectLanguageScreenTest {
         }
 
         composeTestRule
-            .onNodeWithTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_LOADING)
+            .onNodeWithContentDescription(getResourceString(R.string.onboarding_content_description_loading))
             .assertIsDisplayed()
     }
 
@@ -69,7 +72,7 @@ class SelectLanguageScreenTest {
         }
 
         composeTestRule
-            .onNodeWithTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_ERROR)
+            .onNodeWithText(getResourceString(R.string.onboarding_error_message))
             .assertIsDisplayed()
     }
 
@@ -89,7 +92,7 @@ class SelectLanguageScreenTest {
         }
 
         composeTestRule
-            .onNodeWithTag(TEST_TAG_ONBOARDING_SELECT_LANGUAGE_CONTENT)
+            .onNodeWithContentDescription(getResourceString(R.string.onboarding_content_description_language_list))
             .assertIsDisplayed()
     }
 

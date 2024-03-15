@@ -5,8 +5,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import ch.app.hk.bank.locator.core.design.ui.AppContent
@@ -19,7 +17,6 @@ fun LocationPermissionNotGrantedDialog(
 ) {
     if (isShowDialog) {
         AlertDialog(
-            modifier = Modifier.testTag(tag = TEST_TAG_ONBOARDING_LOCATION_PERMISSION_NOT_GRANTED_DIALOG),
             title = {
                 Text(text = stringResource(id = R.string.onboarding_title_permission_denied))
             },
@@ -29,10 +26,6 @@ fun LocationPermissionNotGrantedDialog(
             onDismissRequest = {},
             confirmButton = {
                 TextButton(
-                    modifier =
-                        Modifier.testTag(
-                            TEST_TAG_ONBOARDING_LOCATION_PERMISSION_NOT_GRANTED_DIALOG_BUTTON,
-                        ),
                     onClick = {
                         onConfirm()
                     },
@@ -43,11 +36,6 @@ fun LocationPermissionNotGrantedDialog(
         )
     }
 }
-
-internal const val TEST_TAG_ONBOARDING_LOCATION_PERMISSION_NOT_GRANTED_DIALOG =
-    "onboarding_location_permission_not_granted_dialog"
-internal const val TEST_TAG_ONBOARDING_LOCATION_PERMISSION_NOT_GRANTED_DIALOG_BUTTON =
-    "onboarding_location_permission_not_granted_dialog_button"
 
 @Preview(
     showBackground = true,

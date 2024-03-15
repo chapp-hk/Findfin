@@ -4,7 +4,7 @@ import androidx.activity.ComponentActivity
 import androidx.compose.material3.Text
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.ComposeNavigator
@@ -64,7 +64,7 @@ class BottomNavigationLayoutTest {
     @Test
     fun assertRouteToOtherTab() {
         composeTestRule
-            .onNodeWithTag("test-bottom-setting")
+            .onNodeWithContentDescription("test-bottom-setting")
             .performClick()
 
         assert(navController.currentDestination?.route == "test-bottom-setting")
