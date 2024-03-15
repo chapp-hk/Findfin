@@ -33,7 +33,7 @@ class FetchAllLocatorsWithLanguageUseCaseImpl
                 val result =
                     locatorRepository.fetchLocators(
                         type = type,
-                        localeTag = appLocaleRepository.getCurrentLocale()?.toLanguageTag().orEmpty(),
+                        localeTag = appLocaleRepository.getCurrentLocale().toLanguageTag(),
                         page = page,
                         pageSize = 1000,
                     )
