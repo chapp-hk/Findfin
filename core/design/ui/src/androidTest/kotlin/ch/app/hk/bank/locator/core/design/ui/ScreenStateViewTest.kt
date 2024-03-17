@@ -52,14 +52,14 @@ class ScreenStateViewTest {
 
     @Test
     fun testError() {
-        val state = mutableStateOf(ScreenState.Error(cause = Throwable("test-error"), data = "test-data"))
+        val state = mutableStateOf(ScreenState.Error(data = "test-data"))
 
         composeTestRule.setContent {
             AppContent {
                 ScreenStateView(
                     state = state,
-                    error = { cause, data ->
-                        Text(text = "cause: ${cause.message}, data: $data")
+                    error = { data ->
+                        Text(text = "data: $data")
                     },
                     success = {},
                 )
@@ -67,7 +67,7 @@ class ScreenStateViewTest {
         }
 
         composeTestRule
-            .onNodeWithText("cause: test-error, data: test-data")
+            .onNodeWithText("data: test-data")
             .assertIsDisplayed()
     }
 

@@ -58,7 +58,7 @@ class AuthRegisterViewModelImplTest {
                 ),
                 Arguments.arguments(
                     AuthResult.Failed(""),
-                    ScreenState.Error(Error(), AuthRegisterUiState.Failed),
+                    ScreenState.Error(AuthRegisterUiState.Failed),
                 ),
             )
         }

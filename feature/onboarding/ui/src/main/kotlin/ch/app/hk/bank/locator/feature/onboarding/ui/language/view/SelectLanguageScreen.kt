@@ -97,7 +97,7 @@ private fun SelectLanguageScreenStateView(
                 onLanguageSelect = selectLanguageViewModel::setLanguage,
             )
         },
-        error = { _, data ->
+        error = { data ->
             SelectLanguageError {
                 selectLanguageViewModel.setLanguage(data.selectedLanguageTag)
             }

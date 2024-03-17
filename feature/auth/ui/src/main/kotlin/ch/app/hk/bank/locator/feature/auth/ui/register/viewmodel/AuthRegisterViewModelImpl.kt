@@ -32,10 +32,7 @@ class AuthRegisterViewModelImpl
                             ScreenState.Success(AuthRegisterUiState.Authorized)
 
                         is AuthResult.Failed ->
-                            ScreenState.Error(
-                                Error(),
-                                AuthRegisterUiState.Failed,
-                            )
+                            ScreenState.Error(AuthRegisterUiState.Failed)
                     }
                 _uiState.emit(state)
             }

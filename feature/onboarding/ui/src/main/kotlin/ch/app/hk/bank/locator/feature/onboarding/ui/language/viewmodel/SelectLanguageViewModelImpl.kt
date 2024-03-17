@@ -38,7 +38,7 @@ class SelectLanguageViewModelImpl
                 if (fetchAllLocatorsWithLanguage()) {
                     _uiState.emit(ScreenState.Success(SelectLanguageUiState(language)))
                 } else {
-                    _uiState.emit(ScreenState.Error(Error(), SelectLanguageUiState(language)))
+                    _uiState.emit(ScreenState.Error(SelectLanguageUiState(language)))
                 }
             }
         }
