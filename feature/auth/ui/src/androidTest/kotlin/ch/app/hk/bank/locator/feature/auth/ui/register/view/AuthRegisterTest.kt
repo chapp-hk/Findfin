@@ -49,7 +49,7 @@ class AuthRegisterTest {
     @Test
     fun testError() {
         every { authRegisterViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Error(Throwable(), AuthRegisterUiState.Failed))
+            MutableStateFlow(ScreenState.Error(AuthRegisterUiState.Failed))
 
         composeTestRule.setContent {
             AppContent {

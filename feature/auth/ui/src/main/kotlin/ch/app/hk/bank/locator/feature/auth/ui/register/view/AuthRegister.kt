@@ -55,7 +55,7 @@ internal fun AuthRegister(
                             .wrapContentSize(Alignment.Center),
                 )
             },
-            error = { _, _ ->
+            error = {
                 val message = stringResource(id = R.string.auth_error_message)
                 LaunchedEffect(Unit) {
                     snackbarHostState.showSnackbar(message)
