@@ -6,4 +6,9 @@ interface AuthRepository {
     fun isAuthorized(): Boolean
 
     suspend fun anonymousLogin(): AuthResult
+
+    suspend fun emailPasswordRegister(
+        email: String,
+        password: String,
+    ): AuthResult
 }
