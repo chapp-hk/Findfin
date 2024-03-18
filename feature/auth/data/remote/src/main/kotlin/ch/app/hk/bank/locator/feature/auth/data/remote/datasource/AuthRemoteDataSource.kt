@@ -5,10 +5,10 @@ import ch.app.hk.bank.locator.feature.auth.data.remote.response.AuthResponse
 interface AuthRemoteDataSource {
     fun isAuthorized(): Boolean
 
-    suspend fun anonymousLogin(): Result<AuthResponse>
+    suspend fun anonymousLogin(): AuthResponse
 
     suspend fun emailPasswordRegister(
         email: String,
         password: String,
-    ): Result<AuthResponse>
+    ): AuthResponse
 }
