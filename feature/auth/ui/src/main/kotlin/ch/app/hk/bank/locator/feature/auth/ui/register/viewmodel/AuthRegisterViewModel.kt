@@ -8,4 +8,11 @@ interface AuthRegisterViewModel {
     val uiState: StateFlow<ScreenState<AuthRegisterUiState>>
 
     fun anonymousLogin()
+
+    fun emailPasswordRegister(
+        email: String,
+        password: String,
+    )
+
+    fun resetUiState()
 }
