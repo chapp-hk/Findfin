@@ -1,10 +1,6 @@
 package ch.app.hk.bank.locator.core.design.ui.text
 
 import android.content.Context
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -38,14 +34,11 @@ class PasswordTextFieldTest {
 
         composeTestRule.setContent {
             AppContent {
-                var value by rememberSaveable { mutableStateOf("") }
                 PasswordTextField(
                     modifier =
                         Modifier.semantics {
                             contentDescription = textFieldContentDescription
                         },
-                    value = value,
-                    onValueChange = { value = it },
                 )
             }
         }
