@@ -23,7 +23,7 @@ import ch.app.hk.bank.locator.core.design.ui.R
 @Composable
 fun PasswordTextField(
     modifier: Modifier = Modifier,
-    appTextFieldState: AppTextFieldState = rememberAppTextFieldState(),
+    state: AppTextFieldState = rememberAppTextFieldState(),
 ) {
     var passwordVisibility by remember { mutableStateOf(false) }
 
@@ -43,7 +43,7 @@ fun PasswordTextField(
 
     AppTextField(
         modifier = modifier,
-        state = appTextFieldState,
+        state = state,
         trailingIcon = {
             IconButton(
                 onClick = { passwordVisibility = !passwordVisibility },
