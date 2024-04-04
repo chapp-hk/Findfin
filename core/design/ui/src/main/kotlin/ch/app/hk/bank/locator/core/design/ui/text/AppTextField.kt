@@ -86,9 +86,13 @@ private class AppTextFieldPreviewParameterProvider : PreviewParameterProvider<Ap
                 override var isError: Boolean = false
                 override val isClearErrorWhenInput: Boolean = true
 
-                override fun setErrorText(errorText: String) {}
+                override fun setErrorText(errorText: String) {
+                    // no implementation
+                }
 
-                override fun clearErrorText() {}
+                override fun clearErrorText() {
+                    // no implementation
+                }
             },
             object : AppTextFieldState {
                 override var value: String = ""
@@ -97,9 +101,13 @@ private class AppTextFieldPreviewParameterProvider : PreviewParameterProvider<Ap
                 override var isError: Boolean = false
                 override val isClearErrorWhenInput: Boolean = true
 
-                override fun setErrorText(errorText: String) {}
+                override fun setErrorText(errorText: String) {
+                    // no implementation
+                }
 
-                override fun clearErrorText() {}
+                override fun clearErrorText() {
+                    // no implementation
+                }
             },
             object : AppTextFieldState {
                 override var value: String = ""
@@ -108,9 +116,13 @@ private class AppTextFieldPreviewParameterProvider : PreviewParameterProvider<Ap
                 override var isError: Boolean = false
                 override val isClearErrorWhenInput: Boolean = true
 
-                override fun setErrorText(errorText: String) {}
+                override fun setErrorText(errorText: String) {
+                    // no implementation
+                }
 
-                override fun clearErrorText() {}
+                override fun clearErrorText() {
+                    // no implementation
+                }
             },
             object : AppTextFieldState {
                 override var value: String = ""
@@ -119,9 +131,13 @@ private class AppTextFieldPreviewParameterProvider : PreviewParameterProvider<Ap
                 override var isError: Boolean = true
                 override val isClearErrorWhenInput: Boolean = true
 
-                override fun setErrorText(errorText: String) {}
+                override fun setErrorText(errorText: String) {
+                    // no implementation
+                }
 
-                override fun clearErrorText() {}
+                override fun clearErrorText() {
+                    // no implementation
+                }
             },
         )
 }
