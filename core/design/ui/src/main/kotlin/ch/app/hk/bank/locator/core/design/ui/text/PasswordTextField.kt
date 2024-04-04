@@ -1,6 +1,7 @@
 package ch.app.hk.bank.locator.core.design.ui.text
 
 import android.content.res.Configuration
+import android.graphics.Color
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -22,9 +23,7 @@ import ch.app.hk.bank.locator.core.design.ui.R
 @Composable
 fun PasswordTextField(
     modifier: Modifier = Modifier,
-    value: String,
-    onValueChange: (String) -> Unit,
-    placeHolder: String = "",
+    appTextFieldState: AppTextFieldState = rememberAppTextFieldState(),
 ) {
     var passwordVisibility by remember { mutableStateOf(false) }
 
@@ -44,9 +43,7 @@ fun PasswordTextField(
 
     AppTextField(
         modifier = modifier,
-        value = value,
-        onValueChange = { newValue -> onValueChange(newValue) },
-        placeholder = placeHolder,
+        state = appTextFieldState,
         trailingIcon = {
             IconButton(
                 onClick = { passwordVisibility = !passwordVisibility },
@@ -65,26 +62,26 @@ fun PasswordTextField(
     )
 }
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    showBackground = true,
+    backgroundColor = Color.WHITE.toLong(),
+)
 @Composable
 private fun PasswordTextFieldPreviewDayMode() {
     AppContent {
-        PasswordTextField(
-            value = "",
-            onValueChange = {},
-            placeHolder = "Input password",
-        )
+        PasswordTextField()
     }
 }
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    backgroundColor = Color.BLACK.toLong(),
+)
 @Composable
 private fun PasswordTextFieldPreviewNightMode() {
     AppContent {
-        PasswordTextField(
-            value = "",
-            onValueChange = {},
-            placeHolder = "Input password",
-        )
+        PasswordTextField()
     }
 }
