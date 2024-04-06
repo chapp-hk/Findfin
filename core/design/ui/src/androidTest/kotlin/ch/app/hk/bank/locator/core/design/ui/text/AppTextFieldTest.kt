@@ -75,7 +75,7 @@ class AppTextFieldTest {
     @Test
     fun assertErrorTextIsNotDisplayedWhenInputNewValue() {
         composeTestRule.setContent {
-            val state = rememberAppTextFieldState(isClearErrorWhenInput = true)
+            val state = rememberAppTextFieldState()
             state.setErrorText(errorText = "test supporting text")
 
             AppContent {
@@ -111,10 +111,9 @@ class AppTextFieldTest {
     }
 
     @Test
-    fun assertErrorTextIsDisplayedWhenInputNewValue() {
+    fun assertSupportingTextIsDisplayedWhenInputNewValue() {
         composeTestRule.setContent {
-            val state = rememberAppTextFieldState()
-            state.setErrorText(errorText = "test supporting text")
+            val state = rememberAppTextFieldState(supportingText = "test supporting text")
 
             AppContent {
                 AppTextField(

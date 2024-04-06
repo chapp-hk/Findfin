@@ -35,7 +35,7 @@ fun AppTextField(
         value = state.value,
         onValueChange = {
             state.value = it
-            if (state.isClearErrorWhenInput) {
+            if (state.isError) {
                 state.clearErrorText()
             }
         },
@@ -84,7 +84,6 @@ private class AppTextFieldPreviewParameterProvider : PreviewParameterProvider<Ap
                 override var placeholder: String = ""
                 override var supportingText: String = ""
                 override var isError: Boolean = false
-                override val isClearErrorWhenInput: Boolean = true
 
                 override fun setErrorText(errorText: String) {
                     // no implementation
@@ -99,7 +98,6 @@ private class AppTextFieldPreviewParameterProvider : PreviewParameterProvider<Ap
                 override var placeholder: String = "testing placeholder"
                 override var supportingText: String = ""
                 override var isError: Boolean = false
-                override val isClearErrorWhenInput: Boolean = true
 
                 override fun setErrorText(errorText: String) {
                     // no implementation
@@ -114,7 +112,6 @@ private class AppTextFieldPreviewParameterProvider : PreviewParameterProvider<Ap
                 override var placeholder: String = ""
                 override var supportingText: String = "supporting text"
                 override var isError: Boolean = false
-                override val isClearErrorWhenInput: Boolean = true
 
                 override fun setErrorText(errorText: String) {
                     // no implementation
@@ -129,7 +126,6 @@ private class AppTextFieldPreviewParameterProvider : PreviewParameterProvider<Ap
                 override var placeholder: String = ""
                 override var supportingText: String = "error text"
                 override var isError: Boolean = true
-                override val isClearErrorWhenInput: Boolean = true
 
                 override fun setErrorText(errorText: String) {
                     // no implementation

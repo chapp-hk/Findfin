@@ -18,7 +18,6 @@ interface AppTextFieldState {
     var placeholder: String
     var supportingText: String
     var isError: Boolean
-    val isClearErrorWhenInput: Boolean
 
     fun setErrorText(errorText: String)
 
@@ -31,14 +30,12 @@ fun rememberAppTextFieldState(
     placeholder: String = "",
     supportingText: String = "",
     isError: Boolean = false,
-    isClearErrorWhenInput: Boolean = false,
 ) = rememberSaveable(saver = appTextFieldStateSaver) {
     AppTextFieldStateImpl(
         value = value,
         placeholder = placeholder,
         supportingText = supportingText,
         isError = isError,
-        isClearErrorWhenInput = isClearErrorWhenInput,
     )
 }
 
@@ -47,7 +44,6 @@ private class AppTextFieldStateImpl(
     placeholder: String,
     supportingText: String,
     isError: Boolean,
-    override val isClearErrorWhenInput: Boolean = true,
 ) : AppTextFieldState {
     override var value by mutableStateOf(value)
     override var placeholder by mutableStateOf(placeholder)
