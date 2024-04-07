@@ -9,6 +9,7 @@ import androidx.test.core.app.ApplicationProvider
 import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.auth.ui.R
+import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterError
 import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterUiState
 import ch.app.hk.bank.locator.feature.auth.ui.register.viewmodel.AuthRegisterViewModel
 import io.mockk.Runs
@@ -47,9 +48,9 @@ class AuthRegisterTest {
     }
 
     @Test
-    fun testError() {
+    fun testUnknownError() {
         every { authRegisterViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Error(AuthRegisterUiState.Failed))
+            MutableStateFlow(ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN)))
 
         composeTestRule.setContent {
             AppContent {
