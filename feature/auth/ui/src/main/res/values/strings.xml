@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="auth_button_skip">Skip</string>
+    <string name="auth_title_register">Create new account</string>
+    <string name="auth_placeholder_email">Email</string>
+    <string name="auth_placeholder_password">Password</string>
+    <string name="auth_button_register">Register</string>
     <string name="auth_error_message">Something went wrong, please try again</string>
+    <string name="auth_error_message_invalid_email">Invalid email</string>
+    <string name="auth_error_message_password_strength">Password should be at least 6 characters</string>
+    <string name="auth_error_message_email_already_in_use">Email already in use</string>
     <string name="auth_content_description_register">Auth register</string>
     <string name="auth_content_description_loading">Loading</string>
 </resources>
