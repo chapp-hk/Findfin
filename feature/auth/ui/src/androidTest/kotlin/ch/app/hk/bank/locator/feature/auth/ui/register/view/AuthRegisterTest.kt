@@ -1,17 +1,16 @@
 package ch.app.hk.bank.locator.feature.auth.ui.register.view
 
-import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
-import androidx.test.core.app.ApplicationProvider
 import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.auth.ui.R
 import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterError
 import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterUiState
 import ch.app.hk.bank.locator.feature.auth.ui.register.viewmodel.AuthRegisterViewModel
+import ch.app.hk.bank.locator.testing.instrument.getResourceString
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
@@ -25,7 +24,6 @@ class AuthRegisterTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val context = ApplicationProvider.getApplicationContext<Context>()
     private val authRegisterViewModel = mockk<AuthRegisterViewModel>()
 
     @Test
@@ -43,7 +41,7 @@ class AuthRegisterTest {
         }
 
         composeTestRule
-            .onNodeWithContentDescription(context.getString(R.string.auth_content_description_loading))
+            .onNodeWithContentDescription(getResourceString(R.string.auth_content_description_loading))
             .assertIsDisplayed()
     }
 
@@ -62,7 +60,7 @@ class AuthRegisterTest {
         }
 
         composeTestRule
-            .onNodeWithText(context.getString(R.string.auth_error_message))
+            .onNodeWithText(getResourceString(R.string.auth_error_message))
             .assertIsDisplayed()
     }
 

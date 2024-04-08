@@ -63,8 +63,14 @@ internal fun AuthRegisterForm(
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp),
     ) {
+        val emailContentDescription = stringResource(id = R.string.auth_placeholder_email)
+        val passwordContentDescription = stringResource(id = R.string.auth_placeholder_password)
+
         AppTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier =
+                Modifier
+                    .semantics { contentDescription = emailContentDescription }
+                    .fillMaxWidth(),
             state = emailState,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         )
@@ -72,6 +78,7 @@ internal fun AuthRegisterForm(
         PasswordTextField(
             modifier =
                 Modifier
+                    .semantics { contentDescription = passwordContentDescription }
                     .fillMaxWidth()
                     .padding(top = 8.dp),
             state = passwordState,
