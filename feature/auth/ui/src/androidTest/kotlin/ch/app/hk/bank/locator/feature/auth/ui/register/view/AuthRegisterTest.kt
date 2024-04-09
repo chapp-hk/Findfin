@@ -1,9 +1,11 @@
 package ch.app.hk.bank.locator.feature.auth.ui.register.view
 
+import androidx.compose.ui.test.assertContentDescriptionEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onParent
 import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.auth.ui.R
@@ -62,6 +64,78 @@ class AuthRegisterTest {
         composeTestRule
             .onNodeWithText(getResourceString(R.string.auth_error_message))
             .assertIsDisplayed()
+    }
+
+    @Test
+    fun testInvalidEmailError() {
+        every { authRegisterViewModel.uiState } returns
+            MutableStateFlow(ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.INVALID_EMAIL)))
+
+        composeTestRule.setContent {
+            AppContent {
+                AuthRegister(
+                    authRegisterViewModel = authRegisterViewModel,
+                    onAuthorized = {},
+                )
+            }
+        }
+
+        composeTestRule
+            .onNodeWithText(
+                text = getResourceString(R.string.auth_error_message_invalid_email),
+                useUnmergedTree = true,
+            )
+            .assertIsDisplayed()
+            .onParent()
+            .assertContentDescriptionEquals(getResourceString(R.string.auth_placeholder_email))
+    }
+
+    @Test
+    fun testWeakPasswordError() {
+        every { authRegisterViewModel.uiState } returns
+            MutableStateFlow(ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.WEAK_PASSWORD)))
+
+        composeTestRule.setContent {
+            AppContent {
+                AuthRegister(
+                    authRegisterViewModel = authRegisterViewModel,
+                    onAuthorized = {},
+                )
+            }
+        }
+
+        composeTestRule
+            .onNodeWithText(
+                text = getResourceString(R.string.auth_error_message_password_strength),
+                useUnmergedTree = true,
+            )
+            .assertIsDisplayed()
+            .onParent()
+            .assertContentDescriptionEquals(getResourceString(R.string.auth_placeholder_password))
+    }
+
+    @Test
+    fun testEmailAlreadyInUseError() {
+        every { authRegisterViewModel.uiState } returns
+            MutableStateFlow(ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.EMAIL_ALREADY_IN_USE)))
+
+        composeTestRule.setContent {
+            AppContent {
+                AuthRegister(
+                    authRegisterViewModel = authRegisterViewModel,
+                    onAuthorized = {},
+                )
+            }
+        }
+
+        composeTestRule
+            .onNodeWithText(
+                text = getResourceString(R.string.auth_error_message_email_already_in_use),
+                useUnmergedTree = true,
+            )
+            .assertIsDisplayed()
+            .onParent()
+            .assertContentDescriptionEquals(getResourceString(R.string.auth_placeholder_email))
     }
 
     @Test
