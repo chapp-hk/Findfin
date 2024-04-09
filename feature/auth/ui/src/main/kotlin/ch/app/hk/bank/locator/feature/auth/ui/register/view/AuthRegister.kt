@@ -32,6 +32,7 @@ internal fun AuthRegister(
     modifier: Modifier = Modifier,
     authRegisterViewModel: AuthRegisterViewModel = hiltViewModel<AuthRegisterViewModelImpl>(),
     onFinishAuth: () -> Unit,
+    goToLogin: () -> Unit,
 ) = Box(modifier = modifier) {
     val emailState =
         rememberAppTextFieldState(
@@ -56,6 +57,7 @@ internal fun AuthRegister(
                 password = passwordState.value,
             )
         },
+        onHaveAccount = goToLogin,
     )
 
     ScreenStateView(

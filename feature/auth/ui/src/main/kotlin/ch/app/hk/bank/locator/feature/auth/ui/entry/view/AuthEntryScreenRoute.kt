@@ -18,6 +18,7 @@ import ch.app.hk.bank.locator.feature.auth.ui.register.view.AuthRegister
 fun AuthEntryScreenRoute(
     authEntryViewModel: AuthEntryViewModel = hiltViewModel<AuthEntryViewModelImpl>(),
     finishAuth: () -> Unit,
+    goToLogin: () -> Unit,
 ) = ScreenStateView(
     state = authEntryViewModel.uiState.collectAsStateWithLifecycle(),
     success = { uiState ->
@@ -35,6 +36,7 @@ fun AuthEntryScreenRoute(
                         authEntryViewModel.setIsAuthInitialized()
                         finishAuth()
                     },
+                    goToLogin = goToLogin,
                 )
             }
         }
