@@ -5,19 +5,27 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import ch.app.hk.bank.locator.feature.auth.ui.entry.view.AuthEntryScreenRoute
+import ch.app.hk.bank.locator.feature.auth.ui.login.view.AuthLogin
 
 fun NavGraphBuilder.authNavGraph(
     navController: NavController,
     finishAuth: () -> Unit,
 ) {
-    // todo - route to correct destination
-    navController.toString()
     navigation(
         startDestination = AuthEntryDestination.route,
         route = AuthNavGraphDestination.navGraphId,
     ) {
         composable(route = AuthEntryDestination.route) {
-            AuthEntryScreenRoute(finishAuth = finishAuth)
+            AuthEntryScreenRoute(
+                finishAuth = finishAuth,
+                goToLogin = {
+                    navController.navigate(AuthLoginDestination.route)
+                },
+            )
+        }
+
+        composable(route = AuthLoginDestination.route) {
+            AuthLogin()
         }
     }
 }

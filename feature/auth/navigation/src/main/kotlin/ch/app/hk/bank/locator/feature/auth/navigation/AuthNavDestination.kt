@@ -11,3 +11,8 @@ object AuthEntryDestination : Destination() {
     override val navGraphId: String = ""
     override val route: String = "auth-entry-route"
 }
+
+object AuthLoginDestination : Destination() {
+    override val navGraphId: String = ""
+    override val route: String = "auth-login-route"
+}
