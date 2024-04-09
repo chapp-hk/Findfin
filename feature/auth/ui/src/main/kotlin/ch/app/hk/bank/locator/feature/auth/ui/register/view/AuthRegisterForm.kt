@@ -36,6 +36,7 @@ internal fun AuthRegisterForm(
     passwordState: AppTextFieldState,
     onSkip: () -> Unit = {},
     onRegister: () -> Unit = {},
+    onHaveAccount: () -> Unit = {},
 ) = Scaffold(
     topBar = {
         @OptIn(ExperimentalMaterial3Api::class)
@@ -93,6 +94,13 @@ internal fun AuthRegisterForm(
             enabled = emailState.value.isNotEmpty() && passwordState.value.isNotEmpty(),
         ) {
             Text(text = stringResource(id = R.string.auth_button_register))
+        }
+
+        TextButton(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = { onHaveAccount() },
+        ) {
+            Text(text = stringResource(id = R.string.auth_button_already_have_account))
         }
     }
 }
