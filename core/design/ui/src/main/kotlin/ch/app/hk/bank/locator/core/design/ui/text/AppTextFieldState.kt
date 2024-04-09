@@ -67,7 +67,6 @@ private data class AppTextFieldStateSaveable(
     val placeholder: String,
     val supportingText: String,
     val isError: Boolean,
-    val isClearErrorWhenInput: Boolean = true,
 ) : Parcelable
 
 private val appTextFieldStateSaver =
