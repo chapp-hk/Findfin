@@ -41,7 +41,10 @@ fun NavGraphBuilder.authNavGraph(
                 )
             },
         ) {
-            AuthLogin()
+            AuthLogin(
+                onBack = navController::navigateUp,
+                onAuthorized = finishAuth,
+            )
         }
     }
 }
