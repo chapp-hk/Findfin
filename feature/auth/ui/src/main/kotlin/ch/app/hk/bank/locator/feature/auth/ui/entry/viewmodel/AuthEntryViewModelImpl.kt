@@ -22,7 +22,7 @@ internal class AuthEntryViewModelImpl
             flow {
                 val screenState =
                     if (registerRepository.isAuthorized()) {
-                        AuthEntryUiState.Authorized
+                        AuthEntryUiState.AuthInitialized
                     } else {
                         AuthEntryUiState.StartAuth
                     }
