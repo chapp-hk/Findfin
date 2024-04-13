@@ -2,8 +2,8 @@ package ch.app.hk.bank.locator.feature.auth.ui.register.viewmodel
 
 import app.cash.turbine.test
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
-import ch.app.hk.bank.locator.feature.auth.data.repo.model.AuthResult
-import ch.app.hk.bank.locator.feature.auth.data.repo.repository.AuthRepository
+import ch.app.hk.bank.locator.feature.auth.data.repo.register.model.RegisterResult
+import ch.app.hk.bank.locator.feature.auth.data.repo.register.repository.RegisterRepository
 import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterError
 import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterUiState
 import ch.app.hk.bank.locator.testing.extension.MainDispatcherExtension
@@ -25,9 +25,9 @@ import java.util.stream.Stream
 @ExtendWith(MainDispatcherExtension::class)
 @DisplayName("AuthRegisterViewModelImpl unit tests")
 class AuthRegisterViewModelImplTest {
-    private val authRepository = mockk<AuthRepository>()
+    private val registerRepository = mockk<RegisterRepository>()
 
-    private val authRegisterViewModel = AuthRegisterViewModelImpl(authRepository = authRepository)
+    private val authRegisterViewModel = AuthRegisterViewModelImpl(registerRepository = registerRepository)
 
     @ParameterizedTest(
         name =
@@ -36,10 +36,10 @@ class AuthRegisterViewModelImplTest {
     )
     @ArgumentsSource(AnonymousLoginArgumentProvider::class)
     fun testAnonymousLogin(
-        mockAuthRepositoryAnonymousLoginValue: AuthResult,
+        mockAuthRepositoryAnonymousLoginValue: RegisterResult,
         expectedResult: ScreenState<AuthRegisterUiState>,
     ) = runTest {
-        coEvery { authRepository.anonymousLogin() } returns mockAuthRepositoryAnonymousLoginValue
+        coEvery { registerRepository.anonymousLogin() } returns mockAuthRepositoryAnonymousLoginValue
 
         authRegisterViewModel.anonymousLogin()
 
@@ -55,11 +55,11 @@ class AuthRegisterViewModelImplTest {
         override fun provideArguments(extensionContext: ExtensionContext): Stream<Arguments> {
             return Stream.of(
                 Arguments.arguments(
-                    AuthResult.Authorized,
+                    RegisterResult.Authorized,
                     ScreenState.Success(AuthRegisterUiState.Authorized),
                 ),
                 Arguments.arguments(
-                    AuthResult.Error.Unknown,
+                    RegisterResult.Error.Unknown,
                     ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN)),
                 ),
             )
@@ -73,11 +73,11 @@ class AuthRegisterViewModelImplTest {
     )
     @ArgumentsSource(EmailPasswordRegisterArgumentProvider::class)
     fun `test emailPasswordRegister`(
-        mockAuthRepositoryAnonymousLoginValue: AuthResult,
+        mockAuthRepositoryAnonymousLoginValue: RegisterResult,
         expectedResult: ScreenState<AuthRegisterUiState>,
     ) = runTest {
         coEvery {
-            authRepository.emailPasswordRegister(
+            registerRepository.emailPasswordRegister(
                 email = any(),
                 password = any(),
             )
@@ -100,23 +100,23 @@ class AuthRegisterViewModelImplTest {
         override fun provideArguments(extensionContext: ExtensionContext): Stream<Arguments> {
             return Stream.of(
                 Arguments.arguments(
-                    AuthResult.Authorized,
+                    RegisterResult.Authorized,
                     ScreenState.Success(AuthRegisterUiState.Authorized),
                 ),
                 Arguments.arguments(
-                    AuthResult.Error.Unknown,
+                    RegisterResult.Error.Unknown,
                     ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN)),
                 ),
                 Arguments.arguments(
-                    AuthResult.Error.Register.EmailAlreadyInUse,
+                    RegisterResult.Error.Register.EmailAlreadyInUse,
                     ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.EMAIL_ALREADY_IN_USE)),
                 ),
                 Arguments.arguments(
-                    AuthResult.Error.Register.WeakPassword,
+                    RegisterResult.Error.Register.WeakPassword,
                     ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.WEAK_PASSWORD)),
                 ),
                 Arguments.arguments(
-                    AuthResult.Error.Register.InvalidEmail,
+                    RegisterResult.Error.Register.InvalidEmail,
                     ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.INVALID_EMAIL)),
                 ),
             )
@@ -126,7 +126,7 @@ class AuthRegisterViewModelImplTest {
     @Test
     fun `test resetUiState`() =
         runTest {
-            coEvery { authRepository.anonymousLogin() } returns AuthResult.Authorized
+            coEvery { registerRepository.anonymousLogin() } returns RegisterResult.Authorized
 
             authRegisterViewModel.anonymousLogin()
             authRegisterViewModel.resetUiState()

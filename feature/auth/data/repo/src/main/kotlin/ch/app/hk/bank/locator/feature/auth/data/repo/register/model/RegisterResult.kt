@@ -1,9 +1,9 @@
-package ch.app.hk.bank.locator.feature.auth.data.repo.model
+package ch.app.hk.bank.locator.feature.auth.data.repo.register.model
 
-sealed interface AuthResult {
-    data object Authorized : AuthResult
+sealed interface RegisterResult {
+    data object Authorized : RegisterResult
 
-    sealed interface Error : AuthResult {
+    sealed interface Error : RegisterResult {
         data object Unknown : Error
 
         sealed interface Register : Error {

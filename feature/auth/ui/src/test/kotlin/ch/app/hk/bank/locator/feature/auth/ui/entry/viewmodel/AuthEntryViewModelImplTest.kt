@@ -2,7 +2,7 @@ package ch.app.hk.bank.locator.feature.auth.ui.entry.viewmodel
 
 import app.cash.turbine.test
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
-import ch.app.hk.bank.locator.feature.auth.data.repo.repository.AuthRepository
+import ch.app.hk.bank.locator.feature.auth.data.repo.register.repository.RegisterRepository
 import ch.app.hk.bank.locator.feature.auth.ui.entry.state.AuthEntryUiState
 import ch.app.hk.bank.locator.testing.extension.MainDispatcherExtension
 import io.kotest.matchers.shouldBe
@@ -21,7 +21,7 @@ import java.util.stream.Stream
 @ExtendWith(MainDispatcherExtension::class)
 @DisplayName("AuthEntryViewModelImpl unit tests")
 class AuthEntryViewModelImplTest {
-    private val authRepository = mockk<AuthRepository>()
+    private val registerRepository = mockk<RegisterRepository>()
 
     @ParameterizedTest(
         name =
@@ -33,7 +33,7 @@ class AuthEntryViewModelImplTest {
         mockIsAuthorizedValue: Boolean,
         expectedResult: AuthEntryUiState,
     ) = runTest {
-        every { authRepository.isAuthorized() } returns mockIsAuthorizedValue
+        every { registerRepository.isAuthorized() } returns mockIsAuthorizedValue
 
         val authEntryViewModel = createAuthEntryViewModel()
 
@@ -53,5 +53,5 @@ class AuthEntryViewModelImplTest {
         }
     }
 
-    private fun createAuthEntryViewModel() = AuthEntryViewModelImpl(authRepository = authRepository)
+    private fun createAuthEntryViewModel() = AuthEntryViewModelImpl(registerRepository = registerRepository)
 }

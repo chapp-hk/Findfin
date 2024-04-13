@@ -1,6 +1,6 @@
-package ch.app.hk.bank.locator.feature.auth.data.remote.firebase.service
+package ch.app.hk.bank.locator.feature.auth.data.remote.firebase.service.register
 
-import ch.app.hk.bank.locator.feature.auth.data.remote.response.AuthResponse
+import ch.app.hk.bank.locator.feature.auth.data.remote.register.response.RegisterResponse
 import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskError
 import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskResult
 import com.google.firebase.auth.AuthResult
@@ -24,12 +24,12 @@ import java.lang.Exception
 import java.util.stream.Stream
 
 @DisplayName("AuthService unit tests")
-class AuthServiceTest {
+class RegisterServiceTest {
     private val testDispatcher = StandardTestDispatcher()
     private val firebaseAuth = mockk<FirebaseAuth>()
 
-    private val authService =
-        AuthService(
+    private val registerService =
+        RegisterService(
             ioDispatcher = testDispatcher,
             firebaseAuth = firebaseAuth,
         )
@@ -46,7 +46,7 @@ class AuthServiceTest {
     ) {
         every { firebaseAuth.currentUser } returns mockCurrentUser
 
-        authService.isAuthorized() shouldBe expectedResult
+        registerService.isAuthorized() shouldBe expectedResult
     }
 
     private class IsAuthorizedProvider : ArgumentsProvider {
@@ -72,7 +72,7 @@ class AuthServiceTest {
             every { firebaseAuth.signInAnonymously() } returns
                 mockTaskResult(result)
 
-            authService.anonymousLogin() shouldBe AuthResponse.Success(isAnonymous = true)
+            registerService.anonymousLogin() shouldBe RegisterResponse.Success(isAnonymous = true)
         }
 
     @Test
@@ -85,7 +85,7 @@ class AuthServiceTest {
             every { firebaseAuth.signInAnonymously() } returns
                 mockTaskError<AuthResult>(Exception())
 
-            authService.anonymousLogin() shouldBe AuthResponse.Error(code = "", message = "")
+            registerService.anonymousLogin() shouldBe RegisterResponse.Error(code = "", message = "")
         }
 
     @Test
@@ -103,10 +103,10 @@ class AuthServiceTest {
             every { firebaseAuth.createUserWithEmailAndPassword(any(), any()) } returns
                 mockTaskResult(result)
 
-            authService.emailPasswordRegister(
+            registerService.emailPasswordRegister(
                 email = "test@domain.com",
                 password = "*****",
-            ) shouldBe AuthResponse.Success(isAnonymous = false)
+            ) shouldBe RegisterResponse.Success(isAnonymous = false)
         }
 
     @Test
@@ -125,10 +125,10 @@ class AuthServiceTest {
             every { firebaseAuth.createUserWithEmailAndPassword(any(), any()) } returns
                 mockTaskError<AuthResult>(firebaseAuthException)
 
-            authService.emailPasswordRegister(
+            registerService.emailPasswordRegister(
                 email = "test@domain.com",
                 password = "*****",
-            ) shouldBe AuthResponse.Error(code = "error-code", message = "")
+            ) shouldBe RegisterResponse.Error(code = "error-code", message = "")
         }
 
     @Test
@@ -141,9 +141,9 @@ class AuthServiceTest {
             every { firebaseAuth.createUserWithEmailAndPassword(any(), any()) } returns
                 mockTaskError<AuthResult>(Exception())
 
-            authService.emailPasswordRegister(
+            registerService.emailPasswordRegister(
                 email = "test@domain.com",
                 password = "*****",
-            ) shouldBe AuthResponse.Error(code = "", message = "")
+            ) shouldBe RegisterResponse.Error(code = "", message = "")
         }
 }

@@ -3,8 +3,8 @@ package ch.app.hk.bank.locator.feature.auth.ui.register.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
-import ch.app.hk.bank.locator.feature.auth.data.repo.model.AuthResult
-import ch.app.hk.bank.locator.feature.auth.data.repo.repository.AuthRepository
+import ch.app.hk.bank.locator.feature.auth.data.repo.register.model.RegisterResult
+import ch.app.hk.bank.locator.feature.auth.data.repo.register.repository.RegisterRepository
 import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterError
 import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class AuthRegisterViewModelImpl
     @Inject
     constructor(
-        private val authRepository: AuthRepository,
+        private val registerRepository: RegisterRepository,
     ) : ViewModel(), AuthRegisterViewModel {
         private val _uiState = MutableStateFlow<ScreenState<AuthRegisterUiState>>(ScreenState.Empty)
         override val uiState: StateFlow<ScreenState<AuthRegisterUiState>> = _uiState.asStateFlow()
@@ -28,11 +28,11 @@ class AuthRegisterViewModelImpl
                 _uiState.emit(ScreenState.Loading)
 
                 val state =
-                    when (authRepository.anonymousLogin()) {
-                        AuthResult.Authorized ->
+                    when (registerRepository.anonymousLogin()) {
+                        RegisterResult.Authorized ->
                             ScreenState.Success(AuthRegisterUiState.Authorized)
 
-                        is AuthResult.Error ->
+                        is RegisterResult.Error ->
                             ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN))
                     }
                 _uiState.emit(state)
@@ -47,20 +47,20 @@ class AuthRegisterViewModelImpl
                 _uiState.emit(ScreenState.Loading)
 
                 val result =
-                    when (authRepository.emailPasswordRegister(email, password)) {
-                        AuthResult.Authorized ->
+                    when (registerRepository.emailPasswordRegister(email, password)) {
+                        RegisterResult.Authorized ->
                             ScreenState.Success(AuthRegisterUiState.Authorized)
 
-                        AuthResult.Error.Register.EmailAlreadyInUse ->
+                        RegisterResult.Error.Register.EmailAlreadyInUse ->
                             ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.EMAIL_ALREADY_IN_USE))
 
-                        AuthResult.Error.Register.InvalidEmail ->
+                        RegisterResult.Error.Register.InvalidEmail ->
                             ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.INVALID_EMAIL))
 
-                        AuthResult.Error.Register.WeakPassword ->
+                        RegisterResult.Error.Register.WeakPassword ->
                             ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.WEAK_PASSWORD))
 
-                        AuthResult.Error.Unknown ->
+                        RegisterResult.Error.Unknown ->
                             ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN))
                     }
                 _uiState.emit(result)
