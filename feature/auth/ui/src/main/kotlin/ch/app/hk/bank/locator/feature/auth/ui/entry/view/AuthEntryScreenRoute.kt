@@ -22,7 +22,7 @@ fun AuthEntryScreenRoute(
     state = authEntryViewModel.uiState.collectAsStateWithLifecycle(),
     success = { uiState ->
         when (uiState) {
-            AuthEntryUiState.Authorized -> {
+            AuthEntryUiState.AuthInitialized -> {
                 finishAuth()
             }
 

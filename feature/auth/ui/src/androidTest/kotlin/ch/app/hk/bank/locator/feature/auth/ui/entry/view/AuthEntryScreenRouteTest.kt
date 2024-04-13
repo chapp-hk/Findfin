@@ -45,12 +45,12 @@ class AuthEntryScreenRouteTest {
     }
 
     @Test
-    fun testAuthorized() {
+    fun testAuthInitialized() {
         val mockFinishAuth = mockk<() -> Unit>()
         every { mockFinishAuth() } just Runs
 
         every { authEntryViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Success(AuthEntryUiState.Authorized))
+            MutableStateFlow(ScreenState.Success(AuthEntryUiState.AuthInitialized))
 
         composeTestRule.setContent {
             AppContent {
