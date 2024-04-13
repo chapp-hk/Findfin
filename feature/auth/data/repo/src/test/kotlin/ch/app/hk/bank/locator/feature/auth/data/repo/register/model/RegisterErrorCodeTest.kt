@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.auth.data.repo.model
+package ch.app.hk.bank.locator.feature.auth.data.repo.register.model
 
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
@@ -10,16 +10,16 @@ import org.junit.jupiter.params.provider.ArgumentsSource
 import java.util.stream.Stream
 
 @DisplayName("AuthErrorCode unit tests")
-class AuthErrorCodeTest {
+class RegisterErrorCodeTest {
     @ParameterizedTest(
         name = "When errorCodeValue is {0}, then AuthErrorCode.fromString() should return {1}",
     )
     @ArgumentsSource(AuthErrorCodeProvider::class)
     fun `test fromString`(
         errorCodeValue: String,
-        expectedResult: AuthErrorCode,
+        expectedResult: RegisterErrorCode,
     ) {
-        AuthErrorCode.fromString(errorCodeValue) shouldBe expectedResult
+        RegisterErrorCode.fromString(errorCodeValue) shouldBe expectedResult
     }
 
     private class AuthErrorCodeProvider : ArgumentsProvider {
@@ -27,23 +27,23 @@ class AuthErrorCodeTest {
             Stream.of(
                 Arguments.arguments(
                     "",
-                    AuthErrorCode.ERROR_UNKNOWN,
+                    RegisterErrorCode.ERROR_UNKNOWN,
                 ),
                 Arguments.arguments(
                     "ERROR_UNKNOWN",
-                    AuthErrorCode.ERROR_UNKNOWN,
+                    RegisterErrorCode.ERROR_UNKNOWN,
                 ),
                 Arguments.arguments(
                     "ERROR_INVALID_EMAIL",
-                    AuthErrorCode.ERROR_INVALID_EMAIL,
+                    RegisterErrorCode.ERROR_INVALID_EMAIL,
                 ),
                 Arguments.arguments(
                     "ERROR_WEAK_PASSWORD",
-                    AuthErrorCode.ERROR_WEAK_PASSWORD,
+                    RegisterErrorCode.ERROR_WEAK_PASSWORD,
                 ),
                 Arguments.arguments(
                     "ERROR_EMAIL_ALREADY_IN_USE",
-                    AuthErrorCode.ERROR_EMAIL_ALREADY_IN_USE,
+                    RegisterErrorCode.ERROR_EMAIL_ALREADY_IN_USE,
                 ),
             )
     }

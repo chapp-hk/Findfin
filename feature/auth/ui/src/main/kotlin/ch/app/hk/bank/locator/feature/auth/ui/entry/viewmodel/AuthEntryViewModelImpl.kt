@@ -3,7 +3,7 @@ package ch.app.hk.bank.locator.feature.auth.ui.entry.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
-import ch.app.hk.bank.locator.feature.auth.data.repo.repository.AuthRepository
+import ch.app.hk.bank.locator.feature.auth.data.repo.register.repository.RegisterRepository
 import ch.app.hk.bank.locator.feature.auth.ui.entry.state.AuthEntryUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -16,12 +16,12 @@ import javax.inject.Inject
 internal class AuthEntryViewModelImpl
     @Inject
     constructor(
-        authRepository: AuthRepository,
+        registerRepository: RegisterRepository,
     ) : ViewModel(), AuthEntryViewModel {
         override val uiState: StateFlow<ScreenState<AuthEntryUiState>> =
             flow {
                 val screenState =
-                    if (authRepository.isAuthorized()) {
+                    if (registerRepository.isAuthorized()) {
                         AuthEntryUiState.Authorized
                     } else {
                         AuthEntryUiState.StartAuth

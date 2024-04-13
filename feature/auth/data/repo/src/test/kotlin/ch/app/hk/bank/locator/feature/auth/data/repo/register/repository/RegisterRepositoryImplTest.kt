@@ -1,9 +1,9 @@
-package ch.app.hk.bank.locator.feature.auth.data.repo.repository
+package ch.app.hk.bank.locator.feature.auth.data.repo.register.repository
 
-import ch.app.hk.bank.locator.feature.auth.data.remote.datasource.AuthRemoteDataSource
-import ch.app.hk.bank.locator.feature.auth.data.remote.response.AuthResponse
-import ch.app.hk.bank.locator.feature.auth.data.repo.model.AuthErrorCode
-import ch.app.hk.bank.locator.feature.auth.data.repo.model.AuthResult
+import ch.app.hk.bank.locator.feature.auth.data.remote.register.datasource.RegisterRemoteDataSource
+import ch.app.hk.bank.locator.feature.auth.data.remote.register.response.RegisterResponse
+import ch.app.hk.bank.locator.feature.auth.data.repo.register.model.RegisterErrorCode
+import ch.app.hk.bank.locator.feature.auth.data.repo.register.model.RegisterResult
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.every
@@ -19,10 +19,10 @@ import org.junit.jupiter.params.provider.ArgumentsSource
 import java.util.stream.Stream
 
 @DisplayName("AuthRepositoryImpl unit tests")
-class AuthRepositoryImplTest {
-    private val authRemoteDataSource = mockk<AuthRemoteDataSource>()
+class RegisterRepositoryImplTest {
+    private val registerRemoteDataSource = mockk<RegisterRemoteDataSource>()
 
-    private val authRepository = AuthRepositoryImpl(authRemoteDataSource = authRemoteDataSource)
+    private val authRepository = RegisterRepositoryImpl(registerRemoteDataSource = registerRemoteDataSource)
 
     @ParameterizedTest(
         name =
@@ -34,7 +34,7 @@ class AuthRepositoryImplTest {
         mockIsAuthorized: Boolean,
         expectedResult: Boolean,
     ) {
-        every { authRemoteDataSource.isAuthorized() } returns mockIsAuthorized
+        every { registerRemoteDataSource.isAuthorized() } returns mockIsAuthorized
 
         authRepository.isAuthorized() shouldBe expectedResult
     }
@@ -54,10 +54,10 @@ class AuthRepositoryImplTest {
     )
     @ArgumentsSource(AnonymousLoginProvider::class)
     fun testAnonymousLogin(
-        mockRemoteDataSourceResponse: AuthResponse,
-        expectedResult: AuthResult,
+        mockRemoteDataSourceResponse: RegisterResponse,
+        expectedResult: RegisterResult,
     ) = runTest(StandardTestDispatcher()) {
-        coEvery { authRemoteDataSource.anonymousLogin() } returns mockRemoteDataSourceResponse
+        coEvery { registerRemoteDataSource.anonymousLogin() } returns mockRemoteDataSourceResponse
 
         authRepository.anonymousLogin() shouldBe expectedResult
     }
@@ -66,12 +66,12 @@ class AuthRepositoryImplTest {
         override fun provideArguments(context: ExtensionContext): Stream<Arguments> =
             Stream.of(
                 Arguments.arguments(
-                    AuthResponse.Success(isAnonymous = false),
-                    AuthResult.Authorized,
+                    RegisterResponse.Success(isAnonymous = false),
+                    RegisterResult.Authorized,
                 ),
                 Arguments.arguments(
-                    AuthResponse.Error(code = "", message = ""),
-                    AuthResult.Error.Unknown,
+                    RegisterResponse.Error(code = "", message = ""),
+                    RegisterResult.Error.Unknown,
                 ),
             )
     }
@@ -83,11 +83,11 @@ class AuthRepositoryImplTest {
     )
     @ArgumentsSource(EmailPasswordRegisterProvider::class)
     fun testEmailPasswordRegister(
-        mockRemoteDataSourceResponse: AuthResponse,
-        expectedResult: AuthResult,
+        mockRemoteDataSourceResponse: RegisterResponse,
+        expectedResult: RegisterResult,
     ) = runTest(StandardTestDispatcher()) {
         coEvery {
-            authRemoteDataSource.emailPasswordRegister(
+            registerRemoteDataSource.emailPasswordRegister(
                 email = any(),
                 password = any(),
             )
@@ -103,36 +103,36 @@ class AuthRepositoryImplTest {
         override fun provideArguments(context: ExtensionContext): Stream<Arguments> =
             Stream.of(
                 Arguments.arguments(
-                    AuthResponse.Success(isAnonymous = false),
-                    AuthResult.Authorized,
+                    RegisterResponse.Success(isAnonymous = false),
+                    RegisterResult.Authorized,
                 ),
                 Arguments.arguments(
-                    AuthResponse.Error(
-                        code = AuthErrorCode.ERROR_UNKNOWN.name,
+                    RegisterResponse.Error(
+                        code = RegisterErrorCode.ERROR_UNKNOWN.name,
                         message = "",
                     ),
-                    AuthResult.Error.Unknown,
+                    RegisterResult.Error.Unknown,
                 ),
                 Arguments.arguments(
-                    AuthResponse.Error(
-                        code = AuthErrorCode.ERROR_INVALID_EMAIL.name,
+                    RegisterResponse.Error(
+                        code = RegisterErrorCode.ERROR_INVALID_EMAIL.name,
                         message = "",
                     ),
-                    AuthResult.Error.Register.InvalidEmail,
+                    RegisterResult.Error.Register.InvalidEmail,
                 ),
                 Arguments.arguments(
-                    AuthResponse.Error(
-                        code = AuthErrorCode.ERROR_WEAK_PASSWORD.name,
+                    RegisterResponse.Error(
+                        code = RegisterErrorCode.ERROR_WEAK_PASSWORD.name,
                         message = "",
                     ),
-                    AuthResult.Error.Register.WeakPassword,
+                    RegisterResult.Error.Register.WeakPassword,
                 ),
                 Arguments.arguments(
-                    AuthResponse.Error(
-                        code = AuthErrorCode.ERROR_EMAIL_ALREADY_IN_USE.name,
+                    RegisterResponse.Error(
+                        code = RegisterErrorCode.ERROR_EMAIL_ALREADY_IN_USE.name,
                         message = "",
                     ),
-                    AuthResult.Error.Register.EmailAlreadyInUse,
+                    RegisterResult.Error.Register.EmailAlreadyInUse,
                 ),
             )
     }
