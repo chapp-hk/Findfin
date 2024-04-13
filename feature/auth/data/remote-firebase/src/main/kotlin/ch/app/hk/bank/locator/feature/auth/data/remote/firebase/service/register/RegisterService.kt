@@ -18,24 +18,6 @@ internal class RegisterService
         @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
         private val firebaseAuth: FirebaseAuth,
     ) : RegisterRemoteDataSource {
-        override fun isAuthorized(): Boolean {
-            return firebaseAuth.currentUser != null
-        }
-
-        override suspend fun anonymousLogin(): RegisterResponse {
-            return withContext(ioDispatcher) {
-                runCatching {
-                    val auth = firebaseAuth.signInAnonymously().await()
-                    RegisterResponse.Success(auth.user!!.isAnonymous)
-                }.getOrElse {
-                    RegisterResponse.Error(
-                        code = "",
-                        message = "",
-                    )
-                }
-            }
-        }
-
         override suspend fun emailPasswordRegister(
             email: String,
             password: String,
