@@ -13,21 +13,6 @@ class RegisterRepositoryImpl
     constructor(
         private val registerRemoteDataSource: RegisterRemoteDataSource,
     ) : RegisterRepository {
-        override fun isAuthorized(): Boolean {
-            return registerRemoteDataSource.isAuthorized()
-        }
-
-        override suspend fun anonymousLogin(): RegisterResult {
-            return when (registerRemoteDataSource.anonymousLogin()) {
-                is RegisterResponse.Error -> {
-                    RegisterResult.Error.Unknown
-                }
-                is RegisterResponse.Success -> {
-                    RegisterResult.Authorized
-                }
-            }
-        }
-
         override suspend fun emailPasswordRegister(
             email: String,
             password: String,

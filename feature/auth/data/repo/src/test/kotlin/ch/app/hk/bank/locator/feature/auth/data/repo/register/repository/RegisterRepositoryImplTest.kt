@@ -6,7 +6,6 @@ import ch.app.hk.bank.locator.feature.auth.data.repo.register.model.RegisterErro
 import ch.app.hk.bank.locator.feature.auth.data.repo.register.model.RegisterResult
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -23,44 +22,6 @@ class RegisterRepositoryImplTest {
     private val registerRemoteDataSource = mockk<RegisterRemoteDataSource>()
 
     private val authRepository = RegisterRepositoryImpl(registerRemoteDataSource = registerRemoteDataSource)
-
-    @ParameterizedTest(
-        name =
-            "When authRemoteDataSource.isAuthorized() returns {0}, " +
-                "then isAuthorized() should return {1}",
-    )
-    @ArgumentsSource(IsAuthorizedProvider::class)
-    fun testIsAuthorized(
-        mockIsAuthorized: Boolean,
-        expectedResult: Boolean,
-    ) {
-        every { registerRemoteDataSource.isAuthorized() } returns mockIsAuthorized
-
-        authRepository.isAuthorized() shouldBe expectedResult
-    }
-
-    private class IsAuthorizedProvider : ArgumentsProvider {
-        override fun provideArguments(context: ExtensionContext): Stream<Arguments> =
-            Stream.of(
-                Arguments.arguments(true, true),
-                Arguments.arguments(false, false),
-            )
-    }
-
-    @ParameterizedTest(
-        name =
-            "When authRemoteDataSource.anonymousLogin() returns {0}, " +
-                "then anonymousLogin() should return {1}",
-    )
-    @ArgumentsSource(AnonymousLoginProvider::class)
-    fun testAnonymousLogin(
-        mockRemoteDataSourceResponse: RegisterResponse,
-        expectedResult: RegisterResult,
-    ) = runTest(StandardTestDispatcher()) {
-        coEvery { registerRemoteDataSource.anonymousLogin() } returns mockRemoteDataSourceResponse
-
-        authRepository.anonymousLogin() shouldBe expectedResult
-    }
 
     private class AnonymousLoginProvider : ArgumentsProvider {
         override fun provideArguments(context: ExtensionContext): Stream<Arguments> =
