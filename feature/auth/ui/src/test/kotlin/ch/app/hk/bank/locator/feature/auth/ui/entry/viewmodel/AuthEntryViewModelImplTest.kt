@@ -6,11 +6,18 @@ import ch.app.hk.bank.locator.feature.auth.data.repo.auth.repository.AuthReposit
 import ch.app.hk.bank.locator.feature.auth.ui.entry.state.AuthEntryUiState
 import ch.app.hk.bank.locator.testing.extension.MainDispatcherExtension
 import io.kotest.matchers.shouldBe
+import io.mockk.Runs
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.params.ParameterizedTest
@@ -53,6 +60,20 @@ class AuthEntryViewModelImplTest {
             )
         }
     }
+
+    @Test
+    fun `test setIsAuthInitialized`() =
+        runTest(UnconfinedTestDispatcher()) {
+            every { authRepository.isAuthInitialized() } returns flowOf(false)
+            coEvery { authRepository.setAuthInitialized() } just Runs
+
+            val authEntryViewModel = createAuthEntryViewModel()
+
+            authEntryViewModel.setIsAuthInitialized()
+            advanceUntilIdle()
+
+            coVerify { authRepository.setAuthInitialized() }
+        }
 
     private fun createAuthEntryViewModel() = AuthEntryViewModelImpl(authRepository = authRepository)
 }
