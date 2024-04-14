@@ -23,6 +23,7 @@ fun AuthEntryScreenRoute(
     success = { uiState ->
         when (uiState) {
             AuthEntryUiState.AuthInitialized -> {
+                authEntryViewModel.setIsAuthInitialized()
                 finishAuth()
             }
 
@@ -30,7 +31,10 @@ fun AuthEntryScreenRoute(
                 val description = stringResource(id = R.string.auth_content_description_register)
                 AuthRegister(
                     modifier = Modifier.semantics { contentDescription = description },
-                    onAuthorized = finishAuth,
+                    onFinishAuth = {
+                        authEntryViewModel.setIsAuthInitialized()
+                        finishAuth()
+                    },
                 )
             }
         }

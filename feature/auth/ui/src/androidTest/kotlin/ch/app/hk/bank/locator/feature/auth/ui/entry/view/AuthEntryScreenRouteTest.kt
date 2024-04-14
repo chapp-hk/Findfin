@@ -51,6 +51,7 @@ class AuthEntryScreenRouteTest {
 
         every { authEntryViewModel.uiState } returns
             MutableStateFlow(ScreenState.Success(AuthEntryUiState.AuthInitialized))
+        every { authEntryViewModel.setIsAuthInitialized() } just Runs
 
         composeTestRule.setContent {
             AppContent {
@@ -61,6 +62,7 @@ class AuthEntryScreenRouteTest {
             }
         }
 
+        verify { authEntryViewModel.setIsAuthInitialized() }
         verify { mockFinishAuth() }
     }
 

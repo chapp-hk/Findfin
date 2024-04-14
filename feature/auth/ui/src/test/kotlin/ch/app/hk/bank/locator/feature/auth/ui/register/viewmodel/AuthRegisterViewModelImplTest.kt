@@ -31,43 +31,6 @@ class AuthRegisterViewModelImplTest {
 
     @ParameterizedTest(
         name =
-            "test anonymousLogin(), when authRepository.anonymousLogin() returns {0}, " +
-                "then AuthRegisterViewModelImpl.uiState should be {1}",
-    )
-    @ArgumentsSource(AnonymousLoginArgumentProvider::class)
-    fun testAnonymousLogin(
-        mockAuthRepositoryAnonymousLoginValue: RegisterResult,
-        expectedResult: ScreenState<AuthRegisterUiState>,
-    ) = runTest {
-        coEvery { registerRepository.anonymousLogin() } returns mockAuthRepositoryAnonymousLoginValue
-
-        authRegisterViewModel.anonymousLogin()
-
-        authRegisterViewModel.uiState.test {
-            awaitItem() shouldBe ScreenState.Empty
-            awaitItem() shouldBe ScreenState.Loading
-            awaitItem() shouldBeEqualToComparingFields expectedResult
-            cancelAndIgnoreRemainingEvents()
-        }
-    }
-
-    private class AnonymousLoginArgumentProvider : ArgumentsProvider {
-        override fun provideArguments(extensionContext: ExtensionContext): Stream<Arguments> {
-            return Stream.of(
-                Arguments.arguments(
-                    RegisterResult.Authorized,
-                    ScreenState.Success(AuthRegisterUiState.Authorized),
-                ),
-                Arguments.arguments(
-                    RegisterResult.Error.Unknown,
-                    ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN)),
-                ),
-            )
-        }
-    }
-
-    @ParameterizedTest(
-        name =
             "when authRepository.emailPasswordRegister() returns {0}, " +
                 "then AuthRegisterViewModelImpl.uiState should be {1}",
     )
@@ -126,9 +89,14 @@ class AuthRegisterViewModelImplTest {
     @Test
     fun `test resetUiState`() =
         runTest {
-            coEvery { registerRepository.anonymousLogin() } returns RegisterResult.Authorized
+            coEvery {
+                registerRepository.emailPasswordRegister(
+                    email = any(),
+                    password = any(),
+                )
+            } returns RegisterResult.Authorized
 
-            authRegisterViewModel.anonymousLogin()
+            authRegisterViewModel.emailPasswordRegister(email = "test@test.com", password = "1111")
             authRegisterViewModel.resetUiState()
 
             authRegisterViewModel.uiState.test {

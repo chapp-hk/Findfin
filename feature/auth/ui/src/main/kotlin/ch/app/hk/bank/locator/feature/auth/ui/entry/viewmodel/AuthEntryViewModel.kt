@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface AuthEntryViewModel {
     val uiState: StateFlow<ScreenState<AuthEntryUiState>>
+
+    fun setIsAuthInitialized()
 }

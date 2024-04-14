@@ -37,7 +37,7 @@ class AuthRegisterTest {
             AppContent {
                 AuthRegister(
                     authRegisterViewModel = authRegisterViewModel,
-                    onAuthorized = {},
+                    onFinishAuth = {},
                 )
             }
         }
@@ -56,7 +56,7 @@ class AuthRegisterTest {
             AppContent {
                 AuthRegister(
                     authRegisterViewModel = authRegisterViewModel,
-                    onAuthorized = {},
+                    onFinishAuth = {},
                 )
             }
         }
@@ -75,7 +75,7 @@ class AuthRegisterTest {
             AppContent {
                 AuthRegister(
                     authRegisterViewModel = authRegisterViewModel,
-                    onAuthorized = {},
+                    onFinishAuth = {},
                 )
             }
         }
@@ -99,7 +99,7 @@ class AuthRegisterTest {
             AppContent {
                 AuthRegister(
                     authRegisterViewModel = authRegisterViewModel,
-                    onAuthorized = {},
+                    onFinishAuth = {},
                 )
             }
         }
@@ -123,7 +123,7 @@ class AuthRegisterTest {
             AppContent {
                 AuthRegister(
                     authRegisterViewModel = authRegisterViewModel,
-                    onAuthorized = {},
+                    onFinishAuth = {},
                 )
             }
         }
@@ -150,7 +150,7 @@ class AuthRegisterTest {
             AppContent {
                 AuthRegister(
                     authRegisterViewModel = authRegisterViewModel,
-                    onAuthorized = mockAuthorized,
+                    onFinishAuth = mockAuthorized,
                 )
             }
         }
