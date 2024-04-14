@@ -31,7 +31,7 @@ import ch.app.hk.bank.locator.feature.auth.ui.register.viewmodel.AuthRegisterVie
 internal fun AuthRegister(
     modifier: Modifier = Modifier,
     authRegisterViewModel: AuthRegisterViewModel = hiltViewModel<AuthRegisterViewModelImpl>(),
-    onAuthorized: () -> Unit,
+    onFinishAuth: () -> Unit,
 ) = Box(modifier = modifier) {
     val emailState =
         rememberAppTextFieldState(
@@ -48,7 +48,7 @@ internal fun AuthRegister(
         snackbarHostState = snackbarHostState,
         emailState = emailState,
         passwordState = passwordState,
-        onSkip = authRegisterViewModel::anonymousLogin,
+        onSkip = onFinishAuth,
         onRegister = {
             focusManager.clearFocus(force = true)
             authRegisterViewModel.emailPasswordRegister(
@@ -107,7 +107,7 @@ internal fun AuthRegister(
             }
         },
         success = {
-            onAuthorized()
+            onFinishAuth()
         },
     )
 }

@@ -2,12 +2,13 @@ package ch.app.hk.bank.locator.feature.auth.ui.entry.viewmodel
 
 import app.cash.turbine.test
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
-import ch.app.hk.bank.locator.feature.auth.data.repo.register.repository.RegisterRepository
+import ch.app.hk.bank.locator.feature.auth.data.repo.auth.repository.AuthRepository
 import ch.app.hk.bank.locator.feature.auth.ui.entry.state.AuthEntryUiState
 import ch.app.hk.bank.locator.testing.extension.MainDispatcherExtension
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,19 +22,19 @@ import java.util.stream.Stream
 @ExtendWith(MainDispatcherExtension::class)
 @DisplayName("AuthEntryViewModelImpl unit tests")
 class AuthEntryViewModelImplTest {
-    private val registerRepository = mockk<RegisterRepository>()
+    private val authRepository = mockk<AuthRepository>()
 
     @ParameterizedTest(
         name =
-            "test uiState, when authRepository.isAuthorized() returns {0}, " +
+            "test uiState, when authRepository.isAuthInitialized() returns {0}, " +
                 "then AuthEntryViewModelImpl.uiState should be {1}",
     )
     @ArgumentsSource(UiStateArgumentProvider::class)
     fun testUiState(
-        mockIsAuthorizedValue: Boolean,
+        mockIsAuthInitializedValue: Boolean,
         expectedResult: AuthEntryUiState,
     ) = runTest {
-        every { registerRepository.isAuthorized() } returns mockIsAuthorizedValue
+        every { authRepository.isAuthInitialized() } returns flowOf(mockIsAuthInitializedValue)
 
         val authEntryViewModel = createAuthEntryViewModel()
 
@@ -48,10 +49,10 @@ class AuthEntryViewModelImplTest {
         override fun provideArguments(p0: ExtensionContext?): Stream<out Arguments> {
             return Stream.of(
                 Arguments.arguments(false, AuthEntryUiState.StartAuth),
-                Arguments.arguments(true, AuthEntryUiState.Authorized),
+                Arguments.arguments(true, AuthEntryUiState.AuthInitialized),
             )
         }
     }
 
-    private fun createAuthEntryViewModel() = AuthEntryViewModelImpl(registerRepository = registerRepository)
+    private fun createAuthEntryViewModel() = AuthEntryViewModelImpl(authRepository = authRepository)
 }

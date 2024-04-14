@@ -7,8 +7,6 @@ import kotlinx.coroutines.flow.StateFlow
 interface AuthRegisterViewModel {
     val uiState: StateFlow<ScreenState<AuthRegisterUiState>>
 
-    fun anonymousLogin()
-
     fun emailPasswordRegister(
         email: String,
         password: String,

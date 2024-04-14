@@ -23,22 +23,6 @@ class AuthRegisterViewModelImpl
         private val _uiState = MutableStateFlow<ScreenState<AuthRegisterUiState>>(ScreenState.Empty)
         override val uiState: StateFlow<ScreenState<AuthRegisterUiState>> = _uiState.asStateFlow()
 
-        override fun anonymousLogin() {
-            viewModelScope.launch {
-                _uiState.emit(ScreenState.Loading)
-
-                val state =
-                    when (registerRepository.anonymousLogin()) {
-                        RegisterResult.Authorized ->
-                            ScreenState.Success(AuthRegisterUiState.Authorized)
-
-                        is RegisterResult.Error ->
-                            ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN))
-                    }
-                _uiState.emit(state)
-            }
-        }
-
         override fun emailPasswordRegister(
             email: String,
             password: String,
