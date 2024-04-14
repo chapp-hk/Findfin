@@ -23,20 +23,6 @@ class RegisterRepositoryImplTest {
 
     private val authRepository = RegisterRepositoryImpl(registerRemoteDataSource = registerRemoteDataSource)
 
-    private class AnonymousLoginProvider : ArgumentsProvider {
-        override fun provideArguments(context: ExtensionContext): Stream<Arguments> =
-            Stream.of(
-                Arguments.arguments(
-                    RegisterResponse.Success(isAnonymous = false),
-                    RegisterResult.Authorized,
-                ),
-                Arguments.arguments(
-                    RegisterResponse.Error(code = "", message = ""),
-                    RegisterResult.Error.Unknown,
-                ),
-            )
-    }
-
     @ParameterizedTest(
         name =
             "When authRemoteDataSource.emailPasswordRegister() returns {0}, " +
