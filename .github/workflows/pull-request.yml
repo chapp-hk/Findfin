@@ -13,11 +13,13 @@ jobs:
     name: lint
     uses: ./.github/workflows/android-ci-lint.yml
     secrets: inherit
+
   call-workflow-instrument-test:
     needs: call-workflow-lint
     name: instrument test
     uses: ./.github/workflows/android-ci-instrument-test.yml
     secrets: inherit
+
   call-workflow-unit-test:
     needs: call-workflow-lint
     name: unit test
