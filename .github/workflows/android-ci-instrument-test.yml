@@ -5,15 +5,21 @@ on:
 
 jobs:
   androidTest:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 55
     strategy:
       matrix:
-        api-level: [ 30 ]
+        api-level: [ 33, 31 ]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
@@ -35,11 +41,4 @@ jobs:
           disable-animations: true
           disk-size: 6000M
           heap-size: 600M
-          script: ./gradlew cAT --daemon
-
-      - name: Upload test reports
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-reports-${{ matrix.api-level }}
-          path: '*/build/reports/androidTests'
+          script: ./gradlew connectedDebugAndroidTest --daemon
