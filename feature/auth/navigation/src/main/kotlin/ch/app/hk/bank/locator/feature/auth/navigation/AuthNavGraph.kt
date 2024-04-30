@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import ch.app.hk.bank.locator.feature.auth.ui.entry.view.AuthEntryScreenRoute
 import ch.app.hk.bank.locator.feature.auth.ui.login.view.AuthLogin
+import ch.app.hk.bank.locator.feature.auth.ui.register.view.AuthRegister
 
 fun NavGraphBuilder.authNavGraph(
     navController: NavController,
@@ -17,33 +18,42 @@ fun NavGraphBuilder.authNavGraph(
         startDestination = AuthEntryDestination.route,
         route = AuthNavGraphDestination.navGraphId,
     ) {
-        composable(route = AuthEntryDestination.route) {
-            AuthEntryScreenRoute(
-                finishAuth = finishAuth,
-                goToLogin = {
-                    navController.navigate(AuthLoginDestination.route)
-                },
-            )
-        }
-
         composable(
-            route = AuthLoginDestination.route,
+            route = AuthEntryDestination.route,
             enterTransition = {
                 slideIntoContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Start,
+                    towards = AnimatedContentTransitionScope.SlideDirection.Up,
                     animationSpec = tween(durationMillis = 300),
                 )
             },
-            exitTransition = {
+            exitTransition = null,
+            popEnterTransition = null,
+            popExitTransition = {
                 slideOutOfContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.End,
+                    towards = AnimatedContentTransitionScope.SlideDirection.Down,
                     animationSpec = tween(durationMillis = 300),
                 )
             },
         ) {
+            AuthEntryScreenRoute(
+                finishAuth = finishAuth,
+                startAuth = {
+                    AuthRegister(
+                        onClose = finishAuth,
+                        onFinishAuth = finishAuth,
+                        onHaveAccount = {
+                            navController.navigate(AuthLoginDestination.route)
+                        },
+                    )
+                },
+            )
+        }
+
+        composable(route = AuthLoginDestination.route) {
             AuthLogin(
-                onBack = navController::navigateUp,
+                onClose = navController::navigateUp,
                 onAuthorized = finishAuth,
+                onDontHaveAccount = navController::navigateUp,
             )
         }
     }
