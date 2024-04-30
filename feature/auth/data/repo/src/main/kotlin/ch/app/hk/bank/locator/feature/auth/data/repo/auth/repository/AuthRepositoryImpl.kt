@@ -2,7 +2,7 @@ package ch.app.hk.bank.locator.feature.auth.data.repo.auth.repository
 
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.preferences.api.AppPreferencesRepository
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 @HiltExtBindModule
@@ -13,8 +13,8 @@ class AuthRepositoryImpl
     ) : AuthRepository {
         private val keyIsAuthInitialized = "pref_key_is_auth_initialized"
 
-        override fun isAuthInitialized(): Flow<Boolean> {
-            return appPreferencesRepository.getBoolean(keyIsAuthInitialized)
+        override suspend fun isAuthInitialized(): Boolean {
+            return appPreferencesRepository.getBoolean(keyIsAuthInitialized).first()
         }
 
         override suspend fun setAuthInitialized() {
