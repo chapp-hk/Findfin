@@ -39,6 +39,8 @@ class AndroidTestPlugin : Plugin<Project> {
                         it.events("passed", "skipped", "failed")
                     }
                 }
+
+                unitTests.isReturnDefaultValues = true
             }
         }
     }
