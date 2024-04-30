@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -15,6 +15,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -37,8 +38,9 @@ internal fun AuthLoginForm(
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     emailState: AppTextFieldState,
     passwordState: AppTextFieldState,
-    onBack: () -> Unit = {},
+    onClose: () -> Unit = {},
     onLogin: () -> Unit = {},
+    onDontHaveAccount: () -> Unit = {},
 ) = Scaffold(
     topBar = {
         @OptIn(ExperimentalMaterial3Api::class)
@@ -46,9 +48,9 @@ internal fun AuthLoginForm(
             modifier = Modifier,
             title = { Text(text = stringResource(id = R.string.auth_title_login)) },
             navigationIcon = {
-                IconButton(onClick = onBack) {
+                IconButton(onClick = onClose) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
+                        imageVector = Icons.Rounded.Close,
                         contentDescription = "",
                     )
                 }
@@ -95,6 +97,13 @@ internal fun AuthLoginForm(
             enabled = emailState.value.isNotEmpty() && passwordState.value.isNotEmpty(),
         ) {
             Text(text = stringResource(id = R.string.auth_button_login))
+        }
+
+        TextButton(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = { onDontHaveAccount() },
+        ) {
+            Text(text = stringResource(id = R.string.auth_button_dont_have_account))
         }
     }
 }

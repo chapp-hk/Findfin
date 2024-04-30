@@ -5,8 +5,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -34,7 +38,7 @@ internal fun AuthRegisterForm(
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     emailState: AppTextFieldState,
     passwordState: AppTextFieldState,
-    onSkip: () -> Unit = {},
+    onClose: () -> Unit = {},
     onRegister: () -> Unit = {},
     onHaveAccount: () -> Unit = {},
 ) = Scaffold(
@@ -43,13 +47,12 @@ internal fun AuthRegisterForm(
         TopAppBar(
             modifier = Modifier,
             title = { Text(text = stringResource(id = R.string.auth_title_register)) },
-            actions = {
-                val skipText = stringResource(id = R.string.auth_button_skip)
-                TextButton(
-                    modifier = Modifier.semantics { contentDescription = skipText },
-                    onClick = onSkip,
-                ) {
-                    Text(text = skipText)
+            navigationIcon = {
+                IconButton(onClick = onClose) {
+                    Icon(
+                        imageVector = Icons.Rounded.Close,
+                        contentDescription = stringResource(id = R.string.auth_content_description_close),
+                    )
                 }
             },
         )

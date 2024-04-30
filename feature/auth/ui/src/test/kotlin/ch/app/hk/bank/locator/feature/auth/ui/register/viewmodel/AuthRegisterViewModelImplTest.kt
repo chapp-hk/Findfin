@@ -31,7 +31,7 @@ class AuthRegisterViewModelImplTest {
 
     @ParameterizedTest(
         name =
-            "when authRepository.emailPasswordRegister() returns {0}, " +
+            "when registerRepository.emailPasswordRegister() returns {0}, " +
                 "then AuthRegisterViewModelImpl.uiState should be {1}",
     )
     @ArgumentsSource(EmailPasswordRegisterArgumentProvider::class)
