@@ -17,15 +17,15 @@ import org.junit.jupiter.params.provider.ArgumentsProvider
 import org.junit.jupiter.params.provider.ArgumentsSource
 import java.util.stream.Stream
 
-@DisplayName("AuthRepositoryImpl unit tests")
+@DisplayName("RegisterRepositoryImpl unit tests")
 class RegisterRepositoryImplTest {
     private val registerRemoteDataSource = mockk<RegisterRemoteDataSource>()
 
-    private val authRepository = RegisterRepositoryImpl(registerRemoteDataSource = registerRemoteDataSource)
+    private val registerRepository = RegisterRepositoryImpl(registerRemoteDataSource = registerRemoteDataSource)
 
     @ParameterizedTest(
         name =
-            "When authRemoteDataSource.emailPasswordRegister() returns {0}, " +
+            "When registerRemoteDataSource.emailPasswordRegister() returns {0}, " +
                 "then emailPasswordRegister() should return {1}",
     )
     @ArgumentsSource(EmailPasswordRegisterProvider::class)
@@ -40,7 +40,7 @@ class RegisterRepositoryImplTest {
             )
         } returns mockRemoteDataSourceResponse
 
-        authRepository.emailPasswordRegister(
+        registerRepository.emailPasswordRegister(
             email = "name@test.com",
             password = "some-password",
         ) shouldBe expectedResult

@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.auth.data.remote.response
+package ch.app.hk.bank.locator.feature.auth.data.remote.login.response
 
 sealed interface LoginResponse {
     data object Success : LoginResponse

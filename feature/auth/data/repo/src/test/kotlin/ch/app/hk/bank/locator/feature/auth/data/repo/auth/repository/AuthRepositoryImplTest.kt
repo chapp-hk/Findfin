@@ -1,6 +1,7 @@
 package ch.app.hk.bank.locator.feature.auth.data.repo.auth.repository
 
 import ch.app.hk.bank.locator.core.preferences.api.AppPreferencesRepository
+import io.kotest.matchers.shouldBe
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.every
@@ -23,7 +24,7 @@ class AuthRepositoryImplTest {
             every { appPreferencesRepository.getBoolean(key = any()) } returns
                 flowOf(true)
 
-            authRepositoryImpl.isAuthInitialized()
+            authRepositoryImpl.isAuthInitialized() shouldBe true
 
             verify { appPreferencesRepository.getBoolean("pref_key_is_auth_initialized") }
         }
