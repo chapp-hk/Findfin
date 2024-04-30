@@ -38,6 +38,7 @@ class AuthRegisterTest {
                 AuthRegister(
                     authRegisterViewModel = authRegisterViewModel,
                     onFinishAuth = {},
+                    onHaveAccount = {},
                 )
             }
         }
@@ -57,6 +58,7 @@ class AuthRegisterTest {
                 AuthRegister(
                     authRegisterViewModel = authRegisterViewModel,
                     onFinishAuth = {},
+                    onHaveAccount = {},
                 )
             }
         }
@@ -76,6 +78,7 @@ class AuthRegisterTest {
                 AuthRegister(
                     authRegisterViewModel = authRegisterViewModel,
                     onFinishAuth = {},
+                    onHaveAccount = {},
                 )
             }
         }
@@ -100,6 +103,7 @@ class AuthRegisterTest {
                 AuthRegister(
                     authRegisterViewModel = authRegisterViewModel,
                     onFinishAuth = {},
+                    onHaveAccount = {},
                 )
             }
         }
@@ -124,6 +128,7 @@ class AuthRegisterTest {
                 AuthRegister(
                     authRegisterViewModel = authRegisterViewModel,
                     onFinishAuth = {},
+                    onHaveAccount = {},
                 )
             }
         }
@@ -151,6 +156,7 @@ class AuthRegisterTest {
                 AuthRegister(
                     authRegisterViewModel = authRegisterViewModel,
                     onFinishAuth = mockAuthorized,
+                    onHaveAccount = {},
                 )
             }
         }

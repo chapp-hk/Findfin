@@ -28,11 +28,12 @@ import ch.app.hk.bank.locator.feature.auth.ui.register.viewmodel.AuthRegisterVie
 import ch.app.hk.bank.locator.feature.auth.ui.register.viewmodel.AuthRegisterViewModelImpl
 
 @Composable
-internal fun AuthRegister(
+fun AuthRegister(
     modifier: Modifier = Modifier,
     authRegisterViewModel: AuthRegisterViewModel = hiltViewModel<AuthRegisterViewModelImpl>(),
+    onClose: () -> Unit = {},
     onFinishAuth: () -> Unit,
-    goToLogin: () -> Unit,
+    onHaveAccount: () -> Unit,
 ) = Box(modifier = modifier) {
     val emailState =
         rememberAppTextFieldState(
@@ -49,7 +50,7 @@ internal fun AuthRegister(
         snackbarHostState = snackbarHostState,
         emailState = emailState,
         passwordState = passwordState,
-        onSkip = onFinishAuth,
+        onClose = onClose,
         onRegister = {
             focusManager.clearFocus(force = true)
             authRegisterViewModel.emailPasswordRegister(
@@ -57,7 +58,7 @@ internal fun AuthRegister(
                 password = passwordState.value,
             )
         },
-        onHaveAccount = goToLogin,
+        onHaveAccount = onHaveAccount,
     )
 
     ScreenStateView(

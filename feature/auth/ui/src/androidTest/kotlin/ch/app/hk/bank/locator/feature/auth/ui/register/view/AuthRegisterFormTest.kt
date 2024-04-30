@@ -23,9 +23,9 @@ class AuthRegisterFormTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun verifyOnSkipInvoked() {
-        val mockedOnSkip = mockk<() -> Unit>()
-        every { mockedOnSkip() } just Runs
+    fun verifyOnCloseInvoked() {
+        val mockedOnClose = mockk<() -> Unit>()
+        every { mockedOnClose() } just Runs
 
         composeTestRule.setContent {
             AppContent {
@@ -34,16 +34,16 @@ class AuthRegisterFormTest {
                 AuthRegisterForm(
                     emailState = emailState,
                     passwordState = passwordState,
-                    onSkip = mockedOnSkip,
+                    onClose = mockedOnClose,
                 )
             }
         }
 
         composeTestRule
-            .onNodeWithText(getResourceString(R.string.auth_button_skip))
+            .onNodeWithContentDescription(getResourceString(R.string.auth_content_description_close))
             .performClick()
 
-        verify { mockedOnSkip() }
+        verify { mockedOnClose() }
     }
 
     @Test
@@ -76,6 +76,30 @@ class AuthRegisterFormTest {
             .performClick()
 
         verify { mockedOnRegister() }
+    }
+
+    @Test
+    fun verifyOnHaveAccountInvoked() {
+        val mockedOnHaveAccount = mockk<() -> Unit>()
+        every { mockedOnHaveAccount() } just Runs
+
+        composeTestRule.setContent {
+            AppContent {
+                val emailState = rememberAppTextFieldState()
+                val passwordState = rememberAppTextFieldState()
+                AuthRegisterForm(
+                    emailState = emailState,
+                    passwordState = passwordState,
+                    onHaveAccount = mockedOnHaveAccount,
+                )
+            }
+        }
+
+        composeTestRule
+            .onNodeWithText(getResourceString(R.string.auth_button_already_have_account))
+            .performClick()
+
+        verify { mockedOnHaveAccount() }
     }
 
     @Test

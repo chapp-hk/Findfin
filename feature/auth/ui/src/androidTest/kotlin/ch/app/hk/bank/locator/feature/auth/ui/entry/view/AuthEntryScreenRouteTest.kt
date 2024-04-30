@@ -1,9 +1,11 @@
 package ch.app.hk.bank.locator.feature.auth.ui.entry.view
 
 import android.content.Context
+import androidx.compose.material3.Text
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithText
 import androidx.test.core.app.ApplicationProvider
 import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
@@ -51,18 +53,17 @@ class AuthEntryScreenRouteTest {
 
         every { authEntryViewModel.uiState } returns
             MutableStateFlow(ScreenState.Success(AuthEntryUiState.AuthInitialized))
-        every { authEntryViewModel.setIsAuthInitialized() } just Runs
 
         composeTestRule.setContent {
             AppContent {
                 AuthEntryScreenRoute(
                     authEntryViewModel = authEntryViewModel,
                     finishAuth = mockFinishAuth,
+                    startAuth = {},
                 )
             }
         }
 
-        verify { authEntryViewModel.setIsAuthInitialized() }
         verify { mockFinishAuth() }
     }
 
@@ -79,12 +80,15 @@ class AuthEntryScreenRouteTest {
                 AuthEntryScreenRoute(
                     authEntryViewModel = authEntryViewModel,
                     finishAuth = {},
+                    startAuth = {
+                        Text(text = stringResource(id = R.string.auth_content_description_register))
+                    },
                 )
             }
         }
 
         composeTestRule
-            .onNodeWithContentDescription(context.getString(R.string.auth_content_description_register))
+            .onNodeWithText(context.getString(R.string.auth_content_description_register))
             .assertIsDisplayed()
     }
 }
