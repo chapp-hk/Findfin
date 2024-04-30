@@ -14,7 +14,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("AuthService unit tests")
+@DisplayName("RegisterService unit tests")
 class RegisterServiceTest {
     private val testDispatcher = StandardTestDispatcher()
     private val firebaseAuth = mockk<FirebaseAuth>()
