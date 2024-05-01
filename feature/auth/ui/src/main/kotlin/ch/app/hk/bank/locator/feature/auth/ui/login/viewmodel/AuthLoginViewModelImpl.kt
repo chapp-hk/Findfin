@@ -15,46 +15,44 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-internal class AuthLoginViewModelImpl
-    @Inject
-    constructor(
-        private val loginRepository: LoginRepositoryImpl,
-    ) : ViewModel(), AuthLoginViewModel {
-        private val _uiState = MutableStateFlow<ScreenState<LoginUiState>>(ScreenState.Empty)
-        override val uiState: StateFlow<ScreenState<LoginUiState>> = _uiState.asStateFlow()
+internal class AuthLoginViewModelImpl @Inject constructor(
+    private val loginRepository: LoginRepositoryImpl,
+) : ViewModel(), AuthLoginViewModel {
+    private val _uiState = MutableStateFlow<ScreenState<LoginUiState>>(ScreenState.Empty)
+    override val uiState: StateFlow<ScreenState<LoginUiState>> = _uiState.asStateFlow()
 
-        override fun emailPasswordLogin(
-            email: String,
-            password: String,
-        ) {
-            viewModelScope.launch {
-                _uiState.emit(ScreenState.Loading)
+    override fun emailPasswordLogin(
+        email: String,
+        password: String,
+    ) {
+        viewModelScope.launch {
+            _uiState.emit(ScreenState.Loading)
 
-                val loginResult =
-                    loginRepository.emailPasswordLogin(
-                        email = email,
-                        password = password,
-                    )
+            val loginResult =
+                loginRepository.emailPasswordLogin(
+                    email = email,
+                    password = password,
+                )
 
-                val state =
-                    when (loginResult) {
-                        LoginResult.Success ->
-                            ScreenState.Success(LoginUiState.Authorized)
+            val state =
+                when (loginResult) {
+                    LoginResult.Success ->
+                        ScreenState.Success(LoginUiState.Authorized)
 
-                        LoginResult.Error.Unknown ->
-                            ScreenState.Error(LoginUiState.Error(LoginError.UNKNOWN))
+                    LoginResult.Error.Unknown ->
+                        ScreenState.Error(LoginUiState.Error(LoginError.UNKNOWN))
 
-                        LoginResult.Error.AccountDisabled ->
-                            ScreenState.Error(LoginUiState.Error(LoginError.ACCOUNT_DISABLED))
+                    LoginResult.Error.AccountDisabled ->
+                        ScreenState.Error(LoginUiState.Error(LoginError.ACCOUNT_DISABLED))
 
-                        LoginResult.Error.InvalidCredential ->
-                            ScreenState.Error(LoginUiState.Error(LoginError.INVALID_CREDENTIAL))
+                    LoginResult.Error.InvalidCredential ->
+                        ScreenState.Error(LoginUiState.Error(LoginError.INVALID_CREDENTIAL))
 
-                        LoginResult.Error.TooManyRequest ->
-                            ScreenState.Error(LoginUiState.Error(LoginError.TOO_MANY_REQUEST))
-                    }
+                    LoginResult.Error.TooManyRequest ->
+                        ScreenState.Error(LoginUiState.Error(LoginError.TOO_MANY_REQUEST))
+                }
 
-                _uiState.emit(state)
-            }
+            _uiState.emit(state)
         }
     }
+}

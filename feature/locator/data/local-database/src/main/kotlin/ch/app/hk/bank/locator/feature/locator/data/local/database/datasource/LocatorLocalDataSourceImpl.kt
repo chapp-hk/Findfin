@@ -12,16 +12,14 @@ import org.mapstruct.factory.Mappers
 import javax.inject.Inject
 
 @HiltExtBindModule
-class LocatorLocalDataSourceImpl
-    @Inject
-    constructor(
-        @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
-        private val locatorDao: LocatorDao,
-    ) : LocatorLocalDataSource {
-        override suspend fun insertAll(locators: List<LocatorLocal>) {
-            withContext(ioDispatcher) {
-                val locatorMapper = Mappers.getMapper(LocatorMapper::class.java)
-                locatorDao.insertAll(locators.map(locatorMapper::clone))
-            }
+class LocatorLocalDataSourceImpl @Inject constructor(
+    @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
+    private val locatorDao: LocatorDao,
+) : LocatorLocalDataSource {
+    override suspend fun insertAll(locators: List<LocatorLocal>) {
+        withContext(ioDispatcher) {
+            val locatorMapper = Mappers.getMapper(LocatorMapper::class.java)
+            locatorDao.insertAll(locators.map(locatorMapper::clone))
         }
     }
+}

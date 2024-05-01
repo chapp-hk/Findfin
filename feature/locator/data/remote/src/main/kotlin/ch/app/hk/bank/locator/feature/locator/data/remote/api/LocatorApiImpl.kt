@@ -11,40 +11,38 @@ import kotlinx.serialization.Serializable
 import javax.inject.Inject
 
 @HiltExtBindModule
-internal class LocatorApiImpl
-    @Inject
-    constructor(
-        private val httpClientFactory: HttpClientFactory,
-    ) : LocatorApi {
-        override suspend fun getLocators(
-            path: String,
-            lang: String,
-            pageSize: Int,
-            offset: Int,
-        ): Response<LocatorResponse> {
-            return httpClientFactory
-                .create("https://api.hkma.gov.hk")
-                .provide()
-                .get(
-                    LocatorResource.Type(
-                        path = path,
-                        lang = lang,
-                        pagesize = pageSize,
-                        offset = offset,
-                    ),
-                ).body()
-        }
-
-        @Serializable
-        @Resource("/public/bank-svf-info")
-        internal class LocatorResource {
-            @Resource("/{path}")
-            class Type(
-                val parent: LocatorResource = LocatorResource(),
-                val path: String,
-                val lang: String,
-                val pagesize: Int,
-                val offset: Int,
-            )
-        }
+internal class LocatorApiImpl @Inject constructor(
+    private val httpClientFactory: HttpClientFactory,
+) : LocatorApi {
+    override suspend fun getLocators(
+        path: String,
+        lang: String,
+        pageSize: Int,
+        offset: Int,
+    ): Response<LocatorResponse> {
+        return httpClientFactory
+            .create("https://api.hkma.gov.hk")
+            .provide()
+            .get(
+                LocatorResource.Type(
+                    path = path,
+                    lang = lang,
+                    pagesize = pageSize,
+                    offset = offset,
+                ),
+            ).body()
     }
+
+    @Serializable
+    @Resource("/public/bank-svf-info")
+    internal class LocatorResource {
+        @Resource("/{path}")
+        class Type(
+            val parent: LocatorResource = LocatorResource(),
+            val path: String,
+            val lang: String,
+            val pagesize: Int,
+            val offset: Int,
+        )
+    }
+}

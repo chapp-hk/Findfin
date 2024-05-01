@@ -13,22 +13,20 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-internal class AuthEntryViewModelImpl
-    @Inject
-    constructor(
-        private val authRepository: AuthRepository,
-    ) : ViewModel(), AuthEntryViewModel {
-        override val uiState: StateFlow<ScreenState<AuthEntryUiState>> =
-            flow {
-                if (authRepository.isAuthInitialized()) {
-                    emit(ScreenState.Success(AuthEntryUiState.AuthInitialized))
-                } else {
-                    authRepository.setAuthInitialized()
-                    emit(ScreenState.Success(AuthEntryUiState.StartAuth))
-                }
-            }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
-                initialValue = ScreenState.Empty,
-            )
-    }
+internal class AuthEntryViewModelImpl @Inject constructor(
+    private val authRepository: AuthRepository,
+) : ViewModel(), AuthEntryViewModel {
+    override val uiState: StateFlow<ScreenState<AuthEntryUiState>> =
+        flow {
+            if (authRepository.isAuthInitialized()) {
+                emit(ScreenState.Success(AuthEntryUiState.AuthInitialized))
+            } else {
+                authRepository.setAuthInitialized()
+                emit(ScreenState.Success(AuthEntryUiState.StartAuth))
+            }
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
+            initialValue = ScreenState.Empty,
+        )
+}
