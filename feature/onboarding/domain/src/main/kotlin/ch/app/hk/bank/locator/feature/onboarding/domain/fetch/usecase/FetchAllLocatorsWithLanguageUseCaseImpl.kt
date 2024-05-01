@@ -11,39 +11,37 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltExtBindModule
-class FetchAllLocatorsWithLanguageUseCaseImpl
-    @Inject
-    constructor(
-        @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
-        private val locatorRepository: LocatorRepository,
-        private val appLocaleRepository: AppLocaleRepository,
-    ) : FetchAllLocatorsWithLanguageUseCase {
-        override suspend operator fun invoke(): Boolean {
-            return withContext(defaultDispatcher) {
-                val isFetchBranchSuccess = getLocators(Locator.BRANCH)
-                val isFetchAtmSuccess = getLocators(Locator.ATM)
-                isFetchBranchSuccess && isFetchAtmSuccess
-            }
-        }
-
-        private suspend fun getLocators(type: Locator): Boolean {
-            var page = 0
-
-            do {
-                val result =
-                    locatorRepository.fetchLocators(
-                        type = type,
-                        localeTag = appLocaleRepository.getCurrentLocale().toLanguageTag(),
-                        page = page,
-                        pageSize = 1000,
-                    )
-                page++
-
-                if (result is LocatorResult.Error) {
-                    return false
-                }
-            } while (result is LocatorResult.HasNext)
-
-            return true
+class FetchAllLocatorsWithLanguageUseCaseImpl @Inject constructor(
+    @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
+    private val locatorRepository: LocatorRepository,
+    private val appLocaleRepository: AppLocaleRepository,
+) : FetchAllLocatorsWithLanguageUseCase {
+    override suspend operator fun invoke(): Boolean {
+        return withContext(defaultDispatcher) {
+            val isFetchBranchSuccess = getLocators(Locator.BRANCH)
+            val isFetchAtmSuccess = getLocators(Locator.ATM)
+            isFetchBranchSuccess && isFetchAtmSuccess
         }
     }
+
+    private suspend fun getLocators(type: Locator): Boolean {
+        var page = 0
+
+        do {
+            val result =
+                locatorRepository.fetchLocators(
+                    type = type,
+                    localeTag = appLocaleRepository.getCurrentLocale().toLanguageTag(),
+                    page = page,
+                    pageSize = 1000,
+                )
+            page++
+
+            if (result is LocatorResult.Error) {
+                return false
+            }
+        } while (result is LocatorResult.HasNext)
+
+        return true
+    }
+}

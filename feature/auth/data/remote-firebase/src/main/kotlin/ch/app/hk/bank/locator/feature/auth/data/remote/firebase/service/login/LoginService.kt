@@ -14,35 +14,33 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltExtBindModule
-class LoginService
-    @Inject
-    constructor(
-        @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
-        private val firebaseAuth: FirebaseAuth,
-    ) : LoginRemoteDataSource {
-        override suspend fun emailPasswordLogin(
-            email: String,
-            password: String,
-        ): LoginResponse {
-            return withContext(ioDispatcher) {
-                runCatching {
-                    firebaseAuth.signInWithEmailAndPassword(email, password).await()
-                    LoginResponse.Success
-                }.getOrElse { error ->
-                    when (error) {
-                        is FirebaseAuthInvalidCredentialsException ->
-                            LoginResponse.Error.InvalidCredential
+class LoginService @Inject constructor(
+    @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
+    private val firebaseAuth: FirebaseAuth,
+) : LoginRemoteDataSource {
+    override suspend fun emailPasswordLogin(
+        email: String,
+        password: String,
+    ): LoginResponse {
+        return withContext(ioDispatcher) {
+            runCatching {
+                firebaseAuth.signInWithEmailAndPassword(email, password).await()
+                LoginResponse.Success
+            }.getOrElse { error ->
+                when (error) {
+                    is FirebaseAuthInvalidCredentialsException ->
+                        LoginResponse.Error.InvalidCredential
 
-                        is FirebaseAuthInvalidUserException ->
-                            LoginResponse.Error.AccountDisabled
+                    is FirebaseAuthInvalidUserException ->
+                        LoginResponse.Error.AccountDisabled
 
-                        is FirebaseTooManyRequestsException -> {
-                            LoginResponse.Error.TooManyRequest
-                        }
-
-                        else -> LoginResponse.Error.Unknown
+                    is FirebaseTooManyRequestsException -> {
+                        LoginResponse.Error.TooManyRequest
                     }
+
+                    else -> LoginResponse.Error.Unknown
                 }
             }
         }
     }
+}

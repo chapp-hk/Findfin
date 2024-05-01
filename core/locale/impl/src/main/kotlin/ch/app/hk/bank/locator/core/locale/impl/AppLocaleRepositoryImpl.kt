@@ -11,26 +11,24 @@ import java.util.Locale
 import javax.inject.Inject
 
 @HiltExtBindModule
-internal class AppLocaleRepositoryImpl
-    @Inject
-    constructor(
-        @ApplicationContext private val context: Context,
-    ) : AppLocaleRepository {
-        override fun setLocale(locale: String) {
-            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(locale))
-        }
-
-        override fun getCurrentLocale(): Locale = AppCompatDelegate.getApplicationLocales()[0] ?: Locale.ENGLISH
-
-        override fun availableLocales(): List<AppLocale> =
-            listOf(
-                AppLocale(
-                    displayName = context.getString(R.string.locale_name_en),
-                    tag = "en",
-                ),
-                AppLocale(
-                    displayName = context.getString(R.string.locale_name_zh),
-                    tag = "zh",
-                ),
-            )
+internal class AppLocaleRepositoryImpl @Inject constructor(
+    @ApplicationContext private val context: Context,
+) : AppLocaleRepository {
+    override fun setLocale(locale: String) {
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(locale))
     }
+
+    override fun getCurrentLocale(): Locale = AppCompatDelegate.getApplicationLocales()[0] ?: Locale.ENGLISH
+
+    override fun availableLocales(): List<AppLocale> =
+        listOf(
+            AppLocale(
+                displayName = context.getString(R.string.locale_name_en),
+                tag = "en",
+            ),
+            AppLocale(
+                displayName = context.getString(R.string.locale_name_zh),
+                tag = "zh",
+            ),
+        )
+}

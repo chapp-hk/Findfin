@@ -12,43 +12,41 @@ import org.mapstruct.factory.Mappers
 import javax.inject.Inject
 
 @HiltExtBindModule
-class LocatorRepositoryImpl
-    @Inject
-    constructor(
-        private val locatorLocalDataSource: LocatorLocalDataSource,
-        private val locatorRemoteDataSource: LocatorRemoteDataSource,
-    ) : LocatorRepository {
-        override suspend fun fetchLocators(
-            type: Locator,
-            localeTag: String,
-            page: Int,
-            pageSize: Int,
-        ): LocatorResult {
-            val mapper = Mappers.getMapper(LocatorMapper::class.java)
-            val locatorPath = type.toRemoteLocatorPath()
+class LocatorRepositoryImpl @Inject constructor(
+    private val locatorLocalDataSource: LocatorLocalDataSource,
+    private val locatorRemoteDataSource: LocatorRemoteDataSource,
+) : LocatorRepository {
+    override suspend fun fetchLocators(
+        type: Locator,
+        localeTag: String,
+        page: Int,
+        pageSize: Int,
+    ): LocatorResult {
+        val mapper = Mappers.getMapper(LocatorMapper::class.java)
+        val locatorPath = type.toRemoteLocatorPath()
 
-            val remoteBanks =
-                locatorRemoteDataSource.getLocators(
-                    path = locatorPath,
-                    language = localeTag.toApiLang(),
-                    pageSize = pageSize,
-                    offset = page * pageSize,
-                )
+        val remoteBanks =
+            locatorRemoteDataSource.getLocators(
+                path = locatorPath,
+                language = localeTag.toApiLang(),
+                pageSize = pageSize,
+                offset = page * pageSize,
+            )
 
-            return runCatching {
-                remoteBanks
-                    .getOrThrow()
-                    .map { mapper.convertToLocal(locatorPath, it) }
-                    .also { locatorLocalDataSource.insertAll(it) }
-                    .let { list ->
-                        if (list.size < pageSize) {
-                            LocatorResult.End
-                        } else {
-                            LocatorResult.HasNext
-                        }
+        return runCatching {
+            remoteBanks
+                .getOrThrow()
+                .map { mapper.convertToLocal(locatorPath, it) }
+                .also { locatorLocalDataSource.insertAll(it) }
+                .let { list ->
+                    if (list.size < pageSize) {
+                        LocatorResult.End
+                    } else {
+                        LocatorResult.HasNext
                     }
-            }.getOrElse { error ->
-                LocatorResult.Error(error)
-            }
+                }
+        }.getOrElse { error ->
+            LocatorResult.Error(error)
         }
     }
+}

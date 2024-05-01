@@ -12,33 +12,31 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltExtBindModule
-internal class RegisterService
-    @Inject
-    constructor(
-        @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
-        private val firebaseAuth: FirebaseAuth,
-    ) : RegisterRemoteDataSource {
-        override suspend fun emailPasswordRegister(
-            email: String,
-            password: String,
-        ): RegisterResponse {
-            return withContext(ioDispatcher) {
-                runCatching {
-                    firebaseAuth.createUserWithEmailAndPassword(email, password).await()
-                    RegisterResponse.Success(isAnonymous = false)
-                }.getOrElse { error ->
-                    val errorCode =
-                        if (error is FirebaseAuthException) {
-                            error.errorCode
-                        } else {
-                            ""
-                        }
+internal class RegisterService @Inject constructor(
+    @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
+    private val firebaseAuth: FirebaseAuth,
+) : RegisterRemoteDataSource {
+    override suspend fun emailPasswordRegister(
+        email: String,
+        password: String,
+    ): RegisterResponse {
+        return withContext(ioDispatcher) {
+            runCatching {
+                firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+                RegisterResponse.Success(isAnonymous = false)
+            }.getOrElse { error ->
+                val errorCode =
+                    if (error is FirebaseAuthException) {
+                        error.errorCode
+                    } else {
+                        ""
+                    }
 
-                    RegisterResponse.Error(
-                        code = errorCode,
-                        message = "",
-                    )
-                }
+                RegisterResponse.Error(
+                    code = errorCode,
+                    message = "",
+                )
             }
         }
     }
+}

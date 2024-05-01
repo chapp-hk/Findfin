@@ -11,20 +11,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-internal class PermissionViewModelImpl
-    @Inject
-    constructor(
-        private val appPreferencesRepository: AppPreferencesRepository,
-    ) : PermissionViewModel, ViewModel() {
-        private val prefKeyIsAppInitialized = "pref_key_is_app_initialized"
+internal class PermissionViewModelImpl @Inject constructor(
+    private val appPreferencesRepository: AppPreferencesRepository,
+) : PermissionViewModel, ViewModel() {
+    private val prefKeyIsAppInitialized = "pref_key_is_app_initialized"
 
-        private val _uiState = MutableStateFlow<ScreenState<Boolean>>(ScreenState.Empty)
-        override val uiState = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<ScreenState<Boolean>>(ScreenState.Empty)
+    override val uiState = _uiState.asStateFlow()
 
-        override fun completeOnboarding() {
-            viewModelScope.launch {
-                appPreferencesRepository.setBoolean(prefKeyIsAppInitialized, true)
-                _uiState.emit(ScreenState.Success(true))
-            }
+    override fun completeOnboarding() {
+        viewModelScope.launch {
+            appPreferencesRepository.setBoolean(prefKeyIsAppInitialized, true)
+            _uiState.emit(ScreenState.Success(true))
         }
     }
+}

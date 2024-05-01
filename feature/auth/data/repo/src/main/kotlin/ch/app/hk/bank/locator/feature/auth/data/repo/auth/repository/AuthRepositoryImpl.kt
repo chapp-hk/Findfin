@@ -6,18 +6,16 @@ import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 @HiltExtBindModule
-class AuthRepositoryImpl
-    @Inject
-    constructor(
-        private val appPreferencesRepository: AppPreferencesRepository,
-    ) : AuthRepository {
-        private val keyIsAuthInitialized = "pref_key_is_auth_initialized"
+class AuthRepositoryImpl @Inject constructor(
+    private val appPreferencesRepository: AppPreferencesRepository,
+) : AuthRepository {
+    private val keyIsAuthInitialized = "pref_key_is_auth_initialized"
 
-        override suspend fun isAuthInitialized(): Boolean {
-            return appPreferencesRepository.getBoolean(keyIsAuthInitialized).first()
-        }
-
-        override suspend fun setAuthInitialized() {
-            appPreferencesRepository.setBoolean(keyIsAuthInitialized, true)
-        }
+    override suspend fun isAuthInitialized(): Boolean {
+        return appPreferencesRepository.getBoolean(keyIsAuthInitialized).first()
     }
+
+    override suspend fun setAuthInitialized() {
+        appPreferencesRepository.setBoolean(keyIsAuthInitialized, true)
+    }
+}

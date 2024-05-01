@@ -15,45 +15,43 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthRegisterViewModelImpl
-    @Inject
-    constructor(
-        private val registerRepository: RegisterRepository,
-    ) : ViewModel(), AuthRegisterViewModel {
-        private val _uiState = MutableStateFlow<ScreenState<AuthRegisterUiState>>(ScreenState.Empty)
-        override val uiState: StateFlow<ScreenState<AuthRegisterUiState>> = _uiState.asStateFlow()
+class AuthRegisterViewModelImpl @Inject constructor(
+    private val registerRepository: RegisterRepository,
+) : ViewModel(), AuthRegisterViewModel {
+    private val _uiState = MutableStateFlow<ScreenState<AuthRegisterUiState>>(ScreenState.Empty)
+    override val uiState: StateFlow<ScreenState<AuthRegisterUiState>> = _uiState.asStateFlow()
 
-        override fun emailPasswordRegister(
-            email: String,
-            password: String,
-        ) {
-            viewModelScope.launch {
-                _uiState.emit(ScreenState.Loading)
+    override fun emailPasswordRegister(
+        email: String,
+        password: String,
+    ) {
+        viewModelScope.launch {
+            _uiState.emit(ScreenState.Loading)
 
-                val result =
-                    when (registerRepository.emailPasswordRegister(email, password)) {
-                        RegisterResult.Authorized ->
-                            ScreenState.Success(AuthRegisterUiState.Authorized)
+            val result =
+                when (registerRepository.emailPasswordRegister(email, password)) {
+                    RegisterResult.Authorized ->
+                        ScreenState.Success(AuthRegisterUiState.Authorized)
 
-                        RegisterResult.Error.Register.EmailAlreadyInUse ->
-                            ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.EMAIL_ALREADY_IN_USE))
+                    RegisterResult.Error.Register.EmailAlreadyInUse ->
+                        ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.EMAIL_ALREADY_IN_USE))
 
-                        RegisterResult.Error.Register.InvalidEmail ->
-                            ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.INVALID_EMAIL))
+                    RegisterResult.Error.Register.InvalidEmail ->
+                        ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.INVALID_EMAIL))
 
-                        RegisterResult.Error.Register.WeakPassword ->
-                            ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.WEAK_PASSWORD))
+                    RegisterResult.Error.Register.WeakPassword ->
+                        ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.WEAK_PASSWORD))
 
-                        RegisterResult.Error.Unknown ->
-                            ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN))
-                    }
-                _uiState.emit(result)
-            }
-        }
-
-        override fun resetUiState() {
-            viewModelScope.launch {
-                _uiState.emit(ScreenState.Empty)
-            }
+                    RegisterResult.Error.Unknown ->
+                        ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN))
+                }
+            _uiState.emit(result)
         }
     }
+
+    override fun resetUiState() {
+        viewModelScope.launch {
+            _uiState.emit(ScreenState.Empty)
+        }
+    }
+}
