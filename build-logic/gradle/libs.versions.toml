@@ -1,6 +1,6 @@
 [versions]
 androidGradlePlugin = "8.3.2"
-kotlin = "1.9.22"
+kotlin = "1.9.23"
 ktlintGradle = "12.1.0"
 
 [libraries]
@@ -9,7 +9,7 @@ org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gra
 ktlint-gradle = { module = "org.jlleitschuh.gradle:ktlint-gradle", version.ref = "ktlintGradle" }
 detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version = "1.23.5" }
 kover-gradle = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.6" }
-ksp-gradle = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "1.9.22-1.0.17" }
+ksp-gradle = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "1.9.23-1.0.20" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

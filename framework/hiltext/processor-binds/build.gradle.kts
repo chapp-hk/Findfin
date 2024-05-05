@@ -9,10 +9,10 @@ dependencies {
 
     implementation(projects.framework.hiltext.annotation)
     implementation(projects.framework.hiltext.util)
-    implementation("com.google.devtools.ksp:symbol-processing-api:1.9.22-1.0.17")
+    implementation("com.google.devtools.ksp:symbol-processing-api:1.9.23-1.0.20")
     implementation("com.squareup:kotlinpoet:$kotlinPoetVersion")
     implementation("com.squareup:kotlinpoet-ksp:$kotlinPoetVersion")
-    implementation("com.google.dagger:hilt-core:2.50")
+    implementation("com.google.dagger:hilt-core:2.51.1")
 
     kspTest(projects.framework.hiltext.processorBinds)
     testImplementation(libs.junit.jupiter)
