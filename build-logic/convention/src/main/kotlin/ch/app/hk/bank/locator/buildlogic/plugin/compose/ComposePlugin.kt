@@ -18,11 +18,11 @@ class ComposePlugin : Plugin<Project> {
             }
 
             extension.composeOptions {
-                kotlinCompilerExtensionVersion = "1.5.10"
+                kotlinCompilerExtensionVersion = "1.5.13"
             }
 
             project.dependencies {
-                val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
+                val composeBom = platform("androidx.compose:compose-bom:2024.05.00")
                 add("implementation", composeBom)
                 add("implementation", "androidx.compose.runtime:runtime")
                 add("androidTestImplementation", composeBom)

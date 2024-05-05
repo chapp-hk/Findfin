@@ -1,13 +1,13 @@
 [versions]
 agp = "8.3.2"
-kotlin = "1.9.22"
-core-ktx = "1.13.0"
+kotlin = "1.9.23"
+core-ktx = "1.13.1"
 kotlinxCoroutines = "1.8.0"
 mockk = "1.13.9"
 androidx-navigation = "2.7.7"
 appcompat = "1.6.1"
 activity-compose = "1.9.0"
-material = "1.11.0"
+material = "1.12.0"
 ktor = "2.3.9"
 
 [libraries]
@@ -19,7 +19,7 @@ androidx-compose-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 androidx-compose-material = { module = "androidx.compose.material3:material3", version = "1.2.1" }
-androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version = "1.1.0" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version = "1.1.1" }
 androidx-hilt-compose = { module = "androidx.hilt:hilt-navigation-compose", version = "1.2.0" }
 androidx-lifecycle-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version = "2.7.0" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
@@ -29,7 +29,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version = "5.10.2" }
 kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version = "5.8.0" }
 #firebase
-google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "32.8.1" }
+google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "33.0.0" }
 google-firebase-auth = { module = "com.google.firebase:firebase-auth" }
 google-play-services-tasks = { module = "com.google.android.gms:play-services-tasks", version = "18.1.0" }
 #mockk
@@ -39,7 +39,7 @@ mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version = "1.8.0" }
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.6.2" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.6.3" }
 #ktor
 ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
@@ -60,8 +60,8 @@ com-android-application = { id = "com.android.application", version.ref = "agp" 
 com-android-library = { id = "com.android.library", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.50" }
-com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "1.9.22-1.0.17" }
+com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.51.1" }
+com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "1.9.23-1.0.20" }
 com-google-gms-services = { id = "com.google.gms.google-services", version = "4.4.1" }
 
 #convention plugins
