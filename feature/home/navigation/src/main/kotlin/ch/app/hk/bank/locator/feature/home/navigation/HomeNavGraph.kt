@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import ch.app.hk.bank.locator.feature.home.ui.container.screen.HomeContainerScreen
+import ch.app.hk.bank.locator.feature.home.ui.container.screen.HomeBottomNavigationLayout
 
 fun NavGraphBuilder.homeNavGraph(navController: NavController) {
     navigation<HomeNavGraphDestination>(
@@ -13,7 +13,7 @@ fun NavGraphBuilder.homeNavGraph(navController: NavController) {
         // TODO - proper use of navController
         navController.toString()
         composable<HomeDestination> {
-            HomeContainerScreen()
+            HomeBottomNavigationLayout()
         }
     }
 }
