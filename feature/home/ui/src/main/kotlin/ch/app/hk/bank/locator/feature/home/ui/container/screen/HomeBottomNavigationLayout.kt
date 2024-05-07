@@ -9,7 +9,7 @@ import ch.app.hk.bank.locator.core.navigation.BottomNavigationTab
 import ch.app.hk.bank.locator.feature.home.ui.R
 
 @Composable
-fun HomeContainerScreen() {
+fun HomeBottomNavigationLayout() {
     val tabList =
         remember {
             listOf(
