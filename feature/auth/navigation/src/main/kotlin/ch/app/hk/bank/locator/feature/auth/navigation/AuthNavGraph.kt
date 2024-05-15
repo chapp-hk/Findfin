@@ -14,12 +14,10 @@ fun NavGraphBuilder.authNavGraph(
     navController: NavController,
     finishAuth: () -> Unit,
 ) {
-    navigation(
-        startDestination = AuthEntryDestination.route,
-        route = AuthNavGraphDestination.navGraphId,
+    navigation<AuthNavGraphDestination>(
+        startDestination = AuthEntryDestination,
     ) {
-        composable(
-            route = AuthEntryDestination.route,
+        composable<AuthEntryDestination>(
             enterTransition = {
                 slideIntoContainer(
                     towards = AnimatedContentTransitionScope.SlideDirection.Up,
@@ -42,14 +40,14 @@ fun NavGraphBuilder.authNavGraph(
                         onClose = finishAuth,
                         onFinishAuth = finishAuth,
                         onHaveAccount = {
-                            navController.navigate(AuthLoginDestination.route)
+                            navController.navigate(AuthLoginDestination)
                         },
                     )
                 },
             )
         }
 
-        composable(route = AuthLoginDestination.route) {
+        composable<AuthLoginDestination> {
             AuthLogin(
                 onClose = navController::navigateUp,
                 onAuthorized = finishAuth,
