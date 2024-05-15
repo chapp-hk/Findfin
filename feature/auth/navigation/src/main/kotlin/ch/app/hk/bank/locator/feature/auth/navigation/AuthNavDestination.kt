@@ -1,23 +1,15 @@
 package ch.app.hk.bank.locator.feature.auth.navigation
 
-import ch.app.hk.bank.locator.core.navigation.Destination
+import kotlinx.serialization.Serializable
 
-object AuthNavGraphDestination : Destination() {
-    override val navGraphId: String = "auth-initialize-destination"
-    override val route: String = "auth-route"
-}
+@Serializable
+object AuthNavGraphDestination
 
-object AuthEntryDestination : Destination() {
-    override val navGraphId: String = ""
-    override val route: String = "auth-entry-route"
-}
+@Serializable
+object AuthEntryDestination
 
-object AuthRegisterDestination : Destination() {
-    override val navGraphId: String = ""
-    override val route: String = "auth-register-route"
-}
+@Serializable
+object AuthRegisterDestination
 
-object AuthLoginDestination : Destination() {
-    override val navGraphId: String = ""
-    override val route: String = "auth-login-route"
-}
+@Serializable
+object AuthLoginDestination

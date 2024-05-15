@@ -1,18 +1,12 @@
 package ch.app.hk.bank.locator.feature.onboarding.navigation
 
-import ch.app.hk.bank.locator.core.navigation.Destination
+import kotlinx.serialization.Serializable
 
-object OnboardingNavGraphDestination : Destination() {
-    override val navGraphId: String = "onboarding-destination"
-    override val route: String = "onboarding-route"
-}
+@Serializable
+object OnboardingNavGraphDestination
 
-object OnboardingDestination : Destination() {
-    override val navGraphId: String = ""
-    override val route: String = "onboarding"
-}
+@Serializable
+object OnboardingDestination
 
-object OnboardingRequestPermissionDestination : Destination() {
-    override val navGraphId: String = ""
-    override val route: String = "onboarding-request-permission"
-}
+@Serializable
+object OnboardingRequestPermissionDestination

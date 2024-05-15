@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.app.android.common)
     alias(libs.plugins.app.compose)
+    kotlin("plugin.serialization") version libs.versions.kotlin
 }
 
 android {
@@ -14,7 +15,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.navigation)
     implementation(projects.feature.auth.ui)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
 }

@@ -21,14 +21,14 @@ fun AppNavHost(
     NavHost(
         modifier = modifier.fillMaxSize(),
         navController = navController,
-        startDestination = OnboardingNavGraphDestination.navGraphId,
+        startDestination = OnboardingNavGraphDestination,
     ) {
         onboardingNavGraph(
             navController = navController,
             finishOnboarding = {
-                navController.navigate(AuthNavGraphDestination.navGraphId) {
+                navController.navigate(AuthNavGraphDestination) {
                     launchSingleTop = true
-                    popUpTo(OnboardingNavGraphDestination.navGraphId) {
+                    popUpTo(OnboardingNavGraphDestination) {
                         inclusive = true
                     }
                 }
@@ -38,9 +38,9 @@ fun AppNavHost(
         authNavGraph(
             navController = navController,
             finishAuth = {
-                navController.navigate(HomeNavGraphDestination.navGraphId) {
+                navController.navigate(HomeNavGraphDestination) {
                     launchSingleTop = true
-                    popUpTo(AuthNavGraphDestination.navGraphId) {
+                    popUpTo(AuthNavGraphDestination) {
                         inclusive = true
                     }
                 }

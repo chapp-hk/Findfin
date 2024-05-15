@@ -11,15 +11,14 @@ fun NavGraphBuilder.onboardingNavGraph(
     navController: NavController,
     finishOnboarding: () -> Unit,
 ) {
-    navigation(
-        startDestination = OnboardingDestination.route,
-        route = OnboardingNavGraphDestination.navGraphId,
+    navigation<OnboardingNavGraphDestination>(
+        startDestination = OnboardingDestination,
     ) {
-        composable(route = OnboardingDestination.route) {
+        composable<OnboardingDestination> {
             OnboardScreen(
                 goToRequestPermission = {
-                    navController.navigate(OnboardingRequestPermissionDestination.route) {
-                        popUpTo(OnboardingNavGraphDestination.navGraphId) {
+                    navController.navigate(OnboardingRequestPermissionDestination) {
+                        popUpTo(OnboardingNavGraphDestination) {
                             inclusive = true
                         }
                     }
@@ -28,7 +27,7 @@ fun NavGraphBuilder.onboardingNavGraph(
             )
         }
 
-        composable(route = OnboardingRequestPermissionDestination.route) {
+        composable<OnboardingRequestPermissionDestination> {
             RequestLocationPermissionScreen(finishOnboarding = finishOnboarding)
         }
     }

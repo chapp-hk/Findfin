@@ -1,13 +1,9 @@
 package ch.app.hk.bank.locator.feature.home.navigation
 
-import ch.app.hk.bank.locator.core.navigation.Destination
+import kotlinx.serialization.Serializable
 
-object HomeNavGraphDestination : Destination() {
-    override val navGraphId: String = "home-graph-id"
-    override val route: String = "home-graph-route"
-}
+@Serializable
+object HomeNavGraphDestination
 
-object HomeDestination : Destination() {
-    override val navGraphId: String = ""
-    override val route: String = "home-route"
-}
+@Serializable
+object HomeDestination

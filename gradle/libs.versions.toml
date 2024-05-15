@@ -4,7 +4,7 @@ kotlin = "1.9.23"
 core-ktx = "1.13.1"
 kotlinxCoroutines = "1.8.0"
 mockk = "1.13.9"
-androidx-navigation = "2.7.7"
+androidx-navigation = "2.8.0-beta01"
 appcompat = "1.6.1"
 activity-compose = "1.9.0"
 material = "1.12.0"
@@ -53,7 +53,7 @@ cash-app-turbine = { module = "app.cash.turbine:turbine", version = "1.0.0" }
 #konsist
 lemon-app-dev-konsist = { module = "com.lemonappdev:konsist", version = "0.13.0" }
 #lottie
-airbnb-lottie-compose = { module = "com.airbnb.android:lottie-compose", version = "6.3.0" }
+airbnb-lottie-compose = { module = "com.airbnb.android:lottie-compose", version = "6.4.0" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
