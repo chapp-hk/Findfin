@@ -4,16 +4,19 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import ch.app.hk.bank.locator.feature.home.ui.container.screen.HomeBottomNavigationLayout
+import ch.app.hk.bank.locator.feature.auth.navigation.AuthNavGraphDestination
+import ch.app.hk.bank.locator.feature.home.ui.container.view.HomeBottomNavigationLayout
 
 fun NavGraphBuilder.homeNavGraph(navController: NavController) {
     navigation<HomeNavGraphDestination>(
         startDestination = HomeDestination,
     ) {
-        // TODO - proper use of navController
-        navController.toString()
         composable<HomeDestination> {
-            HomeBottomNavigationLayout()
+            HomeBottomNavigationLayout {
+                navController.navigate(
+                    route = AuthNavGraphDestination(shouldCheckIsInit = false),
+                )
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.home.ui.container.screen
+package ch.app.hk.bank.locator.feature.home.ui.container.view
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -9,7 +9,7 @@ import ch.app.hk.bank.locator.core.navigation.BottomNavigationTab
 import ch.app.hk.bank.locator.feature.home.ui.R
 
 @Composable
-fun HomeBottomNavigationLayout() {
+fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
     val tabList =
         remember {
             listOf(
@@ -23,7 +23,7 @@ fun HomeBottomNavigationLayout() {
     BottomNavigationLayout(bottomTabItems = tabList) { tab ->
         when (tab) {
             is HomeBottomTab.Banks -> Text(text = stringResource(id = tab.textStringResource))
-            is HomeBottomTab.Home -> Text(text = stringResource(id = tab.textStringResource))
+            is HomeBottomTab.Home -> HomeContainer(onRequestAuth = onRequestAuth)
             is HomeBottomTab.Map -> Text(text = stringResource(id = tab.textStringResource))
             is HomeBottomTab.Setting -> Text(text = stringResource(id = tab.textStringResource))
         }

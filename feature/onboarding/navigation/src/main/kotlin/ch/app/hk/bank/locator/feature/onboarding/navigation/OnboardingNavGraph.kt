@@ -18,7 +18,7 @@ fun NavGraphBuilder.onboardingNavGraph(
             OnboardScreen(
                 goToRequestPermission = {
                     navController.navigate(OnboardingRequestPermissionDestination) {
-                        popUpTo(OnboardingNavGraphDestination) {
+                        popUpTo<OnboardingNavGraphDestination> {
                             inclusive = true
                         }
                     }

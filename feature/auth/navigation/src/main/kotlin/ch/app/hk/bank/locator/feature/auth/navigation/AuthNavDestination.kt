@@ -1,9 +1,13 @@
 package ch.app.hk.bank.locator.feature.auth.navigation
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-object AuthNavGraphDestination
+data class AuthNavGraphDestination(
+    @SerialName("shouldCheckIsInit")
+    val shouldCheckIsInit: Boolean,
+)
 
 @Serializable
 object AuthEntryDestination

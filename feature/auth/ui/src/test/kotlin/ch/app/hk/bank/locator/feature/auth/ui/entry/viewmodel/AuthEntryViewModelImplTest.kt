@@ -1,5 +1,6 @@
 package ch.app.hk.bank.locator.feature.auth.ui.entry.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.auth.data.repo.auth.repository.AuthRepository
@@ -23,6 +24,7 @@ import java.util.stream.Stream
 @ExtendWith(MainDispatcherExtension::class)
 @DisplayName("AuthEntryViewModelImpl unit tests")
 class AuthEntryViewModelImplTest {
+    private val savedStateHandle = SavedStateHandle()
     private val authRepository = mockk<AuthRepository>()
 
     @ParameterizedTest(
@@ -32,9 +34,11 @@ class AuthEntryViewModelImplTest {
     )
     @ArgumentsSource(UiStateArgumentProvider::class)
     fun testUiState(
+        mockShouldCheckIsInitValue: Boolean,
         mockIsAuthInitializedValue: Boolean,
         expectedResult: AuthEntryUiState,
     ) = runTest {
+        savedStateHandle["shouldCheckIsInit"] = mockShouldCheckIsInitValue
         coEvery { authRepository.isAuthInitialized() } returns mockIsAuthInitializedValue
         coEvery { authRepository.setAuthInitialized() } just Runs
 
@@ -48,13 +52,35 @@ class AuthEntryViewModelImplTest {
     }
 
     private class UiStateArgumentProvider : ArgumentsProvider {
-        override fun provideArguments(p0: ExtensionContext?): Stream<out Arguments> {
+        /**
+         * argument 0 - mockShouldCheckIsInitValue: Boolean,
+         * argument 1 - mockIsAuthInitializedValue: Boolean,
+         * argument 2 - expectedResult: AuthEntryUiState,
+         */
+        override fun provideArguments(context: ExtensionContext): Stream<out Arguments> {
             return Stream.of(
-                Arguments.arguments(false, AuthEntryUiState.StartAuth),
-                Arguments.arguments(true, AuthEntryUiState.AuthInitialized),
+                Arguments.arguments(
+                    true,
+                    false,
+                    AuthEntryUiState.StartAuth,
+                ),
+                Arguments.arguments(
+                    true,
+                    true,
+                    AuthEntryUiState.AuthInitialized,
+                ),
+                Arguments.arguments(
+                    false,
+                    false,
+                    AuthEntryUiState.StartAuth,
+                ),
             )
         }
     }
 
-    private fun createAuthEntryViewModel() = AuthEntryViewModelImpl(authRepository = authRepository)
+    private fun createAuthEntryViewModel() =
+        AuthEntryViewModelImpl(
+            savedStateHandle = savedStateHandle,
+            authRepository = authRepository,
+        )
 }

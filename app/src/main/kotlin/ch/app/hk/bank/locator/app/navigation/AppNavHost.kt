@@ -26,9 +26,9 @@ fun AppNavHost(
         onboardingNavGraph(
             navController = navController,
             finishOnboarding = {
-                navController.navigate(AuthNavGraphDestination) {
+                navController.navigate(AuthNavGraphDestination(shouldCheckIsInit = true)) {
                     launchSingleTop = true
-                    popUpTo(OnboardingNavGraphDestination) {
+                    popUpTo<OnboardingNavGraphDestination> {
                         inclusive = true
                     }
                 }
@@ -40,7 +40,7 @@ fun AppNavHost(
             finishAuth = {
                 navController.navigate(HomeNavGraphDestination) {
                     launchSingleTop = true
-                    popUpTo(AuthNavGraphDestination) {
+                    popUpTo<AuthNavGraphDestination> {
                         inclusive = true
                     }
                 }
