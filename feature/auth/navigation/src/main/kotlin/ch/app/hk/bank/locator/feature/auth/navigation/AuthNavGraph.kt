@@ -5,7 +5,7 @@ import androidx.compose.animation.core.tween
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
+import androidx.navigation.compose.navigation
 import ch.app.hk.bank.locator.feature.auth.ui.entry.view.AuthEntryScreenRoute
 import ch.app.hk.bank.locator.feature.auth.ui.login.view.AuthLogin
 import ch.app.hk.bank.locator.feature.auth.ui.register.view.AuthRegister
@@ -21,7 +21,7 @@ fun NavGraphBuilder.authNavGraph(
             enterTransition = {
                 slideIntoContainer(
                     towards = AnimatedContentTransitionScope.SlideDirection.Up,
-                    animationSpec = tween(durationMillis = 300),
+                    animationSpec = tween(durationMillis = 700),
                 )
             },
             exitTransition = null,
@@ -29,7 +29,7 @@ fun NavGraphBuilder.authNavGraph(
             popExitTransition = {
                 slideOutOfContainer(
                     towards = AnimatedContentTransitionScope.SlideDirection.Down,
-                    animationSpec = tween(durationMillis = 300),
+                    animationSpec = tween(durationMillis = 700),
                 )
             },
         ) {

@@ -17,6 +17,7 @@ android {
 dependencies {
     implementation(projects.core.navigation)
     implementation(projects.feature.home.ui)
+    implementation(projects.feature.auth.navigation)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.compose.material)
     implementation(libs.kotlinx.serialization.json)

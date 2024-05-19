@@ -1,5 +1,6 @@
 package ch.app.hk.bank.locator.feature.auth.ui.entry.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
@@ -14,14 +15,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class AuthEntryViewModelImpl @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val authRepository: AuthRepository,
 ) : ViewModel(), AuthEntryViewModel {
     override val uiState: StateFlow<ScreenState<AuthEntryUiState>> =
         flow {
-            if (authRepository.isAuthInitialized()) {
-                emit(ScreenState.Success(AuthEntryUiState.AuthInitialized))
+            if (savedStateHandle.get<Boolean>("shouldCheckIsInit") == true) {
+                if (authRepository.isAuthInitialized()) {
+                    emit(ScreenState.Success(AuthEntryUiState.AuthInitialized))
+                } else {
+                    authRepository.setAuthInitialized()
+                    emit(ScreenState.Success(AuthEntryUiState.StartAuth))
+                }
             } else {
-                authRepository.setAuthInitialized()
                 emit(ScreenState.Success(AuthEntryUiState.StartAuth))
             }
         }.stateIn(
