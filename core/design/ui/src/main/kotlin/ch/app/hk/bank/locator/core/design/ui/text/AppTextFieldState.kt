@@ -10,6 +10,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import kotlinx.parcelize.Parcelize
 import org.mapstruct.Mapper
+import org.mapstruct.Mapping
 import org.mapstruct.factory.Mappers
 
 @Stable
@@ -81,7 +82,9 @@ private val appTextFieldStateSaver =
 
 @Mapper
 private interface AppTextFieldStateMapper {
+    @Mapping(source = "error", target = "isError")
     fun toSaveable(state: AppTextFieldState): AppTextFieldStateSaveable
 
+    @Mapping(source = "error", target = "isError")
     fun toState(saveable: AppTextFieldStateSaveable): AppTextFieldStateImpl
 }
