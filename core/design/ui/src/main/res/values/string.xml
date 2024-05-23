@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="core_ui_content_description_visibility_toggle">Toggle visibility</string>
+    <string name="core_ui_content_description_search_icon">Search icon</string>
+    <string name="core_ui_content_description_search_input_field">Search input field</string>
 </resources>
