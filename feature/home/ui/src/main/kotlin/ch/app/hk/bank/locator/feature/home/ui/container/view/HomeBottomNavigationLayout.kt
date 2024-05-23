@@ -4,8 +4,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.compose.rememberNavController
 import ch.app.hk.bank.locator.core.navigation.BottomNavigationLayout
 import ch.app.hk.bank.locator.core.navigation.BottomNavigationTab
+import ch.app.hk.bank.locator.core.navigation.routeToBottomNavigationTab
 import ch.app.hk.bank.locator.feature.home.ui.R
 
 @Composable
@@ -13,22 +15,42 @@ fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
     val tabList =
         remember {
             listOf(
-                HomeBottomTab.Home(),
-                HomeBottomTab.Banks(),
-                HomeBottomTab.Map(),
-                HomeBottomTab.Setting(),
+                homeTab,
+                banksTab,
+                mapTab,
+                settingTab,
             )
         }
 
-    BottomNavigationLayout(bottomTabItems = tabList) { tab ->
+    val bottomNavController = rememberNavController()
+
+    BottomNavigationLayout(
+        navController = bottomNavController,
+        bottomTabItems = tabList,
+    ) { tab ->
         when (tab) {
             is HomeBottomTab.Banks -> Text(text = stringResource(id = tab.textStringResource))
-            is HomeBottomTab.Home -> HomeContainer(onRequestAuth = onRequestAuth)
+
+            is HomeBottomTab.Home ->
+                HomeContainer(
+                    onRequestAuth = onRequestAuth,
+                    onSearch = {
+                        // TODO - pass searchString to target tab
+                        bottomNavController.routeToBottomNavigationTab(mapTab)
+                    },
+                )
+
             is HomeBottomTab.Map -> Text(text = stringResource(id = tab.textStringResource))
+
             is HomeBottomTab.Setting -> Text(text = stringResource(id = tab.textStringResource))
         }
     }
 }
+
+private val homeTab = HomeBottomTab.Home()
+private val banksTab = HomeBottomTab.Banks()
+private val mapTab = HomeBottomTab.Map()
+private val settingTab = HomeBottomTab.Setting()
 
 private sealed interface HomeBottomTab : BottomNavigationTab {
     data class Home(
