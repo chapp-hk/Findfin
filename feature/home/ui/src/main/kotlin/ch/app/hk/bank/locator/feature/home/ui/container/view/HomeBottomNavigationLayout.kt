@@ -29,9 +29,11 @@ fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
         bottomTabItems = tabList,
     ) { tab ->
         when (tab) {
-            is HomeBottomTab.Banks -> Text(text = stringResource(id = tab.textStringResource))
+            is HomeBottomTab.Banks -> {
+                Text(text = stringResource(id = tab.textStringResource))
+            }
 
-            is HomeBottomTab.Home ->
+            is HomeBottomTab.Home -> {
                 HomeContainer(
                     onRequestAuth = onRequestAuth,
                     onSearch = {
@@ -39,10 +41,15 @@ fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
                         bottomNavController.routeToBottomNavigationTab(mapTab)
                     },
                 )
+            }
 
-            is HomeBottomTab.Map -> Text(text = stringResource(id = tab.textStringResource))
+            is HomeBottomTab.Map -> {
+                Text(text = stringResource(id = tab.textStringResource))
+            }
 
-            is HomeBottomTab.Setting -> Text(text = stringResource(id = tab.textStringResource))
+            is HomeBottomTab.Setting -> {
+                Text(text = stringResource(id = tab.textStringResource))
+            }
         }
     }
 }
