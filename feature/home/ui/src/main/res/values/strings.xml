@@ -9,4 +9,7 @@
     <string name="home_label_greeting">Hello</string>
     <string name="home_label_login_register">Login / Register</string>
     <string name="home_placeholder_search">Search for Bank or ATM</string>
+    <string name="home_title_finding">Your perfect finding ways</string>
+    <string name="home_label_find_your_bank">Find your bank</string>
+    <string name="home_label_find_bank_or_atms">Find Bank/ATMs</string>
 </resources>
