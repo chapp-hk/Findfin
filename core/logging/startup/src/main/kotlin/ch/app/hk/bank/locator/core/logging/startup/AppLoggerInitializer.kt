@@ -17,7 +17,7 @@ class AppLoggerInitializer : Initializer<Logger> {
         return Logger
     }
 
-    override fun dependencies(): MutableList<Class<out Initializer<*>>> {
-        return mutableListOf()
+    override fun dependencies(): List<Class<out Initializer<*>>> {
+        return listOf()
     }
 }
