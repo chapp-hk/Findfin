@@ -30,7 +30,6 @@ dependencies {
     implementation(projects.core.design.ui)
     implementation(projects.core.preferences.api)
     implementation(projects.core.preferences.impl)
-    implementation(projects.core.location)
     implementation(projects.core.locale.api)
     implementation(projects.core.locale.impl)
     implementation(projects.feature.locator.data.localDatabase)
