@@ -2,12 +2,12 @@
 plugins {
     alias(libs.plugins.com.android.application) apply false
     alias(libs.plugins.com.android.library) apply false
+    alias(libs.plugins.org.jetbrains.kotlin.compose.compiler) apply false
     alias(libs.plugins.org.jetbrains.kotlin.android) apply false
     alias(libs.plugins.org.jetbrains.kotlin.jvm) apply false
     alias(libs.plugins.com.google.devtools.ksp) apply false
     alias(libs.plugins.com.google.dagger.hilt.android) apply false
     alias(libs.plugins.com.google.gms.services) apply false
-//    alias(libs.plugins.org.jetbrains.kotlin.compose.compiler) apply false //version libs.versions.kotlin
 
     // convention plugins
     alias(libs.plugins.app.ktlint)
@@ -22,14 +22,4 @@ plugins {
     alias(libs.plugins.app.hilt.jvm) apply false
     alias(libs.plugins.app.room.android) apply false
     alias(libs.plugins.app.mapstruct) apply false
-}
-
-buildscript {
-    dependencies {
-
-        // Compose UI.
-        // [Documentation] https://developer.android.com/develop/ui/compose/compiler
-        // [Plugin] "org.jetbrains.kotlin.plugin.compose"
-        classpath("org.jetbrains.kotlin:compose-compiler-gradle-plugin:2.0.0")
-    }
 }
