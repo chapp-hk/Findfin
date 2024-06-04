@@ -13,12 +13,10 @@ class ComposePlugin : Plugin<Project> {
         val androidComponents = project.extensions.getByType(AndroidComponentsExtension::class.java)
         @Suppress("UnstableApiUsage")
         androidComponents.finalizeDsl { extension ->
+            project.pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
+
             extension.buildFeatures {
                 compose = true
-            }
-
-            extension.composeOptions {
-                kotlinCompilerExtensionVersion = "1.5.13"
             }
 
             project.dependencies {
@@ -33,8 +31,8 @@ class ComposePlugin : Plugin<Project> {
         }
 
         project.tasks.withType<KotlinCompile>().configureEach {
-            it.kotlinOptions {
-                freeCompilerArgs = freeCompilerArgs + project.buildComposeMetricsParameters()
+            it.compilerOptions {
+                freeCompilerArgs.addAll(project.buildComposeMetricsParameters())
             }
         }
     }
