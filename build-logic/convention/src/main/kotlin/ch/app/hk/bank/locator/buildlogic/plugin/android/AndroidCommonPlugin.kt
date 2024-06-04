@@ -6,6 +6,7 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class AndroidCommonPlugin : Plugin<Project> {
@@ -52,10 +53,10 @@ class AndroidCommonPlugin : Plugin<Project> {
 
     private fun configKotlin(project: Project) {
         project.tasks.withType<KotlinCompile>().configureEach {
-            it.kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_17.toString()
-                freeCompilerArgs += listOf(
-                    "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+            it.compilerOptions {
+                jvmTarget.set(JvmTarget.JVM_17)
+                freeCompilerArgs.addAll(
+                    listOf("-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi")
                 )
             }
         }
