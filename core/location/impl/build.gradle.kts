@@ -15,6 +15,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.appcompat)
     implementation(libs.google.play.services.base)
     implementation(libs.google.play.services.location)
     implementation(libs.kotlinx.coroutines.play.services)

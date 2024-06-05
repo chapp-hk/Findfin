@@ -3,6 +3,7 @@ package ch.app.hk.bank.locator.core.location.impl.util.hardware
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
+import androidx.core.content.ContextCompat
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -17,9 +18,10 @@ class GpsUtilImpl @Inject constructor(
 
     override fun isGpsEnabled(): Boolean {
         return runCatching {
-            context
-                .getSystemService(LocationManager::class.java)
-                .isProviderEnabled(LocationManager.GPS_PROVIDER)
+            ContextCompat.getSystemService(
+                context,
+                LocationManager::class.java,
+            )!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
         }.getOrElse {
             false
         }

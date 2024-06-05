@@ -5,6 +5,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import androidx.annotation.RequiresPermission
+import androidx.core.content.ContextCompat
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -24,7 +25,13 @@ class LocationManagerProviderImpl @Inject constructor(
         withTimeoutOrNull(timeMillis = 5000L) {
             withContext(ioDispatcher) {
                 suspendCancellableCoroutine { continuation ->
-                    val locationManager = context.getSystemService(LocationManager::class.java)
+                    val locationManager =
+                        requireNotNull(
+                            ContextCompat.getSystemService(
+                                context,
+                                LocationManager::class.java,
+                            ),
+                        )
 
                     val locationListener =
                         object : LocationListener {

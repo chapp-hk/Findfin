@@ -4,15 +4,19 @@ import android.content.Context
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import androidx.core.content.ContextCompat
 import io.kotest.matchers.shouldBe
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
 import io.mockk.verify
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.lang.Thread.sleep
@@ -30,7 +34,18 @@ class LocationManagerProviderImplTest {
 
     @BeforeEach
     fun setUp() {
-        every { context.getSystemService(LocationManager::class.java) } returns locationManager
+        mockkStatic(ContextCompat::class)
+        every {
+            ContextCompat.getSystemService(
+                any<Context>(),
+                LocationManager::class.java,
+            )
+        } returns locationManager
+    }
+
+    @AfterEach
+    fun tearDown() {
+        unmockkStatic(ContextCompat::class)
     }
 
     @Test
