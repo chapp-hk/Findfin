@@ -2,9 +2,14 @@ package ch.app.hk.bank.locator.core.location.impl.util.hardware
 
 import android.content.Context
 import android.location.LocationManager
+import androidx.core.content.ContextCompat
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -14,6 +19,16 @@ class GpsUtilImplTest {
     private val locationManager = mockk<LocationManager>()
 
     private val gpsRepository = GpsUtilImpl(context)
+
+    @BeforeEach
+    fun setUp() {
+        mockkStatic(ContextCompat::class)
+    }
+
+    @AfterEach
+    fun tearDown() {
+        unmockkStatic(ContextCompat::class)
+    }
 
     @Test
     fun `hasGpsSensor returns true when GPS sensor is present`() {
@@ -35,7 +50,12 @@ class GpsUtilImplTest {
 
     @Test
     fun `isGpsEnabled returns true when GPS is present and enabled`() {
-        every { context.getSystemService(LocationManager::class.java) } returns locationManager
+        every {
+            ContextCompat.getSystemService(
+                any<Context>(),
+                LocationManager::class.java,
+            )
+        } returns locationManager
         every { locationManager.isProviderEnabled(any()) } returns true
 
         val result = gpsRepository.isGpsEnabled()
@@ -45,7 +65,12 @@ class GpsUtilImplTest {
 
     @Test
     fun `isGpsEnabled returns false when GPS is present and not enabled`() {
-        every { context.getSystemService(LocationManager::class.java) } returns locationManager
+        every {
+            ContextCompat.getSystemService(
+                any<Context>(),
+                LocationManager::class.java,
+            )
+        } returns locationManager
         every { locationManager.isProviderEnabled(any()) } returns false
 
         val result = gpsRepository.isGpsEnabled()
@@ -55,7 +80,12 @@ class GpsUtilImplTest {
 
     @Test
     fun `isGpsEnabled returns false when GPS is not present`() {
-        every { context.getSystemService(LocationManager::class.java) } returns null
+        every {
+            ContextCompat.getSystemService(
+                any<Context>(),
+                LocationManager::class.java,
+            )
+        } returns null
 
         val result = gpsRepository.isGpsEnabled()
 
