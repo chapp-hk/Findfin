@@ -25,7 +25,7 @@ class FusedLocationProviderImpl @Inject constructor(
                 CurrentLocationRequest
                     .Builder()
                     .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
-                    .setDurationMillis(5000L)
+                    .setDurationMillis(TIMEOUT)
                     .build()
 
             val cancellationTokenSource = CancellationTokenSource()
@@ -34,4 +34,8 @@ class FusedLocationProviderImpl @Inject constructor(
                 .getCurrentLocation(request, cancellationTokenSource.token)
                 .await(cancellationTokenSource)
         }
+
+    companion object {
+        private const val TIMEOUT = 5000L
+    }
 }
