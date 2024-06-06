@@ -2,8 +2,8 @@ package ch.app.hk.bank.locator.feature.locator.data.remote.datasource
 
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorApi
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
-import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorApiError
-import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorResponse
+import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorApiError
+import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorResponse
 import ch.app.hk.bank.locator.testing.util.readResourceAsJson
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe

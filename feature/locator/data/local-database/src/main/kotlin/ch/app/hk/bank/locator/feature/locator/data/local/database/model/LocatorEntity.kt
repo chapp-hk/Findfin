@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.locator.data.local.database.entity
+package ch.app.hk.bank.locator.feature.locator.data.local.database.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

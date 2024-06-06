@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.locator.data.local.entity
+package ch.app.hk.bank.locator.feature.locator.data.local.model
 
 data class LocatorLocal(
     val type: String,

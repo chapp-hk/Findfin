@@ -1,8 +1,8 @@
 package ch.app.hk.bank.locator.feature.locator.data.repo.model
 
-import ch.app.hk.bank.locator.feature.locator.data.local.entity.LocatorLocal
+import ch.app.hk.bank.locator.feature.locator.data.local.model.LocatorLocal
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
-import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorResponse
+import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorResponse
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.params.ParameterizedTest

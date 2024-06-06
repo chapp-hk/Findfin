@@ -1,6 +1,6 @@
 package ch.app.hk.bank.locator.feature.locator.data.local.database.datasource
 
-import ch.app.hk.bank.locator.feature.locator.data.local.database.entity.LocatorEntity
+import ch.app.hk.bank.locator.feature.locator.data.local.database.model.LocatorEntity
 import ch.app.hk.bank.locator.feature.locator.data.local.database.room.LocatorDao
 import io.mockk.Runs
 import io.mockk.coEvery
