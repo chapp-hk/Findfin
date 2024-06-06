@@ -3,7 +3,7 @@ package ch.app.hk.bank.locator.feature.locator.data.repo.repository
 import ch.app.hk.bank.locator.feature.locator.data.local.datasource.LocatorLocalDataSource
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.remote.datasource.LocatorRemoteDataSource
-import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorApiError
+import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorApiError
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.Locator
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorResult
 import io.kotest.matchers.shouldBe

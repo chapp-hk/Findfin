@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.datasource
 
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
-import ch.app.hk.bank.locator.feature.locator.data.remote.response.LocatorResponse
+import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorResponse
 
 interface LocatorRemoteDataSource {
     suspend fun getLocators(

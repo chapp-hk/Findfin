@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.locator.data.remote.response
+package ch.app.hk.bank.locator.feature.locator.data.remote.model
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
