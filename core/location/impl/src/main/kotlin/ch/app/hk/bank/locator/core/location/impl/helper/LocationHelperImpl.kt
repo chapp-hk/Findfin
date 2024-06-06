@@ -12,7 +12,7 @@ import ch.app.hk.bank.locator.core.logging.appLogger
 import javax.inject.Inject
 
 @HiltExtBindModule
-class LocationHelperImpl @Inject constructor(
+internal class LocationHelperImpl @Inject constructor(
     private val permissionUtil: PermissionUtil,
     private val gpsUtil: GpsUtil,
     private val gmsCheckUtil: GmsCheckUtil,

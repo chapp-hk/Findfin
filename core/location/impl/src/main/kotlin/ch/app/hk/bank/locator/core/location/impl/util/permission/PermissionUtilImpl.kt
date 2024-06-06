@@ -9,7 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltExtBindModule
-class PermissionUtilImpl @Inject constructor(
+internal class PermissionUtilImpl @Inject constructor(
     @ApplicationContext private val context: Context,
 ) : PermissionUtil {
     override fun checkPermission(): Boolean {

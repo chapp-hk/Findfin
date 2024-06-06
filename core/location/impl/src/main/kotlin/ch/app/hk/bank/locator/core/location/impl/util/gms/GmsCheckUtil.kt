@@ -1,5 +1,5 @@
 package ch.app.hk.bank.locator.core.location.impl.util.gms
 
-interface GmsCheckUtil {
+internal interface GmsCheckUtil {
     fun isGmsAvailable(): Boolean
 }

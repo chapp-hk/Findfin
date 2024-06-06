@@ -1,5 +1,5 @@
 package ch.app.hk.bank.locator.core.location.impl.util.permission
 
-interface PermissionUtil {
+internal interface PermissionUtil {
     fun checkPermission(): Boolean
 }

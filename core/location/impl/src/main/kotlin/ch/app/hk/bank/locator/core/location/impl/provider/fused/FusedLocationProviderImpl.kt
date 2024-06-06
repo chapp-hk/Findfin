@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltExtBindModule
-class FusedLocationProviderImpl @Inject constructor(
+internal class FusedLocationProviderImpl @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val fusedLocationProviderClient: FusedLocationProviderClient,
 ) : FusedLocationProvider {

@@ -8,7 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltExtBindModule
-class GmsCheckUtilImpl @Inject constructor(
+internal class GmsCheckUtilImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val googleApiAvailability: GoogleApiAvailability,
 ) : GmsCheckUtil {
