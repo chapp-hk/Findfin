@@ -21,13 +21,13 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.lang.Thread.sleep
 
-class LocationManagerProviderImplTest {
+class CoreLocationProviderImplTest {
     private val testDispatcher = StandardTestDispatcher()
     private val context = mockk<Context>()
     private val locationManager = mockk<LocationManager>()
 
     private val locationManagerDataSource =
-        LocationManagerProviderImpl(
+        CoreLocationProviderImpl(
             ioDispatcher = testDispatcher,
             context = context,
         )

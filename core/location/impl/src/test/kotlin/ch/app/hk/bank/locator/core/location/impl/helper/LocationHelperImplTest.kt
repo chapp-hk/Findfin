@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.core.location.impl.helper
 
 import ch.app.hk.bank.locator.core.location.api.model.LocationResult
-import ch.app.hk.bank.locator.core.location.impl.provider.core.LocationManagerProvider
+import ch.app.hk.bank.locator.core.location.impl.provider.core.CoreLocationProvider
 import ch.app.hk.bank.locator.core.location.impl.provider.fused.FusedLocationProvider
 import ch.app.hk.bank.locator.core.location.impl.util.gms.GmsCheckUtil
 import ch.app.hk.bank.locator.core.location.impl.util.hardware.GpsUtil
@@ -21,7 +21,7 @@ class LocationHelperImplTest {
     private val permissionUtil = mockk<PermissionUtil>()
     private val gpsUtil = mockk<GpsUtil>()
     private val gmsCheckUtil = mockk<GmsCheckUtil>()
-    private val locationManagerProvider = mockk<LocationManagerProvider>()
+    private val coreLocationProvider = mockk<CoreLocationProvider>()
     private val fusedLocationProvider = mockk<FusedLocationProvider>()
 
     private val locationRepository =
@@ -29,7 +29,7 @@ class LocationHelperImplTest {
             permissionUtil = permissionUtil,
             gpsUtil = gpsUtil,
             gmsCheckUtil = gmsCheckUtil,
-            locationManagerProvider = locationManagerProvider,
+            coreLocationProvider = coreLocationProvider,
             fusedLocationProvider = fusedLocationProvider,
         )
 
@@ -85,7 +85,7 @@ class LocationHelperImplTest {
             val result = locationRepository.getSingleCurrentLocation()
 
             result shouldBe LocationResult.Location(1.0, 2.0)
-            coVerify { locationManagerProvider wasNot Called }
+            coVerify { coreLocationProvider wasNot Called }
         }
     }
 
@@ -96,7 +96,7 @@ class LocationHelperImplTest {
             every { gpsUtil.hasGpsSensor() } returns true
             every { gpsUtil.isGpsEnabled() } returns true
             every { gmsCheckUtil.isGmsAvailable() } returns false
-            coEvery { locationManagerProvider.getSingleCurrentLocation() } returns
+            coEvery { coreLocationProvider.getSingleCurrentLocation() } returns
                 mockk {
                     every { latitude } returns 1.0
                     every { longitude } returns 2.0
@@ -116,7 +116,7 @@ class LocationHelperImplTest {
             every { gpsUtil.hasGpsSensor() } returns true
             every { gpsUtil.isGpsEnabled() } returns true
             every { gmsCheckUtil.isGmsAvailable() } returns false
-            coEvery { locationManagerProvider.getSingleCurrentLocation() } returns null
+            coEvery { coreLocationProvider.getSingleCurrentLocation() } returns null
 
             val result = locationRepository.getSingleCurrentLocation()
 

@@ -16,10 +16,10 @@ import kotlinx.coroutines.withTimeoutOrNull
 import javax.inject.Inject
 
 @HiltExtBindModule
-internal class LocationManagerProviderImpl @Inject constructor(
+internal class CoreLocationProviderImpl @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     @ApplicationContext private val context: Context,
-) : LocationManagerProvider {
+) : CoreLocationProvider {
     @RequiresPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
     override suspend fun getSingleCurrentLocation(): Location? =
         withTimeoutOrNull(timeMillis = 5000L) {
