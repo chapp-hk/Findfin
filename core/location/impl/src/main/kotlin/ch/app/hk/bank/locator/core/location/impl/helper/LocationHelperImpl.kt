@@ -3,7 +3,7 @@ package ch.app.hk.bank.locator.core.location.impl.helper
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.location.api.help.LocationHelper
 import ch.app.hk.bank.locator.core.location.api.model.LocationResult
-import ch.app.hk.bank.locator.core.location.impl.provider.core.LocationManagerProvider
+import ch.app.hk.bank.locator.core.location.impl.provider.core.CoreLocationProvider
 import ch.app.hk.bank.locator.core.location.impl.provider.fused.FusedLocationProvider
 import ch.app.hk.bank.locator.core.location.impl.util.gms.GmsCheckUtil
 import ch.app.hk.bank.locator.core.location.impl.util.hardware.GpsUtil
@@ -16,7 +16,7 @@ internal class LocationHelperImpl @Inject constructor(
     private val permissionUtil: PermissionUtil,
     private val gpsUtil: GpsUtil,
     private val gmsCheckUtil: GmsCheckUtil,
-    private val locationManagerProvider: LocationManagerProvider,
+    private val coreLocationProvider: CoreLocationProvider,
     private val fusedLocationProvider: FusedLocationProvider,
 ) : LocationHelper {
     override suspend fun getSingleCurrentLocation(): LocationResult {
@@ -36,7 +36,7 @@ internal class LocationHelperImpl @Inject constructor(
                     fusedLocationProvider.getSingleCurrentLocation()
                 } else {
                     appLogger.debug(tag = javaClass.simpleName, message = "gms not available")
-                    locationManagerProvider.getSingleCurrentLocation()
+                    coreLocationProvider.getSingleCurrentLocation()
                 }
 
             if (location == null) {
