@@ -16,7 +16,7 @@ import kotlinx.coroutines.withTimeoutOrNull
 import javax.inject.Inject
 
 @HiltExtBindModule
-class LocationManagerProviderImpl @Inject constructor(
+internal class LocationManagerProviderImpl @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     @ApplicationContext private val context: Context,
 ) : LocationManagerProvider {

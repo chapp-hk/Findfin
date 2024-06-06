@@ -9,7 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltExtBindModule
-class GpsUtilImpl @Inject constructor(
+internal class GpsUtilImpl @Inject constructor(
     @ApplicationContext private val context: Context,
 ) : GpsUtil {
     override fun hasGpsSensor(): Boolean {
