@@ -7,6 +7,7 @@ import android.location.LocationManager
 import androidx.annotation.RequiresPermission
 import androidx.core.content.ContextCompat
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
+import ch.app.hk.bank.locator.core.logging.appLogger
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
@@ -50,6 +51,10 @@ internal class CoreLocationProviderImpl @Inject constructor(
                     )
 
                     continuation.invokeOnCancellation {
+                        appLogger.debug(
+                            tag = javaClass.simpleName,
+                            message = "Location request cancelled: $it",
+                        )
                         locationManager.removeUpdates(locationListener)
                     }
                 }
