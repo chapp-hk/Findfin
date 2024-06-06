@@ -3,8 +3,8 @@ package ch.app.hk.bank.locator.feature.onboarding.domain.fetch.usecase
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.locale.api.AppLocaleRepository
 import ch.app.hk.bank.locator.core.threading.DispatcherDefault
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.Locator
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.LocatorFetchResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorType
 import ch.app.hk.bank.locator.feature.locator.data.repo.repository.LocatorRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -18,13 +18,13 @@ class FetchAllLocatorsWithLanguageUseCaseImpl @Inject constructor(
 ) : FetchAllLocatorsWithLanguageUseCase {
     override suspend operator fun invoke(): Boolean {
         return withContext(defaultDispatcher) {
-            val isFetchBranchSuccess = getLocators(Locator.BRANCH)
-            val isFetchAtmSuccess = getLocators(Locator.ATM)
+            val isFetchBranchSuccess = getLocators(LocatorType.BRANCH)
+            val isFetchAtmSuccess = getLocators(LocatorType.ATM)
             isFetchBranchSuccess && isFetchAtmSuccess
         }
     }
 
-    private suspend fun getLocators(type: Locator): Boolean {
+    private suspend fun getLocators(type: LocatorType): Boolean {
         var page = 0
 
         do {
@@ -37,10 +37,10 @@ class FetchAllLocatorsWithLanguageUseCaseImpl @Inject constructor(
                 )
             page++
 
-            if (result is LocatorResult.Error) {
+            if (result is LocatorFetchResult.Error) {
                 return false
             }
-        } while (result is LocatorResult.HasNext)
+        } while (result is LocatorFetchResult.HasNext)
 
         return true
     }

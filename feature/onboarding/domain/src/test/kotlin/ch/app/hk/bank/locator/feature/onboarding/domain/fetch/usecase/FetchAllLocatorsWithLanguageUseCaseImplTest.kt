@@ -1,8 +1,8 @@
 package ch.app.hk.bank.locator.feature.onboarding.domain.fetch.usecase
 
 import ch.app.hk.bank.locator.core.locale.api.AppLocaleRepository
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.Locator
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.LocatorFetchResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorType
 import ch.app.hk.bank.locator.feature.locator.data.repo.repository.LocatorRepository
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
@@ -40,8 +40,8 @@ class FetchAllLocatorsWithLanguageUseCaseImplTest {
     )
     @ArgumentsSource(FetchArgumentsProvider::class)
     fun testInvokeResult(
-        branchMockedResult: LocatorResult,
-        atmMockedResult: LocatorResult,
+        branchMockedResult: LocatorFetchResult,
+        atmMockedResult: LocatorFetchResult,
         expectedResult: Boolean,
     ) = runTest(testDispatcher) {
         coEvery {
@@ -51,11 +51,11 @@ class FetchAllLocatorsWithLanguageUseCaseImplTest {
                 page = 0,
                 pageSize = any(),
             )
-        } returns LocatorResult.HasNext
+        } returns LocatorFetchResult.HasNext
 
         coEvery {
             locatorRepository.fetchLocators(
-                type = Locator.BRANCH,
+                type = LocatorType.BRANCH,
                 localeTag = any(),
                 page = 1,
                 pageSize = any(),
@@ -64,7 +64,7 @@ class FetchAllLocatorsWithLanguageUseCaseImplTest {
 
         coEvery {
             locatorRepository.fetchLocators(
-                type = Locator.ATM,
+                type = LocatorType.ATM,
                 localeTag = any(),
                 page = 1,
                 pageSize = any(),
@@ -80,23 +80,23 @@ class FetchAllLocatorsWithLanguageUseCaseImplTest {
         override fun provideArguments(extensionContext: ExtensionContext): Stream<Arguments> =
             Stream.of(
                 arguments(
-                    LocatorResult.Error(Throwable()),
-                    LocatorResult.Error(Throwable()),
+                    LocatorFetchResult.Error(Throwable()),
+                    LocatorFetchResult.Error(Throwable()),
                     false,
                 ),
                 arguments(
-                    LocatorResult.End,
-                    LocatorResult.Error(Throwable()),
+                    LocatorFetchResult.End,
+                    LocatorFetchResult.Error(Throwable()),
                     false,
                 ),
                 arguments(
-                    LocatorResult.Error(Throwable()),
-                    LocatorResult.End,
+                    LocatorFetchResult.Error(Throwable()),
+                    LocatorFetchResult.End,
                     false,
                 ),
                 arguments(
-                    LocatorResult.End,
-                    LocatorResult.End,
+                    LocatorFetchResult.End,
+                    LocatorFetchResult.End,
                     true,
                 ),
             )

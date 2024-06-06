@@ -4,8 +4,8 @@ import ch.app.hk.bank.locator.feature.locator.data.local.datasource.LocatorLocal
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.remote.datasource.LocatorRemoteDataSource
 import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorApiError
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.Locator
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.LocatorFetchResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorType
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import io.mockk.Runs
@@ -20,7 +20,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("LocatorRepositoryImpl unit tests")
-class LocatorRepositoryImplTest {
+class LocatorTypeRepositoryImplTest {
     private val locatorLocalDataSource = mockk<LocatorLocalDataSource>()
     private val locatorRemoteDataSource = mockk<LocatorRemoteDataSource>()
 
@@ -52,7 +52,7 @@ class LocatorRepositoryImplTest {
             } returns Result.failure(Throwable())
 
             locatorRepositoryImpl.fetchLocators(
-                type = Locator.ATM,
+                type = LocatorType.ATM,
                 localeTag = "en",
                 page = 2,
                 pageSize = 1000,
@@ -92,13 +92,13 @@ class LocatorRepositoryImplTest {
 
             val result =
                 locatorRepositoryImpl.fetchLocators(
-                    type = Locator.ATM,
+                    type = LocatorType.ATM,
                     localeTag = "en",
                     page = 2,
                     pageSize = 1000,
                 )
 
-            result.shouldBeInstanceOf<LocatorResult.Error>()
+            result.shouldBeInstanceOf<LocatorFetchResult.Error>()
                 .cause shouldBe apiError
         }
 
@@ -125,13 +125,13 @@ class LocatorRepositoryImplTest {
 
             val result =
                 locatorRepositoryImpl.fetchLocators(
-                    type = Locator.ATM,
+                    type = LocatorType.ATM,
                     localeTag = "en",
                     page = 2,
                     pageSize = pageSize,
                 )
 
-            result shouldBe LocatorResult.HasNext
+            result shouldBe LocatorFetchResult.HasNext
         }
 
     @Test
@@ -157,13 +157,13 @@ class LocatorRepositoryImplTest {
 
             val result =
                 locatorRepositoryImpl.fetchLocators(
-                    type = Locator.ATM,
+                    type = LocatorType.ATM,
                     localeTag = "en",
                     page = 2,
                     pageSize = pageSize,
                 )
 
-            result shouldBe LocatorResult.HasNext
+            result shouldBe LocatorFetchResult.HasNext
         }
 
     @Test
@@ -189,12 +189,12 @@ class LocatorRepositoryImplTest {
 
             val result =
                 locatorRepositoryImpl.fetchLocators(
-                    type = Locator.ATM,
+                    type = LocatorType.ATM,
                     localeTag = "en",
                     page = 2,
                     pageSize = pageSize,
                 )
 
-            result shouldBe LocatorResult.End
+            result shouldBe LocatorFetchResult.End
         }
 }
