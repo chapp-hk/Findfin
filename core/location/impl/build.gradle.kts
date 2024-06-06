@@ -28,4 +28,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockk)
     testImplementation(projects.testing.googlePlayServicesTasks)
+
+    // TODO - Remove this dependency
+    androidTestImplementation(libs.androidx.test.runner)
 }
