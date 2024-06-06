@@ -3,11 +3,11 @@ package ch.app.hk.bank.locator.feature.locator.data.repo.repository
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.feature.locator.data.local.datasource.LocatorLocalDataSource
 import ch.app.hk.bank.locator.feature.locator.data.remote.datasource.LocatorRemoteDataSource
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.Locator
+import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.LocatorFetchResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.toApiLang
+import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.toRemoteLocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorMapper
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorResult
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.toApiLang
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.toRemoteLocatorPath
+import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorType
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject
 
@@ -17,11 +17,11 @@ class LocatorRepositoryImpl @Inject constructor(
     private val locatorRemoteDataSource: LocatorRemoteDataSource,
 ) : LocatorRepository {
     override suspend fun fetchLocators(
-        type: Locator,
+        type: LocatorType,
         localeTag: String,
         page: Int,
         pageSize: Int,
-    ): LocatorResult {
+    ): LocatorFetchResult {
         val mapper = Mappers.getMapper(LocatorMapper::class.java)
         val locatorPath = type.toRemoteLocatorPath()
 
@@ -40,13 +40,13 @@ class LocatorRepositoryImpl @Inject constructor(
                 .also { locatorLocalDataSource.insertAll(it) }
                 .let { list ->
                     if (list.size < pageSize) {
-                        LocatorResult.End
+                        LocatorFetchResult.End
                     } else {
-                        LocatorResult.HasNext
+                        LocatorFetchResult.HasNext
                     }
                 }
         }.getOrElse { error ->
-            LocatorResult.Error(error)
+            LocatorFetchResult.Error(error)
         }
     }
 }

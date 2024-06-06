@@ -1,13 +1,13 @@
 package ch.app.hk.bank.locator.feature.locator.data.repo.repository
 
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.Locator
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.LocatorFetchResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorType
 
 interface LocatorRepository {
     suspend fun fetchLocators(
-        type: Locator,
+        type: LocatorType,
         localeTag: String,
         page: Int,
         pageSize: Int,
-    ): LocatorResult
+    ): LocatorFetchResult
 }

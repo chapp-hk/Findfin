@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.EnumSource
 import org.mapstruct.factory.Mappers
 
 @DisplayName("LocatorMapper unit tests")
-class LocatorMapperTest {
+class LocatorTypeMapperTest {
     private val locatorMapper = Mappers.getMapper(LocatorMapper::class.java)
 
     @ParameterizedTest(
