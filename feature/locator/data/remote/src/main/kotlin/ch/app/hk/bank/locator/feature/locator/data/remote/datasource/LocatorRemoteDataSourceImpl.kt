@@ -1,11 +1,12 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.datasource
 
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
+import ch.app.hk.bank.locator.core.logging.appLogger
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorApi
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorApiError
-import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorResponse
+import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -20,7 +21,7 @@ internal class LocatorRemoteDataSourceImpl @Inject constructor(
         language: String,
         pageSize: Int,
         offset: Int,
-    ): Result<List<LocatorResponse>> {
+    ): LocatorResult {
         return withContext(ioDispatcher) {
             runCatching {
                 val response =
@@ -45,7 +46,14 @@ internal class LocatorRemoteDataSourceImpl @Inject constructor(
                     )
                 }
 
-                response.result!!.records
+                LocatorResult.Success(response.result!!.records)
+            }.getOrElse { error ->
+                appLogger.debug(
+                    tag = javaClass.simpleName,
+                    message = "getLocators() failed",
+                    throwable = error,
+                )
+                LocatorResult.Error
             }
         }
     }

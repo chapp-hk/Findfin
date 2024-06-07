@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.datasource
 
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
-import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorResponse
+import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorResult
 
 interface LocatorRemoteDataSource {
     suspend fun getLocators(
@@ -9,5 +9,5 @@ interface LocatorRemoteDataSource {
         language: String,
         pageSize: Int,
         offset: Int,
-    ): Result<List<LocatorResponse>>
+    ): LocatorResult
 }
