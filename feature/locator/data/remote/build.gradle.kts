@@ -8,6 +8,7 @@ plugins {
 dependencies {
     implementation(projects.core.network)
     implementation(projects.core.threading)
+    implementation(projects.core.logging.api)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.core)
     implementation(libs.ktor.serialization.json)
