@@ -19,6 +19,7 @@ android {
 dependencies {
     implementation(projects.core.threading)
     implementation(projects.feature.locator.data.local)
+    implementation(projects.core.logging.api)
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.assertions.core)

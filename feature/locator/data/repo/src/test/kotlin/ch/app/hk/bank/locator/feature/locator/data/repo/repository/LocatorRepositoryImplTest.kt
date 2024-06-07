@@ -3,11 +3,10 @@ package ch.app.hk.bank.locator.feature.locator.data.repo.repository
 import ch.app.hk.bank.locator.feature.locator.data.local.datasource.LocatorLocalDataSource
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.remote.datasource.LocatorRemoteDataSource
-import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorApiError
+import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorResult
 import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.LocatorFetchResult
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorType
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeInstanceOf
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -20,7 +19,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("LocatorRepositoryImpl unit tests")
-class LocatorTypeRepositoryImplTest {
+class LocatorRepositoryImplTest {
     private val locatorLocalDataSource = mockk<LocatorLocalDataSource>()
     private val locatorRemoteDataSource = mockk<LocatorRemoteDataSource>()
 
@@ -49,7 +48,7 @@ class LocatorTypeRepositoryImplTest {
                     pageSize = any(),
                     offset = any(),
                 )
-            } returns Result.failure(Throwable())
+            } returns LocatorResult.Error
 
             locatorRepositoryImpl.fetchLocators(
                 type = LocatorType.ATM,
@@ -70,17 +69,11 @@ class LocatorTypeRepositoryImplTest {
 
     @Test
     @DisplayName(
-        "When locatorRemoteDataSource.getLocators() returns ApiResult.Error, " +
-            "fetchLocators() should return LocatorResult.Error with correct cause value",
+        "When locatorRemoteDataSource.getLocators() returns LocatorResult.Error, " +
+            "fetchLocators() should return LocatorResult.Error",
     )
     fun testFetchLocatorsError() =
         runTest(StandardTestDispatcher()) {
-            val apiError =
-                LocatorApiError(
-                    errorCode = "1001",
-                    errorMessage = "some error message",
-                )
-
             coEvery {
                 locatorRemoteDataSource.getLocators(
                     path = any(),
@@ -88,7 +81,7 @@ class LocatorTypeRepositoryImplTest {
                     pageSize = any(),
                     offset = any(),
                 )
-            } returns Result.failure(apiError)
+            } returns LocatorResult.Error
 
             val result =
                 locatorRepositoryImpl.fetchLocators(
@@ -98,8 +91,7 @@ class LocatorTypeRepositoryImplTest {
                     pageSize = 1000,
                 )
 
-            result.shouldBeInstanceOf<LocatorFetchResult.Error>()
-                .cause shouldBe apiError
+            result shouldBe LocatorFetchResult.Error
         }
 
     @Test
@@ -119,7 +111,7 @@ class LocatorTypeRepositoryImplTest {
                     offset = any(),
                 )
             } returns
-                Result.success(
+                LocatorResult.Success(
                     (1..pageSize).map { mockk(relaxed = true) },
                 )
 
@@ -151,7 +143,7 @@ class LocatorTypeRepositoryImplTest {
                     offset = any(),
                 )
             } returns
-                Result.success(
+                LocatorResult.Success(
                     (1..pageSize + 1).map { mockk(relaxed = true) },
                 )
 
@@ -183,7 +175,7 @@ class LocatorTypeRepositoryImplTest {
                     offset = any(),
                 )
             } returns
-                Result.success(
+                LocatorResult.Success(
                     (1..pageSize - 10).map { mockk(relaxed = true) },
                 )
 

@@ -1,8 +1,9 @@
-package ch.app.hk.bank.locator.feature.locator.data.repo.model
+package ch.app.hk.bank.locator.feature.locator.data.repo.mapper
 
 import ch.app.hk.bank.locator.feature.locator.data.local.model.LocatorLocal
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorResponse
+import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorModel
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
@@ -16,4 +17,6 @@ interface LocatorMapper {
         type: LocatorPath,
         locator: LocatorResponse,
     ): LocatorLocal
+
+    fun convertToDataModel(locator: LocatorLocal): LocatorModel
 }
