@@ -80,17 +80,17 @@ class FetchAllLocatorsWithLanguageUseCaseImplTest {
         override fun provideArguments(extensionContext: ExtensionContext): Stream<Arguments> =
             Stream.of(
                 arguments(
-                    LocatorFetchResult.Error(Throwable()),
-                    LocatorFetchResult.Error(Throwable()),
+                    LocatorFetchResult.Error,
+                    LocatorFetchResult.Error,
                     false,
                 ),
                 arguments(
                     LocatorFetchResult.End,
-                    LocatorFetchResult.Error(Throwable()),
+                    LocatorFetchResult.Error,
                     false,
                 ),
                 arguments(
-                    LocatorFetchResult.Error(Throwable()),
+                    LocatorFetchResult.Error,
                     LocatorFetchResult.End,
                     false,
                 ),
