@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.locator.data.repo.model
+package ch.app.hk.bank.locator.feature.locator.data.repo.mapper
 
 import ch.app.hk.bank.locator.feature.locator.data.local.model.LocatorLocal
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.EnumSource
 import org.mapstruct.factory.Mappers
 
 @DisplayName("LocatorMapper unit tests")
-class LocatorTypeMapperTest {
+class LocatorMapperTest {
     private val locatorMapper = Mappers.getMapper(LocatorMapper::class.java)
 
     @ParameterizedTest(

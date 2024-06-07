@@ -6,4 +6,6 @@ import org.mapstruct.Mapper
 @Mapper
 interface LocatorMapper {
     fun clone(locator: LocatorLocal): LocatorEntity
+
+    fun toLocalModel(locator: LocatorEntity): LocatorLocal
 }

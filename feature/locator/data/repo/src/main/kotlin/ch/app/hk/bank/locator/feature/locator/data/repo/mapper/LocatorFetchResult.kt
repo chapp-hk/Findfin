@@ -5,5 +5,5 @@ sealed interface LocatorFetchResult {
 
     data object End : LocatorFetchResult
 
-    data class Error(val cause: Throwable) : LocatorFetchResult
+    data object Error : LocatorFetchResult
 }
