@@ -1,4 +1,4 @@
-# Coding guideline for implementing the Repository Pattern:
+# Repository Pattern:
 
 ## **Single Responsibility Principle**:
 Each repository should have a single responsibility. It should only handle data operations for a single entity or a closely related group of entities.
@@ -128,3 +128,11 @@ class UserRepositoryImpl @Inject constructor(
     // Implementation details...
 }
 ```
+
+Using a repository directly in a ViewModel can be a good practice depending on the complexity.
+
+For simple applications or features where the business logic is straightforward, it can be more efficient to use the repository directly in the ViewModel. This reduces the number of abstractions and can make the code easier to understand and maintain.
+
+However, for more complex applications or features, it's often better to introduce a use case (or interactor) between the ViewModel and the repository. This allows encapsulate complex business logic in the use case, keeping the ViewModel simple and focused on coordinating the view.
+
+In the end, whether to use a repository directly in a ViewModel or to introduce a use case depends on the specific needs and complexity of application or feature. Both approaches are valid and have their own advantages.
