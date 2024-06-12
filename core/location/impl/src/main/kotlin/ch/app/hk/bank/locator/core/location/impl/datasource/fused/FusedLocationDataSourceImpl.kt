@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.impl.provider.fused
+package ch.app.hk.bank.locator.core.location.impl.datasource.fused
 
 import android.location.Location
 import androidx.annotation.RequiresPermission
@@ -14,11 +14,16 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltExtBindModule
-internal class FusedLocationProviderImpl @Inject constructor(
+internal class FusedLocationDataSourceImpl @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val fusedLocationProviderClient: FusedLocationProviderClient,
-) : FusedLocationProvider {
-    @RequiresPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+) : FusedLocationDataSource {
+    @RequiresPermission(
+        anyOf = [
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+        ],
+    )
     override suspend fun getSingleCurrentLocation(): Location? =
         withContext(ioDispatcher) {
             val request =
