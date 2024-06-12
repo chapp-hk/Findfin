@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.impl.util.gms
+package ch.app.hk.bank.locator.core.location.impl.helper.gms
 
 import android.content.Context
 import ch.app.framework.hiltext.annotation.HiltExtBindModule
@@ -8,10 +8,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltExtBindModule
-internal class GmsCheckUtilImpl @Inject constructor(
+internal class GmsCheckHelperImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val googleApiAvailability: GoogleApiAvailability,
-) : GmsCheckUtil {
+) : GmsCheckHelper {
     override fun isGmsAvailable(): Boolean {
         return googleApiAvailability.isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS
     }

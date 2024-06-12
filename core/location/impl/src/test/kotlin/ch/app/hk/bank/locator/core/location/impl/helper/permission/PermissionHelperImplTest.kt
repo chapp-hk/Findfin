@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.impl.util.permission
+package ch.app.hk.bank.locator.core.location.impl.helper.permission
 
 import android.content.Context
 import android.content.pm.PackageManager
@@ -14,10 +14,10 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("PermissionRepositoryImpl unit tests")
-class PermissionUtilImplTest {
+class PermissionHelperImplTest {
     private val context = mockk<Context>()
 
-    private val permissionUtil = PermissionUtilImpl(context)
+    private val permissionUtil = PermissionHelperImpl(context)
 
     @BeforeEach
     fun setUp() {

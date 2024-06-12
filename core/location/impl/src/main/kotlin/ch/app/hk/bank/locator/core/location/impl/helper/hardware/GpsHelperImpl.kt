@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.impl.util.hardware
+package ch.app.hk.bank.locator.core.location.impl.helper.hardware
 
 import android.content.Context
 import android.content.pm.PackageManager
@@ -9,9 +9,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltExtBindModule
-internal class GpsUtilImpl @Inject constructor(
+internal class GpsHelperImpl @Inject constructor(
     @ApplicationContext private val context: Context,
-) : GpsUtil {
+) : GpsHelper {
     override fun hasGpsSensor(): Boolean {
         return context.packageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)
     }

@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.impl.util.permission
+package ch.app.hk.bank.locator.core.location.impl.helper.permission
 
 import android.Manifest
 import android.content.Context
@@ -9,9 +9,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltExtBindModule
-internal class PermissionUtilImpl @Inject constructor(
+internal class PermissionHelperImpl @Inject constructor(
     @ApplicationContext private val context: Context,
-) : PermissionUtil {
+) : PermissionHelper {
     override fun checkPermission(): Boolean {
         return ContextCompat.checkSelfPermission(
             context,

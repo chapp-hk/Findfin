@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.impl.util.gms
+package ch.app.hk.bank.locator.core.location.impl.helper.gms
 
 import android.content.Context
 import com.google.android.gms.common.ConnectionResult
@@ -8,11 +8,11 @@ import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Test
 
-class GmsCheckUtilImplTest {
+class GmsCheckHelperImplTest {
     private val context = mockk<Context>()
     private val googleApiAvailability = mockk<GoogleApiAvailability>()
 
-    private val googleApiCheckUtil = GmsCheckUtilImpl(context, googleApiAvailability)
+    private val googleApiCheckUtil = GmsCheckHelperImpl(context, googleApiAvailability)
 
     @Test
     fun `isGoogleAvailable returns true when Google Play services are available`() {
