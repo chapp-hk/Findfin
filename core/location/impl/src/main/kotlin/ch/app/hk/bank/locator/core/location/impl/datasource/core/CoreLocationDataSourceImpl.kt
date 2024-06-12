@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.impl.provider.core
+package ch.app.hk.bank.locator.core.location.impl.datasource.core
 
 import android.content.Context
 import android.location.Location
@@ -17,13 +17,21 @@ import kotlinx.coroutines.withTimeoutOrNull
 import javax.inject.Inject
 
 @HiltExtBindModule
-internal class CoreLocationProviderImpl @Inject constructor(
+internal class CoreLocationDataSourceImpl @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     @ApplicationContext private val context: Context,
-) : CoreLocationProvider {
-    @RequiresPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
-    override suspend fun getSingleCurrentLocation(): Location? =
-        withTimeoutOrNull(timeMillis = 5000L) {
+) : CoreLocationDataSource {
+    @RequiresPermission(
+        anyOf = [
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+        ],
+    )
+    override suspend fun getSingleCurrentLocation(
+        provider: CoreLocationProvider,
+        timeoutMillis: Long,
+    ): Location? =
+        withTimeoutOrNull(timeMillis = timeoutMillis) {
             withContext(ioDispatcher) {
                 suspendCancellableCoroutine { continuation ->
                     val locationManager =
@@ -37,23 +45,30 @@ internal class CoreLocationProviderImpl @Inject constructor(
                     val locationListener =
                         object : LocationListener {
                             override fun onLocationChanged(location: Location) {
-                                continuation.resume(location) {
-                                    locationManager.removeUpdates(this)
+                                if (continuation.isActive) {
+                                    continuation.resume(location) {
+                                        appLogger.debug(
+                                            tag = javaClass.simpleName,
+                                            message = "continuation.resume: $it",
+                                        )
+                                        locationManager.removeUpdates(this)
+                                    }
                                 }
                             }
                         }
 
                     locationManager.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER,
+                        provider.value,
                         0L,
                         0f,
                         locationListener,
+                        context.mainLooper,
                     )
 
                     continuation.invokeOnCancellation {
                         appLogger.debug(
                             tag = javaClass.simpleName,
-                            message = "Location request cancelled: $it",
+                            message = "continuation.invokeOnCancellation: $it",
                         )
                         locationManager.removeUpdates(locationListener)
                     }
