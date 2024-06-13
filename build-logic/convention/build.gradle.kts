@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `java-gradle-plugin`
-    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.org.jetbrains.kotlin.jvm)
 }
 
 group = "ch.app.hk.bank.locator.buildlogic"

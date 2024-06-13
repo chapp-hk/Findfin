@@ -1,5 +1,6 @@
 package ch.app.hk.bank.locator.buildlogic.plugin.room
 
+import ch.app.hk.bank.locator.buildlogic.util.libs
 import com.google.devtools.ksp.gradle.KspExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -26,11 +27,9 @@ class RoomAndroidPlugin : Plugin<Project> {
             }
 
             dependencies {
-                val roomVersion = "2.6.1"
-
-                "implementation"("androidx.room:room-runtime:$roomVersion")
-                "implementation"("androidx.room:room-ktx:$roomVersion")
-                "ksp"("androidx.room:room-compiler:$roomVersion")
+                "implementation"(libs.findLibrary("androidx.room.runtime").get())
+                "implementation"(libs.findLibrary("androidx.room.ktx").get())
+                "ksp"(libs.findLibrary("androidx.room.compiler").get())
 
                 "implementation"(project(mapOf("path" to ":framework:hiltext:annotation")))
                 "ksp"(project(mapOf("path" to ":framework:hiltext:processor-room")))

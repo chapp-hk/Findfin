@@ -1,6 +1,7 @@
 package ch.app.hk.bank.locator.buildlogic.plugin.ktlint
 
 import ch.app.hk.bank.locator.buildlogic.util.assertRootProjectAppliedPlugin
+import ch.app.hk.bank.locator.buildlogic.util.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Copy
@@ -12,7 +13,6 @@ import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
 class KtlintPlugin : Plugin<Project> {
     private val ktlintGradlePluginId = "org.jlleitschuh.gradle.ktlint"
-    private val ktlintVersion = "1.1.1"
 
     override fun apply(project: Project) {
         project.assertRootProjectAppliedPlugin(pluginId = "app.plugin.ktlint")
@@ -30,7 +30,7 @@ class KtlintPlugin : Plugin<Project> {
 
                 // configure plugin
                 it.configure<KtlintExtension> {
-                    version.set(ktlintVersion)
+                    version.set(rootProject.libs.findVersion("ktlint").get().strictVersion)
                     debug.set(true)
 
                     filter { pattern ->

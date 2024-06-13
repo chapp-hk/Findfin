@@ -1,5 +1,6 @@
 package ch.app.hk.bank.locator.buildlogic.plugin.hilt
 
+import ch.app.hk.bank.locator.buildlogic.util.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
@@ -13,8 +14,8 @@ class HiltAndroidPlugin : Plugin<Project> {
             }
 
             dependencies {
-                "implementation"("com.google.dagger:hilt-android:2.51.1")
-                "ksp"("com.google.dagger:hilt-compiler:2.51.1")
+                "implementation"(libs.findLibrary("google-dagger-hilt-android").get())
+                "ksp"(libs.findLibrary("google-dagger-hilt-compiler").get())
 
                 "implementation"(project(mapOf("path" to ":framework:hiltext:annotation")))
                 "ksp"(project(mapOf("path" to ":framework:hiltext:processor-binds")))
