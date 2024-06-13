@@ -30,7 +30,7 @@ class KtlintPlugin : Plugin<Project> {
 
                 // configure plugin
                 it.configure<KtlintExtension> {
-                    version.set(rootProject.libs.findVersion("ktlint").get().strictVersion)
+                    version.set(rootProject.libs.findVersion("ktlint").get().displayName)
                     debug.set(true)
 
                     filter { pattern ->
