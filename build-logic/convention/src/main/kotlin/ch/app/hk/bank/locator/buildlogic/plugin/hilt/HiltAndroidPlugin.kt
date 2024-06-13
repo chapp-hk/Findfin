@@ -17,8 +17,8 @@ class HiltAndroidPlugin : Plugin<Project> {
                 "implementation"(libs.findLibrary("google-dagger-hilt-android").get())
                 "ksp"(libs.findLibrary("google-dagger-hilt-compiler").get())
 
-                "implementation"(project(mapOf("path" to ":framework:hiltext:annotation")))
-                "ksp"(project(mapOf("path" to ":framework:hiltext:processor-binds")))
+                "implementation"(project(":framework:hiltext:annotation"))
+                "ksp"(project(":framework:hiltext:processor-binds"))
             }
         }
     }
