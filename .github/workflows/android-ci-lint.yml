@@ -15,7 +15,7 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
       - name: Create Google Services JSON File
         env:
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICE_JSON_DEBUG }}
@@ -37,7 +37,7 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
       - name: ktlint check
         run: |
           ./gradlew ktlintCheck
@@ -53,7 +53,7 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
       - name: detekt check
         run: |
           ./gradlew detekt
@@ -69,7 +69,7 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
       - name: konsist check
         run: |
           ./gradlew :framework:konsist:test
