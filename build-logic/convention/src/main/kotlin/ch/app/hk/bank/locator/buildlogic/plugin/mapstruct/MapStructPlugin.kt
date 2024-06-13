@@ -1,17 +1,19 @@
 package ch.app.hk.bank.locator.buildlogic.plugin.mapstruct
 
+import ch.app.hk.bank.locator.buildlogic.util.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 class MapStructPlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        project.pluginManager.apply("org.jetbrains.kotlin.kapt")
+        with(project) {
+            pluginManager.apply("org.jetbrains.kotlin.kapt")
 
-        val mapStructVersion = "1.6.0.Beta1"
-        project.dependencies {
-            "implementation"("org.mapstruct:mapstruct:$mapStructVersion")
-            "kapt"("org.mapstruct:mapstruct-processor:$mapStructVersion")
+            dependencies {
+                "implementation"(libs.findLibrary("mapstruct").get())
+                "kapt"(libs.findLibrary("mapstruct-processor").get())
+            }
         }
     }
 }

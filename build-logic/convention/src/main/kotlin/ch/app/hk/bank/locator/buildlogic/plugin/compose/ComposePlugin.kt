@@ -1,5 +1,6 @@
 package ch.app.hk.bank.locator.buildlogic.plugin.compose
 
+import ch.app.hk.bank.locator.buildlogic.util.libs
 import com.android.build.api.variant.AndroidComponentsExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -13,20 +14,20 @@ class ComposePlugin : Plugin<Project> {
         val androidComponents = project.extensions.getByType(AndroidComponentsExtension::class.java)
         @Suppress("UnstableApiUsage")
         androidComponents.finalizeDsl { extension ->
-            project.pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
+            with(project) {
+                pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
 
-            extension.buildFeatures {
-                compose = true
-            }
+                extension.buildFeatures {
+                    compose = true
+                }
 
-            project.dependencies {
-                val composeBom = platform("androidx.compose:compose-bom:2024.05.00")
-                add("implementation", composeBom)
-                add("implementation", "androidx.compose.runtime:runtime")
-                add("androidTestImplementation", composeBom)
-
-                add("debugImplementation", "androidx.compose.ui:ui-tooling")
-                add("implementation", "androidx.compose.ui:ui-tooling-preview")
+                dependencies {
+                    val bom = libs.findLibrary("androidx-compose-bom").get()
+                    add("implementation", platform(bom))
+                    add("androidTestImplementation", platform(bom))
+                    add("debugImplementation", libs.findLibrary("androidx-compose-ui-tooling-preview").get())
+                    add("debugImplementation", libs.findLibrary("androidx-compose-ui-tooling").get())
+                }
             }
         }
 
