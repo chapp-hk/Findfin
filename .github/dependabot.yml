@@ -5,18 +5,21 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    labels: [ "update actions version" ]
+    groups:
+      actions-deps:
+        patterns:
+          - "*"
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
       interval: "weekly"
     registries: "*"
-    labels: [ "update version" ]
+    labels: [ "update deps version" ]
     groups:
-      kotlin-ksp:
+      actions-deps:
         patterns:
-          - "org.jetbrains.kotlin:*"
-          - "org.jetbrains.kotlin.jvm"
-          - "com.google.devtools.ksp"
+          - "*"
     open-pull-requests-limit: 5
 registries:
   maven-google:
