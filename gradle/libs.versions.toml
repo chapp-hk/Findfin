@@ -1,26 +1,26 @@
 [versions]
 activity-compose = "1.9.0"
-agp = "8.4.2"
+agp = "8.5.0"
 androidx-navigation = "2.8.0-beta03"
 appcompat = "1.7.0"
 core-ktx = "1.13.1"
 hilt = "2.51.1"
-kermit = "2.0.3"
+kermit = "2.0.4"
 kotlin = "2.0.0"
 kotlinxCoroutines = "1.8.1"
 ktlint = "1.1.1"
-ktor = "2.3.9"
-mapStruct = "1.6.0.Beta1"
+ktor = "2.3.11"
+mapStruct = "1.6.0.Beta2"
 material = "1.12.0"
-mockk = "1.13.9"
+mockk = "1.13.11"
 room = "2.6.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
-androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version = "1.1.0-rc01" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version = "1.2.0-alpha01" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2024.05.00" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2024.06.00" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
@@ -36,7 +36,7 @@ androidx-startup = { module = "androidx.startup:startup-runtime", version = "1.1
 androidx-test-runner = { module = "androidx.test:runner", version = "1.5.2" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version = "5.10.2" }
-kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version = "5.8.0" }
+kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version = "5.9.1" }
 #hilt
 google-dagger-hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
 google-dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
@@ -59,7 +59,7 @@ mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version = "1.8.1" }
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.6.3" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.0" }
 #ktor
 ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
@@ -71,9 +71,9 @@ ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlin
 #turbine
 cash-app-turbine = { module = "app.cash.turbine:turbine", version = "1.1.0" }
 #konsist
-lemon-app-dev-konsist = { module = "com.lemonappdev:konsist", version = "0.13.0" }
+lemon-app-dev-konsist = { module = "com.lemonappdev:konsist", version = "0.15.1" }
 #lottie
-airbnb-lottie-compose = { module = "com.airbnb.android:lottie-compose", version = "6.4.0" }
+airbnb-lottie-compose = { module = "com.airbnb.android:lottie-compose", version = "6.4.1" }
 #kermit
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kermit-test = { module = "co.touchlab:kermit-test", version.ref = "kermit" }
@@ -84,9 +84,9 @@ mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.re
 android-gradlePlugin-api = { group = "com.android.tools.build", name = "gradle-api", version.ref = "agp" }
 org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 ktlint-gradle = { module = "org.jlleitschuh.gradle:ktlint-gradle", version = "12.1.0" }
-detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version = "1.23.5" }
-kover-gradle = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.6" }
-ksp-gradle = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "2.0.0-1.0.21" }
+detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version = "1.23.6" }
+kover-gradle = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.8.1" }
+ksp-gradle = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "2.0.0-1.0.22" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
@@ -95,7 +95,7 @@ org-jetbrains-kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.comp
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.51.1" }
-com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "2.0.0-1.0.21" }
+com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "2.0.0-1.0.22" }
 com-google-gms-services = { id = "com.google.gms.google-services", version = "4.4.2" }
 
 #convention plugins
