@@ -17,7 +17,7 @@ updates:
     registries: "*"
     labels: [ "update deps version" ]
     groups:
-      actions-deps:
+      gradle-deps:
         patterns:
           - "*"
     open-pull-requests-limit: 5
