@@ -7,10 +7,12 @@ import com.tschuchort.compiletesting.SourceFile
 import com.tschuchort.compiletesting.kspSourcesDir
 import com.tschuchort.compiletesting.symbolProcessorProviders
 import io.kotest.matchers.shouldBe
+import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.io.File
 
+@OptIn(ExperimentalCompilerApi::class)
 @DisplayName("@HiltExtRoomModule tests")
 class HiltExtRoomModuleTest {
     private val generatedCodePath = "/kotlin/ch/app/framework/hiltext/room/"
