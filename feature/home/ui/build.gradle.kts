@@ -30,6 +30,8 @@ dependencies {
     implementation(projects.core.navigation)
     implementation(projects.feature.auth.data.repo)
     implementation(projects.feature.auth.data.remoteFirebase)
+    // TODO - see is it possible to expose navigation module for bottomsheet
+    implementation(projects.feature.locator.ui)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.lifecycle.compose)
