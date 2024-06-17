@@ -9,6 +9,7 @@ import ch.app.hk.bank.locator.core.navigation.BottomNavigationLayout
 import ch.app.hk.bank.locator.core.navigation.BottomNavigationTab
 import ch.app.hk.bank.locator.core.navigation.routeToBottomNavigationTab
 import ch.app.hk.bank.locator.feature.home.ui.R
+import ch.app.hk.bank.locator.feature.locator.ui.MapScreen
 
 @Composable
 fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
@@ -44,7 +45,7 @@ fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
             }
 
             is HomeBottomTab.Map -> {
-                Text(text = stringResource(id = tab.textStringResource))
+                MapScreen()
             }
 
             is HomeBottomTab.Setting -> {
