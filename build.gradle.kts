@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.com.google.devtools.ksp) apply false
     alias(libs.plugins.com.google.dagger.hilt.android) apply false
     alias(libs.plugins.com.google.gms.services) apply false
+    alias(libs.plugins.com.google.secrets)
 
     // convention plugins
     alias(libs.plugins.app.ktlint)

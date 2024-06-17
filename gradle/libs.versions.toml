@@ -48,6 +48,8 @@ google-firebase-auth = { module = "com.google.firebase:firebase-auth" }
 google-play-services-base = { module = "com.google.android.gms:play-services-base", version = "18.5.0" }
 google-play-services-tasks = { module = "com.google.android.gms:play-services-tasks", version = "18.2.0" }
 google-play-services-location = { module = "com.google.android.gms:play-services-location", version = "21.3.0" }
+#google maps
+com-google-maps-compose = { module = "com.google.maps.android:maps-compose", version = "4.4.1" }
 #room
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
@@ -97,6 +99,7 @@ org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kot
 com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.51.1" }
 com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "2.0.0-1.0.22" }
 com-google-gms-services = { id = "com.google.gms.google-services", version = "4.4.2" }
+com-google-secrets = { id  = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version = "2.0.1" }
 
 #convention plugins
 app-ktlint = { id = "app.plugin.ktlint", version = "unspecified" }
