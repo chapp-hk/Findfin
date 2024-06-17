@@ -49,6 +49,7 @@ include(":feature:locator:data:local")
 include(":feature:locator:data:local-database")
 include(":feature:locator:data:remote")
 include(":feature:locator:data:repo")
+include(":feature:locator:ui")
 
 // feature onboarding modules
 include(":feature:onboarding:domain")
