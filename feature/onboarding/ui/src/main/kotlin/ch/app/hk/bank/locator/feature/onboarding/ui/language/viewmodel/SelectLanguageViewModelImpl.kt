@@ -3,13 +3,13 @@ package ch.app.hk.bank.locator.feature.onboarding.ui.language.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
+import ch.app.hk.bank.locator.core.design.ui.mutableScreenStateFlowOf
 import ch.app.hk.bank.locator.core.locale.api.AppLocaleRepository
 import ch.app.hk.bank.locator.feature.onboarding.domain.fetch.usecase.FetchAllLocatorsWithLanguageUseCase
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.model.SelectLanguageUiModel
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.model.SelectLanguageUiModelMapper
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.state.SelectLanguageUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.mapstruct.factory.Mappers
@@ -20,7 +20,7 @@ class SelectLanguageViewModelImpl @Inject constructor(
     private val appLocaleRepository: AppLocaleRepository,
     private val fetchAllLocatorsWithLanguage: FetchAllLocatorsWithLanguageUseCase,
 ) : SelectLanguageViewModel, ViewModel() {
-    private val _uiState = MutableStateFlow<ScreenState<SelectLanguageUiState, SelectLanguageUiState>>(ScreenState.Empty)
+    private val _uiState = mutableScreenStateFlowOf<SelectLanguageUiState, SelectLanguageUiState>(ScreenState.Empty)
     override val uiState = _uiState.asStateFlow()
 
     private val selectLanguageUiModelMapper =

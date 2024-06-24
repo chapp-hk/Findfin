@@ -109,8 +109,8 @@ class SelectLanguageViewModelImplTest {
             viewModel.uiState.test {
                 awaitItem() shouldBe ScreenState.Empty
                 awaitItem() shouldBe ScreenState.Loading
-                awaitItem().shouldBeInstanceOf<ScreenState.Error<SelectLanguageUiState>>()
-                    .data shouldBe SelectLanguageUiState("en")
+                awaitItem().shouldBeInstanceOf<ScreenState.Error<SelectLanguageUiState, SelectLanguageUiState>>()
+                    .error shouldBe SelectLanguageUiState("en")
             }
         }
 

@@ -3,13 +3,13 @@ package ch.app.hk.bank.locator.feature.auth.ui.login.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
+import ch.app.hk.bank.locator.core.design.ui.ScreenStateFlow
+import ch.app.hk.bank.locator.core.design.ui.mutableScreenStateFlowOf
 import ch.app.hk.bank.locator.feature.auth.data.repo.login.model.LoginResult
 import ch.app.hk.bank.locator.feature.auth.data.repo.login.repository.LoginRepositoryImpl
 import ch.app.hk.bank.locator.feature.auth.ui.login.state.LoginError
 import ch.app.hk.bank.locator.feature.auth.ui.login.state.LoginUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,8 +18,8 @@ import javax.inject.Inject
 internal class AuthLoginViewModelImpl @Inject constructor(
     private val loginRepository: LoginRepositoryImpl,
 ) : ViewModel(), AuthLoginViewModel {
-    private val _uiState = MutableStateFlow<ScreenState<LoginUiState, LoginUiState.Error>>(ScreenState.Empty)
-    override val uiState: StateFlow<ScreenState<LoginUiState, LoginUiState.Error>> = _uiState.asStateFlow()
+    private val _uiState = mutableScreenStateFlowOf<LoginUiState, LoginUiState.Error>(ScreenState.Empty)
+    override val uiState: ScreenStateFlow<LoginUiState, LoginUiState.Error> = _uiState.asStateFlow()
 
     override fun emailPasswordLogin(
         email: String,
