@@ -18,11 +18,11 @@ internal class AuthEntryViewModelImpl @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val authRepository: AuthRepository,
 ) : ViewModel(), AuthEntryViewModel {
-    override val uiState: StateFlow<ScreenState<AuthEntryUiState>> =
+    override val uiState: StateFlow<ScreenState<AuthEntryUiState, Nothing>> =
         flow {
             if (savedStateHandle.get<Boolean>("shouldCheckIsInit") == true) {
                 if (authRepository.isAuthInitialized()) {
-                    emit(ScreenState.Success(AuthEntryUiState.AuthInitialized))
+                    emit(ScreenState.Success<AuthEntryUiState, Nothing>(AuthEntryUiState.AuthInitialized))
                 } else {
                     authRepository.setAuthInitialized()
                     emit(ScreenState.Success(AuthEntryUiState.StartAuth))

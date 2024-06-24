@@ -18,7 +18,7 @@ class OnboardViewModelImpl @Inject constructor(
 ) : ViewModel(), OnboardViewModel {
     private val prefKeyIsAppInitialized = "pref_key_is_app_initialized"
 
-    override val uiState: StateFlow<ScreenState<OnboardUiState>> =
+    override val uiState: StateFlow<ScreenState<OnboardUiState, Nothing>> =
         appPreferencesRepository
             .getBoolean(key = prefKeyIsAppInitialized)
             .map { isAppInitialized ->
@@ -29,7 +29,7 @@ class OnboardViewModelImpl @Inject constructor(
                         OnboardUiState.StartOnboarding
                     }
 
-                ScreenState.Success(onboardUiState)
+                ScreenState.Success<OnboardUiState, Nothing>(onboardUiState)
             }
             .stateIn(
                 scope = viewModelScope,

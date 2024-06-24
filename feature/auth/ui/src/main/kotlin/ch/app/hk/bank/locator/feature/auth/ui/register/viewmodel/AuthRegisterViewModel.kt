@@ -5,7 +5,7 @@ import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterUiState
 import kotlinx.coroutines.flow.StateFlow
 
 interface AuthRegisterViewModel {
-    val uiState: StateFlow<ScreenState<AuthRegisterUiState>>
+    val uiState: StateFlow<ScreenState<AuthRegisterUiState, AuthRegisterUiState.Error>>
 
     fun emailPasswordRegister(
         email: String,

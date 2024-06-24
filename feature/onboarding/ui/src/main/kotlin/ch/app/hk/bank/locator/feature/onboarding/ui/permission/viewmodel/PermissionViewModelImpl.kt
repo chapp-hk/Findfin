@@ -16,7 +16,7 @@ internal class PermissionViewModelImpl @Inject constructor(
 ) : PermissionViewModel, ViewModel() {
     private val prefKeyIsAppInitialized = "pref_key_is_app_initialized"
 
-    private val _uiState = MutableStateFlow<ScreenState<Boolean>>(ScreenState.Empty)
+    private val _uiState = MutableStateFlow<ScreenState<Boolean, Nothing>>(ScreenState.Empty)
     override val uiState = _uiState.asStateFlow()
 
     override fun completeOnboarding() {

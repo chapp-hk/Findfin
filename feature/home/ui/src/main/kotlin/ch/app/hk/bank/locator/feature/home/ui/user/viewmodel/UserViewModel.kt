@@ -5,5 +5,5 @@ import ch.app.hk.bank.locator.feature.home.ui.user.state.UserUiState
 import kotlinx.coroutines.flow.StateFlow
 
 interface UserViewModel {
-    val uiState: StateFlow<ScreenState<UserUiState>>
+    val uiState: StateFlow<ScreenState<UserUiState, Nothing>>
 }

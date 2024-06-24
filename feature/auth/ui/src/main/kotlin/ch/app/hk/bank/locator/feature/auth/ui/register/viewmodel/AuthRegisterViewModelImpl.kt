@@ -18,8 +18,8 @@ import javax.inject.Inject
 class AuthRegisterViewModelImpl @Inject constructor(
     private val registerRepository: RegisterRepository,
 ) : ViewModel(), AuthRegisterViewModel {
-    private val _uiState = MutableStateFlow<ScreenState<AuthRegisterUiState>>(ScreenState.Empty)
-    override val uiState: StateFlow<ScreenState<AuthRegisterUiState>> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<ScreenState<AuthRegisterUiState, AuthRegisterUiState.Error>>(ScreenState.Empty)
+    override val uiState: StateFlow<ScreenState<AuthRegisterUiState, AuthRegisterUiState.Error>> = _uiState.asStateFlow()
 
     override fun emailPasswordRegister(
         email: String,
@@ -31,7 +31,7 @@ class AuthRegisterViewModelImpl @Inject constructor(
             val result =
                 when (registerRepository.emailPasswordRegister(email, password)) {
                     RegisterResult.Authorized ->
-                        ScreenState.Success(AuthRegisterUiState.Authorized)
+                        ScreenState.Success<AuthRegisterUiState, AuthRegisterUiState.Error>(AuthRegisterUiState.Authorized)
 
                     RegisterResult.Error.Register.EmailAlreadyInUse ->
                         ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.EMAIL_ALREADY_IN_USE))

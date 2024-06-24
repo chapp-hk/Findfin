@@ -52,7 +52,7 @@ class ScreenStateViewTest {
 
     @Test
     fun testError() {
-        val state = mutableStateOf(ScreenState.Error(data = "test-data"))
+        val state = mutableStateOf(ScreenState.Error<String, String>(error = "test-data"))
 
         composeTestRule.setContent {
             AppContent {
@@ -73,7 +73,7 @@ class ScreenStateViewTest {
 
     @Test
     fun testSuccess() {
-        val state = mutableStateOf(ScreenState.Success("test-success"))
+        val state = mutableStateOf(ScreenState.Success<String, Nothing>("test-success"))
 
         composeTestRule.setContent {
             AppContent {

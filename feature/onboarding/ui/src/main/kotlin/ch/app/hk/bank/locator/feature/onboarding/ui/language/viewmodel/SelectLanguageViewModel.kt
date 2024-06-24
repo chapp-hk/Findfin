@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface SelectLanguageViewModel {
     val availableLanguages: List<SelectLanguageUiModel>
-    val uiState: StateFlow<ScreenState<SelectLanguageUiState>>
+    val uiState: StateFlow<ScreenState<SelectLanguageUiState, SelectLanguageUiState>>
 
     fun setLanguage(language: String)
 }
