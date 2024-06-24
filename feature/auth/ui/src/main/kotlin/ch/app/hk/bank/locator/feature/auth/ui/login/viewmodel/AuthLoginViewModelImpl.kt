@@ -40,16 +40,24 @@ internal class AuthLoginViewModelImpl @Inject constructor(
                         ScreenState.Success<LoginUiState, Nothing>(LoginUiState.Authorized)
 
                     LoginResult.Error.Unknown ->
-                        ScreenState.Error<Nothing, LoginUiState.Error>(LoginUiState.Error(LoginError.UNKNOWN))
+                        ScreenState.Error<Nothing, LoginUiState.Error>(
+                            LoginUiState.Error(LoginError.UNKNOWN),
+                        )
 
                     LoginResult.Error.AccountDisabled ->
-                        ScreenState.Error<Nothing, LoginUiState.Error>(LoginUiState.Error(LoginError.ACCOUNT_DISABLED))
+                        ScreenState.Error<Nothing, LoginUiState.Error>(
+                            LoginUiState.Error(LoginError.ACCOUNT_DISABLED),
+                        )
 
                     LoginResult.Error.InvalidCredential ->
-                        ScreenState.Error<Nothing, LoginUiState.Error>(LoginUiState.Error(LoginError.INVALID_CREDENTIAL))
+                        ScreenState.Error<Nothing, LoginUiState.Error>(
+                            LoginUiState.Error(LoginError.INVALID_CREDENTIAL),
+                        )
 
                     LoginResult.Error.TooManyRequest ->
-                        ScreenState.Error<Nothing, LoginUiState.Error>(LoginUiState.Error(LoginError.TOO_MANY_REQUEST))
+                        ScreenState.Error<Nothing, LoginUiState.Error>(
+                            LoginUiState.Error(LoginError.TOO_MANY_REQUEST),
+                        )
                 }
 
             _uiState.emit(state)
