@@ -20,7 +20,7 @@ class SelectLanguageViewModelImpl @Inject constructor(
     private val appLocaleRepository: AppLocaleRepository,
     private val fetchAllLocatorsWithLanguage: FetchAllLocatorsWithLanguageUseCase,
 ) : SelectLanguageViewModel, ViewModel() {
-    private val _uiState = mutableScreenStateFlowOf<SelectLanguageUiState, SelectLanguageUiState>(ScreenState.Empty)
+    private val _uiState = mutableScreenStateFlowOf<SelectLanguageUiState, String>(ScreenState.Empty)
     override val uiState = _uiState.asStateFlow()
 
     private val selectLanguageUiModelMapper =
@@ -36,7 +36,7 @@ class SelectLanguageViewModelImpl @Inject constructor(
             if (fetchAllLocatorsWithLanguage()) {
                 _uiState.emit(ScreenState.Success<SelectLanguageUiState, Nothing>(SelectLanguageUiState(language)))
             } else {
-                _uiState.emit(ScreenState.Error<Nothing, SelectLanguageUiState>(SelectLanguageUiState(language)))
+                _uiState.emit(ScreenState.Error<Nothing, String>(language))
             }
         }
     }
