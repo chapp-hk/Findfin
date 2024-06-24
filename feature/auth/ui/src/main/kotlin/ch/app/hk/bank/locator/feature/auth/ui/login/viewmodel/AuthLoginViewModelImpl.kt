@@ -18,8 +18,8 @@ import javax.inject.Inject
 internal class AuthLoginViewModelImpl @Inject constructor(
     private val loginRepository: LoginRepositoryImpl,
 ) : ViewModel(), AuthLoginViewModel {
-    private val _uiState = MutableStateFlow<ScreenState<LoginUiState>>(ScreenState.Empty)
-    override val uiState: StateFlow<ScreenState<LoginUiState>> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<ScreenState<LoginUiState, LoginUiState.Error>>(ScreenState.Empty)
+    override val uiState: StateFlow<ScreenState<LoginUiState, LoginUiState.Error>> = _uiState.asStateFlow()
 
     override fun emailPasswordLogin(
         email: String,
@@ -37,19 +37,19 @@ internal class AuthLoginViewModelImpl @Inject constructor(
             val state =
                 when (loginResult) {
                     LoginResult.Success ->
-                        ScreenState.Success(LoginUiState.Authorized)
+                        ScreenState.Success<LoginUiState, Nothing>(LoginUiState.Authorized)
 
                     LoginResult.Error.Unknown ->
-                        ScreenState.Error(LoginUiState.Error(LoginError.UNKNOWN))
+                        ScreenState.Error<Nothing, LoginUiState.Error>(LoginUiState.Error(LoginError.UNKNOWN))
 
                     LoginResult.Error.AccountDisabled ->
-                        ScreenState.Error(LoginUiState.Error(LoginError.ACCOUNT_DISABLED))
+                        ScreenState.Error<Nothing, LoginUiState.Error>(LoginUiState.Error(LoginError.ACCOUNT_DISABLED))
 
                     LoginResult.Error.InvalidCredential ->
-                        ScreenState.Error(LoginUiState.Error(LoginError.INVALID_CREDENTIAL))
+                        ScreenState.Error<Nothing, LoginUiState.Error>(LoginUiState.Error(LoginError.INVALID_CREDENTIAL))
 
                     LoginResult.Error.TooManyRequest ->
-                        ScreenState.Error(LoginUiState.Error(LoginError.TOO_MANY_REQUEST))
+                        ScreenState.Error<Nothing, LoginUiState.Error>(LoginUiState.Error(LoginError.TOO_MANY_REQUEST))
                 }
 
             _uiState.emit(state)

@@ -5,5 +5,5 @@ import ch.app.hk.bank.locator.feature.auth.ui.entry.state.AuthEntryUiState
 import kotlinx.coroutines.flow.StateFlow
 
 interface AuthEntryViewModel {
-    val uiState: StateFlow<ScreenState<AuthEntryUiState>>
+    val uiState: StateFlow<ScreenState<AuthEntryUiState, Nothing>>
 }

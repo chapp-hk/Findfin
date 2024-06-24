@@ -5,7 +5,7 @@ import ch.app.hk.bank.locator.feature.auth.ui.login.state.LoginUiState
 import kotlinx.coroutines.flow.StateFlow
 
 interface AuthLoginViewModel {
-    val uiState: StateFlow<ScreenState<LoginUiState>>
+    val uiState: StateFlow<ScreenState<LoginUiState, LoginUiState.Error>>
 
     fun emailPasswordLogin(
         email: String,

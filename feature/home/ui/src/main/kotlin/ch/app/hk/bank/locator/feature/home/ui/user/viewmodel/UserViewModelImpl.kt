@@ -16,8 +16,8 @@ import javax.inject.Inject
 internal class UserViewModelImpl @Inject constructor(
     private val userRepository: UserRepository,
 ) : UserViewModel, ViewModel() {
-    override val uiState: StateFlow<ScreenState<UserUiState>> =
-        flow {
+    override val uiState: StateFlow<ScreenState<UserUiState, Nothing>> =
+        flow<ScreenState<UserUiState, Nothing>> {
             val currentUser = userRepository.getCurrentUser()
             if (currentUser == null) {
                 emit(ScreenState.Success(UserUiState.Guest))

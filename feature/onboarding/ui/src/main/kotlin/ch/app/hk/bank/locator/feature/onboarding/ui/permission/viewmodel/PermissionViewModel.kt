@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.StateFlow
 interface PermissionViewModel {
     fun completeOnboarding()
 
-    val uiState: StateFlow<ScreenState<Boolean>>
+    val uiState: StateFlow<ScreenState<Boolean, Nothing>>
 }
