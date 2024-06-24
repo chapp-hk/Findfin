@@ -9,7 +9,7 @@ kermit = "2.0.4"
 kotlin = "2.0.0"
 kotlinxCoroutines = "1.8.1"
 ktlint = "1.1.1"
-ktor = "2.3.11"
+ktor = "2.3.12"
 mapStruct = "1.6.0.Beta2"
 material = "1.12.0"
 mockk = "1.13.11"
@@ -43,13 +43,13 @@ google-dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android
 google-dagger-hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 google-dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 #firebase
-google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "33.1.0" }
+google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "33.1.1" }
 google-firebase-auth = { module = "com.google.firebase:firebase-auth" }
 google-play-services-base = { module = "com.google.android.gms:play-services-base", version = "18.5.0" }
 google-play-services-tasks = { module = "com.google.android.gms:play-services-tasks", version = "18.2.0" }
 google-play-services-location = { module = "com.google.android.gms:play-services-location", version = "21.3.0" }
 #google maps
-com-google-maps-compose = { module = "com.google.maps.android:maps-compose", version = "4.4.1" }
+com-google-maps-compose = { module = "com.google.maps.android:maps-compose", version = "5.0.3" }
 #room
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
@@ -87,7 +87,7 @@ android-gradlePlugin-api = { group = "com.android.tools.build", name = "gradle-a
 org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 ktlint-gradle = { module = "org.jlleitschuh.gradle:ktlint-gradle", version = "12.1.0" }
 detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version = "1.23.6" }
-kover-gradle = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.6" }
+kover-gradle = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.8.1" }
 ksp-gradle = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "2.0.0-1.0.22" }
 
 [plugins]
