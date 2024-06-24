@@ -4,6 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+
+typealias ScreenStateFlow<T, E> = StateFlow<ScreenState<T, E>>
+
+fun <T, E> mutableScreenStateFlowOf(initialValue: ScreenState<T, E>) = MutableStateFlow(initialValue)
 
 @Composable
 fun <T, E> ScreenStateView(

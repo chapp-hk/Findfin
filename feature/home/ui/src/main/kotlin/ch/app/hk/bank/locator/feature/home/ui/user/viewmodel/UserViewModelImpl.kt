@@ -3,11 +3,11 @@ package ch.app.hk.bank.locator.feature.home.ui.user.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
+import ch.app.hk.bank.locator.core.design.ui.ScreenStateFlow
 import ch.app.hk.bank.locator.feature.auth.data.repo.user.repository.UserRepository
 import ch.app.hk.bank.locator.feature.home.ui.user.state.UserUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -16,7 +16,7 @@ import javax.inject.Inject
 internal class UserViewModelImpl @Inject constructor(
     private val userRepository: UserRepository,
 ) : UserViewModel, ViewModel() {
-    override val uiState: StateFlow<ScreenState<UserUiState, Nothing>> =
+    override val uiState: ScreenStateFlow<UserUiState, Nothing> =
         flow<ScreenState<UserUiState, Nothing>> {
             val currentUser = userRepository.getCurrentUser()
             if (currentUser == null) {

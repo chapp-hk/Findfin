@@ -37,7 +37,7 @@ class AuthRegisterViewModelImplTest {
     @ArgumentsSource(EmailPasswordRegisterArgumentProvider::class)
     fun `test emailPasswordRegister`(
         mockAuthRepositoryAnonymousLoginValue: RegisterResult,
-        expectedResult: ScreenState<AuthRegisterUiState>,
+        expectedResult: ScreenState<AuthRegisterUiState, AuthRegisterUiState.Error>,
     ) = runTest {
         coEvery {
             registerRepository.emailPasswordRegister(
@@ -64,23 +64,29 @@ class AuthRegisterViewModelImplTest {
             return Stream.of(
                 Arguments.arguments(
                     RegisterResult.Authorized,
-                    ScreenState.Success(AuthRegisterUiState.Authorized),
+                    ScreenState.Success<AuthRegisterUiState, AuthRegisterUiState.Error>(AuthRegisterUiState.Authorized),
                 ),
                 Arguments.arguments(
                     RegisterResult.Error.Unknown,
-                    ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN)),
+                    ScreenState.Error<AuthRegisterUiState, AuthRegisterUiState.Error>(AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN)),
                 ),
                 Arguments.arguments(
                     RegisterResult.Error.Register.EmailAlreadyInUse,
-                    ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.EMAIL_ALREADY_IN_USE)),
+                    ScreenState.Error<AuthRegisterUiState, AuthRegisterUiState.Error>(
+                        AuthRegisterUiState.Error(AuthRegisterError.EMAIL_ALREADY_IN_USE),
+                    ),
                 ),
                 Arguments.arguments(
                     RegisterResult.Error.Register.WeakPassword,
-                    ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.WEAK_PASSWORD)),
+                    ScreenState.Error<AuthRegisterUiState, AuthRegisterUiState.Error>(
+                        AuthRegisterUiState.Error(AuthRegisterError.WEAK_PASSWORD),
+                    ),
                 ),
                 Arguments.arguments(
                     RegisterResult.Error.Register.InvalidEmail,
-                    ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.INVALID_EMAIL)),
+                    ScreenState.Error<AuthRegisterUiState, AuthRegisterUiState.Error>(
+                        AuthRegisterUiState.Error(AuthRegisterError.INVALID_EMAIL),
+                    ),
                 ),
             )
         }

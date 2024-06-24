@@ -3,13 +3,13 @@ package ch.app.hk.bank.locator.feature.auth.ui.register.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
+import ch.app.hk.bank.locator.core.design.ui.ScreenStateFlow
+import ch.app.hk.bank.locator.core.design.ui.mutableScreenStateFlowOf
 import ch.app.hk.bank.locator.feature.auth.data.repo.register.model.RegisterResult
 import ch.app.hk.bank.locator.feature.auth.data.repo.register.repository.RegisterRepository
 import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterError
 import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,8 +18,8 @@ import javax.inject.Inject
 class AuthRegisterViewModelImpl @Inject constructor(
     private val registerRepository: RegisterRepository,
 ) : ViewModel(), AuthRegisterViewModel {
-    private val _uiState = MutableStateFlow<ScreenState<AuthRegisterUiState, AuthRegisterUiState.Error>>(ScreenState.Empty)
-    override val uiState: StateFlow<ScreenState<AuthRegisterUiState, AuthRegisterUiState.Error>> = _uiState.asStateFlow()
+    private val _uiState = mutableScreenStateFlowOf<AuthRegisterUiState, AuthRegisterUiState.Error>(ScreenState.Empty)
+    override val uiState: ScreenStateFlow<AuthRegisterUiState, AuthRegisterUiState.Error> = _uiState.asStateFlow()
 
     override fun emailPasswordRegister(
         email: String,

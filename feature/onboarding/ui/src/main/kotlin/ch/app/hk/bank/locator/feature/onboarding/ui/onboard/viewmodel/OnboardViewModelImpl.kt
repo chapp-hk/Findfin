@@ -3,11 +3,11 @@ package ch.app.hk.bank.locator.feature.onboarding.ui.onboard.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
+import ch.app.hk.bank.locator.core.design.ui.ScreenStateFlow
 import ch.app.hk.bank.locator.core.preferences.api.AppPreferencesRepository
 import ch.app.hk.bank.locator.feature.onboarding.ui.onboard.state.OnboardUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class OnboardViewModelImpl @Inject constructor(
 ) : ViewModel(), OnboardViewModel {
     private val prefKeyIsAppInitialized = "pref_key_is_app_initialized"
 
-    override val uiState: StateFlow<ScreenState<OnboardUiState, Nothing>> =
+    override val uiState: ScreenStateFlow<OnboardUiState, Nothing> =
         appPreferencesRepository
             .getBoolean(key = prefKeyIsAppInitialized)
             .map { isAppInitialized ->

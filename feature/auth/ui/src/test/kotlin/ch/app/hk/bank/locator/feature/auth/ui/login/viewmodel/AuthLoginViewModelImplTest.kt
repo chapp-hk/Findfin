@@ -36,7 +36,7 @@ class AuthLoginViewModelImplTest {
     @ArgumentsSource(EmailPasswordLoginArgumentProvider::class)
     fun `test emailPasswordLogin`(
         mockAuthRepositoryAnonymousLoginValue: LoginResult,
-        expectedResult: ScreenState<LoginUiState>,
+        expectedResult: ScreenState<LoginUiState, LoginUiState.Error>,
     ) = runTest {
         coEvery {
             loginRepositoryImpl.emailPasswordLogin(
@@ -63,23 +63,23 @@ class AuthLoginViewModelImplTest {
             return Stream.of(
                 Arguments.arguments(
                     LoginResult.Success,
-                    ScreenState.Success(LoginUiState.Authorized),
+                    ScreenState.Success<LoginUiState, LoginUiState.Error>(LoginUiState.Authorized),
                 ),
                 Arguments.arguments(
                     LoginResult.Error.Unknown,
-                    ScreenState.Error(LoginUiState.Error(LoginError.UNKNOWN)),
+                    ScreenState.Error<LoginUiState, LoginUiState.Error>(LoginUiState.Error(LoginError.UNKNOWN)),
                 ),
                 Arguments.arguments(
                     LoginResult.Error.AccountDisabled,
-                    ScreenState.Error(LoginUiState.Error(LoginError.ACCOUNT_DISABLED)),
+                    ScreenState.Error<LoginUiState, LoginUiState.Error>(LoginUiState.Error(LoginError.ACCOUNT_DISABLED)),
                 ),
                 Arguments.arguments(
                     LoginResult.Error.InvalidCredential,
-                    ScreenState.Error(LoginUiState.Error(LoginError.INVALID_CREDENTIAL)),
+                    ScreenState.Error<LoginUiState, LoginUiState.Error>(LoginUiState.Error(LoginError.INVALID_CREDENTIAL)),
                 ),
                 Arguments.arguments(
                     LoginResult.Error.TooManyRequest,
-                    ScreenState.Error(LoginUiState.Error(LoginError.TOO_MANY_REQUEST)),
+                    ScreenState.Error<LoginUiState, LoginUiState.Error>(LoginUiState.Error(LoginError.TOO_MANY_REQUEST)),
                 ),
             )
         }
