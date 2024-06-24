@@ -61,7 +61,7 @@ class SelectLanguageScreenTest {
     @Test
     fun testErrorShown() {
         every { selectLanguageViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Error(SelectLanguageUiState("en")))
+            MutableStateFlow(ScreenState.Error("en"))
 
         composeTestRule.setContent {
             AppContent {
