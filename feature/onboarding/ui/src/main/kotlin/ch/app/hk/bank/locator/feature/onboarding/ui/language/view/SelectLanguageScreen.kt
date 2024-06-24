@@ -100,7 +100,7 @@ private fun SelectLanguageScreenStateView(
         },
         error = { data ->
             SelectLanguageError {
-                selectLanguageViewModel.setLanguage(data.selectedLanguageTag)
+                selectLanguageViewModel.setLanguage(data)
             }
         },
         success = {

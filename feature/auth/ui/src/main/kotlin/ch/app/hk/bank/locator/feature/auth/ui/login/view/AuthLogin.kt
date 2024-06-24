@@ -23,7 +23,6 @@ import ch.app.hk.bank.locator.core.design.ui.ScreenStateView
 import ch.app.hk.bank.locator.core.design.ui.text.rememberAppTextFieldState
 import ch.app.hk.bank.locator.feature.auth.ui.R
 import ch.app.hk.bank.locator.feature.auth.ui.login.state.LoginError
-import ch.app.hk.bank.locator.feature.auth.ui.login.state.LoginUiState
 import ch.app.hk.bank.locator.feature.auth.ui.login.viewmodel.AuthLoginViewModel
 import ch.app.hk.bank.locator.feature.auth.ui.login.viewmodel.AuthLoginViewModelImpl
 
@@ -79,8 +78,7 @@ fun AuthLogin(
                         .wrapContentSize(Alignment.Center),
             )
         },
-        error = { uiState ->
-            val error = uiState as LoginUiState.Error
+        error = { error ->
             when (error.reason) {
                 LoginError.UNKNOWN -> {
                     val message = stringResource(id = R.string.auth_error_message)

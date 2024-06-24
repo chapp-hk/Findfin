@@ -6,7 +6,7 @@ import ch.app.hk.bank.locator.feature.onboarding.ui.language.state.SelectLanguag
 
 interface SelectLanguageViewModel {
     val availableLanguages: List<SelectLanguageUiModel>
-    val uiState: ScreenStateFlow<SelectLanguageUiState, SelectLanguageUiState>
+    val uiState: ScreenStateFlow<SelectLanguageUiState, String>
 
     fun setLanguage(language: String)
 }

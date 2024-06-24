@@ -23,7 +23,6 @@ import ch.app.hk.bank.locator.core.design.ui.ScreenStateView
 import ch.app.hk.bank.locator.core.design.ui.text.rememberAppTextFieldState
 import ch.app.hk.bank.locator.feature.auth.ui.R
 import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterError
-import ch.app.hk.bank.locator.feature.auth.ui.register.state.AuthRegisterUiState
 import ch.app.hk.bank.locator.feature.auth.ui.register.viewmodel.AuthRegisterViewModel
 import ch.app.hk.bank.locator.feature.auth.ui.register.viewmodel.AuthRegisterViewModelImpl
 
@@ -79,8 +78,7 @@ fun AuthRegister(
                         .wrapContentSize(Alignment.Center),
             )
         },
-        error = { data ->
-            val error = data as AuthRegisterUiState.Error
+        error = { error ->
             when (error.reason) {
                 AuthRegisterError.UNKNOWN -> {
                     val message = stringResource(id = R.string.auth_error_message)
