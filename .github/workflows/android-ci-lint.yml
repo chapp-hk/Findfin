@@ -23,6 +23,7 @@ jobs:
           echo $GOOGLE_SERVICES_JSON | base64 --decode > app/google-services.json
       - name: lint
         run: |
+          echo "JACOCO_INSTRUMENT_TEST_TYPE=CONNECTED_DEVICE" >> ./local.properties
           ./gradlew lintDebug
           cat app/build/reports/lint-results-debug.txt
 
@@ -40,6 +41,7 @@ jobs:
         uses: gradle/gradle-build-action@v3
       - name: ktlint check
         run: |
+          echo "JACOCO_INSTRUMENT_TEST_TYPE=CONNECTED_DEVICE" >> ./local.properties
           ./gradlew ktlintCheck
 
   detekt:
@@ -56,6 +58,7 @@ jobs:
         uses: gradle/gradle-build-action@v3
       - name: detekt check
         run: |
+          echo "JACOCO_INSTRUMENT_TEST_TYPE=CONNECTED_DEVICE" >> ./local.properties
           ./gradlew detekt
 
   konsist:
@@ -72,4 +75,5 @@ jobs:
         uses: gradle/gradle-build-action@v3
       - name: konsist check
         run: |
+          echo "JACOCO_INSTRUMENT_TEST_TYPE=CONNECTED_DEVICE" >> ./local.properties
           ./gradlew :framework:konsist:test
