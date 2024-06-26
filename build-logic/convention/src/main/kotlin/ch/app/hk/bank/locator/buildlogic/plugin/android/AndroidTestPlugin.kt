@@ -23,11 +23,11 @@ class AndroidTestPlugin : Plugin<Project> {
 
             extension.testOptions {
                 managedDevices {
-                    localDevices.create("pixel2api30") {
+                    localDevices.create("pixel8api34") {
                         // Use device profiles you typically see in Android Studio.
-                        it.device = "Pixel 2"
+                        it.device = "Pixel 8"
                         // Use only API levels 27 and higher.
-                        it.apiLevel = 30
+                        it.apiLevel = 34
                         // To include Google services, use "google".
                         it.systemImageSource = "aosp"
                     }

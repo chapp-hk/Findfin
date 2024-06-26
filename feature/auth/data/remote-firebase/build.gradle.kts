@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.app.android.common)
-    alias(libs.plugins.app.kover.android)
     alias(libs.plugins.app.hilt.android)
     alias(libs.plugins.app.hilt.android.test)
 }

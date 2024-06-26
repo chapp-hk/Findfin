@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.app.compose)
     alias(libs.plugins.app.hilt.android)
     alias(libs.plugins.app.hilt.android.test)
-    alias(libs.plugins.app.kover.android)
 }
 
 android {

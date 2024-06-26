@@ -13,13 +13,8 @@ Current list of convention plugins:
 - [app.plugin.detekt](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/detekt/DetektPlugin.kt)
   - apply [detekt gradle plugin](https://github.com/detekt/detekt) to root project and all subprojects
 
-- [app.plugin.kover](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/kover/KoverPlugin.kt)
-  - apply [kover_gradle_plugin](https://github.com/Kotlin/kotlinx-kover) to root project and all subprojects
-  - add all subprojects to kover dependencies
-  - add filter for generated classes
-
-- [app.plugin.kover.android](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/kover/KoverAndroidPlugin.kt)
-  - configure kover mergeWith
+- [app.plugin.jacoco](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/jacoco/JacocoRootCoveragePlugin.kt)
+  - configure jacoco coverage for root project
 
 - [app.plugin.jvm](convention/src/main/kotlin/ch/app/hk/bank/locator/buildlogic/plugin/jvm/JvmPlugin.kt)
   - configure java version

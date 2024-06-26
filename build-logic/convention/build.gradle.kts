@@ -28,7 +28,7 @@ dependencies {
     implementation(gradleKotlinDsl())
     implementation(libs.ktlint.gradle)
     implementation(libs.detekt.gradle)
-    implementation(libs.kover.gradle)
+    implementation(libs.org.jacoco.core)
 }
 
 gradlePlugin {
@@ -43,14 +43,9 @@ gradlePlugin {
             implementationClass = "$group.plugin.detekt.DetektPlugin"
         }
 
-        create("kover") {
-            id = "app.plugin.kover"
-            implementationClass = "$group.plugin.kover.KoverPlugin"
-        }
-
-        create("kover-android") {
-            id = "app.plugin.kover.android"
-            implementationClass = "$group.plugin.kover.KoverAndroidPlugin"
+        create("jacoco") {
+            id = "app.plugin.jacoco"
+            implementationClass = "$group.plugin.jacoco.JacocoRootCoveragePlugin"
         }
 
         create("jvm") {

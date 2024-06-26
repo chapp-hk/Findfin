@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.app.mapstruct)
     alias(libs.plugins.app.hilt.android)
     alias(libs.plugins.app.hilt.android.test)
-    alias(libs.plugins.app.kover.android)
 }
 
 android {

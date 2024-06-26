@@ -5,13 +5,13 @@ import com.android.build.api.variant.AndroidComponentsExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class AndroidCommonPlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        @Suppress("UnstableApiUsage")
         project
             .extensions
             .getByType(AndroidComponentsExtension::class.java)
@@ -41,6 +41,11 @@ class AndroidCommonPlugin : Plugin<Project> {
 
     private fun configureBuiltTypes(extension: CommonExtension<*, *, *, *, *, *>) {
         extension.buildTypes {
+            getByName("debug") {
+                it.enableUnitTestCoverage = true
+                it.enableAndroidTestCoverage = true
+            }
+
             getByName("release") {
                 it.isMinifyEnabled = false
                 it.proguardFiles(

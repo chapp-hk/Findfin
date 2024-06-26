@@ -13,6 +13,7 @@ ktor = "2.3.12"
 mapStruct = "1.6.0.Beta2"
 material = "1.12.0"
 mockk = "1.13.11"
+jacoco = "0.8.12"
 room = "2.6.1"
 
 [libraries]
@@ -84,10 +85,10 @@ mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapStruct" }
 mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapStruct" }
 #used in convention plugin
 android-gradlePlugin-api = { group = "com.android.tools.build", name = "gradle-api", version.ref = "agp" }
+org-jacoco-core = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
 org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 ktlint-gradle = { module = "org.jlleitschuh.gradle:ktlint-gradle", version = "12.1.0" }
 detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version = "1.23.6" }
-kover-gradle = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.6" }
 ksp-gradle = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "2.0.0-1.0.22" }
 
 [plugins]
@@ -104,8 +105,7 @@ com-google-secrets = { id  = "com.google.android.libraries.mapsplatform.secrets-
 #convention plugins
 app-ktlint = { id = "app.plugin.ktlint", version = "unspecified" }
 app-detekt = { id = "app.plugin.detekt", version = "unspecified" }
-app-kover = { id = "app.plugin.kover", version = "unspecified" }
-app-kover-android = { id = "app.plugin.kover.android", version = "unspecified" }
+app-jacoco = { id = "app.plugin.jacoco", version = "unspecified" }
 app-jvm = { id = "app.plugin.jvm", version = "unspecified" }
 app-android-common = { id = "app.plugin.android.common", version = "unspecified" }
 app-compose = { id = "app.plugin.compose", version = "unspecified" }
