@@ -15,6 +15,7 @@ jobs:
     secrets: inherit
 
   call-workflow-test:
+    needs: call-workflow-lint
     name: test
     uses: ./.github/workflows/android-ci-test.yml
     secrets: inherit
