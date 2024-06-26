@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.app.android.common)
     alias(libs.plugins.app.compose)
-    alias(libs.plugins.app.kover.android)
     alias(libs.plugins.com.google.secrets)
 }
 

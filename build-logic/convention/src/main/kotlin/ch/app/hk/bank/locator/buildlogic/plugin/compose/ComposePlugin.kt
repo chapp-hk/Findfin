@@ -12,7 +12,6 @@ import java.io.File
 class ComposePlugin : Plugin<Project> {
     override fun apply(project: Project) {
         val androidComponents = project.extensions.getByType(AndroidComponentsExtension::class.java)
-        @Suppress("UnstableApiUsage")
         androidComponents.finalizeDsl { extension ->
             with(project) {
                 pluginManager.apply("org.jetbrains.kotlin.plugin.compose")

@@ -13,9 +13,7 @@ plugins {
     // convention plugins
     alias(libs.plugins.app.ktlint)
     alias(libs.plugins.app.detekt)
-    alias(libs.plugins.app.kover)
     alias(libs.plugins.app.jvm) apply false
-    alias(libs.plugins.app.kover.android) apply false
     alias(libs.plugins.app.android.common) apply false
     alias(libs.plugins.app.compose) apply false
     alias(libs.plugins.app.hilt.android) apply false
@@ -23,4 +21,5 @@ plugins {
     alias(libs.plugins.app.hilt.jvm) apply false
     alias(libs.plugins.app.room.android) apply false
     alias(libs.plugins.app.mapstruct) apply false
+    alias(libs.plugins.app.jacoco)
 }

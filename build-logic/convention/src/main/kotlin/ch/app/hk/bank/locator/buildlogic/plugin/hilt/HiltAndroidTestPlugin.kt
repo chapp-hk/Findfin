@@ -9,7 +9,6 @@ import org.gradle.kotlin.dsl.dependencies
 class HiltAndroidTestPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         with(project) {
-            @Suppress("UnstableApiUsage")
             extensions
                 .getByType(AndroidComponentsExtension::class.java)
                 .finalizeDsl { extension ->
