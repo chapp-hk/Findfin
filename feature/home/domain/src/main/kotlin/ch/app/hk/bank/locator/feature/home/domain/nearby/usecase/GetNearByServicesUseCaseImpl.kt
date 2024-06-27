@@ -1,0 +1,86 @@
+package ch.app.hk.bank.locator.feature.home.domain.nearby.usecase
+
+import ch.app.framework.hiltext.annotation.HiltExtBindModule
+import ch.app.hk.bank.locator.core.location.api.model.LocationResult
+import ch.app.hk.bank.locator.core.location.api.repo.LocationRepository
+import ch.app.hk.bank.locator.core.threading.DispatcherDefault
+import ch.app.hk.bank.locator.feature.home.domain.nearby.mapper.ServiceMapper
+import ch.app.hk.bank.locator.feature.home.domain.nearby.model.LocationBound
+import ch.app.hk.bank.locator.feature.home.domain.nearby.model.NearByResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.repository.LocatorRepository
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
+import org.mapstruct.factory.Mappers
+import javax.inject.Inject
+import kotlin.math.cos
+
+@HiltExtBindModule
+internal class GetNearByServicesUseCaseImpl @Inject constructor(
+    @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
+    private val locationRepository: LocationRepository,
+    private val locatorRepository: LocatorRepository,
+) : GetNearByServicesUseCase {
+    override suspend fun invoke(): NearByResult {
+        return withContext(defaultDispatcher) {
+            when (val locationResult = locationRepository.getSingleCurrentLocation()) {
+                LocationResult.GpsIsOff -> NearByResult.GpsIsOff
+                LocationResult.GpsNotSupported -> NearByResult.GpsNotSupported
+                LocationResult.PermissionNotGranted -> NearByResult.PermissionNotGranted
+                LocationResult.UnknownError -> NearByResult.UnknownError
+                is LocationResult.Location -> {
+                    val mapper = Mappers.getMapper(ServiceMapper::class.java)
+
+                    val boundingBox =
+                        calculateBoundingBox(
+                            latitude = locationResult.lat,
+                            longitude = locationResult.lon,
+                        )
+
+                    val list =
+                        locatorRepository.getLocatorsWithinBound(
+                            minLat = boundingBox.minLat,
+                            maxLat = boundingBox.maxLat,
+                            minLon = boundingBox.minLong,
+                            maxLon = boundingBox.maxLong,
+                        )
+
+                    NearByResult.Location(list.map(mapper::clone))
+                }
+            }
+        }
+    }
+
+    /**
+     * Calculates a bounding box with boundaries smaller than 1km from the center latitude and longitude.
+     *
+     * @param latitude The latitude of the center point.
+     * @param longitude The longitude of the center point.
+     *
+     * @return A LocationBound object representing the bounding box. The bounding box is a square area
+     *         centered at the given latitude and longitude, with sides of length 2*radius.
+     *
+     * The function uses the Haversine formula to calculate the latitude and longitude changes for the given radius.
+     * It then calculates the minimum and maximum latitude and longitude for the bounding box.
+     *
+     * The value `111.045` is used to convert degrees of latitude to kilometers. This is based on the average radius
+     * of the Earth, which is approximately 6,371 kilometers. One degree of latitude is approximately equal to
+     * `111.045` kilometers on the Earth's surface. This is a commonly used conversion factor in geographic calculations.
+     */
+    private fun calculateBoundingBox(
+        latitude: Double,
+        longitude: Double,
+    ): LocationBound {
+        val radius = 1.0
+        val kilometersPerDegree = 111.045
+
+        val latChange = radius / kilometersPerDegree
+        val lonChange = radius / (kilometersPerDegree * cos(Math.toRadians(latitude)))
+
+        return LocationBound(
+            minLat = latitude - latChange,
+            maxLat = latitude + latChange,
+            minLong = longitude - lonChange,
+            maxLong = longitude + lonChange,
+        )
+    }
+}
