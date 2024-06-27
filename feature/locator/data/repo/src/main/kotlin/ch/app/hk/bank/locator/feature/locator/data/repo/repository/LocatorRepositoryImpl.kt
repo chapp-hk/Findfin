@@ -8,13 +8,14 @@ import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.LocatorFetchResul
 import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.LocatorMapper
 import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.toApiLang
 import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.toRemoteLocatorPath
+import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationBound
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorModel
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorType
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject
 
 @HiltExtBindModule
-class LocatorRepositoryImpl @Inject constructor(
+internal class LocatorRepositoryImpl @Inject constructor(
     private val locatorLocalDataSource: LocatorLocalDataSource,
     private val locatorRemoteDataSource: LocatorRemoteDataSource,
 ) : LocatorRepository {
@@ -57,17 +58,12 @@ class LocatorRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getLocatorsWithinBound(
-        minLat: Double,
-        maxLat: Double,
-        minLon: Double,
-        maxLon: Double,
-    ): List<LocatorModel> {
+    override suspend fun getLocatorsWithinBound(bound: LocationBound): List<LocatorModel> {
         return locatorLocalDataSource.getLocatorsWithinBound(
-            minLat = minLat,
-            maxLat = maxLat,
-            minLon = minLon,
-            maxLon = maxLon,
+            minLat = bound.minLat,
+            maxLat = bound.maxLat,
+            minLon = bound.minLong,
+            maxLon = bound.maxLong,
         ).map(mapper::convertToDataModel)
     }
 }
