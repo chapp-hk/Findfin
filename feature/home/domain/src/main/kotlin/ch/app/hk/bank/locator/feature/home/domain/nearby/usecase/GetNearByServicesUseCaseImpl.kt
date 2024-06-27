@@ -56,19 +56,17 @@ internal class GetNearByServicesUseCaseImpl @Inject constructor(
      * The function uses the Haversine formula to calculate the latitude and longitude changes for the given radius.
      * It then calculates the minimum and maximum latitude and longitude for the bounding box.
      *
-     * The value `111.045` is used to convert degrees of latitude to kilometers. This is based on the average radius
-     * of the Earth, which is approximately 6,371 kilometers. One degree of latitude is approximately equal to
-     * `111.045` kilometers on the Earth's surface. This is a commonly used conversion factor in geographic calculations.
+     * The value `111.045` is used to convert degrees of latitude to kilometers.
+     * This is based on the average radius of the Earth, which is approximately 6,371 kilometers.
+     * One degree of latitude is approximately equal to `111.045` kilometers on the Earth's surface.
+     * This is a commonly used conversion factor in geographic calculations.
      */
     private fun calculateBoundingBox(
         latitude: Double,
         longitude: Double,
     ): LocationBound {
-        val radius = 1.0
-        val kilometersPerDegree = 111.045
-
-        val latChange = radius / kilometersPerDegree
-        val lonChange = radius / (kilometersPerDegree * cos(Math.toRadians(latitude)))
+        val latChange = BOUND_RADIUS / KILOMETERS_PER_DEGREE
+        val lonChange = BOUND_RADIUS / (KILOMETERS_PER_DEGREE * cos(Math.toRadians(latitude)))
 
         return LocationBound(
             minLat = latitude - latChange,
@@ -76,5 +74,10 @@ internal class GetNearByServicesUseCaseImpl @Inject constructor(
             minLong = longitude - lonChange,
             maxLong = longitude + lonChange,
         )
+    }
+
+    companion object {
+        private const val BOUND_RADIUS = 1.0
+        private const val KILOMETERS_PER_DEGREE = 111.045
     }
 }
