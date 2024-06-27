@@ -73,18 +73,15 @@ class GetNearByServicesUseCaseImplTest {
     @Test
     fun `invoke should return Location when LocationResult is Location`() =
         runTest(testDispatcher) {
-            // Arrange
             val mockLocation = LocationResult.Location(1.0, 1.0)
 
             coEvery { locationRepository.getSingleCurrentLocation() } returns
                 mockLocation
-            coEvery { locatorRepository.getLocatorsWithinBound(any(), any(), any(), any()) } returns
+            coEvery { locatorRepository.getLocatorsWithinBound(any()) } returns
                 listOf(mockk(relaxed = true))
 
-            // Act
             val result = getNearByServiceUseCase()
 
-            // Assert
             result
                 .shouldBeInstanceOf<NearByResult.Location>()
                 .list.size shouldBe 1

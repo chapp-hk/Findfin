@@ -5,8 +5,8 @@ import ch.app.hk.bank.locator.core.location.api.model.LocationResult
 import ch.app.hk.bank.locator.core.location.api.repo.LocationRepository
 import ch.app.hk.bank.locator.core.threading.DispatcherDefault
 import ch.app.hk.bank.locator.feature.home.domain.nearby.mapper.ServiceMapper
-import ch.app.hk.bank.locator.feature.home.domain.nearby.model.LocationBound
 import ch.app.hk.bank.locator.feature.home.domain.nearby.model.NearByResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationBound
 import ch.app.hk.bank.locator.feature.locator.data.repo.repository.LocatorRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -36,13 +36,7 @@ internal class GetNearByServicesUseCaseImpl @Inject constructor(
                             longitude = locationResult.lon,
                         )
 
-                    val list =
-                        locatorRepository.getLocatorsWithinBound(
-                            minLat = boundingBox.minLat,
-                            maxLat = boundingBox.maxLat,
-                            minLon = boundingBox.minLong,
-                            maxLon = boundingBox.maxLong,
-                        )
+                    val list = locatorRepository.getLocatorsWithinBound(boundingBox)
 
                     NearByResult.Location(list.map(mapper::clone))
                 }

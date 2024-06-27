@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.home.domain.nearby.model
+package ch.app.hk.bank.locator.feature.locator.data.repo.model
 
 data class LocationBound(
     val minLat: Double,
