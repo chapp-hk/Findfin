@@ -3,7 +3,10 @@ package ch.app.hk.bank.locator.feature.home.ui.container.view
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import ch.app.hk.bank.locator.core.design.ui.search.AppSearchBar
 import ch.app.hk.bank.locator.core.design.ui.search.rememberAppSearchBarState
 import ch.app.hk.bank.locator.feature.home.ui.R
@@ -41,14 +44,22 @@ private fun HomeContainerList(
                             placeholder = stringResource(id = R.string.home_placeholder_search),
                         )
 
+                    val description =
+                        stringResource(id = R.string.home_content_description_search)
+
                     AppSearchBar(
+                        modifier = Modifier.semantics { contentDescription = description },
                         state = searchBarState,
                         onSearch = onSearch,
                     )
                 }
 
                 HomeItem.Finding -> {
+                    val description =
+                        stringResource(id = R.string.home_content_description_finding)
+
                     Finding(
+                        modifier = Modifier.semantics { contentDescription = description },
                         onFindYourBank = {},
                         onFindBankOrAtms = {},
                     )
