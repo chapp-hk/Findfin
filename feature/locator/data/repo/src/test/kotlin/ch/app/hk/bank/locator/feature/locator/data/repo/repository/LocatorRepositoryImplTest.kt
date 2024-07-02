@@ -5,8 +5,11 @@ import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.remote.datasource.LocatorRemoteDataSource
 import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorResult
 import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.LocatorFetchResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationBound
+import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorModel
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorType
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -189,4 +192,23 @@ class LocatorRepositoryImplTest {
 
             result shouldBe LocatorFetchResult.End
         }
+
+    @Test
+    fun `getLocatorsWithinBound should return correct LocatorModel list`() {
+        runTest(StandardTestDispatcher()) {
+            val mockBound = LocationBound(1.0, 1.0, 1.0, 1.0)
+            coEvery {
+                locatorLocalDataSource.getLocatorsWithinBound(
+                    minLat = any(),
+                    maxLat = any(),
+                    minLon = any(),
+                    maxLon = any(),
+                )
+            } returns listOf(mockk(relaxed = true))
+
+            val result = locatorRepositoryImpl.getLocatorsWithinBound(mockBound)
+
+            result.shouldBeInstanceOf<List<LocatorModel>>()
+        }
+    }
 }
