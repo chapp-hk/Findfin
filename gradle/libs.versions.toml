@@ -51,7 +51,7 @@ google-play-services-base = { module = "com.google.android.gms:play-services-bas
 google-play-services-tasks = { module = "com.google.android.gms:play-services-tasks", version = "18.2.0" }
 google-play-services-location = { module = "com.google.android.gms:play-services-location", version = "21.3.0" }
 #google maps
-com-google-maps-compose = { module = "com.google.maps.android:maps-compose", version = "6.0.0" }
+com-google-maps-compose = { module = "com.google.maps.android:maps-compose", version = "5.0.4" }
 #room
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
