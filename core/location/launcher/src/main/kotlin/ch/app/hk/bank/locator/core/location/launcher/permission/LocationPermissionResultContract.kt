@@ -1,16 +1,15 @@
 package ch.app.hk.bank.locator.core.location.launcher.permission
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.core.content.ContextCompat
+import ch.app.hk.bank.locator.core.location.impl.helper.permission.PermissionHelper
+import javax.inject.Inject
 
-class LocationPermissionResultContract(
-    private val context: Context,
+class LocationPermissionResultContract @Inject constructor(
+    private val permissionHelper: PermissionHelper,
 ) : ActivityResultContract<Unit, Boolean>() {
     override fun createIntent(
         context: Context,
@@ -26,9 +25,6 @@ class LocationPermissionResultContract(
         resultCode: Int,
         intent: Intent?,
     ): Boolean {
-        return ContextCompat.checkSelfPermission(
-            context,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-        ) == PackageManager.PERMISSION_GRANTED
+        return permissionHelper.checkPermission()
     }
 }

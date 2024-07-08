@@ -2,12 +2,12 @@ package ch.app.hk.bank.locator.core.location.launcher.setting
 
 import android.content.Context
 import android.content.Intent
-import android.location.LocationManager
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.core.content.ContextCompat
+import ch.app.hk.bank.locator.core.location.impl.helper.hardware.GpsHelper
+import javax.inject.Inject
 
-class LocationSourceSettingsResultContract(
-    private val context: Context,
+class LocationSourceSettingsResultContract @Inject constructor(
+    private val gpsHelper: GpsHelper,
 ) : ActivityResultContract<Unit, Boolean>() {
     override fun createIntent(
         context: Context,
@@ -20,13 +20,6 @@ class LocationSourceSettingsResultContract(
         resultCode: Int,
         intent: Intent?,
     ): Boolean {
-        return runCatching {
-            ContextCompat.getSystemService(
-                context,
-                LocationManager::class.java,
-            )!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        }.getOrElse {
-            false
-        }
+        return gpsHelper.isGpsEnabled()
     }
 }
