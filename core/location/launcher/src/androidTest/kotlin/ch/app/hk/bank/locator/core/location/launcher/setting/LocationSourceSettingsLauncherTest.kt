@@ -8,10 +8,15 @@ import androidx.compose.ui.test.performClick
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
+import ch.app.hk.bank.locator.core.location.impl.helper.hardware.GpsHelper
 import ch.app.hk.bank.locator.testing.instrument.HiltComponentActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import io.mockk.every
+import io.mockk.mockk
 import org.junit.After
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -51,5 +56,17 @@ class LocationSourceSettingsLauncherTest {
         composeTestRule.onNodeWithText("launch").performClick()
 
         intended(hasAction(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+    }
+
+    @Test
+    fun testLocationSourceSettingsResultContractParseResult() {
+        val mockGpsHelper = mockk<GpsHelper>()
+        val resultContract = LocationSourceSettingsResultContract(mockGpsHelper)
+
+        every { mockGpsHelper.isGpsEnabled() } returns true
+        assertTrue(resultContract.parseResult(0, null))
+
+        every { mockGpsHelper.isGpsEnabled() } returns false
+        assertFalse(resultContract.parseResult(0, null))
     }
 }

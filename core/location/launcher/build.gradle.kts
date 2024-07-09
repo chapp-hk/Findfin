@@ -13,6 +13,14 @@ android {
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
     }
+
+    packaging {
+        resources.excludes +=
+            setOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+            )
+    }
 }
 
 dependencies {
@@ -22,6 +30,7 @@ dependencies {
     implementation(libs.androidx.hilt.compose)
 
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.androidx.test.espresso.intents)
     androidTestImplementation(libs.androidx.compose.material)
     debugImplementation(libs.androidx.compose.ui.test.manifest)

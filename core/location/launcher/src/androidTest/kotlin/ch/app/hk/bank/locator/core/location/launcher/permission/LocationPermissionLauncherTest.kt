@@ -13,11 +13,16 @@ import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasData
+import ch.app.hk.bank.locator.core.location.impl.helper.permission.PermissionHelper
 import ch.app.hk.bank.locator.testing.instrument.HiltComponentActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import io.mockk.every
+import io.mockk.mockk
 import org.hamcrest.CoreMatchers.allOf
 import org.junit.After
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -68,5 +73,17 @@ class LocationPermissionLauncherTest {
                 ),
             ),
         )
+    }
+
+    @Test
+    fun testLocationPermissionResultContractParseResult() {
+        val mockPermissionHelper = mockk<PermissionHelper>()
+        val resultContract = LocationPermissionResultContract(mockPermissionHelper)
+
+        every { mockPermissionHelper.checkPermission() } returns true
+        assertTrue(resultContract.parseResult(0, null))
+
+        every { mockPermissionHelper.checkPermission() } returns false
+        assertFalse(resultContract.parseResult(0, null))
     }
 }
