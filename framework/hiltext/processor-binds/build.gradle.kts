@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    val kotlinPoetVersion = "1.17.0"
+    val kotlinPoetVersion = "1.18.0"
 
     implementation(projects.framework.hiltext.annotation)
     implementation(projects.framework.hiltext.util)
