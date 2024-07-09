@@ -30,8 +30,8 @@ dependencies {
     implementation(libs.androidx.hilt.compose)
 
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.androidx.test.espresso.intents)
+    androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.androidx.compose.material)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
