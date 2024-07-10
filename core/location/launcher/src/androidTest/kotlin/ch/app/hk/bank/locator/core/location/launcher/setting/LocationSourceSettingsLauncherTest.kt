@@ -32,6 +32,7 @@ class LocationSourceSettingsLauncherTest {
 
     @Before
     fun setUp() {
+        hiltTestRule.inject()
         Intents.init()
     }
 

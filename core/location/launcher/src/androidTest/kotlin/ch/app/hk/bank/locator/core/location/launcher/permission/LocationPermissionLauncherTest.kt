@@ -32,6 +32,7 @@ class LocationPermissionLauncherTest {
 
     @Before
     fun setUp() {
+        hiltTestRule.inject()
         Intents.init()
     }
 
