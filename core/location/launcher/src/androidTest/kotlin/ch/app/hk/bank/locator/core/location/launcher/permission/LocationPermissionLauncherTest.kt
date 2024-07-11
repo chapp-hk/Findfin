@@ -1,5 +1,8 @@
 package ch.app.hk.bank.locator.core.location.launcher.permission
 
+import android.content.Context
+import android.net.Uri
+import android.provider.Settings
 import androidx.activity.compose.LocalActivityResultRegistryOwner
 import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.ActivityResultRegistryOwner
@@ -11,15 +14,14 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.core.app.ActivityOptionsCompat
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import ch.app.hk.bank.locator.core.location.impl.helper.permission.PermissionHelper
 import ch.app.hk.bank.locator.testing.instrument.HiltComponentActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import io.mockk.every
+import io.kotest.matchers.shouldBe
 import io.mockk.mockk
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -74,14 +76,18 @@ class LocationPermissionLauncherTest {
     }
 
     @Test
-    fun testLocationPermissionResultContractParseResult() {
+    fun testLocationPermissionCreateIntent() {
         val mockPermissionHelper = mockk<PermissionHelper>()
+        val context = ApplicationProvider.getApplicationContext<Context>().applicationContext
         val resultContract = LocationPermissionResultContract(mockPermissionHelper)
 
-        every { mockPermissionHelper.checkPermission() } returns true
-        assertTrue(resultContract.parseResult(0, null))
+        val intent =
+            resultContract.createIntent(
+                context = context,
+                input = Unit,
+            )
 
-        every { mockPermissionHelper.checkPermission() } returns false
-        assertFalse(resultContract.parseResult(0, null))
+        intent.action shouldBe Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+        intent.data shouldBe Uri.fromParts("package", context.packageName, null)
     }
 }

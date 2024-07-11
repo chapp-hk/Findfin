@@ -1,5 +1,6 @@
 package ch.app.hk.bank.locator.core.location.launcher.setting
 
+import android.content.Context
 import androidx.activity.compose.LocalActivityResultRegistryOwner
 import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.ActivityResultRegistryOwner
@@ -11,15 +12,14 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.core.app.ActivityOptionsCompat
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import ch.app.hk.bank.locator.core.location.impl.helper.hardware.GpsHelper
 import ch.app.hk.bank.locator.testing.instrument.HiltComponentActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import io.mockk.every
+import io.kotest.matchers.shouldBe
 import io.mockk.mockk
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -74,14 +74,17 @@ class LocationSourceSettingsLauncherTest {
     }
 
     @Test
-    fun testLocationSourceSettingsResultContractParseResult() {
+    fun testLocationSourceSettingsCreateIntent() {
         val mockGpsHelper = mockk<GpsHelper>()
+        val context = ApplicationProvider.getApplicationContext<Context>().applicationContext
         val resultContract = LocationSourceSettingsResultContract(mockGpsHelper)
 
-        every { mockGpsHelper.isGpsEnabled() } returns true
-        assertTrue(resultContract.parseResult(0, null))
+        val intent =
+            resultContract.createIntent(
+                context = context,
+                input = Unit,
+            )
 
-        every { mockGpsHelper.isGpsEnabled() } returns false
-        assertFalse(resultContract.parseResult(0, null))
+        intent.action shouldBe android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS
     }
 }

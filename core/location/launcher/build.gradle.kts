@@ -29,10 +29,15 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.compose)
 
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotest.assertions.core)
+
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.test.espresso.intents)
     androidTestImplementation(libs.mockk.android)
+    androidTestImplementation(libs.kotest.assertions.core)
     androidTestImplementation(libs.androidx.compose.material)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
