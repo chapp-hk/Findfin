@@ -28,6 +28,7 @@ dependencies {
     implementation(projects.core.design.ui)
     implementation(projects.core.navigation)
     implementation(projects.core.location.impl)
+    implementation(projects.core.location.launcher)
     implementation(projects.feature.auth.data.repo)
     implementation(projects.feature.auth.data.remoteFirebase)
     implementation(projects.feature.home.domain)

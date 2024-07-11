@@ -1,7 +1,5 @@
 package ch.app.hk.bank.locator.feature.home.ui.container.view
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -9,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,6 +24,7 @@ import ch.app.hk.bank.locator.feature.home.ui.R
 import ch.app.hk.bank.locator.feature.home.ui.container.model.HomeItem
 import ch.app.hk.bank.locator.feature.home.ui.finding.view.Finding
 import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByError
+import ch.app.hk.bank.locator.feature.home.ui.nearby.view.NearByLocationDisabledComponent
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModel
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModelImpl
 
@@ -129,27 +127,7 @@ private fun HomeContainerList(
                 }
 
                 HomeItem.LocationDisabled -> {
-                    Column(
-                        modifier =
-                            Modifier
-                                .fillMaxSize()
-                                .wrapContentSize(Alignment.Center),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Text(
-                            text = "Location service disabled",
-                            color = MaterialTheme.colorScheme.error,
-                            style = MaterialTheme.typography.titleSmall,
-                        )
-
-                        OutlinedButton(
-                            modifier = Modifier.padding(top = 8.dp),
-                            onClick = { },
-                        ) {
-                            Text(text = "Go settings")
-                        }
-                    }
+                    NearByLocationDisabledComponent()
                 }
             }
         }
