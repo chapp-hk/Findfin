@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.com.android.library)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.app.android.common)
 }
 
@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.google.play.services.tasks)
+    implementation(libs.play.services.tasks)
     implementation(libs.mockk.android)
 
     testImplementation(libs.junit.jupiter)

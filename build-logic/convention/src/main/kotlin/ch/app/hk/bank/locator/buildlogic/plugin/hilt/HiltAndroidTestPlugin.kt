@@ -20,8 +20,8 @@ class HiltAndroidTestPlugin : Plugin<Project> {
             dependencies {
                 "debugImplementation"(project(mapOf("path" to ":testing:instrument")))
 
-                "androidTestImplementation"(libs.findLibrary("google-dagger-hilt-android-testing").get())
-                "kspAndroidTest"(libs.findLibrary("google-dagger-hilt-compiler").get())
+                "androidTestImplementation"(libs.findLibrary("dagger-hilt-android-testing").get())
+                "kspAndroidTest"(libs.findLibrary("dagger-hilt-compiler").get())
             }
         }
     }

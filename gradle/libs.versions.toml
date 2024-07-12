@@ -7,6 +7,7 @@ core-ktx = "1.13.1"
 hilt = "2.51.1"
 kermit = "2.0.4"
 kotlin = "2.0.0"
+kotlinPoet = "1.18.0"
 kotlinxCoroutines = "1.8.1"
 ktlint = "1.1.1"
 ktor = "2.3.12"
@@ -17,7 +18,7 @@ jacoco = "0.8.12"
 room = "2.6.1"
 
 [libraries]
-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version = "1.2.0-alpha01" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
@@ -29,7 +30,7 @@ androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 androidx-compose-material = { module = "androidx.compose.material3:material3", version = "1.2.1" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version = "1.1.1" }
-androidx-hilt-compose = { module = "androidx.hilt:hilt-navigation-compose", version = "1.2.0" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version = "1.2.0" }
 androidx-lifecycle-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "androidx-navigation" }
@@ -37,26 +38,27 @@ androidx-startup = { module = "androidx.startup:startup-runtime", version = "1.1
 androidx-test-runner = { module = "androidx.test:runner", version = "1.6.1" }
 androidx-test-core = { module = "androidx.test:core", version = "1.6.1" }
 androidx-test-espresso-intents = { module = "androidx.test.espresso:espresso-intents", version = "3.6.1" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+android-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version = "5.10.3" }
 kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version = "5.9.1" }
 #hilt
-google-dagger-hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
-google-dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-google-dagger-hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
-google-dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+dagger-hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
+dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+dagger-hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
+dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 #firebase
-google-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "33.1.1" }
-google-firebase-auth = { module = "com.google.firebase:firebase-auth" }
-google-play-services-base = { module = "com.google.android.gms:play-services-base", version = "18.5.0" }
-google-play-services-tasks = { module = "com.google.android.gms:play-services-tasks", version = "18.2.0" }
-google-play-services-location = { module = "com.google.android.gms:play-services-location", version = "21.3.0" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version = "33.1.1" }
+firebase-auth = { module = "com.google.firebase:firebase-auth" }
+play-services-base = { module = "com.google.android.gms:play-services-base", version = "18.5.0" }
+play-services-tasks = { module = "com.google.android.gms:play-services-tasks", version = "18.2.0" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version = "21.3.0" }
 #google maps
-com-google-maps-compose = { module = "com.google.maps.android:maps-compose", version = "6.0.0" }
+google-maps-compose = { module = "com.google.maps.android:maps-compose", version = "6.0.0" }
 #room
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-room-common = { module = "androidx.room:room-common", version.ref = "room" }
 #mockk
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
@@ -66,43 +68,48 @@ kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version = "1.8.1" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.1" }
 #ktor
-ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
-ktor-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
-ktor-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
-ktor-resources = { group = "io.ktor", name = "ktor-client-resources", version.ref = "ktor" }
-ktor-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
-ktor-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
-ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-resources = { group = "io.ktor", name = "ktor-client-resources", version.ref = "ktor" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 #turbine
-cash-app-turbine = { module = "app.cash.turbine:turbine", version = "1.1.0" }
+turbine = { module = "app.cash.turbine:turbine", version = "1.1.0" }
 #konsist
-lemon-app-dev-konsist = { module = "com.lemonappdev:konsist", version = "0.15.1" }
+konsist = { module = "com.lemonappdev:konsist", version = "0.15.1" }
 #lottie
-airbnb-lottie-compose = { module = "com.airbnb.android:lottie-compose", version = "6.4.1" }
+android-lottie-compose = { module = "com.airbnb.android:lottie-compose", version = "6.4.1" }
 #kermit
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kermit-test = { module = "co.touchlab:kermit-test", version.ref = "kermit" }
 #mapstruct
 mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapStruct" }
 mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapStruct" }
+#used in framework
+ksp-symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-api", version = "2.0.0-1.0.22" }
+kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
+kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinPoet" }
+kotlin-compile-testing-ksp = { module = "com.github.tschuchortdev:kotlin-compile-testing-ksp", version = "1.6.0" }
 #used in convention plugin
-android-gradlePlugin-api = { group = "com.android.tools.build", name = "gradle-api", version.ref = "agp" }
-org-jacoco-core = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
-org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-ktlint-gradle = { module = "org.jlleitschuh.gradle:ktlint-gradle", version = "12.1.0" }
-detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version = "1.23.6" }
-ksp-gradle = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "2.0.0-1.0.22" }
+android-gradle-plugin-api-plugin = { group = "com.android.tools.build", name = "gradle-api", version.ref = "agp" }
+jacoco-core-plugin = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+ktlint-gradle-plugin = { module = "org.jlleitschuh.gradle:ktlint-gradle", version = "12.1.0" }
+detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version = "1.23.6" }
+ksp-gradle-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "2.0.0-1.0.22" }
 
 [plugins]
-com-android-application = { id = "com.android.application", version.ref = "agp" }
-com-android-library = { id = "com.android.library", version.ref = "agp" }
-org-jetbrains-kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.51.1" }
-com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "2.0.0-1.0.22" }
-com-google-gms-services = { id = "com.google.gms.google-services", version = "4.4.2" }
-com-google-secrets = { id  = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version = "2.0.1" }
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.51.1" }
+ksp = { id = "com.google.devtools.ksp", version = "2.0.0-1.0.22" }
+google-gms-services = { id = "com.google.gms.google-services", version = "4.4.2" }
+google-secrets = { id  = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version = "2.0.1" }
 
 #convention plugins
 app-ktlint = { id = "app.plugin.ktlint", version = "unspecified" }

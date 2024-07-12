@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.com.android.library)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.app.android.common)
     alias(libs.plugins.app.hilt.android)
 }
@@ -20,6 +20,6 @@ dependencies {
 
     androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.kotest.assertions.core)
-    androidTestImplementation(libs.cash.app.turbine)
+    androidTestImplementation(libs.turbine)
     androidTestImplementation(libs.androidx.test.runner)
 }

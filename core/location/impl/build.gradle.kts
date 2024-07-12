@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.com.android.library)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.app.android.common)
     alias(libs.plugins.app.hilt.android)
 }
@@ -15,8 +15,8 @@ android {
 
 dependencies {
     implementation(libs.androidx.appcompat)
-    implementation(libs.google.play.services.base)
-    implementation(libs.google.play.services.location)
+    implementation(libs.play.services.base)
+    implementation(libs.play.services.location)
     implementation(libs.kotlinx.coroutines.play.services)
     implementation(projects.core.threading)
     implementation(projects.core.location.api)

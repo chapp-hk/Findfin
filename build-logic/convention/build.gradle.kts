@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `java-gradle-plugin`
-    alias(libs.plugins.org.jetbrains.kotlin.jvm)
+    alias(libs.plugins.kotlin.jvm)
 }
 
 group = "ch.app.hk.bank.locator.buildlogic"
@@ -22,13 +22,13 @@ tasks.withType<KotlinCompile>().configureEach {
 }
 
 dependencies {
-    compileOnly(libs.android.gradlePlugin.api)
-    compileOnly(libs.org.jetbrains.kotlin.gradle.plugin)
-    compileOnly(libs.ksp.gradle)
+    compileOnly(libs.android.gradle.plugin.api.plugin)
+    compileOnly(libs.kotlin.gradle.plugin)
+    compileOnly(libs.ksp.gradle.plugin)
     implementation(gradleKotlinDsl())
-    implementation(libs.ktlint.gradle)
-    implementation(libs.detekt.gradle)
-    implementation(libs.org.jacoco.core)
+    implementation(libs.ktlint.gradle.plugin)
+    implementation(libs.detekt.gradle.plugin)
+    implementation(libs.jacoco.core.plugin)
 }
 
 gradlePlugin {

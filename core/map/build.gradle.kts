@@ -1,9 +1,9 @@
 plugins {
-    alias(libs.plugins.com.android.library)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.app.android.common)
     alias(libs.plugins.app.compose)
-    alias(libs.plugins.com.google.secrets)
+    alias(libs.plugins.google.secrets)
 }
 
 android {
@@ -22,7 +22,7 @@ android {
 dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
-    implementation(libs.com.google.maps.compose)
+    implementation(libs.google.maps.compose)
 }
 
 secrets {

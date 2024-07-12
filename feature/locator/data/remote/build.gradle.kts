@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.org.jetbrains.kotlin.jvm)
+    alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.app.jvm)
     alias(libs.plugins.app.hilt.jvm)
     kotlin("plugin.serialization") version libs.versions.kotlin
@@ -10,15 +10,15 @@ dependencies {
     implementation(projects.core.threading)
     implementation(projects.core.logging.api)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.ktor.core)
-    implementation(libs.ktor.serialization.json)
-    implementation(libs.ktor.resources)
-    implementation(libs.ktor.android)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.client.resources)
+    implementation(libs.ktor.client.android)
 
     testImplementation(projects.testing.util)
     testImplementation(libs.junit.jupiter)
-    testImplementation(libs.ktor.mock)
-    testImplementation(libs.ktor.logging)
+    testImplementation(libs.ktor.client.mock)
+    testImplementation(libs.ktor.client.logging)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.mockk)

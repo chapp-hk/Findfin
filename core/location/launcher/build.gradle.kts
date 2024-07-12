@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.com.android.library)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.app.android.common)
     alias(libs.plugins.app.compose)
     alias(libs.plugins.app.hilt.android)
@@ -27,7 +27,7 @@ dependencies {
     implementation(projects.core.location.impl)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.hilt.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.mockk)
