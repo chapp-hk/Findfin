@@ -13,8 +13,8 @@ class HiltJvmPlugin : Plugin<Project> {
             }
 
             dependencies {
-                "implementation"(libs.findLibrary("google-dagger-hilt-core").get())
-                "ksp"(libs.findLibrary("google-dagger-hilt-compiler").get())
+                "implementation"(libs.findLibrary("dagger-hilt-core").get())
+                "ksp"(libs.findLibrary("dagger-hilt-compiler").get())
 
                 "implementation"(project(":framework:hiltext:annotation"))
                 "ksp"(project(":framework:hiltext:processor-binds"))

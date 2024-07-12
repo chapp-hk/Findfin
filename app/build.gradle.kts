@@ -1,10 +1,10 @@
 plugins {
-    alias(libs.plugins.com.android.application)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.app.android.common)
     alias(libs.plugins.app.compose)
     alias(libs.plugins.app.hilt.android)
-    alias(libs.plugins.com.google.gms.services)
+    alias(libs.plugins.google.gms.services)
 }
 
 android {
@@ -39,8 +39,8 @@ dependencies {
     implementation(projects.core.logging.api)
     implementation(projects.core.logging.startup)
 
-    implementation(libs.core.ktx)
-    implementation(libs.material)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.android.material)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.activity.compose)

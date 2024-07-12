@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.org.jetbrains.kotlin.jvm)
+    alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.app.jvm)
 }
 
@@ -10,5 +10,5 @@ dependencies {
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.cash.app.turbine)
+    testImplementation(libs.turbine)
 }

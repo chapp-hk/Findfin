@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.com.android.library)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.app.android.common)
     alias(libs.plugins.app.hilt.android)
     alias(libs.plugins.app.hilt.android.test)
@@ -17,8 +17,8 @@ android {
 dependencies {
     implementation(projects.core.threading)
     implementation(projects.feature.auth.data.remote)
-    implementation(platform(libs.google.firebase.bom))
-    implementation(libs.google.firebase.auth)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
     implementation(libs.kotlinx.coroutines.play.services)
 
     testImplementation(libs.junit.jupiter)
