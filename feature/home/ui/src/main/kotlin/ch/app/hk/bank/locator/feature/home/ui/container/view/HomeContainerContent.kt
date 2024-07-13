@@ -46,6 +46,8 @@ internal fun HomeContainerContent(
             HomeContainerList(
                 items = itemList + HomeItem.NearByLoading,
                 onSearch = onSearch,
+                onLocationServiceEnabled = {
+                },
             )
         },
         error = { error ->
@@ -56,6 +58,8 @@ internal fun HomeContainerContent(
                     HomeContainerList(
                         items = itemList + HomeItem.LocationDisabled,
                         onSearch = onSearch,
+                        onLocationServiceEnabled = {
+                        },
                     )
                 NearByError.UNKNOWN_ERROR -> TODO()
             }
@@ -71,6 +75,7 @@ internal fun HomeContainerContent(
 private fun HomeContainerList(
     items: List<HomeItem>,
     onSearch: (String) -> Unit,
+    onLocationServiceEnabled: () -> Unit,
 ) {
     LazyColumn {
         itemsIndexed(
@@ -127,7 +132,9 @@ private fun HomeContainerList(
                 }
 
                 HomeItem.LocationDisabled -> {
-                    NearByLocationDisabledComponent()
+                    NearByLocationDisabledComponent(
+                        onLocationServiceEnabled = onLocationServiceEnabled,
+                    )
                 }
             }
         }
