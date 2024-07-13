@@ -15,9 +15,12 @@ import androidx.compose.ui.unit.dp
 import ch.app.hk.bank.locator.core.location.launcher.setting.rememberLocationSourceSettingsLauncher
 
 @Composable
-internal fun NearByLocationDisabledComponent() {
+internal fun NearByLocationDisabledComponent(onLocationServiceEnabled: () -> Unit) {
     val launcher =
-        rememberLocationSourceSettingsLauncher {
+        rememberLocationSourceSettingsLauncher { isLocationEnabled ->
+            if (isLocationEnabled) {
+                onLocationServiceEnabled()
+            }
         }
 
     Column(
