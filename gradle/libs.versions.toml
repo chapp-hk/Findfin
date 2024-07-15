@@ -1,7 +1,7 @@
 [versions]
 activity-compose = "1.9.0"
-agp = "8.5.0"
-androidx-navigation = "2.8.0-beta04"
+agp = "8.5.1"
+androidx-navigation = "2.8.0-beta05"
 appcompat = "1.7.0"
 core-ktx = "1.13.1"
 hilt = "2.51.1"
@@ -47,13 +47,13 @@ dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", vers
 dagger-hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 #firebase
-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "33.1.1" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version = "33.1.2" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
 play-services-base = { module = "com.google.android.gms:play-services-base", version = "18.5.0" }
 play-services-tasks = { module = "com.google.android.gms:play-services-tasks", version = "18.2.0" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version = "21.3.0" }
 #google maps
-google-maps-compose = { module = "com.google.maps.android:maps-compose", version = "6.0.0" }
+google-maps-compose = { module = "com.google.maps.android:maps-compose", version = "6.1.0" }
 #room
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
@@ -88,7 +88,7 @@ kermit-test = { module = "co.touchlab:kermit-test", version.ref = "kermit" }
 mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapStruct" }
 mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapStruct" }
 #used in framework
-ksp-symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-api", version = "2.0.0-1.0.22" }
+ksp-symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-api", version = "2.0.0-1.0.23" }
 kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
 kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinPoet" }
 kotlin-compile-testing-ksp = { module = "com.github.tschuchortdev:kotlin-compile-testing-ksp", version = "1.6.0" }
@@ -98,7 +98,7 @@ jacoco-core-plugin = { module = "org.jacoco:org.jacoco.core", version.ref = "jac
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 ktlint-gradle-plugin = { module = "org.jlleitschuh.gradle:ktlint-gradle", version = "12.1.0" }
 detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version = "1.23.6" }
-ksp-gradle-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "2.0.0-1.0.22" }
+ksp-gradle-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "2.0.0-1.0.23" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -107,7 +107,7 @@ kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.51.1" }
-ksp = { id = "com.google.devtools.ksp", version = "2.0.0-1.0.22" }
+ksp = { id = "com.google.devtools.ksp", version = "2.0.0-1.0.23" }
 google-gms-services = { id = "com.google.gms.google-services", version = "4.4.2" }
 google-secrets = { id  = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version = "2.0.1" }
 
