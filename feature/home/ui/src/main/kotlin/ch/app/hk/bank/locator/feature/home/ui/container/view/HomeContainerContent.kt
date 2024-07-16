@@ -52,16 +52,23 @@ internal fun HomeContainerContent(
         },
         error = { error ->
             when (error.reason) {
-                NearByError.PERMISSION_NOT_GRANTED -> TODO()
-                NearByError.GPS_NOT_SUPPORTED -> TODO()
+                NearByError.PERMISSION_NOT_GRANTED -> {
+                    // TODO - implementation
+                }
+                NearByError.GPS_NOT_SUPPORTED -> {
+                    // TODO - implementation
+                }
                 NearByError.GPS_IS_OFF ->
                     HomeContainerList(
                         items = itemList + HomeItem.LocationDisabled,
                         onSearch = onSearch,
                         onLocationServiceEnabled = {
+                            nearByViewModel.getNearByServices()
                         },
                     )
-                NearByError.UNKNOWN_ERROR -> TODO()
+                NearByError.UNKNOWN_ERROR -> {
+                    // TODO - implementation
+                }
             }
         },
         empty = {
