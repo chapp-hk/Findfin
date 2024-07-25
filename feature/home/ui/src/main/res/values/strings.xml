@@ -8,6 +8,7 @@
     <string name="home_content_description_avatar">Avatar</string>
     <string name="home_content_description_search">Search bar</string>
     <string name="home_content_description_finding">Finding section</string>
+    <string name="home_content_description_location_disabled">Location disabled</string>
     <string name="home_label_greeting">Hello</string>
     <string name="home_label_login_register">Login / Register</string>
     <string name="home_placeholder_search">Search for Bank or ATM</string>

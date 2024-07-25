@@ -25,7 +25,10 @@ import ch.app.hk.bank.locator.core.location.launcher.setting.rememberLocationSou
 import ch.app.hk.bank.locator.feature.home.ui.R
 
 @Composable
-internal fun NearByLocationDisabledResult(onLocationServiceEnabled: () -> Unit) {
+internal fun NearByLocationDisabledResult(
+    modifier: Modifier = Modifier,
+    onLocationServiceEnabled: () -> Unit,
+) {
     val launcher =
         rememberLocationSourceSettingsLauncher { isLocationEnabled ->
             if (isLocationEnabled) {
@@ -33,14 +36,20 @@ internal fun NearByLocationDisabledResult(onLocationServiceEnabled: () -> Unit) 
             }
         }
 
-    NearByLocationDisabled(onActionButtonClick = { launcher.launch(Unit) })
+    NearByLocationDisabled(
+        modifier = modifier,
+        onActionButtonClick = { launcher.launch(Unit) },
+    )
 }
 
 @Composable
-private fun NearByLocationDisabled(onActionButtonClick: () -> Unit) {
+private fun NearByLocationDisabled(
+    modifier: Modifier = Modifier,
+    onActionButtonClick: () -> Unit,
+) {
     Column(
         modifier =
-            Modifier
+            modifier
                 .fillMaxSize()
                 .wrapContentSize(Alignment.Center),
         verticalArrangement = Arrangement.Center,

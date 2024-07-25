@@ -54,4 +54,24 @@ class HomeContainerContentTest {
             .onNodeWithContentDescription(getResourceString(R.string.home_content_description_finding))
             .assertIsDisplayed()
     }
+
+    @Test
+    fun homeContainerContent_displaysNearByLocationDisabledResult() {
+        // Set up the mock function
+        every { nearByViewModel.uiState } returns
+            MutableStateFlow(ScreenState.Error(NearByUiState.Error(NearByError.GPS_IS_OFF)))
+
+        // Start the HomeContainerContent composable
+        composeTestRule.setContent {
+            HomeContainerContent(
+                nearByViewModel = nearByViewModel,
+                onSearch = {},
+            )
+        }
+
+        // Check if NearByLocationDisabledResult is displayed
+        composeTestRule
+            .onNodeWithContentDescription(getResourceString(R.string.home_content_description_location_disabled))
+            .assertIsDisplayed()
+    }
 }
