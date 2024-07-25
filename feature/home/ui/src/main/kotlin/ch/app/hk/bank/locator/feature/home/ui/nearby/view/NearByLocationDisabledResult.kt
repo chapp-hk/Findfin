@@ -1,5 +1,7 @@
 package ch.app.hk.bank.locator.feature.home.ui.nearby.view
 
+import android.content.res.Configuration
+import android.graphics.Color
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,7 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.location.launcher.setting.rememberLocationSourceSettingsLauncher
 import ch.app.hk.bank.locator.feature.home.ui.R
 
@@ -29,6 +33,11 @@ internal fun NearByLocationDisabledResult(onLocationServiceEnabled: () -> Unit) 
             }
         }
 
+    NearByLocationDisabled(onActionButtonClick = { launcher.launch(Unit) })
+}
+
+@Composable
+private fun NearByLocationDisabled(onActionButtonClick: () -> Unit) {
     Column(
         modifier =
             Modifier
@@ -59,9 +68,26 @@ internal fun NearByLocationDisabledResult(onLocationServiceEnabled: () -> Unit) 
 
         OutlinedButton(
             modifier = Modifier.padding(top = 16.dp),
-            onClick = { launcher.launch(Unit) },
+            onClick = onActionButtonClick,
         ) {
             Text(text = "Go settings")
         }
+    }
+}
+
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    showBackground = true,
+    backgroundColor = Color.WHITE.toLong(),
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    backgroundColor = Color.BLACK.toLong(),
+)
+@Composable
+private fun NearByLocationDisabledPreview() {
+    AppContent {
+        NearByLocationDisabled(onActionButtonClick = {})
     }
 }
