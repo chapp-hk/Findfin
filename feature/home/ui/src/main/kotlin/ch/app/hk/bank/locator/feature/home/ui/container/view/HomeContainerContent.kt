@@ -139,7 +139,10 @@ private fun HomeContainerList(
                 }
 
                 HomeItem.LocationDisabled -> {
+                    val contentDescription = stringResource(id = R.string.home_content_description_location_disabled)
+
                     NearByLocationDisabledResult(
+                        modifier = Modifier.semantics { this.contentDescription = contentDescription },
                         onLocationServiceEnabled = onLocationServiceEnabled,
                     )
                 }
