@@ -37,7 +37,7 @@ internal fun HomeContainerContent(
         listOf(
             HomeItem.Search,
             HomeItem.Finding,
-            HomeItem.StickyHeader("Near by services"),
+            HomeItem.StickyHeader(stringResource(id = R.string.home_title_nearby_services)),
         )
 
     ScreenStateView(
@@ -127,7 +127,7 @@ private fun HomeContainerList(
                 }
 
                 HomeItem.NearByLoading -> {
-                    val loadingContentDescription = "Loading"
+                    val loadingContentDescription = stringResource(id = R.string.home_content_description_loading)
 
                     CircularProgressIndicator(
                         modifier =

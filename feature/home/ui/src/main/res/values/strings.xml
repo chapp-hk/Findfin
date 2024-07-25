@@ -8,11 +8,16 @@
     <string name="home_content_description_avatar">Avatar</string>
     <string name="home_content_description_search">Search bar</string>
     <string name="home_content_description_finding">Finding section</string>
+    <string name="home_content_description_loading">Loading</string>
     <string name="home_content_description_location_disabled">Location disabled</string>
+
     <string name="home_label_greeting">Hello</string>
     <string name="home_label_login_register">Login / Register</string>
     <string name="home_placeholder_search">Search for Bank or ATM</string>
     <string name="home_title_finding">Your perfect finding ways</string>
     <string name="home_label_find_your_bank">Find your bank</string>
     <string name="home_label_find_bank_or_atms">Find Bank/ATMs</string>
+    <string name="home_title_nearby_services">"Near by services"</string>
+    <string name="home_label_nearby_location_disabled">Please enable device location service to find nearby services</string>
+    <string name="home_button_location_settings">Location settings</string>
 </resources>
