@@ -21,7 +21,7 @@ import ch.app.hk.bank.locator.core.location.launcher.setting.rememberLocationSou
 import ch.app.hk.bank.locator.feature.home.ui.R
 
 @Composable
-internal fun NearByLocationDisabledComponent(onLocationServiceEnabled: () -> Unit) {
+internal fun NearByLocationDisabledResult(onLocationServiceEnabled: () -> Unit) {
     val launcher =
         rememberLocationSourceSettingsLauncher { isLocationEnabled ->
             if (isLocationEnabled) {

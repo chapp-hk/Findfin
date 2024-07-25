@@ -24,7 +24,7 @@ import ch.app.hk.bank.locator.feature.home.ui.R
 import ch.app.hk.bank.locator.feature.home.ui.container.model.HomeItem
 import ch.app.hk.bank.locator.feature.home.ui.finding.view.Finding
 import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByError
-import ch.app.hk.bank.locator.feature.home.ui.nearby.view.NearByLocationDisabledComponent
+import ch.app.hk.bank.locator.feature.home.ui.nearby.view.NearByLocationDisabledResult
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModel
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModelImpl
 
@@ -139,7 +139,7 @@ private fun HomeContainerList(
                 }
 
                 HomeItem.LocationDisabled -> {
-                    NearByLocationDisabledComponent(
+                    NearByLocationDisabledResult(
                         onLocationServiceEnabled = onLocationServiceEnabled,
                     )
                 }
