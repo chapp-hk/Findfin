@@ -15,5 +15,6 @@ android {
 
 dependencies {
     implementation(libs.androidx.test.runner)
+    implementation(libs.androidx.activity.compose)
     implementation("com.google.dagger:hilt-android-testing:2.51.1")
 }
