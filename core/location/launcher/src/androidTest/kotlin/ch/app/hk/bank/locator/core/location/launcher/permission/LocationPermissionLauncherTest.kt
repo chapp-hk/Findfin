@@ -4,20 +4,17 @@ import android.content.Context
 import android.net.Uri
 import android.provider.Settings
 import androidx.activity.compose.LocalActivityResultRegistryOwner
-import androidx.activity.result.ActivityResultRegistry
-import androidx.activity.result.ActivityResultRegistryOwner
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.core.app.ActivityOptionsCompat
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import ch.app.hk.bank.locator.core.location.impl.helper.permission.PermissionHelper
 import ch.app.hk.bank.locator.testing.instrument.HiltComponentActivity
+import ch.app.hk.bank.locator.testing.instrument.mockActivityResult
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.kotest.matchers.shouldBe
@@ -43,22 +40,9 @@ class LocationPermissionLauncherTest {
 
     @Test
     fun testLocationPermissionIntentStarted() {
-        composeTestRule.setContent {
-            val registryOwner =
-                object : ActivityResultRegistryOwner {
-                    override val activityResultRegistry: ActivityResultRegistry =
-                        object : ActivityResultRegistry() {
-                            override fun <I, O> onLaunch(
-                                requestCode: Int,
-                                contract: ActivityResultContract<I, O>,
-                                input: I,
-                                options: ActivityOptionsCompat?,
-                            ) {
-                                dispatchResult(0, true)
-                            }
-                        }
-                }
+        val registryOwner = mockActivityResult(true)
 
+        composeTestRule.setContent {
             CompositionLocalProvider(LocalActivityResultRegistryOwner provides registryOwner) {
                 val launcher = rememberLocationPermissionLauncher { }
 

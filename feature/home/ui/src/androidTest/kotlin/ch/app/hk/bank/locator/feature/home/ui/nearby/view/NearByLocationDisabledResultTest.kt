@@ -1,17 +1,14 @@
 package ch.app.hk.bank.locator.feature.home.ui.nearby.view
 
 import androidx.activity.compose.LocalActivityResultRegistryOwner
-import androidx.activity.result.ActivityResultRegistry
-import androidx.activity.result.ActivityResultRegistryOwner
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.core.app.ActivityOptionsCompat
 import ch.app.hk.bank.locator.feature.home.ui.R
 import ch.app.hk.bank.locator.testing.instrument.HiltComponentActivity
 import ch.app.hk.bank.locator.testing.instrument.getResourceString
+import ch.app.hk.bank.locator.testing.instrument.mockActivityResult
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.Called
@@ -33,20 +30,7 @@ class NearByLocationDisabledResultTest {
 
     @Test
     fun clickActionButton_ShouldInvoke_OnLocationServiceEnabled() {
-        val registryOwner =
-            object : ActivityResultRegistryOwner {
-                override val activityResultRegistry: ActivityResultRegistry =
-                    object : ActivityResultRegistry() {
-                        override fun <I, O> onLaunch(
-                            requestCode: Int,
-                            contract: ActivityResultContract<I, O>,
-                            input: I,
-                            options: ActivityOptionsCompat?,
-                        ) {
-                            dispatchResult(requestCode, true)
-                        }
-                    }
-            }
+        val registryOwner = mockActivityResult(true)
 
         val onLocationServiceEnabled = mockk<() -> Unit>()
         every { onLocationServiceEnabled() } just Runs
@@ -66,21 +50,7 @@ class NearByLocationDisabledResultTest {
 
     @Test
     fun clickActionButton_ShouldNotInvoke_OnLocationServiceEnabled() {
-        val registryOwner =
-            object : ActivityResultRegistryOwner {
-                override val activityResultRegistry: ActivityResultRegistry =
-                    object : ActivityResultRegistry() {
-                        override fun <I, O> onLaunch(
-                            requestCode: Int,
-                            contract: ActivityResultContract<I, O>,
-                            input: I,
-                            options: ActivityOptionsCompat?,
-                        ) {
-                            dispatchResult(requestCode, false)
-                        }
-                    }
-            }
-
+        val registryOwner = mockActivityResult(false)
         val onLocationServiceEnabled = mockk<() -> Unit>()
 
         composeTestRule.setContent {
