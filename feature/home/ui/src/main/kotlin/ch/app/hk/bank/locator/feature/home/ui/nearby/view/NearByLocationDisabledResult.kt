@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -69,7 +70,7 @@ private fun NearByLocationDisabled(
                     end = 32.dp,
                     top = 24.dp,
                 ),
-            text = "Please enable device location service to find nearby services",
+            text = stringResource(id = R.string.home_label_nearby_location_disabled),
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.outline,
             textAlign = TextAlign.Center,
@@ -79,7 +80,7 @@ private fun NearByLocationDisabled(
             modifier = Modifier.padding(top = 16.dp),
             onClick = onActionButtonClick,
         ) {
-            Text(text = "Go settings")
+            Text(text = stringResource(id = R.string.home_button_location_settings))
         }
     }
 }

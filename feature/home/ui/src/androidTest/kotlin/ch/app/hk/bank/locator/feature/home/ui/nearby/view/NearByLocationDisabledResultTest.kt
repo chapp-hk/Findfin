@@ -9,7 +9,9 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.core.app.ActivityOptionsCompat
+import ch.app.hk.bank.locator.feature.home.ui.R
 import ch.app.hk.bank.locator.testing.instrument.HiltComponentActivity
+import ch.app.hk.bank.locator.testing.instrument.getResourceString
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.Called
@@ -56,7 +58,7 @@ class NearByLocationDisabledResultTest {
         }
 
         composeTestRule
-            .onNodeWithText("Go settings")
+            .onNodeWithText(getResourceString(R.string.home_button_location_settings))
             .performClick()
 
         verify { onLocationServiceEnabled() }
@@ -88,7 +90,7 @@ class NearByLocationDisabledResultTest {
         }
 
         composeTestRule
-            .onNodeWithText("Go settings")
+            .onNodeWithText(getResourceString(R.string.home_button_location_settings))
             .performClick()
 
         verify { onLocationServiceEnabled wasNot Called }
