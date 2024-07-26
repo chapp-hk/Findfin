@@ -12,13 +12,11 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import ch.app.hk.bank.locator.core.location.impl.helper.permission.PermissionHelper
+import ch.app.hk.bank.locator.testing.instrument.ActivityResultTestRule
 import ch.app.hk.bank.locator.testing.instrument.HiltComponentActivity
-import ch.app.hk.bank.locator.testing.instrument.mockActivityResult
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.kotest.matchers.shouldBe
-import io.mockk.mockk
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -27,11 +25,16 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
 class LocationPermissionLauncherTest {
+    private val context = ApplicationProvider.getApplicationContext<Context>()
+
     @get:Rule(order = 0)
     val hiltTestRule = HiltAndroidRule(this)
 
     @get:Rule(order = 1)
     val composeTestRule = createAndroidComposeRule<HiltComponentActivity>()
+
+    @get:Rule(order = 2)
+    val activityResultTestRule = ActivityResultTestRule(context)
 
     @Before
     fun setUp() {
@@ -40,7 +43,7 @@ class LocationPermissionLauncherTest {
 
     @Test
     fun testLocationPermissionIntentStarted() {
-        val registryOwner = mockActivityResult(true)
+        val registryOwner = activityResultTestRule.registryOwner(mockedActivityResult = true)
 
         composeTestRule.setContent {
             CompositionLocalProvider(LocalActivityResultRegistryOwner provides registryOwner) {
@@ -57,21 +60,10 @@ class LocationPermissionLauncherTest {
         }
 
         composeTestRule.onNodeWithText("launch").performClick()
-    }
 
-    @Test
-    fun testLocationPermissionCreateIntent() {
-        val mockPermissionHelper = mockk<PermissionHelper>()
-        val context = ApplicationProvider.getApplicationContext<Context>().applicationContext
-        val resultContract = LocationPermissionResultContract(mockPermissionHelper)
-
-        val intent =
-            resultContract.createIntent(
-                context = context,
-                input = Unit,
-            )
-
-        intent.action shouldBe Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-        intent.data shouldBe Uri.fromParts("package", context.packageName, null)
+        activityResultTestRule.launchedIntent.let {
+            it!!.action shouldBe Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+            it.data shouldBe Uri.fromParts("package", context.packageName, null)
+        }
     }
 }
