@@ -78,26 +78,13 @@ internal fun SelectLanguageContent(
     backgroundColor = android.graphics.Color.WHITE.toLong(),
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
-@Composable
-private fun SelectLanguageContentPreviewDay(
-    @PreviewParameter(AvailableLanguagesParameterProvider::class)
-    availableLanguages: List<SelectLanguageUiModel>,
-) {
-    AppContent {
-        SelectLanguageContent(
-            availableLanguages = availableLanguages,
-            onLanguageSelect = {},
-        )
-    }
-}
-
 @Preview(
     showBackground = true,
     backgroundColor = android.graphics.Color.BLACK.toLong(),
     uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
-private fun SelectLanguageContentPreviewNight(
+private fun SelectLanguageContentPreview(
     @PreviewParameter(AvailableLanguagesParameterProvider::class)
     availableLanguages: List<SelectLanguageUiModel>,
 ) {

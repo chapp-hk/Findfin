@@ -109,19 +109,9 @@ internal fun AuthLoginForm(
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Composable
-private fun AuthRegisterFormPreviewDayMode() {
-    AppContent {
-        AuthLoginForm(
-            emailState = rememberAppTextFieldState(),
-            passwordState = rememberAppTextFieldState(),
-        )
-    }
-}
-
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun AuthRegisterFormPreviewNightMode() {
+private fun AuthRegisterFormPreview() {
     AppContent {
         AuthLoginForm(
             emailState = rememberAppTextFieldState(),

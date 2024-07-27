@@ -53,22 +53,13 @@ fun AppTextField(
     showBackground = true,
     backgroundColor = Color.WHITE.toLong(),
 )
-@Composable
-private fun AppTextFieldPreviewDayMode(
-    @PreviewParameter(AppTextFieldPreviewParameterProvider::class) state: AppTextFieldState,
-) {
-    AppContent {
-        AppTextField(state = state)
-    }
-}
-
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     showBackground = true,
     backgroundColor = Color.BLACK.toLong(),
 )
 @Composable
-private fun AppTextFieldPreviewNightMode(
+private fun AppTextFieldPreview(
     @PreviewParameter(AppTextFieldPreviewParameterProvider::class) state: AppTextFieldState,
 ) {
     AppContent {
