@@ -105,20 +105,13 @@ private fun RequestLocationPermissionContentHeader() {
     backgroundColor = android.graphics.Color.WHITE.toLong(),
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
-@Composable
-private fun RequestLocationPermissionContentPreviewDay() {
-    AppContent {
-        RequestLocationPermissionController {}
-    }
-}
-
 @Preview(
     showBackground = true,
     backgroundColor = android.graphics.Color.BLACK.toLong(),
     uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
-private fun RequestLocationPermissionContentPreviewNight() {
+private fun RequestLocationPermissionContentPreview() {
     AppContent {
         RequestLocationPermissionController {}
     }

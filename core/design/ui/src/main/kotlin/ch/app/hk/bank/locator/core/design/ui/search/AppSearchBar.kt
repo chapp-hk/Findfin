@@ -68,20 +68,13 @@ fun AppSearchBar(
     showBackground = true,
     backgroundColor = Color.WHITE.toLong(),
 )
-@Composable
-private fun PasswordTextFieldPreviewDayMode() {
-    AppContent {
-        AppSearchBar()
-    }
-}
-
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     showBackground = true,
     backgroundColor = Color.BLACK.toLong(),
 )
 @Composable
-private fun PasswordTextFieldPreviewNightMode() {
+private fun PasswordTextFieldPreview() {
     AppContent {
         AppSearchBar()
     }

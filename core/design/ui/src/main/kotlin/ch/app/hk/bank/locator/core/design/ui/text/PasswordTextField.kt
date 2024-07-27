@@ -67,20 +67,13 @@ fun PasswordTextField(
     showBackground = true,
     backgroundColor = Color.WHITE.toLong(),
 )
-@Composable
-private fun PasswordTextFieldPreviewDayMode() {
-    AppContent {
-        PasswordTextField()
-    }
-}
-
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     showBackground = true,
     backgroundColor = Color.BLACK.toLong(),
 )
 @Composable
-private fun PasswordTextFieldPreviewNightMode() {
+private fun PasswordTextFieldPreview() {
     AppContent {
         PasswordTextField()
     }

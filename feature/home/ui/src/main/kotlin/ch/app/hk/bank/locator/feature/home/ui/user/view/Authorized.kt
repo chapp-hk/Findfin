@@ -62,27 +62,13 @@ internal fun Authorized(
     showBackground = true,
     backgroundColor = Color.WHITE.toLong(),
 )
-@Composable
-private fun GuestPreviewDayMode() {
-    AppContent {
-        Authorized(
-            user =
-                UserModel(
-                    displayName = "authorized user",
-                    email = "test@register.com",
-                    isEmailVerified = false,
-                ),
-        )
-    }
-}
-
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     showBackground = true,
     backgroundColor = Color.BLACK.toLong(),
 )
 @Composable
-private fun GuestPreviewNightMode() {
+private fun GuestPreview() {
     AppContent {
         Authorized(
             user =

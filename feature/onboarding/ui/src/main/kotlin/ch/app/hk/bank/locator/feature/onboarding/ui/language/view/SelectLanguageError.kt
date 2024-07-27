@@ -52,20 +52,13 @@ internal fun SelectLanguageError(
     backgroundColor = Color.WHITE.toLong(),
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
-@Composable
-private fun SelectLanguageErrorPreviewDay() {
-    AppContent {
-        SelectLanguageError(onRetry = {})
-    }
-}
-
 @Preview(
     showBackground = true,
     backgroundColor = Color.BLACK.toLong(),
     uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
-private fun SelectLanguageErrorPreviewNight() {
+private fun SelectLanguageErrorPreview() {
     AppContent {
         SelectLanguageError(onRetry = {})
     }

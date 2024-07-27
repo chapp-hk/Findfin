@@ -112,20 +112,13 @@ private fun ButtonWithImageAndTitle(
     showBackground = true,
     backgroundColor = Color.WHITE.toLong(),
 )
-@Composable
-private fun FindingPreviewDayMode() {
-    AppContent {
-        Finding()
-    }
-}
-
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     showBackground = true,
     backgroundColor = Color.BLACK.toLong(),
 )
 @Composable
-private fun FindingPreviewNightMode() {
+private fun FindingPreview() {
     AppContent {
         Finding()
     }

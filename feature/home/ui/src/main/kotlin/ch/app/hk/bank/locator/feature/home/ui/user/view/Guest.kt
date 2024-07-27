@@ -56,20 +56,13 @@ internal fun Guest(
     showBackground = true,
     backgroundColor = Color.WHITE.toLong(),
 )
-@Composable
-private fun GuestPreviewDayMode() {
-    AppContent {
-        Guest {}
-    }
-}
-
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     showBackground = true,
     backgroundColor = Color.BLACK.toLong(),
 )
 @Composable
-private fun GuestPreviewNightMode() {
+private fun GuestPreview() {
     AppContent {
         Guest {}
     }
