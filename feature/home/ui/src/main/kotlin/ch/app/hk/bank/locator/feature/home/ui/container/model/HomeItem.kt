@@ -10,4 +10,6 @@ sealed interface HomeItem {
     data object NearByLoading : HomeItem
 
     data object LocationDisabled : HomeItem
+
+    data object LocationPermissionDenied : HomeItem
 }
