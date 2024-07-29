@@ -24,6 +24,7 @@ import ch.app.hk.bank.locator.feature.home.ui.R
 import ch.app.hk.bank.locator.feature.home.ui.container.model.HomeItem
 import ch.app.hk.bank.locator.feature.home.ui.finding.view.Finding
 import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByError
+import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationPermissionDeniedResult
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.NearByLocationDisabledResult
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModel
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModelImpl
@@ -53,7 +54,13 @@ internal fun HomeContainerContent(
         error = { error ->
             when (error.reason) {
                 NearByError.PERMISSION_NOT_GRANTED -> {
-                    // TODO - implementation
+                    HomeContainerList(
+                        items = itemList + HomeItem.LocationPermissionDenied,
+                        onSearch = onSearch,
+                        onLocationServiceEnabled = {
+                            nearByViewModel.getNearByServices()
+                        },
+                    )
                 }
                 NearByError.GPS_NOT_SUPPORTED -> {
                     // TODO - implementation
@@ -144,6 +151,15 @@ private fun HomeContainerList(
                     NearByLocationDisabledResult(
                         modifier = Modifier.semantics { this.contentDescription = contentDescription },
                         onLocationServiceEnabled = onLocationServiceEnabled,
+                    )
+                }
+
+                HomeItem.LocationPermissionDenied -> {
+                    val contentDescription = stringResource(id = R.string.home_content_description_location_permission_denied)
+
+                    LocationPermissionDeniedResult(
+                        modifier = Modifier.semantics { this.contentDescription = contentDescription },
+                        onPermissionGranted = onLocationServiceEnabled,
                     )
                 }
             }

@@ -74,4 +74,24 @@ class HomeContainerContentTest {
             .onNodeWithContentDescription(getResourceString(R.string.home_content_description_location_disabled))
             .assertIsDisplayed()
     }
+
+    @Test
+    fun homeContainerContent_displaysLocationPermissionDeniedResult() {
+        // Set up the mock function
+        every { nearByViewModel.uiState } returns
+            MutableStateFlow(ScreenState.Error(NearByUiState.Error(NearByError.PERMISSION_NOT_GRANTED)))
+
+        // Start the HomeContainerContent composable
+        composeTestRule.setContent {
+            HomeContainerContent(
+                nearByViewModel = nearByViewModel,
+                onSearch = {},
+            )
+        }
+
+        // Check if LocationPermissionDeniedResult is displayed
+        composeTestRule
+            .onNodeWithContentDescription(getResourceString(R.string.home_content_description_location_permission_denied))
+            .assertIsDisplayed()
+    }
 }
