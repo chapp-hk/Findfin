@@ -22,7 +22,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @HiltAndroidTest
-class NearByLocationDisabledResultTest {
+class LocationDisabledResultTest {
     @get:Rule(order = 0)
     val hiltTestRule = HiltAndroidRule(this)
 
@@ -41,7 +41,7 @@ class NearByLocationDisabledResultTest {
 
         composeTestRule.setContent {
             CompositionLocalProvider(LocalActivityResultRegistryOwner provides registryOwner) {
-                NearByLocationDisabledResult(onLocationServiceEnabled = onLocationServiceEnabled)
+                LocationDisabledResult(onLocationServiceEnabled = onLocationServiceEnabled)
             }
         }
 
@@ -59,7 +59,7 @@ class NearByLocationDisabledResultTest {
 
         composeTestRule.setContent {
             CompositionLocalProvider(LocalActivityResultRegistryOwner provides registryOwner) {
-                NearByLocationDisabledResult(onLocationServiceEnabled = onLocationServiceEnabled)
+                LocationDisabledResult(onLocationServiceEnabled = onLocationServiceEnabled)
             }
         }
 

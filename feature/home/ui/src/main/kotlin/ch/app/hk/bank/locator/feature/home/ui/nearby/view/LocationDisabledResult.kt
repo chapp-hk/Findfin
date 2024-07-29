@@ -14,7 +14,7 @@ import ch.app.hk.bank.locator.core.location.launcher.setting.rememberLocationSou
 import ch.app.hk.bank.locator.feature.home.ui.R
 
 @Composable
-internal fun NearByLocationDisabledResult(
+internal fun LocationDisabledResult(
     modifier: Modifier = Modifier,
     onLocationServiceEnabled: () -> Unit,
 ) {
@@ -25,14 +25,14 @@ internal fun NearByLocationDisabledResult(
             }
         }
 
-    NearByLocationDisabled(
+    LocationDisabled(
         modifier = modifier,
         onActionButtonClick = { launcher.launch(Unit) },
     )
 }
 
 @Composable
-private fun NearByLocationDisabled(
+private fun LocationDisabled(
     modifier: Modifier = Modifier,
     onActionButtonClick: () -> Unit,
 ) = ResultLayout(
@@ -56,6 +56,6 @@ private fun NearByLocationDisabled(
 @Composable
 private fun NearByLocationDisabledPreview() {
     AppContent {
-        NearByLocationDisabled(onActionButtonClick = {})
+        LocationDisabled(onActionButtonClick = {})
     }
 }
