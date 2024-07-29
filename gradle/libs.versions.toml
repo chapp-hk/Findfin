@@ -1,7 +1,7 @@
 [versions]
-activity-compose = "1.9.0"
+activity-compose = "1.9.1"
 agp = "8.5.1"
-androidx-navigation = "2.8.0-beta05"
+androidx-navigation = "2.8.0-beta06"
 appcompat = "1.7.0"
 core-ktx = "1.13.1"
 hilt = "2.51.1"
@@ -53,7 +53,7 @@ play-services-base = { module = "com.google.android.gms:play-services-base", ver
 play-services-tasks = { module = "com.google.android.gms:play-services-tasks", version = "18.2.0" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version = "21.3.0" }
 #google maps
-google-maps-compose = { module = "com.google.maps.android:maps-compose", version = "6.1.0" }
+google-maps-compose = { module = "com.google.maps.android:maps-compose", version = "6.1.1" }
 #room
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
