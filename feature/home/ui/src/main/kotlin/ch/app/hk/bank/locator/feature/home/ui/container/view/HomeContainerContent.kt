@@ -24,8 +24,8 @@ import ch.app.hk.bank.locator.feature.home.ui.R
 import ch.app.hk.bank.locator.feature.home.ui.container.model.HomeItem
 import ch.app.hk.bank.locator.feature.home.ui.finding.view.Finding
 import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByError
+import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationDisabledResult
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationPermissionDeniedResult
-import ch.app.hk.bank.locator.feature.home.ui.nearby.view.NearByLocationDisabledResult
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModel
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModelImpl
 
@@ -47,7 +47,7 @@ internal fun HomeContainerContent(
             HomeContainerList(
                 items = itemList + HomeItem.NearByLoading,
                 onSearch = onSearch,
-                onLocationServiceEnabled = {
+                onLocationEnabled = {
                 },
             )
         },
@@ -57,7 +57,7 @@ internal fun HomeContainerContent(
                     HomeContainerList(
                         items = itemList + HomeItem.LocationPermissionDenied,
                         onSearch = onSearch,
-                        onLocationServiceEnabled = {
+                        onLocationEnabled = {
                             nearByViewModel.getNearByServices()
                         },
                     )
@@ -69,7 +69,7 @@ internal fun HomeContainerContent(
                     HomeContainerList(
                         items = itemList + HomeItem.LocationDisabled,
                         onSearch = onSearch,
-                        onLocationServiceEnabled = {
+                        onLocationEnabled = {
                             nearByViewModel.getNearByServices()
                         },
                     )
@@ -89,7 +89,7 @@ internal fun HomeContainerContent(
 private fun HomeContainerList(
     items: List<HomeItem>,
     onSearch: (String) -> Unit,
-    onLocationServiceEnabled: () -> Unit,
+    onLocationEnabled: () -> Unit,
 ) {
     LazyColumn {
         itemsIndexed(
@@ -148,9 +148,9 @@ private fun HomeContainerList(
                 HomeItem.LocationDisabled -> {
                     val contentDescription = stringResource(id = R.string.home_content_description_location_disabled)
 
-                    NearByLocationDisabledResult(
+                    LocationDisabledResult(
                         modifier = Modifier.semantics { this.contentDescription = contentDescription },
-                        onLocationServiceEnabled = onLocationServiceEnabled,
+                        onLocationServiceEnabled = onLocationEnabled,
                     )
                 }
 
@@ -159,7 +159,7 @@ private fun HomeContainerList(
 
                     LocationPermissionDeniedResult(
                         modifier = Modifier.semantics { this.contentDescription = contentDescription },
-                        onPermissionGranted = onLocationServiceEnabled,
+                        onPermissionGranted = onLocationEnabled,
                     )
                 }
             }
