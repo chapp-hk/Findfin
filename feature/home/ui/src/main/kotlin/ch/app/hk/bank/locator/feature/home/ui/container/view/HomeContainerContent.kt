@@ -24,6 +24,7 @@ import ch.app.hk.bank.locator.feature.home.ui.R
 import ch.app.hk.bank.locator.feature.home.ui.container.model.HomeItem
 import ch.app.hk.bank.locator.feature.home.ui.finding.view.Finding
 import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByError
+import ch.app.hk.bank.locator.feature.home.ui.nearby.view.DeviceNoGpsResult
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationDisabledResult
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationPermissionDeniedResult
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModel
@@ -63,7 +64,13 @@ internal fun HomeContainerContent(
                     )
                 }
                 NearByError.GPS_NOT_SUPPORTED -> {
-                    // TODO - implementation
+                    HomeContainerList(
+                        items = itemList + HomeItem.NoGps,
+                        onSearch = onSearch,
+                        onLocationEnabled = {
+                            nearByViewModel.getNearByServices()
+                        },
+                    )
                 }
                 NearByError.GPS_IS_OFF ->
                     HomeContainerList(
@@ -143,6 +150,10 @@ private fun HomeContainerList(
                                 .fillMaxSize()
                                 .wrapContentSize(Alignment.Center),
                     )
+                }
+
+                HomeItem.NoGps -> {
+                    DeviceNoGpsResult()
                 }
 
                 HomeItem.LocationDisabled -> {

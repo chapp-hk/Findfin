@@ -3,6 +3,7 @@ package ch.app.hk.bank.locator.feature.home.ui.container.view
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithText
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.home.ui.R
 import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByError
@@ -92,6 +93,26 @@ class HomeContainerContentTest {
         // Check if LocationPermissionDeniedResult is displayed
         composeTestRule
             .onNodeWithContentDescription(getResourceString(R.string.home_content_description_location_permission_denied))
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun homeContainerContent_displaysDeviceNoGpsResult() {
+        // Set up the mock function
+        every { nearByViewModel.uiState } returns
+            MutableStateFlow(ScreenState.Error(NearByUiState.Error(NearByError.GPS_NOT_SUPPORTED)))
+
+        // Start the HomeContainerContent composable
+        composeTestRule.setContent {
+            HomeContainerContent(
+                nearByViewModel = nearByViewModel,
+                onSearch = {},
+            )
+        }
+
+        // Check if NearByNoGpsResult is displayed
+        composeTestRule
+            .onNodeWithText(getResourceString(R.string.home_label_nearby_device_no_gps))
             .assertIsDisplayed()
     }
 }
