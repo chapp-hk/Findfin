@@ -15,7 +15,7 @@ updates:
     schedule:
       interval: "weekly"
     registries: "*"
-    labels: [ "gradle-version" ]
+    labels: [ "dependencies" ]
     groups:
       actions-deps:
         patterns:
