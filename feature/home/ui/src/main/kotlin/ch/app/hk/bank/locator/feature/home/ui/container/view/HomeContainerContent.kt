@@ -153,9 +153,7 @@ private fun HomeContainerList(
                     )
                 }
 
-                HomeItem.NoGps -> {
-                    DeviceNoGpsResult()
-                }
+                HomeItem.NoGps -> DeviceNoGpsResult()
 
                 HomeItem.LocationDisabled -> {
                     val contentDescription =
