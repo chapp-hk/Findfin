@@ -22,37 +22,34 @@ fun ResultLayout(
     modifier: Modifier = Modifier,
     icon: ImageVector,
     message: String,
-    buttonText: String,
-    onActionButtonClick: () -> Unit,
+    buttonText: String? = null,
+    onActionButtonClick: (() -> Unit)? = null,
+) = Column(
+    modifier = modifier.fillMaxSize().wrapContentSize(Alignment.Center),
+    verticalArrangement = Arrangement.Center,
+    horizontalAlignment = Alignment.CenterHorizontally,
 ) {
-    Column(
+    Icon(
+        modifier = Modifier.size(60.dp),
+        imageVector = icon,
+        tint = MaterialTheme.colorScheme.outline,
+        contentDescription = "",
+    )
+
+    Text(
         modifier =
-            modifier
-                .fillMaxSize()
-                .wrapContentSize(Alignment.Center),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Icon(
-            modifier = Modifier.size(60.dp),
-            imageVector = icon,
-            tint = MaterialTheme.colorScheme.outline,
-            contentDescription = "",
-        )
+            Modifier.padding(
+                start = 32.dp,
+                end = 32.dp,
+                top = 24.dp,
+            ),
+        text = message,
+        style = MaterialTheme.typography.labelMedium,
+        color = MaterialTheme.colorScheme.outline,
+        textAlign = TextAlign.Center,
+    )
 
-        Text(
-            modifier =
-                Modifier.padding(
-                    start = 32.dp,
-                    end = 32.dp,
-                    top = 24.dp,
-                ),
-            text = message,
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.outline,
-            textAlign = TextAlign.Center,
-        )
-
+    if (buttonText != null && onActionButtonClick != null) {
         OutlinedButton(
             modifier = Modifier.padding(top = 16.dp),
             onClick = onActionButtonClick,
