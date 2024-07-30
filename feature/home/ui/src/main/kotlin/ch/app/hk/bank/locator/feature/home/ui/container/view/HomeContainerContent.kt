@@ -166,7 +166,8 @@ private fun HomeContainerList(
                 }
 
                 HomeItem.LocationPermissionDenied -> {
-                    val contentDescription = stringResource(id = R.string.home_content_description_location_permission_denied)
+                    val contentDescription =
+                        stringResource(id = R.string.home_content_description_location_permission_denied)
 
                     LocationPermissionDeniedResult(
                         modifier = Modifier.semantics { this.contentDescription = contentDescription },
