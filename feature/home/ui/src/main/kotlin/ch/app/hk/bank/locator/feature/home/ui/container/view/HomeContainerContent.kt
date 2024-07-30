@@ -81,7 +81,7 @@ internal fun HomeContainerContent(
                         },
                     )
                 NearByError.UNKNOWN_ERROR -> {
-                    // TODO - implementation
+                    // TODO - implementation here
                 }
             }
         },
