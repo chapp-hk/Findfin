@@ -141,7 +141,8 @@ private fun HomeContainerList(
                 }
 
                 HomeItem.NearByLoading -> {
-                    val loadingContentDescription = stringResource(id = R.string.home_content_description_loading)
+                    val loadingContentDescription =
+                        stringResource(id = R.string.home_content_description_loading)
 
                     CircularProgressIndicator(
                         modifier =
@@ -157,7 +158,8 @@ private fun HomeContainerList(
                 }
 
                 HomeItem.LocationDisabled -> {
-                    val contentDescription = stringResource(id = R.string.home_content_description_location_disabled)
+                    val contentDescription =
+                        stringResource(id = R.string.home_content_description_location_disabled)
 
                     LocationDisabledResult(
                         modifier = Modifier.semantics { this.contentDescription = contentDescription },
