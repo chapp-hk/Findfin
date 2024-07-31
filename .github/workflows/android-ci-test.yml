@@ -2,6 +2,9 @@ name: android ci test
 
 on:
   workflow_call:
+    secrets:
+      GOOGLE_SERVICE_JSON_DEBUG:
+        required: true
 
 jobs:
   test:
