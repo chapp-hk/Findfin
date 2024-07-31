@@ -8,5 +8,5 @@ jacoco unified coverage report
 
 gradle managed device test
 ```shell
-./gradlew pixel2api30DebugAndroidTest
+./gradlew pixel8api34DebugAndroidTest
 ```
