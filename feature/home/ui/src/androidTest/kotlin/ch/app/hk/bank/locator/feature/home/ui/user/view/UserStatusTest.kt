@@ -2,6 +2,7 @@ package ch.app.hk.bank.locator.feature.home.ui.user.view
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
@@ -33,6 +34,22 @@ class UserStatusTest {
     @Before
     fun setup() {
         hiltTestRule.inject()
+    }
+
+    @Test
+    fun testLoadingDisplayed() {
+        every { userViewModel.uiState } returns
+            MutableStateFlow(ScreenState.Loading)
+
+        composeTestRule.setContent {
+            AppContent {
+                UserStatus(userViewModel = userViewModel) {}
+            }
+        }
+
+        composeTestRule
+            .onNodeWithContentDescription(getResourceString(R.string.home_content_description_loading))
+            .assertIsDisplayed()
     }
 
     @Test
