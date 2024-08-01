@@ -67,6 +67,13 @@ internal fun HomeContainerContent(
             }
         },
         empty = {
+            HomeContainerList(
+                items = itemList + HomeItem.Empty,
+                onSearch = onSearch,
+                onLocationEnabled = {
+                    nearByViewModel.getNearByServices()
+                },
+            )
         },
         success = { data ->
         },

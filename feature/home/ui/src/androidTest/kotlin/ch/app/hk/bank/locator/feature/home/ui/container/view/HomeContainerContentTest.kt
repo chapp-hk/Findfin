@@ -57,6 +57,26 @@ class HomeContainerContentTest {
     }
 
     @Test
+    fun homeContainerContent_displaysLoadingIndicator() {
+        // Set up the mock function
+        every { nearByViewModel.uiState } returns
+            MutableStateFlow(ScreenState.Loading)
+
+        // Start the HomeContainerContent composable
+        composeTestRule.setContent {
+            HomeContainerContent(
+                nearByViewModel = nearByViewModel,
+                onSearch = {},
+            )
+        }
+
+        // Check if AppSearchBar and Finding are displayed
+        composeTestRule
+            .onNodeWithContentDescription(getResourceString(R.string.home_content_description_loading))
+            .assertIsDisplayed()
+    }
+
+    @Test
     fun homeContainerContent_displaysNearByLocationDisabledResult() {
         // Set up the mock function
         every { nearByViewModel.uiState } returns
@@ -113,6 +133,26 @@ class HomeContainerContentTest {
         // Check if NearByNoGpsResult is displayed
         composeTestRule
             .onNodeWithText(getResourceString(R.string.home_label_nearby_device_no_gps))
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun homeContainerContent_displaysEmptyResult() {
+        // Set up the mock function
+        every { nearByViewModel.uiState } returns
+            MutableStateFlow(ScreenState.Empty)
+
+        // Start the HomeContainerContent composable
+        composeTestRule.setContent {
+            HomeContainerContent(
+                nearByViewModel = nearByViewModel,
+                onSearch = {},
+            )
+        }
+
+        // Check if EmptyResult is displayed
+        composeTestRule
+            .onNodeWithText(getResourceString(R.string.home_label_nearby_no_services))
             .assertIsDisplayed()
     }
 }

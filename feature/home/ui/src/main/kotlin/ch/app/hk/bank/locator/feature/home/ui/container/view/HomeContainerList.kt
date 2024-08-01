@@ -21,6 +21,7 @@ import ch.app.hk.bank.locator.feature.home.ui.R
 import ch.app.hk.bank.locator.feature.home.ui.container.model.HomeItem
 import ch.app.hk.bank.locator.feature.home.ui.finding.view.Finding
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.DeviceNoGpsResult
+import ch.app.hk.bank.locator.feature.home.ui.nearby.view.EmptyResult
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationDisabledResult
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationPermissionDeniedResult
 
@@ -105,6 +106,10 @@ internal fun HomeContainerList(
                         modifier = Modifier.semantics { this.contentDescription = contentDescription },
                         onPermissionGranted = onLocationEnabled,
                     )
+                }
+
+                HomeItem.Empty -> {
+                    EmptyResult()
                 }
             }
         }

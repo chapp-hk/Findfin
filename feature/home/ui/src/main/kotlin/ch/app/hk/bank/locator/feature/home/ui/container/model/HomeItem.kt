@@ -14,4 +14,6 @@ sealed interface HomeItem {
     data object LocationDisabled : HomeItem
 
     data object LocationPermissionDenied : HomeItem
+
+    data object Empty : HomeItem
 }

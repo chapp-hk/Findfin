@@ -45,15 +45,19 @@ class NearByViewModelImpl @Inject constructor(
                     _uiState.emit(ScreenState.Error(NearByUiState.Error(NearByError.UNKNOWN_ERROR)))
 
                 is NearByResult.Location -> {
-                    val itemList =
-                        result.list.map {
-                            NearByItemUiModel(
-                                name = it.bankName,
-                                address = it.address,
-                                isFavourite = false,
-                            )
-                        }
-                    _uiState.emit(ScreenState.Success(NearByUiState.Service(itemList)))
+                    if (result.list.isEmpty()) {
+                        _uiState.emit(ScreenState.Empty)
+                    } else {
+                        val itemList =
+                            result.list.map {
+                                NearByItemUiModel(
+                                    name = it.bankName,
+                                    address = it.address,
+                                    isFavourite = false,
+                                )
+                            }
+                        _uiState.emit(ScreenState.Success(NearByUiState.Service(itemList)))
+                    }
                 }
             }
         }
