@@ -27,6 +27,6 @@ internal class UserViewModelImpl @Inject constructor(
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
-            initialValue = ScreenState.Empty,
+            initialValue = ScreenState.Loading,
         )
 }

@@ -17,6 +17,9 @@ internal fun UserStatus(
 ) {
     ScreenStateView(
         state = userViewModel.uiState.collectAsStateWithLifecycle(),
+        loading = {
+            Loading()
+        },
         success = { uiState ->
             when (uiState) {
                 is UserUiState.Authorized -> {

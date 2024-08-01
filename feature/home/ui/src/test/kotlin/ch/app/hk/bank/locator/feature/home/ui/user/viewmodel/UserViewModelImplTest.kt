@@ -39,7 +39,7 @@ class UserViewModelImplTest {
         val userViewModel = createUserViewModel()
 
         userViewModel.uiState.test {
-            awaitItem() shouldBe ScreenState.Empty
+            awaitItem() shouldBe ScreenState.Loading
             awaitItem() shouldBe ScreenState.Success(expectedResult)
             cancelAndIgnoreRemainingEvents()
         }
