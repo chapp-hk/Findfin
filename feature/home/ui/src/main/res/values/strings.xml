@@ -24,4 +24,5 @@
     <string name="home_label_nearby_location_permission_denied">Please grant location permission to find nearby services</string>
     <string name="home_button_app_settings">App settings</string>
     <string name="home_label_nearby_device_no_gps">Your device don\'t have GPS supported</string>
+    <string name="home_label_nearby_no_services">No services found</string>
 </resources>
