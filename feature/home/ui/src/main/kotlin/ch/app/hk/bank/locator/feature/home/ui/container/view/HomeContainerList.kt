@@ -24,6 +24,7 @@ import ch.app.hk.bank.locator.feature.home.ui.nearby.view.DeviceNoGpsResult
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.EmptyResult
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationDisabledResult
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationPermissionDeniedResult
+import ch.app.hk.bank.locator.feature.home.ui.nearby.view.ServiceItem
 
 @Composable
 internal fun HomeContainerList(
@@ -110,6 +111,12 @@ internal fun HomeContainerList(
 
                 HomeItem.Empty -> {
                     EmptyResult()
+                }
+
+                is HomeItem.Services -> {
+                    item.list.forEach { service ->
+                        ServiceItem(service = service)
+                    }
                 }
             }
         }
