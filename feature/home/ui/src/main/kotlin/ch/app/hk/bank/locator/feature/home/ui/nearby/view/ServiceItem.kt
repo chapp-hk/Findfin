@@ -1,21 +1,66 @@
 package ch.app.hk.bank.locator.feature.home.ui.nearby.view
 
+import android.content.res.Configuration
+import android.graphics.Color
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByItemUiModel
 
 @Composable
 internal fun ServiceItem(service: NearByItemUiModel) {
-    Card(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+    Column(
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .border(
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.outlineVariant,
+                    shape = RoundedCornerShape(10.dp),
+                )
+                .padding(horizontal = 16.dp, vertical = 8.dp),
     ) {
         Text(
-            modifier = Modifier.padding(16.dp),
-            text = "${service.name} - ${service.address}",
+            text = service.name,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+
+        Text(
+            text = service.address,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+    }
+}
+
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    showBackground = true,
+    backgroundColor = Color.WHITE.toLong(),
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    backgroundColor = Color.BLACK.toLong(),
+)
+@Composable
+private fun ServiceItemPreview() {
+    AppContent {
+        ServiceItem(
+            NearByItemUiModel(
+                name = "Bank of China",
+                address = "1/F, Bank of China Tower, 1 Garden Road, Central, Hong Kong",
+                isFavourite = false,
+            ),
         )
     }
 }
