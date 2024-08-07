@@ -1,12 +1,15 @@
 package ch.app.hk.bank.locator.feature.home.ui.container.view
 
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.home.ui.R
 import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByError
+import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByItemUiModel
 import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByUiState
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModel
 import ch.app.hk.bank.locator.testing.instrument.HiltComponentActivity
@@ -154,5 +157,26 @@ class HomeContainerContentTest {
         composeTestRule
             .onNodeWithText(getResourceString(R.string.home_label_nearby_no_services))
             .assertIsDisplayed()
+    }
+
+    @Test
+    fun homeContainerContent_displaysServiceItems() {
+        // Set up the mock function
+        val mockList = (1..10).map { mockk<NearByItemUiModel>(relaxed = true) }
+        every { nearByViewModel.uiState } returns
+            MutableStateFlow(ScreenState.Success(NearByUiState.Service(mockList)))
+
+        // Start the HomeContainerContent composable
+        composeTestRule.setContent {
+            HomeContainerContent(
+                nearByViewModel = nearByViewModel,
+                onSearch = {},
+            )
+        }
+
+        // Check if service list is displayed
+        composeTestRule
+            .onAllNodesWithContentDescription(getResourceString(R.string.home_content_description_nearby_service))
+            .assertCountEquals(10)
     }
 }

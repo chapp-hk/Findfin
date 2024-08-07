@@ -11,6 +11,7 @@
     <string name="home_content_description_loading">Loading</string>
     <string name="home_content_description_location_disabled">Location disabled</string>
     <string name="home_content_description_location_permission_denied">Location permission denied</string>
+    <string name="home_content_description_nearby_service">Nearby service</string>
 
     <string name="home_label_greeting">Hello</string>
     <string name="home_label_login_register">Login / Register</string>
