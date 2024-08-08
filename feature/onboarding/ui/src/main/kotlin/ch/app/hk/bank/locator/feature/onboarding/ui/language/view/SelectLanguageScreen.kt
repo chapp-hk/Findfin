@@ -14,12 +14,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ch.app.hk.bank.locator.core.design.ui.ScreenStateView
+import ch.app.hk.bank.locator.core.design.ui.modifier.contentDescription
 import ch.app.hk.bank.locator.feature.onboarding.ui.R
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.viewmodel.SelectLanguageViewModel
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.viewmodel.SelectLanguageViewModelImpl
@@ -87,7 +86,7 @@ private fun SelectLanguageScreenStateView(
             CircularProgressIndicator(
                 modifier =
                     Modifier
-                        .semantics { contentDescription = loadingContentDescription }
+                        .contentDescription(loadingContentDescription)
                         .fillMaxSize()
                         .wrapContentSize(Alignment.Center),
             )

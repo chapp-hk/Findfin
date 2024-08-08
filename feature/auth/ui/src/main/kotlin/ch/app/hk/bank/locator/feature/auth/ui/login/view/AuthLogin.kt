@@ -15,11 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ch.app.hk.bank.locator.core.design.ui.ScreenStateView
+import ch.app.hk.bank.locator.core.design.ui.modifier.contentDescription
 import ch.app.hk.bank.locator.core.design.ui.text.rememberAppTextFieldState
 import ch.app.hk.bank.locator.feature.auth.ui.R
 import ch.app.hk.bank.locator.feature.auth.ui.login.state.LoginError
@@ -63,7 +62,6 @@ fun AuthLogin(
     ScreenStateView(
         state = authLoginViewModel.uiState.collectAsStateWithLifecycle(),
         loading = {
-            val description = stringResource(id = R.string.auth_content_description_loading)
             CircularProgressIndicator(
                 modifier =
                     Modifier
@@ -72,7 +70,7 @@ fun AuthLogin(
                             indication = null,
                             onClick = {},
                         )
-                        .semantics { contentDescription = description }
+                        .contentDescription(stringResource(id = R.string.auth_content_description_loading))
                         .background(Color.Transparent)
                         .matchParentSize()
                         .wrapContentSize(Alignment.Center),
