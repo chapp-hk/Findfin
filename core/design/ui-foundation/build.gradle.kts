@@ -1,3 +1,5 @@
+import org.jetbrains.dokka.gradle.DokkaTaskPartial
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -5,6 +7,7 @@ plugins {
     alias(libs.plugins.app.compose)
     alias(libs.plugins.app.mapstruct)
     id("kotlin-parcelize")
+    id("org.jetbrains.dokka")
 }
 
 android {
@@ -23,4 +26,8 @@ dependencies {
 
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+}
+
+tasks.withType<DokkaTaskPartial>().configureEach {
+    moduleName = project.path
 }
