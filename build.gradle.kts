@@ -22,4 +22,6 @@ plugins {
     alias(libs.plugins.app.room.android) apply false
     alias(libs.plugins.app.mapstruct) apply false
     alias(libs.plugins.app.jacoco)
+
+    id("org.jetbrains.dokka") version "1.9.20"
 }
