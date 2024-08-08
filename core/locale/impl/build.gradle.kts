@@ -1,8 +1,12 @@
+import org.jetbrains.dokka.DokkaConfiguration
+import org.jetbrains.dokka.gradle.DokkaTaskPartial
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.app.android.common)
     alias(libs.plugins.app.hilt.android)
+    id("org.jetbrains.dokka")
 }
 
 android {
@@ -22,4 +26,13 @@ dependencies {
     testImplementation(libs.kotest.assertions.core)
 
     androidTestImplementation(libs.androidx.test.runner)
+}
+
+tasks.withType<DokkaTaskPartial>().configureEach {
+    moduleName = project.path
+    dokkaSourceSets {
+        configureEach {
+            documentedVisibilities.add(DokkaConfiguration.Visibility.INTERNAL)
+        }
+    }
 }
