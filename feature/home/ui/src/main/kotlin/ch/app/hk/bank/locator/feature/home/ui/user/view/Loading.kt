@@ -11,21 +11,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ch.app.hk.bank.locator.core.design.ui.loading.CirclePlaceHolder
 import ch.app.hk.bank.locator.core.design.ui.loading.RectanglePlaceHolder
+import ch.app.hk.bank.locator.core.design.ui.modifier.contentDescription
 import ch.app.hk.bank.locator.feature.home.ui.R
 
 @Composable
 internal fun Loading(modifier: Modifier = Modifier) {
-    val loadingContentDescription = stringResource(id = R.string.home_content_description_loading)
     Row(
         modifier =
             modifier
-                .semantics { contentDescription = loadingContentDescription }
+                .contentDescription(stringResource(id = R.string.home_content_description_loading))
                 .fillMaxWidth()
                 .padding(16.dp),
     ) {

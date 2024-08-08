@@ -12,9 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import ch.app.hk.bank.locator.core.design.ui.modifier.contentDescription
 import ch.app.hk.bank.locator.core.design.ui.search.AppSearchBar
 import ch.app.hk.bank.locator.core.design.ui.search.rememberAppSearchBarState
 import ch.app.hk.bank.locator.feature.home.ui.R
@@ -48,7 +47,7 @@ internal fun HomeContainerList(
                         stringResource(id = R.string.home_content_description_search)
 
                     AppSearchBar(
-                        modifier = Modifier.semantics { contentDescription = description },
+                        modifier = Modifier.contentDescription(description),
                         state = searchBarState,
                         onSearch = onSearch,
                     )
@@ -59,7 +58,7 @@ internal fun HomeContainerList(
                         stringResource(id = R.string.home_content_description_finding)
 
                     Finding(
-                        modifier = Modifier.semantics { contentDescription = description },
+                        modifier = Modifier.contentDescription(description),
                         onFindYourBank = {},
                         onFindBankOrAtms = {},
                     )
@@ -81,7 +80,7 @@ internal fun HomeContainerList(
                     CircularProgressIndicator(
                         modifier =
                             Modifier
-                                .semantics { contentDescription = loadingContentDescription }
+                                .contentDescription(loadingContentDescription)
                                 .fillMaxSize()
                                 .wrapContentSize(Alignment.Center),
                     )
@@ -94,7 +93,7 @@ internal fun HomeContainerList(
                         stringResource(id = R.string.home_content_description_location_disabled)
 
                     LocationDisabledResult(
-                        modifier = Modifier.semantics { this.contentDescription = contentDescription },
+                        modifier = Modifier.contentDescription(contentDescription),
                         onLocationServiceEnabled = onLocationEnabled,
                     )
                 }
@@ -104,7 +103,7 @@ internal fun HomeContainerList(
                         stringResource(id = R.string.home_content_description_location_permission_denied)
 
                     LocationPermissionDeniedResult(
-                        modifier = Modifier.semantics { this.contentDescription = contentDescription },
+                        modifier = Modifier.contentDescription(contentDescription),
                         onPermissionGranted = onLocationEnabled,
                     )
                 }

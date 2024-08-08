@@ -13,12 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.R
+import ch.app.hk.bank.locator.core.design.ui.modifier.contentDescription
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,10 +38,7 @@ fun AppSearchBar(
                 stringResource(id = R.string.core_ui_content_description_search_input_field)
 
             Text(
-                modifier =
-                    Modifier.semantics {
-                        contentDescription = inputFieldContentDescription
-                    },
+                modifier = Modifier.contentDescription(inputFieldContentDescription),
                 text = state.placeholder,
             )
         },

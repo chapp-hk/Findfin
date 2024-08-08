@@ -22,10 +22,10 @@ class ComposePlugin : Plugin<Project> {
 
                 dependencies {
                     val bom = libs.findLibrary("androidx-compose-bom").get()
-                    add("implementation", platform(bom))
-                    add("androidTestImplementation", platform(bom))
-                    add("debugImplementation", libs.findLibrary("androidx-compose-ui-tooling-preview").get())
-                    add("debugImplementation", libs.findLibrary("androidx-compose-ui-tooling").get())
+                    "implementation"(platform(bom))
+                    "androidTestImplementation"(platform(bom))
+                    "debugImplementation"(libs.findLibrary("androidx-compose-ui-tooling-preview").get())
+                    "debugImplementation"(libs.findLibrary("androidx-compose-ui-tooling").get())
                 }
             }
         }
