@@ -5,7 +5,6 @@ import com.android.build.api.variant.AndroidComponentsExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -25,8 +24,8 @@ class AndroidCommonPlugin : Plugin<Project> {
     }
 
     private fun configureVersion(extension: CommonExtension<*, *, *, *, *, *>) {
-        extension.compileSdk = 34
-        extension.buildToolsVersion = "34.0.0"
+        extension.compileSdk = 35
+        extension.buildToolsVersion = "35.0.0"
 
         extension.defaultConfig {
             minSdk = 24
