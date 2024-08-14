@@ -1,9 +1,9 @@
 package ch.app.hk.bank.locator.feature.auth.data.remote.firebase.service.user
 
-import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.auth.data.remote.user.datasource.UserRemoteDataSource
 import ch.app.hk.bank.locator.feature.auth.data.remote.user.response.UserResponse
+import ch.app.library.hiltext.annotation.HiltExtBindModule
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

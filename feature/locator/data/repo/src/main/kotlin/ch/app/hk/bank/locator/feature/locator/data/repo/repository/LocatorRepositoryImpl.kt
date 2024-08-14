@@ -1,6 +1,5 @@
 package ch.app.hk.bank.locator.feature.locator.data.repo.repository
 
-import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.feature.locator.data.local.datasource.LocatorLocalDataSource
 import ch.app.hk.bank.locator.feature.locator.data.remote.datasource.LocatorRemoteDataSource
 import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorResult
@@ -11,6 +10,7 @@ import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.toRemoteLocatorPa
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationBound
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorModel
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorType
+import ch.app.library.hiltext.annotation.HiltExtBindModule
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject
 

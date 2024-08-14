@@ -3,9 +3,9 @@ package ch.app.hk.bank.locator.core.locale.impl
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
-import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.locale.api.AppLocale
 import ch.app.hk.bank.locator.core.locale.api.AppLocaleRepository
+import ch.app.library.hiltext.annotation.HiltExtBindModule
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.Locale
 import javax.inject.Inject

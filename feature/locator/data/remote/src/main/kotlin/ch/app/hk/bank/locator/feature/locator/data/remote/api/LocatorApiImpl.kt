@@ -1,9 +1,9 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.api
 
-import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.network.HttpClientFactory
 import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorResponse
 import ch.app.hk.bank.locator.feature.locator.data.remote.model.Response
+import ch.app.library.hiltext.annotation.HiltExtBindModule
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
 import io.ktor.resources.Resource

@@ -1,12 +1,12 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.datasource
 
-import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.logging.appLogger
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorApi
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorApiError
 import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorResult
+import ch.app.library.hiltext.annotation.HiltExtBindModule
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

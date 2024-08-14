@@ -31,8 +31,8 @@ class RoomAndroidPlugin : Plugin<Project> {
                 "implementation"(libs.findLibrary("androidx.room.ktx").get())
                 "ksp"(libs.findLibrary("androidx.room.compiler").get())
 
-                "implementation"(project(":framework:hiltext:annotation"))
-                "ksp"(project(":framework:hiltext:processor-room"))
+                "implementation"(project(":library:hiltext:annotation"))
+                "ksp"(project(":library:hiltext:processor-room"))
             }
         }
     }

@@ -1,0 +1,42 @@
+package ch.app.library.hiltext.room
+
+import androidx.room.Dao
+import androidx.room.Database
+import androidx.room.Entity
+import androidx.room.Insert
+import androidx.room.RoomDatabase
+import ch.app.library.hiltext.annotation.HiltExtRoomDao
+import ch.app.library.hiltext.annotation.HiltExtRoomModule
+import dagger.hilt.DefineComponent
+import javax.inject.Singleton
+
+@Entity
+data class TestEntity1(val id: Int)
+@Dao
+interface TestDao1 {
+    @Insert fun insert(item: TestEntity1)
+}
+
+@Entity
+data class TestEntity2(val id: Int)
+@Dao
+interface TestDao2 {
+    @Insert fun insert(item: TestEntity2)
+}
+
+interface TestScope
+
+@Database(
+    entities = [
+        TestEntity1::class,
+        TestEntity2::class,
+    ],
+    version = 1,
+)
+@HiltExtRoomModule(
+    databaseName = "test_database",
+)
+internal abstract class TestScopeWithoutAnnotated : RoomDatabase() {
+    @HiltExtRoomDao(scope = TestScope::class) abstract fun testDao1(): TestDao1
+    @HiltExtRoomDao(scope = TestScope::class) abstract val testDao2: TestDao2
+}
