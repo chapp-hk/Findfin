@@ -87,7 +87,7 @@ kermit-test = { module = "co.touchlab:kermit-test", version.ref = "kermit" }
 #mapstruct
 mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapStruct" }
 mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapStruct" }
-#used in framework
+#used in library
 ksp-symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-api", version = "2.0.10-1.0.24" }
 kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
 kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinPoet" }

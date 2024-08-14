@@ -1,9 +1,9 @@
 package ch.app.hk.bank.locator.feature.auth.data.remote.firebase.service.login
 
-import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.auth.data.remote.login.datasource.LoginRemoteDataSource
 import ch.app.hk.bank.locator.feature.auth.data.remote.login.response.LoginResponse
+import ch.app.library.hiltext.annotation.HiltExtBindModule
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException

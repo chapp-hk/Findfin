@@ -2,9 +2,9 @@ package ch.app.hk.bank.locator.feature.locator.data.local.database.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import ch.app.framework.hiltext.annotation.HiltExtRoomDao
-import ch.app.framework.hiltext.annotation.HiltExtRoomModule
 import ch.app.hk.bank.locator.feature.locator.data.local.database.model.LocatorEntity
+import ch.app.library.hiltext.annotation.HiltExtRoomDao
+import ch.app.library.hiltext.annotation.HiltExtRoomModule
 
 @Database(
     version = 1,

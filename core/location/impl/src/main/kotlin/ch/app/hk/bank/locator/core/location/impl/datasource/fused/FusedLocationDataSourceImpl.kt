@@ -2,8 +2,8 @@ package ch.app.hk.bank.locator.core.location.impl.datasource.fused
 
 import android.location.Location
 import androidx.annotation.RequiresPermission
-import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
+import ch.app.library.hiltext.annotation.HiltExtBindModule
 import com.google.android.gms.location.CurrentLocationRequest
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Priority

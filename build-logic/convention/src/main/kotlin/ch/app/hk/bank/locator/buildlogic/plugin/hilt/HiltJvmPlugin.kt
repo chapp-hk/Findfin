@@ -16,8 +16,8 @@ class HiltJvmPlugin : Plugin<Project> {
                 "implementation"(libs.findLibrary("dagger-hilt-core").get())
                 "ksp"(libs.findLibrary("dagger-hilt-compiler").get())
 
-                "implementation"(project(":framework:hiltext:annotation"))
-                "ksp"(project(":framework:hiltext:processor-binds"))
+                "implementation"(project(":library:hiltext:annotation"))
+                "ksp"(project(":library:hiltext:processor-binds"))
             }
         }
     }

@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.auth.data.repo.auth.repository
 
-import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.preferences.api.AppPreferencesRepository
+import ch.app.library.hiltext.annotation.HiltExtBindModule
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 

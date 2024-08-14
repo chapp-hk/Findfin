@@ -6,9 +6,9 @@ import android.location.LocationListener
 import android.location.LocationManager
 import androidx.annotation.RequiresPermission
 import androidx.core.content.ContextCompat
-import ch.app.framework.hiltext.annotation.HiltExtBindModule
 import ch.app.hk.bank.locator.core.logging.appLogger
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
+import ch.app.library.hiltext.annotation.HiltExtBindModule
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.suspendCancellableCoroutine

@@ -62,11 +62,11 @@ include(":feature:home:domain")
 include(":feature:home:navigation")
 include(":feature:home:ui")
 
-// framework modules
-include(":framework:hiltext:annotation")
-include(":framework:hiltext:processor-binds")
-include(":framework:hiltext:processor-room")
-include(":framework:hiltext:util")
+// library modules
+include(":library:hiltext:annotation")
+include(":library:hiltext:processor-binds")
+include(":library:hiltext:processor-room")
+include(":library:hiltext:util")
 
 // lint modules
 include(":lint:konsist")
