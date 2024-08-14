@@ -80,4 +80,4 @@ jobs:
       - name: konsist check
         run: |
           echo "JACOCO_INSTRUMENT_TEST_TYPE=CONNECTED_DEVICE" >> ./local.properties
-          ./gradlew :framework:konsist:test
+          ./gradlew :lint:konsist:test

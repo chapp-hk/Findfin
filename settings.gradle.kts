@@ -67,7 +67,9 @@ include(":framework:hiltext:annotation")
 include(":framework:hiltext:processor-binds")
 include(":framework:hiltext:processor-room")
 include(":framework:hiltext:util")
-include(":framework:konsist")
+
+// lint modules
+include(":lint:konsist")
 
 // testing modules
 include(":testing:extension")

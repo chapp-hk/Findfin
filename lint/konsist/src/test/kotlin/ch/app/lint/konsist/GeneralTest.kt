@@ -1,4 +1,4 @@
-package ch.app.framework.konsist
+package ch.app.lint.konsist
 
 import com.lemonappdev.konsist.api.KoModifier
 import com.lemonappdev.konsist.api.Konsist

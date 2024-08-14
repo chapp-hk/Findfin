@@ -1,4 +1,4 @@
-package ch.app.framework.konsist
+package ch.app.lint.konsist
 
 import com.lemonappdev.konsist.api.Konsist
 import com.lemonappdev.konsist.api.ext.list.properties
