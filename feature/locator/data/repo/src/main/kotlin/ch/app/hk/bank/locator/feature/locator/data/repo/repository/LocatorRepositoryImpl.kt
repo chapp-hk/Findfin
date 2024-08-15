@@ -10,7 +10,7 @@ import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.toRemoteLocatorPa
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationBound
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorModel
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorType
-import ch.app.library.hiltext.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltExtBindModule
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject
 

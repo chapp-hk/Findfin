@@ -8,7 +8,7 @@ import androidx.annotation.RequiresPermission
 import androidx.core.content.ContextCompat
 import ch.app.hk.bank.locator.core.logging.appLogger
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
-import ch.app.library.hiltext.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltExtBindModule
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.suspendCancellableCoroutine

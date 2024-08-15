@@ -4,7 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
-import ch.app.library.hiltext.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltExtBindModule
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

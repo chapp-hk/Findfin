@@ -5,7 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import ch.app.hk.bank.locator.core.preferences.api.AppPreferencesRepository
-import ch.app.library.hiltext.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltExtBindModule
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

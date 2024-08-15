@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.core.location.impl.helper.gms
 
 import android.content.Context
-import ch.app.library.hiltext.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltExtBindModule
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import dagger.hilt.android.qualifiers.ApplicationContext

@@ -63,10 +63,10 @@ include(":feature:home:navigation")
 include(":feature:home:ui")
 
 // library modules
-include(":library:hiltext:annotation")
-include(":library:hiltext:processor-binds")
-include(":library:hiltext:processor-room")
-include(":library:hiltext:util")
+include(":library:hiltwrap:annotation")
+include(":library:hiltwrap:processor-binds")
+include(":library:hiltwrap:processor-room")
+include(":library:hiltwrap:util")
 
 // lint modules
 include(":lint:konsist")

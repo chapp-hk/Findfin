@@ -10,7 +10,7 @@ import ch.app.hk.bank.locator.core.location.impl.helper.gms.GmsCheckHelper
 import ch.app.hk.bank.locator.core.location.impl.helper.hardware.GpsHelper
 import ch.app.hk.bank.locator.core.location.impl.helper.permission.PermissionHelper
 import ch.app.hk.bank.locator.core.logging.appLogger
-import ch.app.library.hiltext.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltExtBindModule
 import javax.inject.Inject
 
 @HiltExtBindModule
