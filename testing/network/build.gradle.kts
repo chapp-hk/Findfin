@@ -8,6 +8,7 @@ dependencies {
     implementation(projects.testing.util)
     implementation(libs.ktor.client.mock)
     implementation(libs.ktor.client.logging)
+    implementation(libs.androidx.annotation)
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotlinx.coroutines.test)

@@ -1,5 +1,7 @@
 package ch.app.hk.bank.locator.testing.network
 
+import androidx.annotation.RestrictTo
+import androidx.annotation.RestrictTo.Scope
 import ch.app.hk.bank.locator.core.network.createKtor
 import ch.app.hk.bank.locator.testing.util.readResourceAsText
 import io.ktor.client.engine.mock.MockEngine
@@ -10,6 +12,7 @@ import io.ktor.http.Headers
 import io.ktor.http.HttpStatusCode
 import io.ktor.utils.io.ByteReadChannel
 
+@RestrictTo(Scope.TESTS)
 class MockKtor(
     baseUrl: String,
     contentFilePath: String,
