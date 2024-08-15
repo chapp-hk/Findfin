@@ -6,7 +6,7 @@ import ch.app.hk.bank.locator.feature.locator.data.local.database.model.LocatorM
 import ch.app.hk.bank.locator.feature.locator.data.local.database.room.LocatorDao
 import ch.app.hk.bank.locator.feature.locator.data.local.datasource.LocatorLocalDataSource
 import ch.app.hk.bank.locator.feature.locator.data.local.model.LocatorLocal
-import ch.app.library.hiltext.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltExtBindModule
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.mapstruct.factory.Mappers

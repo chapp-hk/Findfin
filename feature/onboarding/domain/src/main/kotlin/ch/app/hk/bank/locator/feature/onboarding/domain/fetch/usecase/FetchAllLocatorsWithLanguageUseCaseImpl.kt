@@ -5,7 +5,7 @@ import ch.app.hk.bank.locator.core.threading.DispatcherDefault
 import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.LocatorFetchResult
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorType
 import ch.app.hk.bank.locator.feature.locator.data.repo.repository.LocatorRepository
-import ch.app.library.hiltext.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltExtBindModule
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

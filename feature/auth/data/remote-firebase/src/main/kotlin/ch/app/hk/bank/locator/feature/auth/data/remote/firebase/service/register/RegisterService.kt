@@ -3,7 +3,7 @@ package ch.app.hk.bank.locator.feature.auth.data.remote.firebase.service.registe
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.auth.data.remote.register.datasource.RegisterRemoteDataSource
 import ch.app.hk.bank.locator.feature.auth.data.remote.register.response.RegisterResponse
-import ch.app.library.hiltext.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltExtBindModule
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import kotlinx.coroutines.CoroutineDispatcher

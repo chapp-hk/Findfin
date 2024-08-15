@@ -3,7 +3,7 @@ package ch.app.hk.bank.locator.feature.auth.data.repo.login.repository
 import ch.app.hk.bank.locator.feature.auth.data.remote.login.datasource.LoginRemoteDataSource
 import ch.app.hk.bank.locator.feature.auth.data.remote.login.response.LoginResponse
 import ch.app.hk.bank.locator.feature.auth.data.repo.login.model.LoginResult
-import ch.app.library.hiltext.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltExtBindModule
 import javax.inject.Inject
 
 @HiltExtBindModule
