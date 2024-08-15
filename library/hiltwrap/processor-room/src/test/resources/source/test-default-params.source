@@ -1,12 +1,12 @@
-package ch.app.library.hiltext.room
+package ch.app.library.hiltwrap.room
 
 import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.RoomDatabase
-import ch.app.library.hiltext.annotation.HiltExtRoomDao
-import ch.app.library.hiltext.annotation.HiltExtRoomModule
+import ch.app.library.hiltwrap.annotation.HiltWrapRoomDao
+import ch.app.library.hiltwrap.annotation.HiltWrapRoomModule
 
 @Entity
 data class TestEntity1(val id: Int)
@@ -29,8 +29,8 @@ interface TestDao2 {
     ],
     version = 1,
 )
-@HiltExtRoomModule(databaseName = "test_database")
+@HiltWrapRoomModule(databaseName = "test_database")
 internal abstract class TestDatabaseDefaultParameters : RoomDatabase() {
-    @HiltExtRoomDao abstract fun testDao1(): TestDao1
-    @HiltExtRoomDao abstract val testDao2: TestDao2
+    @HiltWrapRoomDao abstract fun testDao1(): TestDao1
+    @HiltWrapRoomDao abstract val testDao2: TestDao2
 }

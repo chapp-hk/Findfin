@@ -3,11 +3,11 @@ package ch.app.hk.bank.locator.feature.auth.data.repo.user.repository
 import ch.app.hk.bank.locator.feature.auth.data.remote.user.datasource.UserRemoteDataSource
 import ch.app.hk.bank.locator.feature.auth.data.repo.user.mapper.UserModelMapper
 import ch.app.hk.bank.locator.feature.auth.data.repo.user.model.UserModel
-import ch.app.library.hiltwrap.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject
 
-@HiltExtBindModule
+@HiltWrapBindModule
 internal class UserRepositoryImpl @Inject constructor(
     private val userRemoteDataSource: UserRemoteDataSource,
 ) : UserRepository {

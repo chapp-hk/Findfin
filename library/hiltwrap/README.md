@@ -27,19 +27,19 @@ To use the annotations provided by the `:library:hiltwrap` module, simply annota
 
 The `:library:hiltwrap` module includes the following annotations:
 
-1. **`@HiltExtBindModule`**
+1. **`@HiltWrapBindModule`**
     - Marks a class as a Hilt module for binding dependencies.
     - **Properties:**
         - `superType`: The super type or interface that the annotated class will bind to.
         - `component`: The Hilt component in which the module will be installed.
 
-2. **`@HiltExtRoomModule`**
+2. **`@HiltWrapRoomModule`**
     - Marks a class as a Hilt module for Room database integration.
     - **Properties:**
         - `installInComponent`: The Hilt component in which the module will be installed.
         - `databaseName`: The name of the Room database.
 
-3. **`@HiltExtRoomDao`**
+3. **`@HiltWrapRoomDao`**
     - Marks a property or function as a Room DAO for Hilt dependency injection.
     - **Properties:**
         - `scope`: The Hilt scope in which the DAO will be provided.

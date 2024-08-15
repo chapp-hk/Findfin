@@ -10,10 +10,10 @@ import ch.app.hk.bank.locator.core.location.impl.helper.gms.GmsCheckHelper
 import ch.app.hk.bank.locator.core.location.impl.helper.hardware.GpsHelper
 import ch.app.hk.bank.locator.core.location.impl.helper.permission.PermissionHelper
 import ch.app.hk.bank.locator.core.logging.appLogger
-import ch.app.library.hiltwrap.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
 
-@HiltExtBindModule
+@HiltWrapBindModule
 internal class LocationRepositoryImpl @Inject constructor(
     private val permissionHelper: PermissionHelper,
     private val gpsHelper: GpsHelper,

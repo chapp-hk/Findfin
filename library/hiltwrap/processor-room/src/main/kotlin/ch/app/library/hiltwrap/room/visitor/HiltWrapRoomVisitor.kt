@@ -1,8 +1,8 @@
 package ch.app.library.hiltwrap.room.visitor
 
 import androidx.room.Database
-import ch.app.library.hiltwrap.annotation.HiltExtRoomDao
-import ch.app.library.hiltwrap.annotation.HiltExtRoomModule
+import ch.app.library.hiltwrap.annotation.HiltWrapRoomDao
+import ch.app.library.hiltwrap.annotation.HiltWrapRoomModule
 import ch.app.library.hiltwrap.util.findAnnotation
 import ch.app.library.hiltwrap.util.findNamedValue
 import ch.app.library.hiltwrap.util.isNothing
@@ -22,28 +22,28 @@ import dagger.hilt.components.SingletonComponent
 import java.lang.instrument.IllegalClassFormatException
 import javax.inject.Scope
 
-class HiltExtRoomVisitor(
+class HiltWrapRoomVisitor(
     private val logger: KSPLogger,
-) : KSEmptyVisitor<HiltExtRoomModel, HiltExtRoomModel>() {
+) : KSEmptyVisitor<HiltWrapRoomModel, HiltWrapRoomModel>() {
     override fun defaultHandler(
         node: KSNode,
-        data: HiltExtRoomModel,
-    ): HiltExtRoomModel {
+        data: HiltWrapRoomModel,
+    ): HiltWrapRoomModel {
         logger.info(data.toString(), node)
         return data
     }
 
     override fun visitClassDeclaration(
         classDeclaration: KSClassDeclaration,
-        data: HiltExtRoomModel,
-    ): HiltExtRoomModel {
+        data: HiltWrapRoomModel,
+    ): HiltWrapRoomModel {
         assertDatabaseAnnotationPresent(classDeclaration)
 
-        val annotation = classDeclaration.findAnnotation(HiltExtRoomModule::class)
+        val annotation = classDeclaration.findAnnotation(HiltWrapRoomModule::class)
         val newData =
-            HiltExtRoomModel(
+            HiltWrapRoomModel(
                 generatedClassPackageName = classDeclaration.packageName.asString(),
-                generatedClassName = "${classDeclaration.simpleName.asString()}HiltExtRoomModule",
+                generatedClassName = "${classDeclaration.simpleName.asString()}HiltWrapRoomModule",
                 databaseClass = classDeclaration.toClassName(),
                 databaseName = getDatabaseName(annotation),
                 installInComponent = getInstallInComponent(annotation),
@@ -90,16 +90,16 @@ class HiltExtRoomVisitor(
     }
 
     @OptIn(KspExperimental::class)
-    private fun getDaoProviderFunctionModels(classDeclaration: KSClassDeclaration): List<HiltExtRoomDaoModel> {
+    private fun getDaoProviderFunctionModels(classDeclaration: KSClassDeclaration): List<HiltWrapRoomDaoModel> {
         val daoFunctions =
             classDeclaration
                 .getAllFunctions()
-                .filter { it.isAnnotationPresent(HiltExtRoomDao::class) }
+                .filter { it.isAnnotationPresent(HiltWrapRoomDao::class) }
                 .map {
-                    HiltExtRoomDaoModel(
+                    HiltWrapRoomDaoModel(
                         callableName = "${it.simpleName.asString()}()",
                         returnType = it.returnType?.resolve()?.toClassName()!!,
-                        scopeClass = getScope(it.findAnnotation(HiltExtRoomDao::class)),
+                        scopeClass = getScope(it.findAnnotation(HiltWrapRoomDao::class)),
                     )
                 }
                 .toList()
@@ -107,12 +107,12 @@ class HiltExtRoomVisitor(
         val daoProperties =
             classDeclaration
                 .getAllProperties()
-                .filter { it.isAnnotationPresent(HiltExtRoomDao::class) }
+                .filter { it.isAnnotationPresent(HiltWrapRoomDao::class) }
                 .map {
-                    HiltExtRoomDaoModel(
+                    HiltWrapRoomDaoModel(
                         callableName = it.simpleName.asString(),
                         returnType = it.type.resolve().toClassName(),
-                        scopeClass = getScope(it.findAnnotation(HiltExtRoomDao::class)),
+                        scopeClass = getScope(it.findAnnotation(HiltWrapRoomDao::class)),
                     )
                 }
                 .toList()

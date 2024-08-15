@@ -1,6 +1,6 @@
 package ch.app.library.hiltwrap.room.codegen
 
-import ch.app.library.hiltwrap.room.visitor.HiltExtRoomModel
+import ch.app.library.hiltwrap.room.visitor.HiltWrapRoomModel
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies
 import com.squareup.kotlinpoet.AnnotationSpec
@@ -18,7 +18,7 @@ import dagger.hilt.InstallIn
 
 class FileWriter(
     private val codeGenerator: CodeGenerator,
-    private val data: HiltExtRoomModel,
+    private val data: HiltWrapRoomModel,
 ) {
     fun write() {
         FileSpec

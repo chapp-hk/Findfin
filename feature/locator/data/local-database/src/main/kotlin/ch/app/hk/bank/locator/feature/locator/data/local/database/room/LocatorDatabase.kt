@@ -3,8 +3,8 @@ package ch.app.hk.bank.locator.feature.locator.data.local.database.room
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import ch.app.hk.bank.locator.feature.locator.data.local.database.model.LocatorEntity
-import ch.app.library.hiltwrap.annotation.HiltExtRoomDao
-import ch.app.library.hiltwrap.annotation.HiltExtRoomModule
+import ch.app.library.hiltwrap.annotation.HiltWrapRoomDao
+import ch.app.library.hiltwrap.annotation.HiltWrapRoomModule
 
 @Database(
     version = 1,
@@ -13,10 +13,10 @@ import ch.app.library.hiltwrap.annotation.HiltExtRoomModule
         LocatorEntity::class,
     ],
 )
-@HiltExtRoomModule(
+@HiltWrapRoomModule(
     databaseName = "locator.db",
 )
 internal abstract class LocatorDatabase : RoomDatabase() {
-    @HiltExtRoomDao
+    @HiltWrapRoomDao
     abstract val locatorDao: LocatorDao
 }

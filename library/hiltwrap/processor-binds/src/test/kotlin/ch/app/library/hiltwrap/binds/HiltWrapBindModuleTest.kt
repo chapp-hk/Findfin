@@ -1,6 +1,6 @@
 package ch.app.library.hiltwrap.binds
 
-import ch.app.library.hiltwrap.binds.processor.HiltExtBindProcessorProvider
+import ch.app.library.hiltwrap.binds.processor.HiltWrapBindProcessorProvider
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
 import com.tschuchort.compiletesting.kspSourcesDir
@@ -12,22 +12,22 @@ import org.junit.jupiter.api.Test
 import java.io.File
 
 @OptIn(ExperimentalCompilerApi::class)
-@DisplayName("@HiltExtBindModule tests")
-class HiltExtBindModuleTest {
+@DisplayName("@HiltWrapBindModule tests")
+class HiltWrapBindModuleTest {
     @Test
-    fun `test @HiltExtBindModule with default parameter values`() {
+    fun `test @HiltWrapBindModule with default parameter values`() {
         val kotlinSource =
             SourceFile.kotlin(
                 name = "TestClassDefault.kt",
                 contents = """
-                package ch.app.library.hiltext
+                package ch.app.library.hiltwrap
 
-                import ch.app.library.hiltext.annotation.HiltExtBindModule
+                import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
                 import javax.inject.Inject
 
                 interface TestInterface
 
-                @HiltExtBindModule
+                @HiltWrapBindModule
                 class TestClassDefault @Inject constructor() : TestInterface
             """,
             )
@@ -35,11 +35,11 @@ class HiltExtBindModuleTest {
         val compilation = compileKotlinSource(kotlinSource)
         compilation.compile()
 
-        val generatedFilePath = "kotlin/ch/app/library/hiltext/TestClassDefaultHiltExtBindModule.kt"
+        val generatedFilePath = "kotlin/ch/app/library/hiltwrap/TestClassDefaultHiltWrapBindModule.kt"
         File("${compilation.kspSourcesDir.path}/$generatedFilePath")
             .readText() shouldBe
             """
-            package ch.app.library.hiltext
+            package ch.app.library.hiltwrap
 
             import dagger.Binds
             import dagger.Module
@@ -48,7 +48,7 @@ class HiltExtBindModuleTest {
 
             @Module
             @InstallIn(SingletonComponent::class)
-            internal interface TestClassDefaultHiltExtBindModule {
+            internal interface TestClassDefaultHiltWrapBindModule {
                 @Binds
                 public fun bindToSuperType(`impl`: TestClassDefault): TestInterface
             }
@@ -57,14 +57,14 @@ class HiltExtBindModuleTest {
     }
 
     @Test
-    fun `test @HiltExtBindModule with parameter values`() {
+    fun `test @HiltWrapBindModule with parameter values`() {
         val kotlinSource =
             SourceFile.kotlin(
                 name = "TestClassParameters.kt",
                 contents = """
-                package ch.app.library.hiltext
+                package ch.app.library.hiltwrap
 
-                import ch.app.library.hiltext.annotation.HiltExtBindModule
+                import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
                 import dagger.hilt.DefineComponent
                 import javax.inject.Inject
                 import javax.inject.Singleton
@@ -75,7 +75,7 @@ class HiltExtBindModuleTest {
                 interface TestInterface
 
                 @Singleton
-                @HiltExtBindModule(
+                @HiltWrapBindModule(
                     superType = TestInterface::class,
                     component = TestComponent::class,
                 )
@@ -86,11 +86,11 @@ class HiltExtBindModuleTest {
         val compilation = compileKotlinSource(kotlinSource)
         compilation.compile()
 
-        val generatedFilePath = "kotlin/ch/app/library/hiltext/TestClassParametersHiltExtBindModule.kt"
+        val generatedFilePath = "kotlin/ch/app/library/hiltwrap/TestClassParametersHiltWrapBindModule.kt"
         File("${compilation.kspSourcesDir.path}/$generatedFilePath")
             .readText() shouldBe
             """
-            package ch.app.library.hiltext
+            package ch.app.library.hiltwrap
 
             import dagger.Binds
             import dagger.Module
@@ -99,7 +99,7 @@ class HiltExtBindModuleTest {
 
             @Module
             @InstallIn(TestComponent::class)
-            internal interface TestClassParametersHiltExtBindModule {
+            internal interface TestClassParametersHiltWrapBindModule {
                 @Binds
                 @Singleton
                 public fun bindToSuperType(`impl`: TestClassParameters): TestInterface
@@ -109,14 +109,14 @@ class HiltExtBindModuleTest {
     }
 
     @Test
-    fun `test @HiltExtBindModule without @Inject should compile error`() {
+    fun `test @HiltWrapBindModule without @Inject should compile error`() {
         val kotlinSource =
             SourceFile.kotlin(
                 name = "TestClassParameters.kt",
                 contents = """
-                package ch.app.library.hiltext
+                package ch.app.library.hiltwrap
 
-                import ch.app.library.hiltext.annotation.HiltExtBindModule
+                import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
                 import dagger.hilt.DefineComponent
 
                 @DefineComponent
@@ -124,7 +124,7 @@ class HiltExtBindModuleTest {
 
                 interface TestInterface
 
-                @HiltExtBindModule(
+                @HiltWrapBindModule(
                     superType = TestInterface::class,
                     component = TestComponent::class,
                 )
@@ -139,14 +139,14 @@ class HiltExtBindModuleTest {
     }
 
     @Test
-    fun `test @HiltExtBindModule with invalid super type should compile error`() {
+    fun `test @HiltWrapBindModule with invalid super type should compile error`() {
         val kotlinSource =
             SourceFile.kotlin(
                 name = "TestClassParameters.kt",
                 contents = """
-                package ch.app.library.hiltext
+                package ch.app.library.hiltwrap
 
-                import ch.app.library.hiltext.annotation.HiltExtBindModule
+                import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
                 import javax.inject.Inject
                 import dagger.hilt.DefineComponent
 
@@ -155,7 +155,7 @@ class HiltExtBindModuleTest {
 
                 interface TestInterface
 
-                @HiltExtBindModule(
+                @HiltWrapBindModule(
                     superType = Int::class,
                     component = TestComponent::class,
                 )
@@ -170,21 +170,21 @@ class HiltExtBindModuleTest {
     }
 
     @Test
-    fun `test @HiltExtBindModule with invalid component should compile error`() {
+    fun `test @HiltWrapBindModule with invalid component should compile error`() {
         val kotlinSource =
             SourceFile.kotlin(
                 name = "TestClassParameters.kt",
                 contents = """
-                package ch.app.library.hiltext
+                package ch.app.library.hiltwrap
 
-                import ch.app.library.hiltext.annotation.HiltExtBindModule
+                import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
                 import javax.inject.Inject
 
                 interface TestComponent
 
                 interface TestInterface
 
-                @HiltExtBindModule(
+                @HiltWrapBindModule(
                     component = TestComponent::class,
                 )
                 class TestClassParameters @Inject constructor() : TestInterface
@@ -202,7 +202,7 @@ class HiltExtBindModuleTest {
             inheritClassPath = true
             workingDir = File("build/tmp/Kotlin-Compilation")
             sources = listOf(source)
-            symbolProcessorProviders = listOf(HiltExtBindProcessorProvider())
+            symbolProcessorProviders = listOf(HiltWrapBindProcessorProvider())
         }
     }
 }

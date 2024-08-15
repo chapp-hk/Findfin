@@ -11,7 +11,7 @@ import kotlin.reflect.KClass
  * @property databaseName The name of the Room database.
  */
 @Target(AnnotationTarget.CLASS)
-annotation class HiltExtRoomModule(
+annotation class HiltWrapRoomModule(
     val installInComponent: KClass<*> = Nothing::class,
     val databaseName: String,
 )
@@ -27,6 +27,6 @@ annotation class HiltExtRoomModule(
     AnnotationTarget.PROPERTY,
     AnnotationTarget.FUNCTION,
 )
-annotation class HiltExtRoomDao(
+annotation class HiltWrapRoomDao(
     val scope: KClass<*> = Nothing::class,
 )

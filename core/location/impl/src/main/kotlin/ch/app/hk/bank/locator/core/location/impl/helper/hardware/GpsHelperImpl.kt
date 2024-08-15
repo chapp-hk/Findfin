@@ -4,11 +4,11 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import androidx.core.content.ContextCompat
-import ch.app.library.hiltwrap.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-@HiltExtBindModule
+@HiltWrapBindModule
 internal class GpsHelperImpl @Inject constructor(
     @ApplicationContext private val context: Context,
 ) : GpsHelper {

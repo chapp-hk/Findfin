@@ -10,11 +10,11 @@ import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.toRemoteLocatorPa
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationBound
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorModel
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorType
-import ch.app.library.hiltwrap.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject
 
-@HiltExtBindModule
+@HiltWrapBindModule
 internal class LocatorRepositoryImpl @Inject constructor(
     private val locatorLocalDataSource: LocatorLocalDataSource,
     private val locatorRemoteDataSource: LocatorRemoteDataSource,

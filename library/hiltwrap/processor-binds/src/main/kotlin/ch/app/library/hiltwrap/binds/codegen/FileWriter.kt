@@ -1,6 +1,6 @@
 package ch.app.library.hiltwrap.binds.codegen
 
-import ch.app.library.hiltwrap.binds.visitor.HiltExtBindModel
+import ch.app.library.hiltwrap.binds.visitor.HiltWrapBindModel
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies
 import com.squareup.kotlinpoet.AnnotationSpec
@@ -16,7 +16,7 @@ import dagger.hilt.InstallIn
 
 class FileWriter(
     private val codeGenerator: CodeGenerator,
-    private val data: HiltExtBindModel,
+    private val data: HiltWrapBindModel,
 ) {
     fun write() {
         FileSpec

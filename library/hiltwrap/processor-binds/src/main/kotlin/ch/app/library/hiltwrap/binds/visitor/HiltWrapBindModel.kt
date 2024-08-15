@@ -5,7 +5,7 @@ import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.asClassName
 import dagger.hilt.components.SingletonComponent
 
-data class HiltExtBindModel(
+data class HiltWrapBindModel(
     val generatedClassPackageName: String = "",
     val generatedClassName: String = "",
     val implClass: ClassName? = null,
