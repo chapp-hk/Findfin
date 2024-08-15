@@ -1,4 +1,4 @@
-package ch.app.library.hiltext.room
+package ch.app.library.hiltwrap.room
 
 import android.content.Context
 import androidx.room.Room
@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(TestComponent::class)
-internal class TestDatabaseCustomParametersHiltExtRoomModule {
+internal class TestDatabaseCustomParametersHiltWrapRoomModule {
   @Provides
   public fun providesDatabase(@ApplicationContext context: Context): TestDatabaseCustomParameters =
       Room.databaseBuilder(context, TestDatabaseCustomParameters::class.java,

@@ -6,12 +6,12 @@ import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorApi
 import ch.app.hk.bank.locator.feature.locator.data.remote.api.LocatorPath
 import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorApiError
 import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorResult
-import ch.app.library.hiltwrap.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@HiltExtBindModule
+@HiltWrapBindModule
 internal class LocatorRemoteDataSourceImpl @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val locatorApi: LocatorApi,

@@ -3,7 +3,7 @@ package ch.app.hk.bank.locator.feature.auth.data.remote.firebase.service.login
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.auth.data.remote.login.datasource.LoginRemoteDataSource
 import ch.app.hk.bank.locator.feature.auth.data.remote.login.response.LoginResponse
-import ch.app.library.hiltwrap.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -13,7 +13,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@HiltExtBindModule
+@HiltWrapBindModule
 class LoginService @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val firebaseAuth: FirebaseAuth,

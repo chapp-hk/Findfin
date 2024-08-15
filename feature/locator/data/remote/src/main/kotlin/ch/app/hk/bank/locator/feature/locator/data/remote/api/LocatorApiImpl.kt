@@ -3,14 +3,14 @@ package ch.app.hk.bank.locator.feature.locator.data.remote.api
 import ch.app.hk.bank.locator.core.network.HttpClientFactory
 import ch.app.hk.bank.locator.feature.locator.data.remote.model.LocatorResponse
 import ch.app.hk.bank.locator.feature.locator.data.remote.model.Response
-import ch.app.library.hiltwrap.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
 import io.ktor.resources.Resource
 import kotlinx.serialization.Serializable
 import javax.inject.Inject
 
-@HiltExtBindModule
+@HiltWrapBindModule
 internal class LocatorApiImpl @Inject constructor(
     private val httpClientFactory: HttpClientFactory,
 ) : LocatorApi {

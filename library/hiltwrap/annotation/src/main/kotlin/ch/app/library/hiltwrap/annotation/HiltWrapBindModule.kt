@@ -11,7 +11,7 @@ import kotlin.reflect.KClass
  * @property component The Hilt component in which the module will be installed.
  */
 @Target(AnnotationTarget.CLASS)
-annotation class HiltExtBindModule(
+annotation class HiltWrapBindModule(
     val superType: KClass<*> = Nothing::class,
     val component: KClass<*> = Nothing::class,
 )

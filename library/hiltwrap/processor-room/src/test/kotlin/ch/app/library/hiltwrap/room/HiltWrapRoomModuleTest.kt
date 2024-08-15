@@ -1,7 +1,7 @@
 package ch.app.library.hiltwrap.room
 
 import ch.app.hk.bank.locator.testing.util.readResourceAsText
-import ch.app.library.hiltwrap.room.processor.HiltExtRoomProcessorProvider
+import ch.app.library.hiltwrap.room.processor.HiltWrapRoomProcessorProvider
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
 import com.tschuchort.compiletesting.kspSourcesDir
@@ -13,13 +13,13 @@ import org.junit.jupiter.api.Test
 import java.io.File
 
 @OptIn(ExperimentalCompilerApi::class)
-@DisplayName("@HiltExtRoomModule tests")
-class HiltExtRoomModuleTest {
-    private val generatedCodePath = "/kotlin/ch/app/library/hiltext/room/"
-    private val generatedFileNamePostfix = "HiltExtRoomModule"
+@DisplayName("@HiltWrapRoomModule tests")
+class HiltWrapRoomModuleTest {
+    private val generatedCodePath = "/kotlin/ch/app/library/hiltwrap/room/"
+    private val generatedFileNamePostfix = "HiltWrapRoomModule"
 
     @Test
-    fun `test @HiltExtRoomModule with default parameter values`() {
+    fun `test @HiltWrapRoomModule with default parameter values`() {
         val testClassName = "TestDatabaseDefaultParameters"
         val kotlinSource =
             SourceFile.kotlin(
@@ -37,7 +37,7 @@ class HiltExtRoomModuleTest {
     }
 
     @Test
-    fun `test @HiltExtRoomModule with custom parameter values`() {
+    fun `test @HiltWrapRoomModule with custom parameter values`() {
         val testClassName = "TestDatabaseCustomParameters"
         val kotlinSource =
             SourceFile.kotlin(
@@ -55,7 +55,7 @@ class HiltExtRoomModuleTest {
     }
 
     @Test
-    fun `test @HiltExtRoomModule with empty databaseName`() {
+    fun `test @HiltWrapRoomModule with empty databaseName`() {
         val kotlinSource =
             SourceFile.kotlin(
                 name = "TestEmptyDatabaseName.kt",
@@ -67,7 +67,7 @@ class HiltExtRoomModuleTest {
     }
 
     @Test
-    fun `test @HiltExtRoomModule without @Database`() {
+    fun `test @HiltWrapRoomModule without @Database`() {
         val kotlinSource =
             SourceFile.kotlin(
                 name = "TestWithoutDatabaseAnnotation.kt",
@@ -79,7 +79,7 @@ class HiltExtRoomModuleTest {
     }
 
     @Test
-    fun `test @HiltExtRoomModule with custom scope not annotated with @Scope`() {
+    fun `test @HiltWrapRoomModule with custom scope not annotated with @Scope`() {
         val kotlinSource =
             SourceFile.kotlin(
                 name = "TestCustomScopeNotAnnotatedWithScope.kt",
@@ -95,7 +95,7 @@ class HiltExtRoomModuleTest {
             inheritClassPath = true
             workingDir = File("build/tmp/Kotlin-Compilation")
             sources = listOf(source)
-            symbolProcessorProviders = listOf(HiltExtRoomProcessorProvider())
+            symbolProcessorProviders = listOf(HiltWrapRoomProcessorProvider())
         }
     }
 }

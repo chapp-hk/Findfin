@@ -1,6 +1,6 @@
 package ch.app.library.hiltwrap.binds.visitor
 
-import ch.app.library.hiltwrap.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import ch.app.library.hiltwrap.util.findAnnotation
 import ch.app.library.hiltwrap.util.findNamedValue
 import ch.app.library.hiltwrap.util.isNothing
@@ -24,34 +24,34 @@ import dagger.hilt.components.SingletonComponent
 import java.lang.instrument.IllegalClassFormatException
 import javax.inject.Inject
 
-class HiltExtBindVisitor(
+class HiltWrapBindVisitor(
     private val logger: KSPLogger,
-) : KSEmptyVisitor<HiltExtBindModel, HiltExtBindModel>() {
+) : KSEmptyVisitor<HiltWrapBindModel, HiltWrapBindModel>() {
     override fun defaultHandler(
         node: KSNode,
-        data: HiltExtBindModel,
-    ): HiltExtBindModel {
+        data: HiltWrapBindModel,
+    ): HiltWrapBindModel {
         logger.info("processing data: $data")
         return data
     }
 
     override fun visitClassDeclaration(
         classDeclaration: KSClassDeclaration,
-        data: HiltExtBindModel,
-    ): HiltExtBindModel {
+        data: HiltWrapBindModel,
+    ): HiltWrapBindModel {
         assertHasInjectAnnotation(classDeclaration)
 
-        val annotation = classDeclaration.findAnnotation(HiltExtBindModule::class)
+        val annotation = classDeclaration.findAnnotation(HiltWrapBindModule::class)
         val newData =
-            HiltExtBindModel(
+            HiltWrapBindModel(
                 generatedClassPackageName = classDeclaration.packageName.asString(),
-                generatedClassName = "${classDeclaration.simpleName.asString()}HiltExtBindModule",
+                generatedClassName = "${classDeclaration.simpleName.asString()}HiltWrapBindModule",
                 implClass = classDeclaration.toClassName(),
                 superClass = getSuperClass(annotation),
                 installInComponent = getInstallInComponent(annotation),
                 annotations =
                     classDeclaration.annotations
-                        .filter { it.annotationType.toTypeName() != HiltExtBindModule::class.asClassName() }
+                        .filter { it.annotationType.toTypeName() != HiltWrapBindModule::class.asClassName() }
                         .toList(),
             )
         return super.visitClassDeclaration(classDeclaration, newData)

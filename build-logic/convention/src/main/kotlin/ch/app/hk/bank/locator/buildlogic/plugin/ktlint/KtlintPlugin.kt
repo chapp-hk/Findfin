@@ -35,7 +35,7 @@ class KtlintPlugin : Plugin<Project> {
 
                     filter { pattern ->
                         pattern.exclude(
-                            "**/*HiltExtBindModule.kt",
+                            "**/*HiltWrapBindModule.kt",
                         )
                     }
                 }

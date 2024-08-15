@@ -4,10 +4,10 @@ import ch.app.hk.bank.locator.feature.auth.data.remote.register.datasource.Regis
 import ch.app.hk.bank.locator.feature.auth.data.remote.register.response.RegisterResponse
 import ch.app.hk.bank.locator.feature.auth.data.repo.register.model.RegisterErrorCode
 import ch.app.hk.bank.locator.feature.auth.data.repo.register.model.RegisterResult
-import ch.app.library.hiltwrap.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
 
-@HiltExtBindModule
+@HiltWrapBindModule
 class RegisterRepositoryImpl @Inject constructor(
     private val registerRemoteDataSource: RegisterRemoteDataSource,
 ) : RegisterRepository {

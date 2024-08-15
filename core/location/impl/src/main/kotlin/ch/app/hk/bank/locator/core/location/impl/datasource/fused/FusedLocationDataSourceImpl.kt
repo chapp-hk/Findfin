@@ -3,7 +3,7 @@ package ch.app.hk.bank.locator.core.location.impl.datasource.fused
 import android.location.Location
 import androidx.annotation.RequiresPermission
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
-import ch.app.library.hiltwrap.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import com.google.android.gms.location.CurrentLocationRequest
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Priority
@@ -13,7 +13,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@HiltExtBindModule
+@HiltWrapBindModule
 internal class FusedLocationDataSourceImpl @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val fusedLocationProviderClient: FusedLocationProviderClient,

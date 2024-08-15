@@ -7,14 +7,14 @@ import ch.app.hk.bank.locator.feature.home.domain.nearby.mapper.ServiceMapper
 import ch.app.hk.bank.locator.feature.home.domain.nearby.model.NearByResult
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationBound
 import ch.app.hk.bank.locator.feature.locator.data.repo.repository.LocatorRepository
-import ch.app.library.hiltwrap.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject
 import kotlin.math.cos
 
-@HiltExtBindModule
+@HiltWrapBindModule
 internal class GetNearByServicesUseCaseImpl @Inject constructor(
     @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
     private val locationRepository: LocationRepository,

@@ -1,12 +1,12 @@
-package ch.app.library.hiltext.room
+package ch.app.library.hiltwrap.room
 
 import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.RoomDatabase
-import ch.app.library.hiltext.annotation.HiltExtRoomDao
-import ch.app.library.hiltext.annotation.HiltExtRoomModule
+import ch.app.library.hiltwrap.annotation.HiltWrapRoomDao
+import ch.app.library.hiltwrap.annotation.HiltWrapRoomModule
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.DefineComponent
 import javax.inject.Singleton
@@ -35,11 +35,11 @@ interface TestComponent
     ],
     version = 1,
 )
-@HiltExtRoomModule(
+@HiltWrapRoomModule(
     installInComponent = TestComponent::class,
     databaseName = "test_database",
 )
 internal abstract class TestDatabaseCustomParameters : RoomDatabase() {
-    @HiltExtRoomDao(scope = Singleton::class) abstract fun testDao1(): TestDao1
-    @HiltExtRoomDao(scope = Singleton::class) abstract val testDao2: TestDao2
+    @HiltWrapRoomDao(scope = Singleton::class) abstract fun testDao1(): TestDao1
+    @HiltWrapRoomDao(scope = Singleton::class) abstract val testDao2: TestDao2
 }

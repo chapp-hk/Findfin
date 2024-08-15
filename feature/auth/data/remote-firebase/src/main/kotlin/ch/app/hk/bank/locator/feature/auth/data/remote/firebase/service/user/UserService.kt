@@ -3,13 +3,13 @@ package ch.app.hk.bank.locator.feature.auth.data.remote.firebase.service.user
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.auth.data.remote.user.datasource.UserRemoteDataSource
 import ch.app.hk.bank.locator.feature.auth.data.remote.user.response.UserResponse
-import ch.app.library.hiltwrap.annotation.HiltExtBindModule
+import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@HiltExtBindModule
+@HiltWrapBindModule
 class UserService @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val firebaseAuth: FirebaseAuth,
