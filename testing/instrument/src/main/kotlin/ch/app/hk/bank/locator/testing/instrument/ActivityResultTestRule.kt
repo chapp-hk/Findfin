@@ -5,6 +5,8 @@ import android.content.Intent
 import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.ActivityResultRegistryOwner
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.annotation.RestrictTo
+import androidx.annotation.RestrictTo.Scope
 import androidx.core.app.ActivityOptionsCompat
 import org.junit.rules.ExternalResource
 
@@ -14,6 +16,7 @@ import org.junit.rules.ExternalResource
  *
  * @property context The context used to create intents for the mocked activity results.
  */
+@RestrictTo(Scope.TESTS)
 class ActivityResultTestRule(private val context: Context) : ExternalResource() {
     /**
      * The intent that was launched by the ActivityResultRegistry.

@@ -6,6 +6,7 @@ plugins {
 dependencies {
     implementation(libs.junit.jupiter)
     implementation(libs.kotlinx.coroutines.test)
+    implementation(libs.androidx.annotation)
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.assertions.core)

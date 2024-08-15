@@ -6,6 +6,7 @@ plugins {
 
 dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.androidx.annotation)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.kotlinx.serialization.json)

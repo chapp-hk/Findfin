@@ -1,5 +1,7 @@
 package ch.app.hk.bank.locator.testing.extension
 
+import androidx.annotation.RestrictTo
+import androidx.annotation.RestrictTo.Scope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.extension.AfterEachCallback
 import org.junit.jupiter.api.extension.BeforeEachCallback
 import org.junit.jupiter.api.extension.ExtensionContext
 
+@RestrictTo(Scope.TESTS)
 class MainDispatcherExtension : BeforeEachCallback, AfterEachCallback {
     private val dispatcher = StandardTestDispatcher(TestScope().testScheduler)
 
