@@ -24,4 +24,7 @@ interface LocatorDao {
         minLon: Double,
         maxLon: Double,
     ): List<LocatorEntity>
+
+    @Query("SELECT DISTINCT bank_name FROM locator")
+    suspend fun getDistinctBanks(): List<String>
 }
