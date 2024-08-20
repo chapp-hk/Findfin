@@ -182,4 +182,42 @@ class LocatorDaoTest {
                 ).size shouldBe 30
         }
     }
+
+    @Test
+    fun testGetAllDistinctBanks() {
+        runTest(testDispatcher) {
+            val database =
+                Room
+                    .databaseBuilder(
+                        context,
+                        LocatorDatabase::class.java,
+                        "locator_db.db",
+                    ).createFromAsset("locator_db.db")
+                    .build()
+
+            database.locatorDao.getDistinctBanks() shouldBe
+                listOf(
+                    "The Bank of East Asia Limited",
+                    "Fubon Bank (Hong Kong) Limited",
+                    "CMB Wing Lung Bank Limited",
+                    "Hang Seng Bank Limited",
+                    "The Hongkong and Shanghai Banking Corporation Limited",
+                    "Shanghai Commercial Bank Limited",
+                    "Citibank (Hong Kong) Limited",
+                    "China Construction Bank (Asia) Corporation Limited",
+                    "Bank of Communications Co., Ltd.",
+                    "Bank of China (Hong Kong) Limited",
+                    "Public Bank (Hong Kong) Limited",
+                    "OCBC Bank (Hong Kong) Limited",
+                    "Industrial and Commercial Bank of China (Asia) Limited",
+                    "Chong Hing Bank Limited",
+                    "China CITIC Bank International Limited",
+                    "Standard Chartered Bank (Hong Kong) Limited",
+                    "Chiyu Banking Corporation Ltd.",
+                    "Dah Sing Bank, Limited",
+                    "DBS Bank (Hong Kong) Limited",
+                    "Nanyang Commercial Bank, Limited",
+                )
+        }
+    }
 }
