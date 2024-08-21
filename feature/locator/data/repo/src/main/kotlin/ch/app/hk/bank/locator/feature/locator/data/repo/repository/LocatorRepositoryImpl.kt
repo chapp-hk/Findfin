@@ -66,4 +66,8 @@ internal class LocatorRepositoryImpl @Inject constructor(
             maxLon = bound.maxLong,
         ).map(mapper::convertToDataModel)
     }
+
+    override suspend fun getAllBanks(): List<String> {
+        return locatorLocalDataSource.getAllBanks()
+    }
 }
