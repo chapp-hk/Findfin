@@ -144,4 +144,35 @@ class LocatorLocalDataSourceImplTest {
 
             result shouldBe emptyList()
         }
+
+    @Test
+    @DisplayName("When invoke getAllBanks() successfully, should return the list of banks")
+    fun testGetAllBanksSuccess() =
+        runTest(testDispatcher) {
+            val expectedBanks = listOf("Bank A", "Bank B", "Bank C")
+
+            coEvery { locatorDao.getDistinctBanks() } returns expectedBanks
+
+            val result = locatorLocalDataSourceImpl.getAllBanks()
+
+            coVerify { locatorDao.getDistinctBanks() }
+
+            result shouldBe expectedBanks
+        }
+
+    @Test
+    @DisplayName(
+        "When invoke getAllBanks() and LocatorDao.getDistinctBanks() throws an exception, " +
+            "should catch the exception and return an empty list",
+    )
+    fun testGetAllBanksErrorHandling() =
+        runTest(testDispatcher) {
+            coEvery { locatorDao.getDistinctBanks() } throws Exception("Test exception")
+
+            val result = locatorLocalDataSourceImpl.getAllBanks()
+
+            coVerify { locatorDao.getDistinctBanks() }
+
+            result shouldBe emptyList()
+        }
 }

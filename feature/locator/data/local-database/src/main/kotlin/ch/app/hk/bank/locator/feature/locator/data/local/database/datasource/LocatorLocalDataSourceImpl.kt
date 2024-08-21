@@ -57,4 +57,19 @@ class LocatorLocalDataSourceImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun getAllBanks(): List<String> {
+        return withContext(ioDispatcher) {
+            runCatching {
+                locatorDao.getDistinctBanks()
+            }.getOrElse { error ->
+                appLogger.debug(
+                    tag = javaClass.simpleName,
+                    message = "getLocatorsWithinBound() failed",
+                    throwable = error,
+                )
+                emptyList()
+            }
+        }
+    }
 }

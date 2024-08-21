@@ -11,4 +11,6 @@ interface LocatorLocalDataSource {
         minLon: Double,
         maxLon: Double,
     ): List<LocatorLocal>
+
+    suspend fun getAllBanks(): List<String>
 }
