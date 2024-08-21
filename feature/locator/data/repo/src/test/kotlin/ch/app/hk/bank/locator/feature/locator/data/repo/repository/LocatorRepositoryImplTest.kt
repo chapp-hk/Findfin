@@ -211,4 +211,19 @@ class LocatorRepositoryImplTest {
             result.shouldBeInstanceOf<List<LocatorModel>>()
         }
     }
+
+    @Test
+    @DisplayName("When getAllBanks() is successful, should return the list of banks")
+    fun testGetAllBanksSuccess() =
+        runTest(StandardTestDispatcher()) {
+            val expectedBanks = listOf("Bank A", "Bank B", "Bank C")
+
+            coEvery { locatorLocalDataSource.getAllBanks() } returns expectedBanks
+
+            val result = locatorRepositoryImpl.getAllBanks()
+
+            coVerify { locatorLocalDataSource.getAllBanks() }
+
+            result shouldBe expectedBanks
+        }
 }

@@ -14,4 +14,6 @@ interface LocatorRepository {
     ): LocatorFetchResult
 
     suspend fun getLocatorsWithinBound(bound: LocationBound): List<LocatorModel>
+
+    suspend fun getAllBanks(): List<String>
 }
