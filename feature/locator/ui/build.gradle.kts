@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.app.android.common)
     alias(libs.plugins.app.compose)
+    alias(libs.plugins.app.hilt.android)
+    alias(libs.plugins.app.hilt.android.test)
 }
 
 android {
@@ -17,5 +19,17 @@ android {
 dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.lifecycle.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
+
     implementation(projects.core.map)
+    implementation(projects.core.design.ui)
+    implementation(projects.feature.locator.data.repo)
+
+    testImplementation(projects.testing.extension)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
 }
