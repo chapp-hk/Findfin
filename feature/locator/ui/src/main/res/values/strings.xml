@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="locator_title_bank_list">List of banks</string>
+    <string name="locator_content_description_bank_item">Bank list item</string>
+</resources>
