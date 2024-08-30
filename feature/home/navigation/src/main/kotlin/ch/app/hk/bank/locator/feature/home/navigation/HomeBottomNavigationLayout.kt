@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.home.ui.container.view
+package ch.app.hk.bank.locator.feature.home.navigation
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -10,6 +10,7 @@ import ch.app.hk.bank.locator.core.navigation.BottomNavigationTab
 import ch.app.hk.bank.locator.core.navigation.routeToBottomNavigationTab
 import ch.app.hk.bank.locator.feature.bank.ui.banklist.view.BankListScreen
 import ch.app.hk.bank.locator.feature.home.ui.R
+import ch.app.hk.bank.locator.feature.home.ui.container.view.HomeContainer
 import ch.app.hk.bank.locator.feature.locator.ui.map.view.MapScreen
 
 @Composable
