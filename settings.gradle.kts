@@ -45,12 +45,12 @@ include(":feature:auth:data:repo")
 include(":feature:auth:navigation")
 include(":feature:auth:ui")
 
-// feature locator modules
-include(":feature:locator:data:local")
-include(":feature:locator:data:local-database")
-include(":feature:locator:data:remote")
-include(":feature:locator:data:repo")
-include(":feature:locator:ui")
+// feature bank modules
+include(":feature:bank:data:local")
+include(":feature:bank:data:local-database")
+include(":feature:bank:data:remote")
+include(":feature:bank:data:repo")
+include(":feature:bank:ui")
 
 // feature onboarding modules
 include(":feature:onboarding:domain")

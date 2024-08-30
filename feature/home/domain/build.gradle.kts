@@ -9,7 +9,7 @@ dependencies {
     implementation(projects.core.threading)
     implementation(projects.core.location.api)
     implementation(projects.core.logging.api)
-    implementation(projects.feature.locator.data.repo)
+    implementation(projects.feature.bank.data.repo)
     implementation(libs.kotlinx.coroutines.core)
 
     testImplementation(libs.junit.jupiter)

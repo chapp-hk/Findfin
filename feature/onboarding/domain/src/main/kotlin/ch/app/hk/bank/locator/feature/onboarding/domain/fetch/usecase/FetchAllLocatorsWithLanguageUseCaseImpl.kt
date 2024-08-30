@@ -2,9 +2,9 @@ package ch.app.hk.bank.locator.feature.onboarding.domain.fetch.usecase
 
 import ch.app.hk.bank.locator.core.locale.api.AppLocaleRepository
 import ch.app.hk.bank.locator.core.threading.DispatcherDefault
-import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.LocatorFetchResult
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorType
-import ch.app.hk.bank.locator.feature.locator.data.repo.repository.LocatorRepository
+import ch.app.hk.bank.locator.feature.bank.data.repo.mapper.LocatorFetchResult
+import ch.app.hk.bank.locator.feature.bank.data.repo.model.LocatorType
+import ch.app.hk.bank.locator.feature.bank.data.repo.repository.LocatorRepository
 import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

@@ -1,0 +1,9 @@
+package ch.app.hk.bank.locator.feature.bank.data.repo.mapper
+
+sealed interface LocatorFetchResult {
+    data object HasNext : LocatorFetchResult
+
+    data object End : LocatorFetchResult
+
+    data object Error : LocatorFetchResult
+}
