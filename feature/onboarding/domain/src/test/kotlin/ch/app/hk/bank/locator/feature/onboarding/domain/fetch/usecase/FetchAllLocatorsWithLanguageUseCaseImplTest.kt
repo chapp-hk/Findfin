@@ -1,9 +1,9 @@
 package ch.app.hk.bank.locator.feature.onboarding.domain.fetch.usecase
 
 import ch.app.hk.bank.locator.core.locale.api.AppLocaleRepository
-import ch.app.hk.bank.locator.feature.locator.data.repo.mapper.LocatorFetchResult
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorType
-import ch.app.hk.bank.locator.feature.locator.data.repo.repository.LocatorRepository
+import ch.app.hk.bank.locator.feature.bank.data.repo.mapper.LocatorFetchResult
+import ch.app.hk.bank.locator.feature.bank.data.repo.model.LocatorType
+import ch.app.hk.bank.locator.feature.bank.data.repo.repository.LocatorRepository
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.every

@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.home.domain.nearby.mapper
 
+import ch.app.hk.bank.locator.feature.bank.data.repo.model.LocatorModel
 import ch.app.hk.bank.locator.feature.home.domain.nearby.model.Service
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocatorModel
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

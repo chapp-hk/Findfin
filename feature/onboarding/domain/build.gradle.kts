@@ -7,7 +7,7 @@ plugins {
 dependencies {
     implementation(projects.core.threading)
     implementation(projects.core.locale.api)
-    implementation(projects.feature.locator.data.repo)
+    implementation(projects.feature.bank.data.repo)
     implementation(libs.kotlinx.coroutines.core)
 
     testImplementation(libs.junit.jupiter)
