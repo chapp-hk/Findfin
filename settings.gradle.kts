@@ -64,6 +64,7 @@ include(":feature:home:navigation")
 include(":feature:home:ui")
 
 // feature locator modules
+include(":feature:locator:navigation")
 include(":feature:locator:ui")
 
 // library modules
