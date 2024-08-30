@@ -35,6 +35,7 @@ dependencies {
     implementation(projects.feature.home.domain)
     // TODO - see is it possible to expose navigation module for bottomsheet
     implementation(projects.feature.bank.ui)
+    implementation(projects.feature.locator.ui)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.lifecycle.compose)

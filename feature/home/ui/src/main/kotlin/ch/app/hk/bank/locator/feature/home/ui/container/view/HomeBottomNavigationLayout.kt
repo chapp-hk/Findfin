@@ -8,9 +8,9 @@ import androidx.navigation.compose.rememberNavController
 import ch.app.hk.bank.locator.core.navigation.BottomNavigationLayout
 import ch.app.hk.bank.locator.core.navigation.BottomNavigationTab
 import ch.app.hk.bank.locator.core.navigation.routeToBottomNavigationTab
-import ch.app.hk.bank.locator.feature.bank.ui.MapScreen
 import ch.app.hk.bank.locator.feature.bank.ui.banklist.view.BankListScreen
 import ch.app.hk.bank.locator.feature.home.ui.R
+import ch.app.hk.bank.locator.feature.locator.ui.map.view.MapScreen
 
 @Composable
 fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
