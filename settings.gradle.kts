@@ -62,6 +62,9 @@ include(":feature:home:domain")
 include(":feature:home:navigation")
 include(":feature:home:ui")
 
+// feature locator modules
+include(":feature:locator:ui")
+
 // library modules
 include(":library:hiltwrap:annotation")
 include(":library:hiltwrap:processor-binds")
