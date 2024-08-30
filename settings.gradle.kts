@@ -50,6 +50,7 @@ include(":feature:bank:data:local")
 include(":feature:bank:data:local-database")
 include(":feature:bank:data:remote")
 include(":feature:bank:data:repo")
+include(":feature:bank:navigation")
 include(":feature:bank:ui")
 
 // feature onboarding modules
