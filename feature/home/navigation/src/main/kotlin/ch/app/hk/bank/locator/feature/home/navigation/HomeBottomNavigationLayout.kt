@@ -8,10 +8,10 @@ import androidx.navigation.compose.rememberNavController
 import ch.app.hk.bank.locator.core.navigation.BottomNavigationLayout
 import ch.app.hk.bank.locator.core.navigation.BottomNavigationTab
 import ch.app.hk.bank.locator.core.navigation.routeToBottomNavigationTab
-import ch.app.hk.bank.locator.feature.bank.ui.banklist.view.BankListScreen
+import ch.app.hk.bank.locator.feature.bank.navigation.BankDestination
 import ch.app.hk.bank.locator.feature.home.ui.R
 import ch.app.hk.bank.locator.feature.home.ui.container.view.HomeContainer
-import ch.app.hk.bank.locator.feature.locator.ui.map.view.MapScreen
+import ch.app.hk.bank.locator.feature.locator.navigation.MapDestination
 
 @Composable
 fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
@@ -33,7 +33,7 @@ fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
     ) { tab ->
         when (tab) {
             is HomeBottomTab.Banks -> {
-                BankListScreen()
+                BankDestination()
             }
 
             is HomeBottomTab.Home -> {
@@ -47,7 +47,7 @@ fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
             }
 
             is HomeBottomTab.Map -> {
-                MapScreen()
+                MapDestination()
             }
 
             is HomeBottomTab.Setting -> {

@@ -18,11 +18,10 @@ dependencies {
     implementation(projects.core.navigation)
     implementation(projects.feature.home.ui)
     implementation(projects.feature.auth.navigation)
+    implementation(projects.feature.bank.navigation)
+    implementation(projects.feature.locator.navigation)
+
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.compose.material)
     implementation(libs.kotlinx.serialization.json)
-
-    // TODO - see is it possible to expose navigation module for bottomsheet
-    implementation(projects.feature.bank.ui)
-    implementation(projects.feature.locator.ui)
 }
