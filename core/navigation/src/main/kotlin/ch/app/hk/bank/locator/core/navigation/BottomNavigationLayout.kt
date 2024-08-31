@@ -26,12 +26,35 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 
+/**
+ * Data class representing a bottom navigation tab.
+ *
+ * @property route The route associated with the tab.
+ * @property iconDrawableResource The drawable resource ID for the tab's icon.
+ * @property textStringResource The string resource ID for the tab's text.
+ */
+data class BottomNavigationTab(
+    val route: String,
+    @get:DrawableRes
+    val iconDrawableResource: Int,
+    @get:StringRes
+    val textStringResource: Int,
+)
+
+/**
+ * Composable function that sets up a bottom navigation layout with a scaffold.
+ *
+ * @param modifier The modifier to be applied to the layout.
+ * @param navController The navigation controller for managing navigation.
+ * @param bottomTabItems The list of bottom navigation tabs.
+ * @param content The content to be displayed for each tab.
+ */
 @Composable
-fun <T : BottomNavigationTab> BottomNavigationLayout(
+fun BottomNavigationLayout(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    bottomTabItems: List<T>,
-    content: @Composable (T) -> Unit,
+    bottomTabItems: List<BottomNavigationTab>,
+    content: @Composable (BottomNavigationTab) -> Unit,
 ) {
     Scaffold(
         modifier = modifier,
@@ -51,6 +74,12 @@ fun <T : BottomNavigationTab> BottomNavigationLayout(
     }
 }
 
+/**
+ * Composable function that sets up the bottom navigation bar.
+ *
+ * @param navController The navigation controller for managing navigation.
+ * @param bottomTabItems The list of bottom navigation tabs.
+ */
 @Composable
 private fun BottomNavigationBar(
     navController: NavHostController,
@@ -73,6 +102,11 @@ private fun BottomNavigationBar(
     }
 }
 
+/**
+ * Extension function for navigating to a bottom navigation tab.
+ *
+ * @param tab The bottom navigation tab to navigate to.
+ */
 fun NavHostController.routeToBottomNavigationTab(tab: BottomNavigationTab) {
     navigate(tab.route) {
         // Pop up to the start destination of the graph to
@@ -87,6 +121,13 @@ fun NavHostController.routeToBottomNavigationTab(tab: BottomNavigationTab) {
     }
 }
 
+/**
+ * Composable function that sets up a bottom navigation item component.
+ *
+ * @param tab The bottom navigation tab.
+ * @param isSelected A lambda to determine if the tab is selected.
+ * @param onTabClick A lambda to handle tab click events.
+ */
 @Composable
 private fun RowScope.BottomNavigationItemComponent(
     tab: BottomNavigationTab,
@@ -107,12 +148,20 @@ private fun RowScope.BottomNavigationItemComponent(
     )
 }
 
+/**
+ * Composable function that sets up the content for the bottom navigation.
+ *
+ * @param navController The navigation controller for managing navigation.
+ * @param paddingValues The padding values to be applied to the content.
+ * @param bottomTabItems The list of bottom navigation tabs.
+ * @param content The content to be displayed for each tab.
+ */
 @Composable
-private fun <T : BottomNavigationTab> BottomNavigationContent(
+private fun BottomNavigationContent(
     navController: NavHostController,
     paddingValues: PaddingValues,
-    bottomTabItems: List<T>,
-    content: @Composable (T) -> Unit,
+    bottomTabItems: List<BottomNavigationTab>,
+    content: @Composable (BottomNavigationTab) -> Unit,
 ) {
     NavHost(
         navController = navController,
@@ -125,14 +174,4 @@ private fun <T : BottomNavigationTab> BottomNavigationContent(
             }
         }
     }
-}
-
-interface BottomNavigationTab {
-    val route: String
-
-    @get:DrawableRes
-    val iconDrawableResource: Int
-
-    @get:StringRes
-    val textStringResource: Int
 }

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="home_tab_home">Home</string>
-    <string name="home_tab_list">List of banks</string>
-    <string name="home_tab_map">Map</string>
     <string name="home_tab_setting">Setting</string>
 
     <string name="home_content_description_avatar">Avatar</string>
