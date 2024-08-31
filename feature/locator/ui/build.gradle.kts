@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "ch.app.hk.bank.locator.feature.locator.ui"
-    resourcePrefix = "bank_"
+    resourcePrefix = "locator_"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

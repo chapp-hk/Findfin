@@ -14,6 +14,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.navigation)
     implementation(projects.feature.bank.ui)
 
     implementation(libs.androidx.navigation.compose)
