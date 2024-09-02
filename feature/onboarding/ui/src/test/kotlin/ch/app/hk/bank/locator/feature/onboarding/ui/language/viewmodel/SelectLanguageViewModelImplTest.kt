@@ -4,7 +4,7 @@ import app.cash.turbine.test
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.core.locale.api.AppLocale
 import ch.app.hk.bank.locator.core.locale.api.AppLocaleRepository
-import ch.app.hk.bank.locator.feature.onboarding.domain.fetch.usecase.FetchAllLocatorsWithLanguageUseCase
+import ch.app.hk.bank.locator.feature.onboarding.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.model.SelectLanguageUiModel
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.state.SelectLanguageUiState
 import ch.app.hk.bank.locator.testing.extension.MainDispatcherExtension
@@ -26,7 +26,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 @DisplayName("SelectLanguageViewModelImpl unit tests")
 class SelectLanguageViewModelImplTest {
     private val appLocaleRepository = mockk<AppLocaleRepository>()
-    private val fetchAllLocatorsWithLanguage = mockk<FetchAllLocatorsWithLanguageUseCase>(relaxed = true)
+    private val fetchAllLocatorsWithLanguage = mockk<FetchAllBankLocationsWithLanguageUseCase>(relaxed = true)
 
     @BeforeEach
     fun setUp() {
