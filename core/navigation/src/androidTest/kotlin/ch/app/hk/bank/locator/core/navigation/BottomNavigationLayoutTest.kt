@@ -20,19 +20,19 @@ class BottomNavigationLayoutTest {
 
     private lateinit var navController: NavHostController
 
-    sealed interface TestBottomTab : BottomNavigationTab {
-        data class Home(
-            override val route: String = "test-bottom-home",
-            override val iconDrawableResource: Int = R.drawable.navigation_test_ic_home,
-            override val textStringResource: Int = R.string.navigation_test_home,
-        ) : TestBottomTab
+    private val homeTab =
+        BottomNavigationTab(
+            route = "test-bottom-home",
+            iconDrawableResource = R.drawable.navigation_test_ic_home,
+            textStringResource = R.string.navigation_test_home,
+        )
 
-        data class Setting(
-            override val route: String = "test-bottom-setting",
-            override val iconDrawableResource: Int = R.drawable.navigation_test_ic_setting,
-            override val textStringResource: Int = R.string.navigation_test_setting,
-        ) : TestBottomTab
-    }
+    private val settingTab =
+        BottomNavigationTab(
+            route = "test-bottom-setting",
+            iconDrawableResource = R.drawable.navigation_test_ic_setting,
+            textStringResource = R.string.navigation_test_setting,
+        )
 
     @Before
     fun setUp() {
@@ -44,13 +44,13 @@ class BottomNavigationLayoutTest {
                 navController = navController,
                 bottomTabItems =
                     listOf(
-                        TestBottomTab.Home(),
-                        TestBottomTab.Setting(),
+                        homeTab,
+                        settingTab,
                     ),
             ) { tab ->
                 when (tab) {
-                    is TestBottomTab.Home -> Text(text = tab.route)
-                    is TestBottomTab.Setting -> Text(text = tab.route)
+                    homeTab -> Text(text = tab.route)
+                    settingTab -> Text(text = tab.route)
                 }
             }
         }
