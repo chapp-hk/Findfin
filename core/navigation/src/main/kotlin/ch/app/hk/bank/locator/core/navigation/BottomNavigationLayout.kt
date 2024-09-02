@@ -27,21 +27,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 
 /**
- * Data class representing a bottom navigation tab.
- *
- * @property route The route associated with the tab.
- * @property iconDrawableResource The drawable resource ID for the tab's icon.
- * @property textStringResource The string resource ID for the tab's text.
- */
-data class BottomNavigationTab(
-    val route: String,
-    @get:DrawableRes
-    val iconDrawableResource: Int,
-    @get:StringRes
-    val textStringResource: Int,
-)
-
-/**
  * Composable function that sets up a bottom navigation layout with a scaffold.
  *
  * @param modifier The modifier to be applied to the layout.
@@ -175,3 +160,18 @@ private fun BottomNavigationContent(
         }
     }
 }
+
+/**
+ * Data class representing a bottom navigation tab.
+ *
+ * @property route The route associated with the tab.
+ * @property iconDrawableResource The drawable resource ID for the tab's icon.
+ * @property textStringResource The string resource ID for the tab's text.
+ */
+data class BottomNavigationTab(
+    val route: String,
+    @get:DrawableRes
+    val iconDrawableResource: Int,
+    @get:StringRes
+    val textStringResource: Int,
+)
