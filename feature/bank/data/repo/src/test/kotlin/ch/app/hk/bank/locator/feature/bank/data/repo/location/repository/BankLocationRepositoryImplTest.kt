@@ -1,9 +1,9 @@
 package ch.app.hk.bank.locator.feature.bank.data.repo.location.repository
 
 import ch.app.hk.bank.locator.feature.bank.data.local.bank.datasource.BankLocationLocalDataSource
-import ch.app.hk.bank.locator.feature.bank.data.remote.location.api.LocatorPath
+import ch.app.hk.bank.locator.feature.bank.data.remote.location.api.LocationPath
 import ch.app.hk.bank.locator.feature.bank.data.remote.location.datasource.BankLocationRemoteDataSource
-import ch.app.hk.bank.locator.feature.bank.data.remote.location.model.LocatorResult
+import ch.app.hk.bank.locator.feature.bank.data.remote.location.model.LocationResult
 import ch.app.hk.bank.locator.feature.bank.data.repo.location.mapper.BankLocationFetchResult
 import ch.app.hk.bank.locator.feature.bank.data.repo.location.model.BankLocationBound
 import ch.app.hk.bank.locator.feature.bank.data.repo.location.model.BankLocationModel
@@ -21,7 +21,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("LocatorRepositoryImpl unit tests")
+@DisplayName("BankLocationRepositoryImpl unit tests")
 class BankLocationRepositoryImplTest {
     private val bankLocationLocalDataSource = mockk<BankLocationLocalDataSource>()
     private val bankLocationRemoteDataSource = mockk<BankLocationRemoteDataSource>()
@@ -39,21 +39,21 @@ class BankLocationRepositoryImplTest {
 
     @Test
     @DisplayName(
-        "locatorRemoteDataSource.getLocators() should invoke with correct offset value: " +
+        "bankLocationRemoteDataSource.getLocations() should invoke with correct offset value: " +
             "page * pageSize",
     )
     fun testOffsetValue() =
         runTest(StandardTestDispatcher()) {
             coEvery {
-                bankLocationRemoteDataSource.getLocators(
+                bankLocationRemoteDataSource.getLocations(
                     path = any(),
                     language = any(),
                     pageSize = any(),
                     offset = any(),
                 )
-            } returns LocatorResult.Error
+            } returns LocationResult.Error
 
-            locatorRepositoryImpl.fetchLocators(
+            locatorRepositoryImpl.fetchLocations(
                 type = BankLocationType.ATM,
                 localeTag = "en",
                 page = 2,
@@ -61,8 +61,8 @@ class BankLocationRepositoryImplTest {
             )
 
             coVerify {
-                bankLocationRemoteDataSource.getLocators(
-                    path = LocatorPath.ATM,
+                bankLocationRemoteDataSource.getLocations(
+                    path = LocationPath.ATM,
                     language = "en",
                     pageSize = 1000,
                     offset = 2000,
@@ -72,22 +72,22 @@ class BankLocationRepositoryImplTest {
 
     @Test
     @DisplayName(
-        "When locatorRemoteDataSource.getLocators() returns LocatorResult.Error, " +
-            "fetchLocators() should return LocatorResult.Error",
+        "When bankLocationRemoteDataSource.getLocations() returns LocatorResult.Error, " +
+            "fetchLocations() should return LocationResult.Error",
     )
-    fun testFetchLocatorsError() =
+    fun testFetchLocationsError() =
         runTest(StandardTestDispatcher()) {
             coEvery {
-                bankLocationRemoteDataSource.getLocators(
+                bankLocationRemoteDataSource.getLocations(
                     path = any(),
                     language = any(),
                     pageSize = any(),
                     offset = any(),
                 )
-            } returns LocatorResult.Error
+            } returns LocationResult.Error
 
             val result =
-                locatorRepositoryImpl.fetchLocators(
+                locatorRepositoryImpl.fetchLocations(
                     type = BankLocationType.ATM,
                     localeTag = "en",
                     page = 2,
@@ -99,27 +99,27 @@ class BankLocationRepositoryImplTest {
 
     @Test
     @DisplayName(
-        "When locatorRemoteDataSource.getLocators() returns list with size equals pageSize, " +
-            "then fetchLocators() should return LocatorResult.HasNext",
+        "When bankLocationRemoteDataSource.getLocations() returns list with size equals pageSize, " +
+            "then fetchLocations() should return LocationResult.HasNext",
     )
-    fun testFetchLocatorsResultListEqualsPageSize() =
+    fun testFetchLocationsResultListEqualsPageSize() =
         runTest(StandardTestDispatcher()) {
             val pageSize = 1000
 
             coEvery {
-                bankLocationRemoteDataSource.getLocators(
+                bankLocationRemoteDataSource.getLocations(
                     path = any(),
                     language = any(),
                     pageSize = any(),
                     offset = any(),
                 )
             } returns
-                LocatorResult.Success(
+                LocationResult.Success(
                     (1..pageSize).map { mockk(relaxed = true) },
                 )
 
             val result =
-                locatorRepositoryImpl.fetchLocators(
+                locatorRepositoryImpl.fetchLocations(
                     type = BankLocationType.ATM,
                     localeTag = "en",
                     page = 2,
@@ -131,27 +131,27 @@ class BankLocationRepositoryImplTest {
 
     @Test
     @DisplayName(
-        "When locatorRemoteDataSource.getLocators() returns list with size larger than pageSize, " +
-            "then fetchLocators() should return LocatorResult.HasNext",
+        "When bankLocationRemoteDataSource.getLocations() returns list with size larger than pageSize, " +
+            "then fetchLocations() should return LocationResult.HasNext",
     )
-    fun testFetchLocatorsResultListLargerThanPageSize() =
+    fun testFetchLocationsResultListLargerThanPageSize() =
         runTest(StandardTestDispatcher()) {
             val pageSize = 1000
 
             coEvery {
-                bankLocationRemoteDataSource.getLocators(
+                bankLocationRemoteDataSource.getLocations(
                     path = any(),
                     language = any(),
                     pageSize = any(),
                     offset = any(),
                 )
             } returns
-                LocatorResult.Success(
+                LocationResult.Success(
                     (1..pageSize + 1).map { mockk(relaxed = true) },
                 )
 
             val result =
-                locatorRepositoryImpl.fetchLocators(
+                locatorRepositoryImpl.fetchLocations(
                     type = BankLocationType.ATM,
                     localeTag = "en",
                     page = 2,
@@ -163,27 +163,27 @@ class BankLocationRepositoryImplTest {
 
     @Test
     @DisplayName(
-        "When locatorRemoteDataSource.getLocators() returns list with size smaller than pageSize, " +
-            "then fetchLocators() should return LocatorResult.End",
+        "When bankLocationRemoteDataSource.getLocations() returns list with size smaller than pageSize, " +
+            "then fetchLocations() should return LocationResult.End",
     )
-    fun testFetchLocatorsEnd() =
+    fun testFetchLocationsEnd() =
         runTest(StandardTestDispatcher()) {
             val pageSize = 1000
 
             coEvery {
-                bankLocationRemoteDataSource.getLocators(
+                bankLocationRemoteDataSource.getLocations(
                     path = any(),
                     language = any(),
                     pageSize = any(),
                     offset = any(),
                 )
             } returns
-                LocatorResult.Success(
+                LocationResult.Success(
                     (1..pageSize - 10).map { mockk(relaxed = true) },
                 )
 
             val result =
-                locatorRepositoryImpl.fetchLocators(
+                locatorRepositoryImpl.fetchLocations(
                     type = BankLocationType.ATM,
                     localeTag = "en",
                     page = 2,
@@ -194,7 +194,7 @@ class BankLocationRepositoryImplTest {
         }
 
     @Test
-    fun `getLocatorsWithinBound should return correct LocatorModel list`() {
+    fun `getLocationsWithinBound should return correct LocationModel list`() {
         runTest(StandardTestDispatcher()) {
             val mockBound = BankLocationBound(1.0, 1.0, 1.0, 1.0)
             coEvery {
@@ -206,7 +206,7 @@ class BankLocationRepositoryImplTest {
                 )
             } returns listOf(mockk(relaxed = true))
 
-            val result = locatorRepositoryImpl.getLocatorsWithinBound(mockBound)
+            val result = locatorRepositoryImpl.getLocationsWithinBound(mockBound)
 
             result.shouldBeInstanceOf<List<BankLocationModel>>()
         }

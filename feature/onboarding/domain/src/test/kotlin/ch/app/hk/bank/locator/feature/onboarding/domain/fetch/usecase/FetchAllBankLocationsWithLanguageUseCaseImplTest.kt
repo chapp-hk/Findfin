@@ -20,7 +20,7 @@ import org.junit.jupiter.params.provider.ArgumentsSource
 import java.util.Locale
 import java.util.stream.Stream
 
-@DisplayName("FetchAllLocatorsWithLanguageUseCaseImpl unit tests")
+@DisplayName("FetchAllBankLocationsWithLanguageUseCaseImpl unit tests")
 class FetchAllBankLocationsWithLanguageUseCaseImplTest {
     private val testDispatcher = StandardTestDispatcher()
     private val bankLocationRepository = mockk<BankLocationRepository>()
@@ -45,7 +45,7 @@ class FetchAllBankLocationsWithLanguageUseCaseImplTest {
         expectedResult: Boolean,
     ) = runTest(testDispatcher) {
         coEvery {
-            bankLocationRepository.fetchLocators(
+            bankLocationRepository.fetchLocations(
                 type = any(),
                 localeTag = any(),
                 page = 0,
@@ -54,7 +54,7 @@ class FetchAllBankLocationsWithLanguageUseCaseImplTest {
         } returns BankLocationFetchResult.HasNext
 
         coEvery {
-            bankLocationRepository.fetchLocators(
+            bankLocationRepository.fetchLocations(
                 type = BankLocationType.BRANCH,
                 localeTag = any(),
                 page = 1,
@@ -63,7 +63,7 @@ class FetchAllBankLocationsWithLanguageUseCaseImplTest {
         } returns branchMockedResult
 
         coEvery {
-            bankLocationRepository.fetchLocators(
+            bankLocationRepository.fetchLocations(
                 type = BankLocationType.ATM,
                 localeTag = any(),
                 page = 1,

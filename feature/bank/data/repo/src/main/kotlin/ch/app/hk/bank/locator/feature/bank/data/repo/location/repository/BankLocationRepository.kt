@@ -6,14 +6,14 @@ import ch.app.hk.bank.locator.feature.bank.data.repo.location.model.BankLocation
 import ch.app.hk.bank.locator.feature.bank.data.repo.location.model.BankLocationType
 
 interface BankLocationRepository {
-    suspend fun fetchLocators(
+    suspend fun fetchLocations(
         type: BankLocationType,
         localeTag: String,
         page: Int,
         pageSize: Int,
     ): BankLocationFetchResult
 
-    suspend fun getLocatorsWithinBound(bound: BankLocationBound): List<BankLocationModel>
+    suspend fun getLocationsWithinBound(bound: BankLocationBound): List<BankLocationModel>
 
     suspend fun getAllBanks(): List<String>
 }
