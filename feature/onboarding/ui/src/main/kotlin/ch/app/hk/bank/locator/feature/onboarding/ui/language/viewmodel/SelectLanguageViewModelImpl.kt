@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.core.design.ui.mutableScreenStateFlowOf
 import ch.app.hk.bank.locator.core.locale.api.AppLocaleRepository
-import ch.app.hk.bank.locator.feature.onboarding.domain.fetch.usecase.FetchAllLocatorsWithLanguageUseCase
+import ch.app.hk.bank.locator.feature.onboarding.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.model.SelectLanguageUiModel
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.model.SelectLanguageUiModelMapper
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.state.SelectLanguageUiState
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SelectLanguageViewModelImpl @Inject constructor(
     private val appLocaleRepository: AppLocaleRepository,
-    private val fetchAllLocatorsWithLanguage: FetchAllLocatorsWithLanguageUseCase,
+    private val fetchAllLocatorsWithLanguage: FetchAllBankLocationsWithLanguageUseCase,
 ) : SelectLanguageViewModel, ViewModel() {
     private val _uiState = mutableScreenStateFlowOf<SelectLanguageUiState, String>(ScreenState.Empty)
     override val uiState = _uiState.asStateFlow()

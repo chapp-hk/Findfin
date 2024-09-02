@@ -2,7 +2,7 @@ package ch.app.hk.bank.locator.feature.home.domain.nearby.usecase
 
 import ch.app.hk.bank.locator.core.location.api.model.LocationResult
 import ch.app.hk.bank.locator.core.location.api.repo.LocationRepository
-import ch.app.hk.bank.locator.feature.bank.data.repo.repository.LocatorRepository
+import ch.app.hk.bank.locator.feature.bank.data.repo.location.repository.BankLocationRepository
 import ch.app.hk.bank.locator.feature.home.domain.nearby.model.NearByResult
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -17,13 +17,13 @@ import org.junit.jupiter.api.Test
 class GetNearByServicesUseCaseImplTest {
     private val testDispatcher = StandardTestDispatcher()
     private val locationRepository = mockk<LocationRepository>()
-    private val locatorRepository = mockk<LocatorRepository>()
+    private val bankLocationRepository = mockk<BankLocationRepository>()
 
     private val getNearByServiceUseCase =
         GetNearByServicesUseCaseImpl(
             defaultDispatcher = testDispatcher,
             locationRepository = locationRepository,
-            locatorRepository = locatorRepository,
+            bankLocationRepository = bankLocationRepository,
         )
 
     @Test
@@ -77,7 +77,7 @@ class GetNearByServicesUseCaseImplTest {
 
             coEvery { locationRepository.getSingleCurrentLocation() } returns
                 mockLocation
-            coEvery { locatorRepository.getLocatorsWithinBound(any()) } returns
+            coEvery { bankLocationRepository.getLocatorsWithinBound(any()) } returns
                 listOf(mockk(relaxed = true))
 
             val result = getNearByServiceUseCase()

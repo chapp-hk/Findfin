@@ -3,8 +3,8 @@ package ch.app.hk.bank.locator.feature.home.domain.nearby.usecase
 import ch.app.hk.bank.locator.core.location.api.model.LocationResult
 import ch.app.hk.bank.locator.core.location.api.repo.LocationRepository
 import ch.app.hk.bank.locator.core.threading.DispatcherDefault
-import ch.app.hk.bank.locator.feature.bank.data.repo.model.LocationBound
-import ch.app.hk.bank.locator.feature.bank.data.repo.repository.LocatorRepository
+import ch.app.hk.bank.locator.feature.bank.data.repo.location.model.BankLocationBound
+import ch.app.hk.bank.locator.feature.bank.data.repo.location.repository.BankLocationRepository
 import ch.app.hk.bank.locator.feature.home.domain.nearby.mapper.ServiceMapper
 import ch.app.hk.bank.locator.feature.home.domain.nearby.model.NearByResult
 import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
@@ -18,7 +18,7 @@ import kotlin.math.cos
 internal class GetNearByServicesUseCaseImpl @Inject constructor(
     @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
     private val locationRepository: LocationRepository,
-    private val locatorRepository: LocatorRepository,
+    private val bankLocationRepository: BankLocationRepository,
 ) : GetNearByServicesUseCase {
     override suspend fun invoke(): NearByResult {
         return withContext(defaultDispatcher) {
@@ -36,7 +36,7 @@ internal class GetNearByServicesUseCaseImpl @Inject constructor(
                             longitude = locationResult.lon,
                         )
 
-                    val list = locatorRepository.getLocatorsWithinBound(boundingBox)
+                    val list = bankLocationRepository.getLocatorsWithinBound(boundingBox)
 
                     NearByResult.Location(list.map(mapper::clone))
                 }
@@ -64,11 +64,11 @@ internal class GetNearByServicesUseCaseImpl @Inject constructor(
     private fun calculateBoundingBox(
         latitude: Double,
         longitude: Double,
-    ): LocationBound {
+    ): BankLocationBound {
         val latChange = BOUND_RADIUS / KILOMETERS_PER_DEGREE
         val lonChange = BOUND_RADIUS / (KILOMETERS_PER_DEGREE * cos(Math.toRadians(latitude)))
 
-        return LocationBound(
+        return BankLocationBound(
             minLat = latitude - latChange,
             maxLat = latitude + latChange,
             minLong = longitude - lonChange,
