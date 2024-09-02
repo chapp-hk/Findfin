@@ -1,12 +1,12 @@
 package ch.app.hk.bank.locator.feature.bank.data.repo.location.mapper
 
-import ch.app.hk.bank.locator.feature.bank.data.remote.location.api.LocatorPath
+import ch.app.hk.bank.locator.feature.bank.data.remote.location.api.LocationPath
 import ch.app.hk.bank.locator.feature.bank.data.repo.location.model.BankLocationType
 
-internal fun BankLocationType.toRemoteLocatorPath(): LocatorPath {
+internal fun BankLocationType.toRemoteLocationPath(): LocationPath {
     return when (this) {
-        BankLocationType.ATM -> LocatorPath.ATM
-        BankLocationType.BRANCH -> LocatorPath.BRANCH
+        BankLocationType.ATM -> LocationPath.ATM
+        BankLocationType.BRANCH -> LocationPath.BRANCH
     }
 }
 

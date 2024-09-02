@@ -36,7 +36,7 @@ internal class GetNearByServicesUseCaseImpl @Inject constructor(
                             longitude = locationResult.lon,
                         )
 
-                    val list = bankLocationRepository.getLocatorsWithinBound(boundingBox)
+                    val list = bankLocationRepository.getLocationsWithinBound(boundingBox)
 
                     NearByResult.Location(list.map(mapper::clone))
                 }

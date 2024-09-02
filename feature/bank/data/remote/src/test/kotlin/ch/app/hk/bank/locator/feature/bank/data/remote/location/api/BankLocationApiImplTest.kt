@@ -22,7 +22,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("LocatorApiImplTest unit tests")
+@DisplayName("BankLocationApiImpl unit tests")
 class BankLocationApiImplTest {
     private val mockBaseUrl = "http://localhost"
 
@@ -57,11 +57,11 @@ class BankLocationApiImplTest {
     }
 
     @Test
-    @DisplayName("When invoke getLocators(), should request correct url with get method")
-    fun `test getLocators`() =
+    @DisplayName("When invoke getLocations(), should request correct url with get method")
+    fun `test getLocations`() =
         runTest(StandardTestDispatcher()) {
             shouldThrowAny {
-                bankApi.getLocators(
+                bankApi.getLocations(
                     path = "banks-branch-locator",
                     lang = "en",
                     pageSize = 1000,

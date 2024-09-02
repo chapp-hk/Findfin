@@ -14,7 +14,7 @@ import javax.inject.Inject
 internal class BankLocationApiImpl @Inject constructor(
     private val httpClientFactory: HttpClientFactory,
 ) : BankLocationApi {
-    override suspend fun getLocators(
+    override suspend fun getLocations(
         path: String,
         lang: String,
         pageSize: Int,
@@ -24,7 +24,7 @@ internal class BankLocationApiImpl @Inject constructor(
             .create("https://api.hkma.gov.hk")
             .provide()
             .get(
-                LocatorResource.Type(
+                BankLocationResource.Type(
                     path = path,
                     lang = lang,
                     pagesize = pageSize,
@@ -35,10 +35,10 @@ internal class BankLocationApiImpl @Inject constructor(
 
     @Serializable
     @Resource("/public/bank-svf-info")
-    internal class LocatorResource {
+    internal class BankLocationResource {
         @Resource("/{path}")
         class Type(
-            val parent: LocatorResource = LocatorResource(),
+            val parent: BankLocationResource = BankLocationResource(),
             val path: String,
             val lang: String,
             val pagesize: Int,

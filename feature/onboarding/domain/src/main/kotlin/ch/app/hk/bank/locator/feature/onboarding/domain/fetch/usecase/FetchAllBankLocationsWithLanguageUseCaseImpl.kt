@@ -29,7 +29,7 @@ class FetchAllBankLocationsWithLanguageUseCaseImpl @Inject constructor(
 
         do {
             val result =
-                bankLocationRepository.fetchLocators(
+                bankLocationRepository.fetchLocations(
                     type = type,
                     localeTag = appLocaleRepository.getCurrentLocale().toLanguageTag(),
                     page = page,

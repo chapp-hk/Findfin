@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.bank.data.repo.location.mapper
 
 import ch.app.hk.bank.locator.feature.bank.data.local.bank.model.BankLocationLocal
-import ch.app.hk.bank.locator.feature.bank.data.remote.location.api.LocatorPath
+import ch.app.hk.bank.locator.feature.bank.data.remote.location.api.LocationPath
 import ch.app.hk.bank.locator.feature.bank.data.remote.location.model.BankLocationResponse
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
@@ -9,15 +9,15 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 import org.mapstruct.factory.Mappers
 
-@DisplayName("LocatorMapper unit tests")
+@DisplayName("BankLocationMapper unit tests")
 class BankLocationMapperTest {
     private val bankLocationMapper = Mappers.getMapper(BankLocationMapper::class.java)
 
     @ParameterizedTest(
         name = "When type is {0}, target BankLocal should have {0} as type",
     )
-    @EnumSource(LocatorPath::class)
-    fun testConvertToLocal(input: LocatorPath) {
+    @EnumSource(LocationPath::class)
+    fun testConvertToLocal(input: LocationPath) {
         val bankLocationResponse =
             BankLocationResponse(
                 district = "mock district",

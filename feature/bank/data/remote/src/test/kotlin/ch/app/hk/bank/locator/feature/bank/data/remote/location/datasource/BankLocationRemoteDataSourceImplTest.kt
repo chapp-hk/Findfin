@@ -1,9 +1,9 @@
 package ch.app.hk.bank.locator.feature.bank.data.remote.location.datasource
 
 import ch.app.hk.bank.locator.feature.bank.data.remote.location.api.BankLocationApi
-import ch.app.hk.bank.locator.feature.bank.data.remote.location.api.LocatorPath
+import ch.app.hk.bank.locator.feature.bank.data.remote.location.api.LocationPath
 import ch.app.hk.bank.locator.feature.bank.data.remote.location.model.BankLocationResponse
-import ch.app.hk.bank.locator.feature.bank.data.remote.location.model.LocatorResult
+import ch.app.hk.bank.locator.feature.bank.data.remote.location.model.LocationResult
 import ch.app.hk.bank.locator.testing.util.readResourceAsJson
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -37,14 +37,14 @@ class BankLocationRemoteDataSourceImplTest {
 
             val result =
                 locatorRemoteDataSource.getLocators(
-                    path = LocatorPath.BRANCH,
+                    path = LocationPath.BRANCH,
                     language = "en",
                     pageSize = 5,
                     offset = 100,
                 )
 
             result
-                .shouldBeInstanceOf<LocatorResult.Success>()
+                .shouldBeInstanceOf<LocationResult.Success>()
                 .data.size shouldBe 5
         }
 
@@ -59,13 +59,13 @@ class BankLocationRemoteDataSourceImplTest {
 
             val result =
                 locatorRemoteDataSource.getLocators(
-                    path = LocatorPath.BRANCH,
+                    path = LocationPath.BRANCH,
                     language = "en",
                     pageSize = 10,
                     offset = 40,
                 )
 
-            result shouldBe LocatorResult.Error
+            result shouldBe LocationResult.Error
         }
 
     @Test
@@ -79,13 +79,13 @@ class BankLocationRemoteDataSourceImplTest {
 
             val result =
                 locatorRemoteDataSource.getLocators(
-                    path = LocatorPath.BRANCH,
+                    path = LocationPath.BRANCH,
                     language = "en",
                     pageSize = 20,
                     offset = 60,
                 )
 
-            result shouldBe LocatorResult.Success(emptyList())
+            result shouldBe LocationResult.Success(emptyList())
         }
 
     @Test
@@ -99,13 +99,13 @@ class BankLocationRemoteDataSourceImplTest {
 
             val result =
                 locatorRemoteDataSource.getLocators(
-                    path = LocatorPath.BRANCH,
+                    path = LocationPath.BRANCH,
                     language = "en",
                     pageSize = 20,
                     offset = 60,
                 )
 
-            result shouldBe LocatorResult.Error
+            result shouldBe LocationResult.Error
         }
 
     @Test
@@ -119,14 +119,14 @@ class BankLocationRemoteDataSourceImplTest {
 
             val result =
                 locatorRemoteDataSource.getLocators(
-                    path = LocatorPath.BRANCH,
+                    path = LocationPath.BRANCH,
                     language = "en",
                     pageSize = 20,
                     offset = 60,
                 )
 
             result
-                .shouldBeInstanceOf<LocatorResult.Success>()
+                .shouldBeInstanceOf<LocationResult.Success>()
                 .data shouldBe
                 listOf(
                     BankLocationResponse(
@@ -161,14 +161,14 @@ class BankLocationRemoteDataSourceImplTest {
 
             val result =
                 locatorRemoteDataSource.getLocators(
-                    path = LocatorPath.ATM,
+                    path = LocationPath.ATM,
                     language = "en",
                     pageSize = 5,
                     offset = 100,
                 )
 
             result
-                .shouldBeInstanceOf<LocatorResult.Success>()
+                .shouldBeInstanceOf<LocationResult.Success>()
                 .data.size shouldBe 5
         }
 
@@ -182,15 +182,15 @@ class BankLocationRemoteDataSourceImplTest {
             mockApiResponse("branch/success.json")
 
             locatorRemoteDataSource.getLocators(
-                path = LocatorPath.BRANCH,
+                path = LocationPath.BRANCH,
                 language = "en",
                 pageSize = 5,
                 offset = 100,
             )
 
             coVerify {
-                bankLocationApi.getLocators(
-                    path = LocatorPath.BRANCH.value,
+                bankLocationApi.getLocations(
+                    path = LocationPath.BRANCH.value,
                     lang = "en",
                     pageSize = 5,
                     offset = 100,
@@ -208,15 +208,15 @@ class BankLocationRemoteDataSourceImplTest {
             mockApiResponse("atm/success.json")
 
             locatorRemoteDataSource.getLocators(
-                path = LocatorPath.ATM,
+                path = LocationPath.ATM,
                 language = "en",
                 pageSize = 5,
                 offset = 100,
             )
 
             coVerify {
-                bankLocationApi.getLocators(
-                    path = LocatorPath.ATM.value,
+                bankLocationApi.getLocations(
+                    path = LocationPath.ATM.value,
                     lang = "en",
                     pageSize = 5,
                     offset = 100,
@@ -226,7 +226,7 @@ class BankLocationRemoteDataSourceImplTest {
 
     private fun mockApiResponse(filePath: String) {
         coEvery {
-            bankLocationApi.getLocators(
+            bankLocationApi.getLocations(
                 path = any(),
                 lang = any(),
                 pageSize = any(),
