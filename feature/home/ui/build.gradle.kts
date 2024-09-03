@@ -26,6 +26,7 @@ android {
 
 dependencies {
     implementation(projects.core.design.ui)
+    implementation(projects.core.imageloader)
     implementation(projects.core.navigation)
     implementation(projects.core.location)
     implementation(projects.feature.bank.data.localDatabase)
