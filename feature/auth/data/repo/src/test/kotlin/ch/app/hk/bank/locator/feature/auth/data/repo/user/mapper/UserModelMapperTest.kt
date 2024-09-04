@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.auth.data.repo.user.mapper
 
-import ch.app.hk.bank.locator.feature.auth.data.remote.user.response.UserResponse
 import ch.app.hk.bank.locator.feature.auth.data.repo.user.model.UserModel
+import ch.app.hk.bank.locator.feature.auth.data.repo.user.remote.response.UserResponse
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

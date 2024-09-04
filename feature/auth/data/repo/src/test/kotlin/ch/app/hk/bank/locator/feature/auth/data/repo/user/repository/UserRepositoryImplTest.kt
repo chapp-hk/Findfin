@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.auth.data.repo.user.repository
 
-import ch.app.hk.bank.locator.feature.auth.data.remote.user.datasource.UserRemoteDataSource
 import ch.app.hk.bank.locator.feature.auth.data.repo.user.model.UserModel
+import ch.app.hk.bank.locator.feature.auth.data.repo.user.remote.datasource.UserRemoteDataSource
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.instanceOf
 import io.mockk.coEvery

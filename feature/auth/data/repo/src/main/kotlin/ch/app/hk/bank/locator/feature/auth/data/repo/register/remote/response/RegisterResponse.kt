@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.auth.data.remote.register.response
+package ch.app.hk.bank.locator.feature.auth.data.repo.register.remote.response
 
 sealed interface RegisterResponse {
     data class Success(

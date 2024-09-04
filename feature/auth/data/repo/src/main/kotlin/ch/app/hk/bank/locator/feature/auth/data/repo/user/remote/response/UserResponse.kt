@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.auth.data.remote.user.response
+package ch.app.hk.bank.locator.feature.auth.data.repo.user.remote.response
 
 data class UserResponse(
     val displayName: String,

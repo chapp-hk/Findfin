@@ -39,7 +39,6 @@ include(":core:preferences:impl")
 include(":core:threading")
 
 // feature auth modules
-include(":feature:auth:data:remote")
 include(":feature:auth:data:remote-firebase")
 include(":feature:auth:data:repo")
 include(":feature:auth:navigation")

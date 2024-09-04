@@ -3,7 +3,7 @@ package ch.app.hk.bank.locator.feature.auth.ui.login.viewmodel
 import app.cash.turbine.test
 import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.auth.data.repo.login.model.LoginResult
-import ch.app.hk.bank.locator.feature.auth.data.repo.login.repository.LoginRepositoryImpl
+import ch.app.hk.bank.locator.feature.auth.data.repo.login.repository.LoginRepository
 import ch.app.hk.bank.locator.feature.auth.ui.login.state.LoginError
 import ch.app.hk.bank.locator.feature.auth.ui.login.state.LoginUiState
 import ch.app.hk.bank.locator.testing.extension.MainDispatcherExtension
@@ -24,7 +24,7 @@ import java.util.stream.Stream
 @ExtendWith(MainDispatcherExtension::class)
 @DisplayName("AuthLoginViewModelImpl unit tests")
 class AuthLoginViewModelImplTest {
-    private val loginRepositoryImpl = mockk<LoginRepositoryImpl>()
+    private val loginRepositoryImpl = mockk<LoginRepository>()
 
     private val authLoginViewModel = AuthLoginViewModelImpl(loginRepository = loginRepositoryImpl)
 

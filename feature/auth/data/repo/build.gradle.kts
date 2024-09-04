@@ -7,7 +7,6 @@ plugins {
 
 dependencies {
     implementation(projects.core.preferences.api)
-    implementation(projects.feature.auth.data.remote)
     implementation(libs.kotlinx.coroutines.core)
 
     testImplementation(libs.junit.jupiter)

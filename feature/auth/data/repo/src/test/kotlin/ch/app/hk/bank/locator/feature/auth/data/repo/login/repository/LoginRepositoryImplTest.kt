@@ -1,8 +1,8 @@
 package ch.app.hk.bank.locator.feature.auth.data.repo.login.repository
 
-import ch.app.hk.bank.locator.feature.auth.data.remote.login.datasource.LoginRemoteDataSource
-import ch.app.hk.bank.locator.feature.auth.data.remote.login.response.LoginResponse
 import ch.app.hk.bank.locator.feature.auth.data.repo.login.model.LoginResult
+import ch.app.hk.bank.locator.feature.auth.data.repo.login.remote.datasource.LoginRemoteDataSource
+import ch.app.hk.bank.locator.feature.auth.data.repo.login.remote.response.LoginResponse
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.mockk

@@ -1,13 +1,13 @@
 package ch.app.hk.bank.locator.feature.auth.data.repo.login.repository
 
-import ch.app.hk.bank.locator.feature.auth.data.remote.login.datasource.LoginRemoteDataSource
-import ch.app.hk.bank.locator.feature.auth.data.remote.login.response.LoginResponse
 import ch.app.hk.bank.locator.feature.auth.data.repo.login.model.LoginResult
+import ch.app.hk.bank.locator.feature.auth.data.repo.login.remote.datasource.LoginRemoteDataSource
+import ch.app.hk.bank.locator.feature.auth.data.repo.login.remote.response.LoginResponse
 import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
 
 @HiltWrapBindModule
-class LoginRepositoryImpl @Inject constructor(
+internal class LoginRepositoryImpl @Inject constructor(
     private val loginRemoteDataSource: LoginRemoteDataSource,
 ) : LoginRepository {
     override suspend fun emailPasswordLogin(

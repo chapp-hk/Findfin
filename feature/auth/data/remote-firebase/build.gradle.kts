@@ -16,7 +16,7 @@ android {
 
 dependencies {
     implementation(projects.core.threading)
-    implementation(projects.feature.auth.data.remote)
+    implementation(projects.feature.auth.data.repo)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.kotlinx.coroutines.play.services)

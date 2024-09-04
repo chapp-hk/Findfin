@@ -1,6 +1,6 @@
 package ch.app.hk.bank.locator.feature.auth.data.remote.firebase.service.register
 
-import ch.app.hk.bank.locator.feature.auth.data.remote.register.response.RegisterResponse
+import ch.app.hk.bank.locator.feature.auth.data.repo.register.remote.response.RegisterResponse
 import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskError
 import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskResult
 import com.google.firebase.auth.AuthResult
