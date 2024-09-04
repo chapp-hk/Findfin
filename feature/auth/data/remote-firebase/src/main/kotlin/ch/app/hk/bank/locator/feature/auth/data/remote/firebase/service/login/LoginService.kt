@@ -1,8 +1,8 @@
 package ch.app.hk.bank.locator.feature.auth.data.remote.firebase.service.login
 
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
-import ch.app.hk.bank.locator.feature.auth.data.remote.login.datasource.LoginRemoteDataSource
-import ch.app.hk.bank.locator.feature.auth.data.remote.login.response.LoginResponse
+import ch.app.hk.bank.locator.feature.auth.data.repo.login.remote.datasource.LoginRemoteDataSource
+import ch.app.hk.bank.locator.feature.auth.data.repo.login.remote.response.LoginResponse
 import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth

@@ -1,6 +1,6 @@
 package ch.app.hk.bank.locator.feature.auth.data.remote.firebase.service.user
 
-import ch.app.hk.bank.locator.feature.auth.data.remote.user.response.UserResponse
+import ch.app.hk.bank.locator.feature.auth.data.repo.user.remote.response.UserResponse
 import com.google.firebase.auth.FirebaseUser
 
 class UserResponseMapper {

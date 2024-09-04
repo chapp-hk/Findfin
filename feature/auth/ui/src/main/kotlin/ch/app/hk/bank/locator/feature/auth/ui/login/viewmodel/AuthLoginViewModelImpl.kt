@@ -6,7 +6,7 @@ import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.core.design.ui.ScreenStateFlow
 import ch.app.hk.bank.locator.core.design.ui.mutableScreenStateFlowOf
 import ch.app.hk.bank.locator.feature.auth.data.repo.login.model.LoginResult
-import ch.app.hk.bank.locator.feature.auth.data.repo.login.repository.LoginRepositoryImpl
+import ch.app.hk.bank.locator.feature.auth.data.repo.login.repository.LoginRepository
 import ch.app.hk.bank.locator.feature.auth.ui.login.state.LoginError
 import ch.app.hk.bank.locator.feature.auth.ui.login.state.LoginUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class AuthLoginViewModelImpl @Inject constructor(
-    private val loginRepository: LoginRepositoryImpl,
+    private val loginRepository: LoginRepository,
 ) : ViewModel(), AuthLoginViewModel {
     private val _uiState = mutableScreenStateFlowOf<LoginUiState, LoginUiState.Error>(ScreenState.Empty)
     override val uiState: ScreenStateFlow<LoginUiState, LoginUiState.Error> = _uiState.asStateFlow()
