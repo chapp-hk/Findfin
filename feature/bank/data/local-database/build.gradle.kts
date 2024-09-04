@@ -17,7 +17,7 @@ android {
 
 dependencies {
     implementation(projects.core.threading)
-    implementation(projects.feature.bank.data.local)
+    implementation(projects.feature.bank.data.repo)
     implementation(projects.core.logging.api)
 
     testImplementation(libs.junit.jupiter)

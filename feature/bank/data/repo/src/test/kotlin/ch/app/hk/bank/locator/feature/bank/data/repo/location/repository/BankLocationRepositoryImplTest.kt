@@ -1,9 +1,9 @@
 package ch.app.hk.bank.locator.feature.bank.data.repo.location.repository
 
-import ch.app.hk.bank.locator.feature.bank.data.local.bank.datasource.BankLocationLocalDataSource
 import ch.app.hk.bank.locator.feature.bank.data.remote.location.api.LocationPath
 import ch.app.hk.bank.locator.feature.bank.data.remote.location.datasource.BankLocationRemoteDataSource
 import ch.app.hk.bank.locator.feature.bank.data.remote.location.model.LocationResult
+import ch.app.hk.bank.locator.feature.bank.data.repo.location.local.datasource.BankLocationLocalDataSource
 import ch.app.hk.bank.locator.feature.bank.data.repo.location.mapper.BankLocationFetchResult
 import ch.app.hk.bank.locator.feature.bank.data.repo.location.model.BankLocationBound
 import ch.app.hk.bank.locator.feature.bank.data.repo.location.model.BankLocationModel

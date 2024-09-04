@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.bank.data.local.bank.model
+package ch.app.hk.bank.locator.feature.bank.data.repo.location.local.model
 
 data class BankLocationLocal(
     val type: String,

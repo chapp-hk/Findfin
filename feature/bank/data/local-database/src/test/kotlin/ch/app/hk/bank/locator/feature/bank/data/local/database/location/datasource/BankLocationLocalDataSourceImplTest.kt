@@ -1,8 +1,8 @@
 package ch.app.hk.bank.locator.feature.bank.data.local.database.location.datasource
 
-import ch.app.hk.bank.locator.feature.bank.data.local.bank.model.BankLocationLocal
 import ch.app.hk.bank.locator.feature.bank.data.local.database.location.dao.BankLocationDao
 import ch.app.hk.bank.locator.feature.bank.data.local.database.location.model.BankLocationEntity
+import ch.app.hk.bank.locator.feature.bank.data.repo.location.local.model.BankLocationLocal
 import io.kotest.matchers.shouldBe
 import io.mockk.Runs
 import io.mockk.coEvery
