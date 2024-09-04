@@ -2,10 +2,10 @@ package ch.app.hk.bank.locator.feature.bank.data.local.database.location.datasou
 
 import ch.app.hk.bank.locator.core.logging.appLogger
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
-import ch.app.hk.bank.locator.feature.bank.data.local.bank.datasource.BankLocationLocalDataSource
-import ch.app.hk.bank.locator.feature.bank.data.local.bank.model.BankLocationLocal
 import ch.app.hk.bank.locator.feature.bank.data.local.database.location.dao.BankLocationDao
 import ch.app.hk.bank.locator.feature.bank.data.local.database.location.model.BankLocationMapper
+import ch.app.hk.bank.locator.feature.bank.data.repo.location.local.datasource.BankLocationLocalDataSource
+import ch.app.hk.bank.locator.feature.bank.data.repo.location.local.model.BankLocationLocal
 import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -13,7 +13,7 @@ import org.mapstruct.factory.Mappers
 import javax.inject.Inject
 
 @HiltWrapBindModule
-class BankLocationLocalDataSourceImpl @Inject constructor(
+internal class BankLocationLocalDataSourceImpl @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val bankLocationDao: BankLocationDao,
 ) : BankLocationLocalDataSource {

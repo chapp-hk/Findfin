@@ -1,6 +1,6 @@
-package ch.app.hk.bank.locator.feature.bank.data.local.bank.datasource
+package ch.app.hk.bank.locator.feature.bank.data.repo.location.local.datasource
 
-import ch.app.hk.bank.locator.feature.bank.data.local.bank.model.BankLocationLocal
+import ch.app.hk.bank.locator.feature.bank.data.repo.location.local.model.BankLocationLocal
 
 interface BankLocationLocalDataSource {
     suspend fun insertAll(locators: List<BankLocationLocal>)

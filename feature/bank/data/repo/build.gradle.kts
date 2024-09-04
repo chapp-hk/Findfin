@@ -6,7 +6,6 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.feature.bank.data.local)
     implementation(projects.feature.bank.data.remote)
 
     testImplementation(libs.junit.jupiter)

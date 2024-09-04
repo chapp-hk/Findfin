@@ -45,7 +45,6 @@ include(":feature:auth:navigation")
 include(":feature:auth:ui")
 
 // feature bank modules
-include(":feature:bank:data:local")
 include(":feature:bank:data:local-database")
 include(":feature:bank:data:remote")
 include(":feature:bank:data:repo")

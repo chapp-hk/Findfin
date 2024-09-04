@@ -1,6 +1,6 @@
 package ch.app.hk.bank.locator.feature.bank.data.local.database.location.model
 
-import ch.app.hk.bank.locator.feature.bank.data.local.bank.model.BankLocationLocal
+import ch.app.hk.bank.locator.feature.bank.data.repo.location.local.model.BankLocationLocal
 import org.mapstruct.Mapper
 
 @Mapper
