@@ -10,7 +10,7 @@ import androidx.room.Entity
         "longitude",
     ],
 )
-data class BankLocationEntity(
+internal data class BankLocationEntity(
     @ColumnInfo(name = "type")
     val type: String,
     @ColumnInfo(name = "district")
