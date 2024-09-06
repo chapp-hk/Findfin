@@ -7,7 +7,7 @@ import androidx.room.Query
 import ch.app.hk.bank.locator.feature.bank.data.local.database.location.model.BankLocationEntity
 
 @Dao
-interface BankLocationDao {
+internal interface BankLocationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(locators: List<BankLocationEntity>)
 

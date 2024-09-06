@@ -4,7 +4,7 @@ import ch.app.hk.bank.locator.feature.bank.data.repo.location.local.model.BankLo
 import org.mapstruct.Mapper
 
 @Mapper
-interface BankLocationMapper {
+internal interface BankLocationMapper {
     fun clone(locator: BankLocationLocal): BankLocationEntity
 
     fun toLocalModel(locator: BankLocationEntity): BankLocationLocal
