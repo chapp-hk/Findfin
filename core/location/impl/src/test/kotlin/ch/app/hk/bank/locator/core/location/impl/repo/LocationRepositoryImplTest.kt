@@ -1,17 +1,12 @@
 package ch.app.hk.bank.locator.core.location.impl.repo
 
 import ch.app.hk.bank.locator.core.location.api.model.LocationResult
-import ch.app.hk.bank.locator.core.location.impl.datasource.core.CoreLocationDataSource
-import ch.app.hk.bank.locator.core.location.impl.datasource.core.CoreLocationProvider
 import ch.app.hk.bank.locator.core.location.impl.datasource.fused.FusedLocationDataSource
-import ch.app.hk.bank.locator.core.location.impl.helper.gms.GmsCheckHelper
 import ch.app.hk.bank.locator.core.location.impl.helper.hardware.GpsHelper
 import ch.app.hk.bank.locator.core.location.impl.helper.permission.PermissionHelper
 import io.kotest.matchers.shouldBe
-import io.mockk.Called
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.coVerifyOrder
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
@@ -22,16 +17,12 @@ import org.junit.jupiter.api.Test
 class LocationRepositoryImplTest {
     private val permissionHelper = mockk<PermissionHelper>()
     private val gpsHelper = mockk<GpsHelper>()
-    private val gmsCheckHelper = mockk<GmsCheckHelper>()
-    private val coreLocationDataSource = mockk<CoreLocationDataSource>()
     private val fusedLocationDataSource = mockk<FusedLocationDataSource>()
 
     private val locationRepository =
         LocationRepositoryImpl(
             permissionHelper = permissionHelper,
             gpsHelper = gpsHelper,
-            gmsCheckHelper = gmsCheckHelper,
-            coreLocationDataSource = coreLocationDataSource,
             fusedLocationDataSource = fusedLocationDataSource,
         )
 
@@ -77,7 +68,6 @@ class LocationRepositoryImplTest {
             every { permissionHelper.checkPermission() } returns true
             every { gpsHelper.hasGpsSensor() } returns true
             every { gpsHelper.isGpsEnabled() } returns true
-            every { gmsCheckHelper.isGmsAvailable() } returns true
             coEvery { fusedLocationDataSource.getSingleCurrentLocation() } returns
                 mockk {
                     every { latitude } returns 1.0
@@ -87,51 +77,6 @@ class LocationRepositoryImplTest {
             val result = locationRepository.getSingleCurrentLocation()
 
             result shouldBe LocationResult.Location(1.0, 2.0)
-            coVerify { coreLocationDataSource wasNot Called }
-        }
-    }
-
-    @Test
-    fun `getSingleCurrentLocation() should get location from LocationManagerDataSource`() {
-        runTest {
-            every { permissionHelper.checkPermission() } returns true
-            every { gpsHelper.hasGpsSensor() } returns true
-            every { gpsHelper.isGpsEnabled() } returns true
-            every { gmsCheckHelper.isGmsAvailable() } returns false
-            coEvery { coreLocationDataSource.getSingleCurrentLocation(any(), any()) } returns
-                mockk {
-                    every { latitude } returns 1.0
-                    every { longitude } returns 2.0
-                }
-
-            val result = locationRepository.getSingleCurrentLocation()
-
-            result shouldBe LocationResult.Location(1.0, 2.0)
-            coVerify { fusedLocationDataSource wasNot Called }
-        }
-    }
-
-    @Test
-    fun `getSingleCurrentLocation() should retry with NETWORK provider when first attempt with GPS provider returns null`() {
-        runTest {
-            every { permissionHelper.checkPermission() } returns true
-            every { gpsHelper.hasGpsSensor() } returns true
-            every { gpsHelper.isGpsEnabled() } returns true
-            every { gmsCheckHelper.isGmsAvailable() } returns false
-            coEvery { coreLocationDataSource.getSingleCurrentLocation(CoreLocationProvider.GPS, any()) } returns null
-            coEvery { coreLocationDataSource.getSingleCurrentLocation(CoreLocationProvider.NETWORK, any()) } returns
-                mockk {
-                    every { latitude } returns 1.0
-                    every { longitude } returns 2.0
-                }
-
-            val result = locationRepository.getSingleCurrentLocation()
-
-            result shouldBe LocationResult.Location(1.0, 2.0)
-            coVerifyOrder {
-                coreLocationDataSource.getSingleCurrentLocation(CoreLocationProvider.GPS, any())
-                coreLocationDataSource.getSingleCurrentLocation(CoreLocationProvider.NETWORK, any())
-            }
         }
     }
 
@@ -141,7 +86,6 @@ class LocationRepositoryImplTest {
             every { permissionHelper.checkPermission() } returns true
             every { gpsHelper.hasGpsSensor() } returns true
             every { gpsHelper.isGpsEnabled() } returns true
-            every { gmsCheckHelper.isGmsAvailable() } returns true
             coEvery { fusedLocationDataSource.getSingleCurrentLocation() } returnsMany
                 listOf(
                     null,
