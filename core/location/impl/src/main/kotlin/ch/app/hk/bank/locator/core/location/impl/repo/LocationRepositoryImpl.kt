@@ -3,10 +3,7 @@ package ch.app.hk.bank.locator.core.location.impl.repo
 import android.location.Location
 import ch.app.hk.bank.locator.core.location.api.model.LocationResult
 import ch.app.hk.bank.locator.core.location.api.repo.LocationRepository
-import ch.app.hk.bank.locator.core.location.impl.datasource.core.CoreLocationDataSource
-import ch.app.hk.bank.locator.core.location.impl.datasource.core.CoreLocationProvider
 import ch.app.hk.bank.locator.core.location.impl.datasource.fused.FusedLocationDataSource
-import ch.app.hk.bank.locator.core.location.impl.helper.gms.GmsCheckHelper
 import ch.app.hk.bank.locator.core.location.impl.helper.hardware.GpsHelper
 import ch.app.hk.bank.locator.core.location.impl.helper.permission.PermissionHelper
 import ch.app.hk.bank.locator.core.logging.appLogger
@@ -17,8 +14,6 @@ import javax.inject.Inject
 internal class LocationRepositoryImpl @Inject constructor(
     private val permissionHelper: PermissionHelper,
     private val gpsHelper: GpsHelper,
-    private val gmsCheckHelper: GmsCheckHelper,
-    private val coreLocationDataSource: CoreLocationDataSource,
     private val fusedLocationDataSource: FusedLocationDataSource,
 ) : LocationRepository {
     override suspend fun getSingleCurrentLocation(): LocationResult {
@@ -32,7 +27,7 @@ internal class LocationRepositoryImpl @Inject constructor(
             appLogger.debug(tag = javaClass.simpleName, message = "GpsIsOff")
             LocationResult.GpsIsOff
         } else {
-            val location = getCurrentLocation(isRetry = false)
+            val location = getCurrentLocation()
 
             appLogger.debug(
                 tag = javaClass.simpleName,
@@ -43,15 +38,9 @@ internal class LocationRepositoryImpl @Inject constructor(
         }
     }
 
-    private suspend fun getCurrentLocation(isRetry: Boolean): Location {
-        val location =
-            if (gmsCheckHelper.isGmsAvailable()) {
-                getCurrentLocationFromGms()
-            } else {
-                getCurrentLocationFromCore(isRetry)
-            }
-
-        return location ?: getCurrentLocation(isRetry = true)
+    private suspend fun getCurrentLocation(): Location {
+        val location = getCurrentLocationFromGms()
+        return location ?: getCurrentLocation()
     }
 
     private suspend fun getCurrentLocationFromGms(): Location? {
@@ -61,24 +50,5 @@ internal class LocationRepositoryImpl @Inject constructor(
         )
 
         return fusedLocationDataSource.getSingleCurrentLocation()
-    }
-
-    private suspend fun getCurrentLocationFromCore(isRetry: Boolean): Location? {
-        val provider =
-            if (isRetry) {
-                CoreLocationProvider.NETWORK
-            } else {
-                CoreLocationProvider.GPS
-            }
-
-        appLogger.debug(
-            tag = javaClass.simpleName,
-            message = "getting location from core with provider $provider...",
-        )
-
-        return coreLocationDataSource.getSingleCurrentLocation(
-            provider = provider,
-            timeoutMillis = 5000L,
-        )
     }
 }
