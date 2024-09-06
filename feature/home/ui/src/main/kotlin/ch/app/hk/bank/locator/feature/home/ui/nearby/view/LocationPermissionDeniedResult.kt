@@ -10,8 +10,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.result.ResultLayout
-import ch.app.hk.bank.locator.core.location.launcher.permission.rememberLocationPermissionLauncher
 import ch.app.hk.bank.locator.feature.home.ui.R
+import ch.app.hk.bank.locator.feature.locator.navigation.rememberLocationPermissionLauncher
 
 @Composable
 internal fun LocationPermissionDeniedResult(

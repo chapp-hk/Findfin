@@ -1,9 +1,9 @@
 package ch.app.hk.bank.locator.feature.home.domain.nearby.usecase
 
-import ch.app.hk.bank.locator.core.location.api.model.LocationResult
-import ch.app.hk.bank.locator.core.location.api.repo.LocationRepository
 import ch.app.hk.bank.locator.feature.bank.data.repo.location.repository.BankLocationRepository
 import ch.app.hk.bank.locator.feature.home.domain.nearby.model.NearByResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.repo.LocationRepository
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import io.mockk.coEvery
