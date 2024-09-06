@@ -1,12 +1,12 @@
 package ch.app.hk.bank.locator.feature.home.domain.nearby.usecase
 
-import ch.app.hk.bank.locator.core.location.api.model.LocationResult
-import ch.app.hk.bank.locator.core.location.api.repo.LocationRepository
 import ch.app.hk.bank.locator.core.threading.DispatcherDefault
 import ch.app.hk.bank.locator.feature.bank.data.repo.location.model.BankLocationBound
 import ch.app.hk.bank.locator.feature.bank.data.repo.location.repository.BankLocationRepository
 import ch.app.hk.bank.locator.feature.home.domain.nearby.mapper.ServiceMapper
 import ch.app.hk.bank.locator.feature.home.domain.nearby.model.NearByResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationResult
+import ch.app.hk.bank.locator.feature.locator.data.repo.repo.LocationRepository
 import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
