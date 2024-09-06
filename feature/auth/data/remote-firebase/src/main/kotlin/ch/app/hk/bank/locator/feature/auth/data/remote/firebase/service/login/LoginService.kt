@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltWrapBindModule
-class LoginService @Inject constructor(
+internal class LoginService @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val firebaseAuth: FirebaseAuth,
 ) : LoginRemoteDataSource {
