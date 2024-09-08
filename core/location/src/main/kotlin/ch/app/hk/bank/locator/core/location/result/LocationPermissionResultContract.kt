@@ -11,7 +11,8 @@ import javax.inject.Inject
 /**
  * An [ActivityResultContract] for checking location permissions.
  *
- * This contract navigates the user to the application settings screen where they can grant or deny location permissions.
+ * This contract navigates the user to the application settings screen
+ * where they can grant or deny location permissions.
  * It then checks if the necessary location permissions are granted.
  *
  * @property permissionHelper A helper for checking if the necessary permissions are granted.
