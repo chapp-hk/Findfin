@@ -21,7 +21,7 @@ class LocationClientImplTest {
     private val fusedLocationDataSource = LocationClientImpl(fusedLocationProviderClient)
 
     @Test
-    fun `getSingleCurrentLocation returns expected location`() {
+    fun `getCurrentLocation returns expected location`() {
         runTest(StandardTestDispatcher()) {
             val expectedLocation = mockk<Location>()
             every {
@@ -31,7 +31,7 @@ class LocationClientImplTest {
                 )
             } returns mockTaskResult(expectedLocation)
 
-            val result = fusedLocationDataSource.getSingleCurrentLocation()
+            val result = fusedLocationDataSource.getCurrentLocation()
 
             result shouldBe expectedLocation
             verify {
@@ -44,7 +44,7 @@ class LocationClientImplTest {
     }
 
     @Test
-    fun `getSingleCurrentLocation returns null when no location update is received`() {
+    fun `getCurrentLocation returns null when no location update is received`() {
         runTest(StandardTestDispatcher()) {
             every {
                 fusedLocationProviderClient.getCurrentLocation(
@@ -53,7 +53,7 @@ class LocationClientImplTest {
                 )
             } returns mockTaskResult(null)
 
-            val result = fusedLocationDataSource.getSingleCurrentLocation()
+            val result = fusedLocationDataSource.getCurrentLocation()
 
             result shouldBe null
         }
