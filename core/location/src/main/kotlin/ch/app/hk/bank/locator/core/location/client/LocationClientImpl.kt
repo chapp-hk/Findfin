@@ -5,7 +5,6 @@ import androidx.annotation.RequiresPermission
 import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import com.google.android.gms.location.CurrentLocationRequest
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -24,8 +23,6 @@ internal class LocationClientImpl @Inject constructor(
         val request =
             CurrentLocationRequest
                 .Builder()
-                .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
-                .setDurationMillis(TIMEOUT)
                 .build()
 
         val cancellationTokenSource = CancellationTokenSource()
@@ -33,9 +30,5 @@ internal class LocationClientImpl @Inject constructor(
         return fusedLocationProviderClient
             .getCurrentLocation(request, cancellationTokenSource.token)
             .await(cancellationTokenSource)
-    }
-
-    companion object {
-        private const val TIMEOUT = 5000L
     }
 }
