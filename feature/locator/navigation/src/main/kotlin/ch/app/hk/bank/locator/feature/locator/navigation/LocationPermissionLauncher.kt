@@ -13,7 +13,8 @@ import dagger.hilt.android.EntryPointAccessors
  * Remembers a launcher for the location permission result contract.
  *
  * This composable function creates and remembers a launcher for the [LocationPermissionResultContract].
- * It uses the [LocationHelperEntryPoint] to get the [PermissionHelper] and checks if the necessary location permissions are granted.
+ * It uses the [LocationHelperEntryPoint] to get the [PermissionHelper] and
+ * checks if the necessary location permissions are granted.
  *
  * @param onResult A callback to be invoked with the result of the permission check.
  * @return A [ManagedActivityResultLauncher] that can be used to launch the location permission request.
