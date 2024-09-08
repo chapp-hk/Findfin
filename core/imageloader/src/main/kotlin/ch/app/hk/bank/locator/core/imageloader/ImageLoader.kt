@@ -27,9 +27,12 @@ import java.nio.ByteBuffer
  *   - [Bitmap]
  *   - [ByteArray]
  *   - [ByteBuffer]
- * @param placeholder A painter to be displayed during the image loading process. Can be used to display a temporary image until the actual image is loaded.
- * @param error A painter that is displayed if an error occurs during the image loading process. Useful for providing feedback to the user in case of loading failures.
- * @param contentDescription Text used by accessibility services to describe what the image represents. Null indicates that the image is decorative.
+ * @param placeholder A painter to be displayed during the image loading process.
+ * Can be used to display a temporary image until the actual image is loaded.
+ * @param error A painter that is displayed if an error occurs during the image loading process.
+ * Useful for providing feedback to the user in case of loading failures.
+ * @param contentDescription Text used by accessibility services to describe what the image represents.
+ * Null indicates that the image is decorative.
  */
 @Composable
 fun ImageView(
