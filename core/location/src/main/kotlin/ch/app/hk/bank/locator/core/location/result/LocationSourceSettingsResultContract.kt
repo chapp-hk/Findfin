@@ -9,7 +9,8 @@ import javax.inject.Inject
 /**
  * An [ActivityResultContract] for navigating to the location source settings screen.
  *
- * This contract navigates the user to the location source settings screen where they can enable or disable location services.
+ * This contract navigates the user to the location source settings screen
+ * where they can enable or disable location services.
  * It then checks if the GPS is enabled on the device.
  *
  * @property gpsHelper A helper for checking if the GPS is enabled on the device.
