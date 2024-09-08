@@ -9,17 +9,30 @@ import com.google.android.gms.tasks.CancellationTokenSource
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
+/**
+ * Implementation of the [LocationClient] interface that provides location data using the
+ * [FusedLocationProviderClient].
+ *
+ * @property fusedLocationProviderClient The client used to access location data.
+ */
 @HiltWrapBindModule
 internal class LocationClientImpl @Inject constructor(
     private val fusedLocationProviderClient: FusedLocationProviderClient,
 ) : LocationClient {
+    /**
+     * Retrieves the current location of the device.
+     *
+     * This method requires either `ACCESS_FINE_LOCATION` or `ACCESS_COARSE_LOCATION` permission.
+     *
+     * @return The current [Location] of the device, or `null` if the location could not be determined.
+     */
     @RequiresPermission(
         anyOf = [
             android.Manifest.permission.ACCESS_FINE_LOCATION,
             android.Manifest.permission.ACCESS_COARSE_LOCATION,
         ],
     )
-    override suspend fun getSingleCurrentLocation(): Location? {
+    override suspend fun getCurrentLocation(): Location? {
         val request =
             CurrentLocationRequest
                 .Builder()
