@@ -20,7 +20,7 @@ internal class LocationRepositoryImpl @Inject constructor(
     private val gpsHelper: GpsHelper,
     private val locationClient: LocationClient,
 ) : LocationRepository {
-    override suspend fun getSingleCurrentLocation(): LocationResult {
+    override suspend fun getCurrentLocation(): LocationResult {
         return withContext(ioDispatcher) {
             if (!permissionHelper.checkPermission()) {
                 appLogger.debug(tag = javaClass.simpleName, message = "PermissionNotGranted")
@@ -32,7 +32,7 @@ internal class LocationRepositoryImpl @Inject constructor(
                 appLogger.debug(tag = javaClass.simpleName, message = "GpsIsOff")
                 LocationResult.GpsIsOff
             } else {
-                val location = getCurrentLocation()
+                val location = internalGetCurrentLocation()
 
                 appLogger.debug(
                     tag = javaClass.simpleName,
@@ -44,17 +44,13 @@ internal class LocationRepositoryImpl @Inject constructor(
         }
     }
 
-    private suspend fun getCurrentLocation(): Location {
-        val location = getCurrentLocationFromGms()
-        return location ?: getCurrentLocation()
-    }
-
-    private suspend fun getCurrentLocationFromGms(): Location? {
+    private suspend fun internalGetCurrentLocation(): Location {
         appLogger.debug(
             tag = javaClass.simpleName,
-            message = "getting location from gms...",
+            message = "getting location...",
         )
 
-        return locationClient.getSingleCurrentLocation()
+        val location = locationClient.getCurrentLocation()
+        return location ?: internalGetCurrentLocation()
     }
 }

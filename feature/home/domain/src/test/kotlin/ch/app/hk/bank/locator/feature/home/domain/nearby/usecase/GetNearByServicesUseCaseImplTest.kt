@@ -29,7 +29,7 @@ class GetNearByServicesUseCaseImplTest {
     @Test
     fun `invoke should return GpsIsOff when LocationResult is GpsIsOff`() =
         runTest(testDispatcher) {
-            coEvery { locationRepository.getSingleCurrentLocation() } returns
+            coEvery { locationRepository.getCurrentLocation() } returns
                 LocationResult.GpsIsOff
 
             val result = getNearByServiceUseCase()
@@ -40,7 +40,7 @@ class GetNearByServicesUseCaseImplTest {
     @Test
     fun `invoke should return GpsNotSupported when LocationResult is GpsNotSupported`() =
         runTest(testDispatcher) {
-            coEvery { locationRepository.getSingleCurrentLocation() } returns
+            coEvery { locationRepository.getCurrentLocation() } returns
                 LocationResult.GpsNotSupported
 
             val result = getNearByServiceUseCase()
@@ -51,7 +51,7 @@ class GetNearByServicesUseCaseImplTest {
     @Test
     fun `invoke should return PermissionNotGranted when LocationResult is PermissionNotGranted`() =
         runTest(testDispatcher) {
-            coEvery { locationRepository.getSingleCurrentLocation() } returns
+            coEvery { locationRepository.getCurrentLocation() } returns
                 LocationResult.PermissionNotGranted
 
             val result = getNearByServiceUseCase()
@@ -62,7 +62,7 @@ class GetNearByServicesUseCaseImplTest {
     @Test
     fun `invoke should return UnknownError when LocationResult is UnknownError`() =
         runTest(testDispatcher) {
-            coEvery { locationRepository.getSingleCurrentLocation() } returns
+            coEvery { locationRepository.getCurrentLocation() } returns
                 LocationResult.UnknownError
 
             val result = getNearByServiceUseCase()
@@ -75,7 +75,7 @@ class GetNearByServicesUseCaseImplTest {
         runTest(testDispatcher) {
             val mockLocation = LocationResult.Location(1.0, 1.0)
 
-            coEvery { locationRepository.getSingleCurrentLocation() } returns
+            coEvery { locationRepository.getCurrentLocation() } returns
                 mockLocation
             coEvery { bankLocationRepository.getLocationsWithinBound(any()) } returns
                 listOf(mockk(relaxed = true))

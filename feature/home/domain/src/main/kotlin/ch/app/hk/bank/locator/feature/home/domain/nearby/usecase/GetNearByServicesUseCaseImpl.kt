@@ -22,7 +22,7 @@ internal class GetNearByServicesUseCaseImpl @Inject constructor(
 ) : GetNearByServicesUseCase {
     override suspend fun invoke(): NearByResult {
         return withContext(defaultDispatcher) {
-            when (val locationResult = locationRepository.getSingleCurrentLocation()) {
+            when (val locationResult = locationRepository.getCurrentLocation()) {
                 LocationResult.GpsIsOff -> NearByResult.GpsIsOff
                 LocationResult.GpsNotSupported -> NearByResult.GpsNotSupported
                 LocationResult.PermissionNotGranted -> NearByResult.PermissionNotGranted

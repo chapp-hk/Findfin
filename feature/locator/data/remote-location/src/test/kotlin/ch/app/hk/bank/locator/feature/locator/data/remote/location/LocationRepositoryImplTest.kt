@@ -30,66 +30,66 @@ class LocationRepositoryImplTest {
         )
 
     @Test
-    fun `getSingleCurrentLocation() should return PermissionNotGranted when permission is not granted`() {
+    fun `getCurrentLocation() should return PermissionNotGranted when permission is not granted`() {
         runTest(testDispatcher) {
             every { permissionHelper.checkPermission() } returns false
 
-            val result = locationRepository.getSingleCurrentLocation()
+            val result = locationRepository.getCurrentLocation()
 
             result shouldBe LocationResult.PermissionNotGranted
         }
     }
 
     @Test
-    fun `getSingleCurrentLocation() should return GpsNotSupported when gps sensor is not supported`() {
+    fun `getCurrentLocation() should return GpsNotSupported when gps sensor is not supported`() {
         runTest(testDispatcher) {
             every { permissionHelper.checkPermission() } returns true
             every { gpsHelper.hasGpsSensor() } returns false
 
-            val result = locationRepository.getSingleCurrentLocation()
+            val result = locationRepository.getCurrentLocation()
 
             result shouldBe LocationResult.GpsNotSupported
         }
     }
 
     @Test
-    fun `getSingleCurrentLocation() should return GpsIsOff when gps is disabled`() {
+    fun `getCurrentLocation() should return GpsIsOff when gps is disabled`() {
         runTest(testDispatcher) {
             every { permissionHelper.checkPermission() } returns true
             every { gpsHelper.hasGpsSensor() } returns true
             every { gpsHelper.isGpsEnabled() } returns false
 
-            val result = locationRepository.getSingleCurrentLocation()
+            val result = locationRepository.getCurrentLocation()
 
             result shouldBe LocationResult.GpsIsOff
         }
     }
 
     @Test
-    fun `getSingleCurrentLocation() should get location from FusedLocationDataSource`() {
+    fun `getCurrentLocation() should get location from FusedLocationDataSource`() {
         runTest(testDispatcher) {
             every { permissionHelper.checkPermission() } returns true
             every { gpsHelper.hasGpsSensor() } returns true
             every { gpsHelper.isGpsEnabled() } returns true
-            coEvery { locationClient.getSingleCurrentLocation() } returns
+            coEvery { locationClient.getCurrentLocation() } returns
                 mockk {
                     every { latitude } returns 1.0
                     every { longitude } returns 2.0
                 }
 
-            val result = locationRepository.getSingleCurrentLocation()
+            val result = locationRepository.getCurrentLocation()
 
             result shouldBe LocationResult.Location(1.0, 2.0)
         }
     }
 
     @Test
-    fun `getSingleCurrentLocation() should retry with FusedLocationDataSource when first attempt returns null`() {
+    fun `getCurrentLocation() should retry with FusedLocationDataSource when first attempt returns null`() {
         runTest(testDispatcher) {
             every { permissionHelper.checkPermission() } returns true
             every { gpsHelper.hasGpsSensor() } returns true
             every { gpsHelper.isGpsEnabled() } returns true
-            coEvery { locationClient.getSingleCurrentLocation() } returnsMany
+            coEvery { locationClient.getCurrentLocation() } returnsMany
                 listOf(
                     null,
                     mockk {
@@ -98,10 +98,10 @@ class LocationRepositoryImplTest {
                     },
                 )
 
-            val result = locationRepository.getSingleCurrentLocation()
+            val result = locationRepository.getCurrentLocation()
 
             result shouldBe LocationResult.Location(1.0, 2.0)
-            coVerify(exactly = 2) { locationClient.getSingleCurrentLocation() }
+            coVerify(exactly = 2) { locationClient.getCurrentLocation() }
         }
     }
 }
