@@ -35,37 +35,36 @@ fun Modifier.shimmer(
     widthOfShadowBrush: Int = 500,
     angleOfAxisY: Float = 270f,
     durationMillis: Int = 1000,
-) = this then
-    composed {
-        val shimmerColors = ShimmerAnimationData(MaterialTheme.colorScheme.outlineVariant).getColours()
+) = this.composed {
+    val shimmerColors = ShimmerAnimationData(MaterialTheme.colorScheme.outlineVariant).getColours()
 
-        val transition = rememberInfiniteTransition(label = "Shimmer transition")
+    val transition = rememberInfiniteTransition(label = "Shimmer transition")
 
-        val translateAnimation =
-            transition.animateFloat(
-                initialValue = 0f,
-                targetValue = (durationMillis + widthOfShadowBrush).toFloat(),
-                animationSpec =
-                    infiniteRepeatable(
-                        animation =
-                            tween(
-                                durationMillis = durationMillis,
-                                easing = LinearEasing,
-                            ),
-                        repeatMode = RepeatMode.Restart,
-                    ),
-                label = "Shimmer translate animation",
-            )
-
-        background(
-            brush =
-                Brush.linearGradient(
-                    colors = shimmerColors,
-                    start = Offset(x = translateAnimation.value - widthOfShadowBrush, y = 0.0f),
-                    end = Offset(x = translateAnimation.value, y = angleOfAxisY),
+    val translateAnimation =
+        transition.animateFloat(
+            initialValue = 0f,
+            targetValue = (durationMillis + widthOfShadowBrush).toFloat(),
+            animationSpec =
+                infiniteRepeatable(
+                    animation =
+                        tween(
+                            durationMillis = durationMillis,
+                            easing = LinearEasing,
+                        ),
+                    repeatMode = RepeatMode.Restart,
                 ),
+            label = "Shimmer translate animation",
         )
-    }
+
+    background(
+        brush =
+            Brush.linearGradient(
+                colors = shimmerColors,
+                start = Offset(x = translateAnimation.value - widthOfShadowBrush, y = 0.0f),
+                end = Offset(x = translateAnimation.value, y = angleOfAxisY),
+            ),
+    )
+}
 
 private data class ShimmerAnimationData(
     private val color: Color,
