@@ -13,22 +13,6 @@ import ch.app.hk.bank.locator.core.design.theme.AppTypography
 import ch.app.hk.bank.locator.core.design.theme.darkScheme
 import ch.app.hk.bank.locator.core.design.theme.lightScheme
 
-@Immutable
-data class ColorFamily(
-    val color: Color,
-    val onColor: Color,
-    val colorContainer: Color,
-    val onColorContainer: Color,
-)
-
-val unspecified_scheme =
-    ColorFamily(
-        Color.Unspecified,
-        Color.Unspecified,
-        Color.Unspecified,
-        Color.Unspecified,
-    )
-
 @Composable
 fun AppContent(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -53,3 +37,19 @@ fun AppContent(
         content = content,
     )
 }
+
+@Immutable
+data class ColorFamily(
+    val color: Color,
+    val onColor: Color,
+    val colorContainer: Color,
+    val onColorContainer: Color,
+)
+
+val unspecified_scheme =
+    ColorFamily(
+        Color.Unspecified,
+        Color.Unspecified,
+        Color.Unspecified,
+        Color.Unspecified,
+    )
