@@ -3,8 +3,8 @@ package ch.app.hk.bank.locator.core.design.ui
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.test.junit4.createComposeRule
-import ch.app.hk.bank.locator.core.design.theme.DarkColors
-import ch.app.hk.bank.locator.core.design.theme.LightColors
+import ch.app.hk.bank.locator.core.design.theme.darkScheme
+import ch.app.hk.bank.locator.core.design.theme.lightScheme
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -17,10 +17,10 @@ class AppContentTest {
     fun darkThemeFalse() {
         composeTestRule.setContent {
             AppContent(
-                useDarkTheme = false,
+                darkTheme = false,
             ) {
                 assertColorSchemesEqual(
-                    expectedColorScheme = LightColors,
+                    expectedColorScheme = lightScheme,
                     actualColorScheme = MaterialTheme.colorScheme,
                 )
             }
@@ -31,10 +31,10 @@ class AppContentTest {
     fun darkThemeTrue() {
         composeTestRule.setContent {
             AppContent(
-                useDarkTheme = true,
+                darkTheme = true,
             ) {
                 assertColorSchemesEqual(
-                    expectedColorScheme = DarkColors,
+                    expectedColorScheme = darkScheme,
                     actualColorScheme = MaterialTheme.colorScheme,
                 )
             }
