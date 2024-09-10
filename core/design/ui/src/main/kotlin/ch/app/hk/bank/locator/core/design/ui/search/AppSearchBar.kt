@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -31,30 +31,36 @@ fun AppSearchBar(
             modifier
                 .padding(horizontal = 16.dp)
                 .fillMaxWidth(),
-        query = state.value,
-        onQueryChange = { newValue -> state.value = newValue },
-        placeholder = {
-            val inputFieldContentDescription =
-                stringResource(id = R.string.core_ui_content_description_search_input_field)
+        inputField = {
+            SearchBarDefaults
+                .InputField(
+                    query = state.value,
+                    onQueryChange = { newValue -> state.value = newValue },
+                    onSearch = onSearch,
+                    expanded = false,
+                    onExpandedChange = {},
+                    placeholder = {
+                        val inputFieldContentDescription =
+                            stringResource(id = R.string.core_ui_content_description_search_input_field)
 
-            Text(
-                modifier = Modifier.contentDescription(inputFieldContentDescription),
-                text = state.placeholder,
-            )
-        },
-        onSearch = onSearch,
-        active = false,
-        onActiveChange = {},
-        leadingIcon = {
-            val contentDescription =
-                stringResource(id = R.string.core_ui_content_description_search_icon)
+                        Text(
+                            modifier = Modifier.contentDescription(inputFieldContentDescription),
+                            text = state.placeholder,
+                        )
+                    },
+                    leadingIcon = {
+                        val contentDescription =
+                            stringResource(id = R.string.core_ui_content_description_search_icon)
 
-            Icon(
-                painter = painterResource(R.drawable.core_ui_ic_search),
-                contentDescription = contentDescription,
-            )
+                        Icon(
+                            painter = painterResource(R.drawable.core_ui_ic_search),
+                            contentDescription = contentDescription,
+                        )
+                    },
+                )
         },
-        shape = MaterialTheme.shapes.extraSmall,
+        expanded = false,
+        onExpandedChange = {},
     ) {
     }
 }
