@@ -1,29 +1,55 @@
 package ch.app.hk.bank.locator.core.design.ui
 
+import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
-import ch.app.hk.bank.locator.core.design.theme.DarkColors
-import ch.app.hk.bank.locator.core.design.theme.LightColors
-import ch.app.hk.bank.locator.core.design.theme.Shapes
-import ch.app.hk.bank.locator.core.design.theme.Typography
+import androidx.compose.runtime.Immutable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import ch.app.hk.bank.locator.core.design.theme.AppTypography
+import ch.app.hk.bank.locator.core.design.theme.darkScheme
+import ch.app.hk.bank.locator.core.design.theme.lightScheme
+
+@Immutable
+data class ColorFamily(
+    val color: Color,
+    val onColor: Color,
+    val colorContainer: Color,
+    val onColorContainer: Color,
+)
+
+val unspecified_scheme =
+    ColorFamily(
+        Color.Unspecified,
+        Color.Unspecified,
+        Color.Unspecified,
+        Color.Unspecified,
+    )
 
 @Composable
 fun AppContent(
-    useDarkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    // Dynamic color is available on Android 12+
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit,
 ) {
-    val colors =
-        if (!useDarkTheme) {
-            LightColors
-        } else {
-            DarkColors
+    val colorScheme =
+        when {
+            dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+                val context = LocalContext.current
+                if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            }
+
+            darkTheme -> darkScheme
+            else -> lightScheme
         }
 
     MaterialTheme(
-        colorScheme = colors,
-        shapes = Shapes,
-        typography = Typography,
+        colorScheme = colorScheme,
+        typography = AppTypography,
         content = content,
     )
 }
