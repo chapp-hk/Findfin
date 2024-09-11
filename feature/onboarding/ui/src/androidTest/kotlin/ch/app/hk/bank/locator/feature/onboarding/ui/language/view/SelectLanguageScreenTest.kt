@@ -48,7 +48,7 @@ class SelectLanguageScreenTest {
         composeTestRule.setContent {
             AppContent {
                 SelectLanguageScreen(
-                    goToRequestPermission = {},
+                    onFinishSelectLanguage = {},
                 )
             }
         }
@@ -66,7 +66,7 @@ class SelectLanguageScreenTest {
         composeTestRule.setContent {
             AppContent {
                 SelectLanguageScreen(
-                    goToRequestPermission = {},
+                    onFinishSelectLanguage = {},
                 )
             }
         }
@@ -86,7 +86,7 @@ class SelectLanguageScreenTest {
         composeTestRule.setContent {
             AppContent {
                 SelectLanguageScreen(
-                    goToRequestPermission = {},
+                    onFinishSelectLanguage = {},
                 )
             }
         }
@@ -107,7 +107,7 @@ class SelectLanguageScreenTest {
         composeTestRule.setContent {
             AppContent {
                 SelectLanguageScreen(
-                    goToRequestPermission = mockGoToRequestPermission,
+                    onFinishSelectLanguage = mockGoToRequestPermission,
                 )
             }
         }

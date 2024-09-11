@@ -10,8 +10,8 @@ import ch.app.hk.bank.locator.feature.auth.navigation.AuthNavGraphDestination
 import ch.app.hk.bank.locator.feature.auth.navigation.authNavGraph
 import ch.app.hk.bank.locator.feature.home.navigation.HomeNavGraphDestination
 import ch.app.hk.bank.locator.feature.home.navigation.homeNavGraph
-import ch.app.hk.bank.locator.feature.onboarding.navigation.OnboardingNavGraphDestination
-import ch.app.hk.bank.locator.feature.onboarding.navigation.onboardingNavGraph
+import ch.app.hk.bank.locator.feature.onboarding.navigation.graph.OnboardingNavGraphDestination
+import ch.app.hk.bank.locator.feature.onboarding.navigation.graph.onboardingNavGraph
 
 @Composable
 fun AppNavHost(

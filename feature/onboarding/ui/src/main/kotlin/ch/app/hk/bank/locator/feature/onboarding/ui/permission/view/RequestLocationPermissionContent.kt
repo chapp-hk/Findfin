@@ -113,6 +113,9 @@ private fun RequestLocationPermissionContentHeader() {
 @Composable
 private fun RequestLocationPermissionContentPreview() {
     AppContent {
-        RequestLocationPermissionController {}
+        RequestLocationPermissionContent(
+            onGrantPermission = {},
+            onSkip = {},
+        )
     }
 }
