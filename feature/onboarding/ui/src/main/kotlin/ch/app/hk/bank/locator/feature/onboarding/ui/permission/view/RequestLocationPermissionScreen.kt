@@ -1,26 +1,36 @@
 package ch.app.hk.bank.locator.feature.onboarding.ui.permission.view
 
+import android.Manifest
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ch.app.hk.bank.locator.core.design.ui.ScreenStateView
-import ch.app.hk.bank.locator.feature.onboarding.ui.permission.viewmodel.PermissionViewModel
-import ch.app.hk.bank.locator.feature.onboarding.ui.permission.viewmodel.PermissionViewModelImpl
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 
 @Composable
-fun RequestLocationPermissionScreen(
-    permissionViewModel: PermissionViewModel = hiltViewModel<PermissionViewModelImpl>(),
-    finishOnboarding: () -> Unit,
-) {
-    ScreenStateView(
-        state = permissionViewModel.uiState.collectAsStateWithLifecycle(),
-        empty = {
-            RequestLocationPermissionController {
-                permissionViewModel.completeOnboarding()
+fun RequestLocationPermissionScreen(onFinishRequestPermission: () -> Unit) {
+    val isShowDialog = remember { mutableStateOf(false) }
+    LocationPermissionNotGrantedDialog(
+        isShowDialog = isShowDialog.value,
+    ) {
+        onFinishRequestPermission()
+    }
+
+    val launcher =
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.RequestPermission(),
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                onFinishRequestPermission()
+            } else {
+                isShowDialog.value = true
             }
-        },
-        success = {
-            finishOnboarding()
-        },
+        }
+
+    RequestLocationPermissionContent(
+        modifier = Modifier,
+        onGrantPermission = { launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION) },
+        onSkip = { isShowDialog.value = true },
     )
 }

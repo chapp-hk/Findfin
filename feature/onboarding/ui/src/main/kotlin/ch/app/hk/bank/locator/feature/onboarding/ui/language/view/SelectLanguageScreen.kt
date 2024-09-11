@@ -30,7 +30,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 @Composable
 fun SelectLanguageScreen(
     modifier: Modifier = Modifier,
-    goToRequestPermission: () -> Unit,
+    onFinishSelectLanguage: () -> Unit,
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -67,7 +67,7 @@ fun SelectLanguageScreen(
                 iterations = LottieConstants.IterateForever,
             )
 
-            SelectLanguageScreenStateView(goToRequestPermission = goToRequestPermission)
+            SelectLanguageScreenStateView(onFinishSelectLanguage = onFinishSelectLanguage)
         }
     }
 }
@@ -75,7 +75,7 @@ fun SelectLanguageScreen(
 @Composable
 private fun SelectLanguageScreenStateView(
     selectLanguageViewModel: SelectLanguageViewModel = hiltViewModel<SelectLanguageViewModelImpl>(),
-    goToRequestPermission: () -> Unit,
+    onFinishSelectLanguage: () -> Unit,
 ) {
     ScreenStateView(
         state = selectLanguageViewModel.uiState.collectAsStateWithLifecycle(),
@@ -104,7 +104,7 @@ private fun SelectLanguageScreenStateView(
         },
         success = {
             LaunchedEffect(Unit) {
-                goToRequestPermission()
+                onFinishSelectLanguage()
             }
         },
     )
