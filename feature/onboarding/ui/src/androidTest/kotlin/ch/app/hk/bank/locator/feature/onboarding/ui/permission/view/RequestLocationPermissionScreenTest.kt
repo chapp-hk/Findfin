@@ -3,7 +3,6 @@ package ch.app.hk.bank.locator.feature.onboarding.ui.permission.view
 import android.content.Context
 import androidx.activity.compose.LocalActivityResultRegistryOwner
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -57,7 +56,7 @@ class RequestLocationPermissionScreenTest {
     fun testDenyPermission() {
         val registryOwner = activityResultTestRule.registryOwner(mockedActivityResult = false)
 
-        val mockFinishOnboarding = mockk<() -> Unit>()
+        val mockFinishOnboarding = mockk<() -> Unit>(relaxed = true)
 
         composeTestRule.setContent {
             CompositionLocalProvider(LocalActivityResultRegistryOwner provides registryOwner) {
@@ -73,14 +72,14 @@ class RequestLocationPermissionScreenTest {
             .onNodeWithText(getResourceString(R.string.onboarding_button_grant_permission))
             .performClick()
 
-        composeTestRule
-            .onNodeWithText(getResourceString(R.string.onboarding_title_permission_denied))
-            .assertIsDisplayed()
+        verify {
+            mockFinishOnboarding()
+        }
     }
 
     @Test
     fun testSkip() {
-        val mockFinishOnboarding = mockk<() -> Unit>()
+        val mockFinishOnboarding = mockk<() -> Unit>(relaxed = true)
 
         composeTestRule.setContent {
             AppContent {
@@ -94,8 +93,8 @@ class RequestLocationPermissionScreenTest {
             .onNodeWithText(getResourceString(R.string.onboarding_button_skip))
             .performClick()
 
-        composeTestRule
-            .onNodeWithText(getResourceString(R.string.onboarding_title_permission_denied))
-            .assertIsDisplayed()
+        verify {
+            mockFinishOnboarding()
+        }
     }
 }

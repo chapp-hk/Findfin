@@ -3,13 +3,10 @@
     <string name="onboarding_title_language">Please select language</string>
     <string name="onboarding_title_enable_location">Enable location service</string>
     <string name="onboarding_subtitle_enable_location">Please enable location service to help us find near by branches/ATMs for you.</string>
-    <string name="onboarding_title_permission_denied">Location permission missing</string>
     <string name="onboarding_error_message">Something went wrong</string>
-    <string name="onboarding_message_guide_location_permission_setting">You can grant location permission at app settings later.</string>
     <string name="onboarding_button_retry">Retry</string>
     <string name="onboarding_button_grant_permission">Grant permission</string>
     <string name="onboarding_button_skip">Skip</string>
-    <string name="onboarding_button_ok">OK</string>
 
     <string name="onboarding_content_description_language_list">Language list</string>
     <string name="onboarding_content_description_loading">Loading</string>
