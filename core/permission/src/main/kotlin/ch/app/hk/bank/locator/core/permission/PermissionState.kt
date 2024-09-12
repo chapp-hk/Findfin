@@ -69,17 +69,17 @@ internal class MutablePermissionState(
     override var result: PermissionResult by mutableStateOf(getPermissionResult())
 
     /**
+     * The launcher for the permission request.
+     */
+    internal var launcher: ActivityResultLauncher<String>? = null
+
+    /**
      * Launches the permission request.
      */
     override fun launchPermissionRequest() {
         launcher?.launch(permission)
             ?: throw IllegalStateException("ActivityResultLauncher cannot be null")
     }
-
-    /**
-     * The launcher for the permission request.
-     */
-    internal var launcher: ActivityResultLauncher<String>? = null
 
     /**
      * Refreshes the status of the permission.
