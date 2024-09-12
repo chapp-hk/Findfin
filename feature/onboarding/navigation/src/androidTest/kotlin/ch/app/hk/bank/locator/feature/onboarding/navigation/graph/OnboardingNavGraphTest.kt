@@ -6,6 +6,7 @@ import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.NavHost
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
+import ch.app.hk.bank.locator.feature.onboarding.navigation.viewmodel.OnboardingNavState
 import ch.app.hk.bank.locator.feature.onboarding.navigation.viewmodel.OnboardingNavViewModel
 import ch.app.hk.bank.locator.testing.instrument.ActivityResultTestRule
 import ch.app.hk.bank.locator.testing.instrument.HiltComponentActivity
@@ -37,7 +38,7 @@ class OnboardingNavGraphTest {
     val activityResultTestRule = ActivityResultTestRule(context = context)
 
     @BindValue
-    val onboardingNavViewModel = mockk<OnboardingNavViewModel>(relaxUnitFun = true)
+    internal val onboardingNavViewModel = mockk<OnboardingNavViewModel>(relaxUnitFun = true)
 
     private val navController = TestNavHostController(context)
 
@@ -51,7 +52,7 @@ class OnboardingNavGraphTest {
     fun testFinishOnboardingInvokedWhenStart() {
         val finishOnboarding = mockk<() -> Unit>(relaxed = true)
 
-        every { onboardingNavViewModel.isFinishedOnboard } returns MutableStateFlow(true)
+        every { onboardingNavViewModel.navState } returns MutableStateFlow(OnboardingNavState.IsFinishedOnboard)
 
         composeTestRule.setContent {
             NavHost(
@@ -74,7 +75,7 @@ class OnboardingNavGraphTest {
     fun testFinishOnboardingNotInvokedWhenStart() {
         val finishOnboarding = mockk<() -> Unit>(relaxed = true)
 
-        every { onboardingNavViewModel.isFinishedOnboard } returns MutableStateFlow(false)
+        every { onboardingNavViewModel.navState } returns MutableStateFlow(OnboardingNavState.NotFinishedOnboard)
 
         composeTestRule.setContent {
             NavHost(

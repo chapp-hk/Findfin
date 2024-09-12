@@ -6,7 +6,6 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.core.preferences.api)
     implementation(libs.kotlinx.coroutines.core)
 
     testImplementation(libs.junit.jupiter)

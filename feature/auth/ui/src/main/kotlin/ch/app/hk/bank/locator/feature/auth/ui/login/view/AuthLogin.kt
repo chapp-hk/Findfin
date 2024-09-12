@@ -30,7 +30,7 @@ fun AuthLogin(
     modifier: Modifier = Modifier,
     authLoginViewModel: AuthLoginViewModel = hiltViewModel<AuthLoginViewModelImpl>(),
     onClose: () -> Unit = {},
-    onAuthorized: () -> Unit = {},
+    onFinishAuth: () -> Unit = {},
     onDontHaveAccount: () -> Unit = {},
 ) = Box(modifier = modifier) {
     val emailState =
@@ -106,7 +106,7 @@ fun AuthLogin(
             }
         },
         success = {
-            onAuthorized()
+            onFinishAuth()
         },
     )
 }
