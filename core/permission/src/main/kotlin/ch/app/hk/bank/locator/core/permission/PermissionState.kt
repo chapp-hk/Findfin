@@ -78,7 +78,7 @@ internal class MutablePermissionState(
      */
     override fun launchPermissionRequest() {
         launcher?.launch(permission)
-            ?: throw IllegalStateException("ActivityResultLauncher cannot be null")
+            ?: error("ActivityResultLauncher cannot be null")
     }
 
     /**

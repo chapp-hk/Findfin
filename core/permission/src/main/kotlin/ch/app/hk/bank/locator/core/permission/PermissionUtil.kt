@@ -67,7 +67,8 @@ internal fun Context.findActivity(): Activity {
 
         context = context.baseContext
     }
-    throw IllegalStateException("Permissions should be called in the context of an Activity")
+
+    error("Permissions should be called in the context of an Activity")
 }
 
 /**
