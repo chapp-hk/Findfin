@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import ch.app.hk.bank.locator.feature.onboarding.navigation.viewmodel.OnboardingNavState
 import ch.app.hk.bank.locator.feature.onboarding.navigation.viewmodel.OnboardingNavViewModel
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.view.SelectLanguageScreen
 import ch.app.hk.bank.locator.feature.onboarding.ui.permission.view.RequestLocationPermissionScreen
@@ -29,20 +30,28 @@ fun NavGraphBuilder.onboardingNavGraph(
     ) {
         composable<OnboardingSelectLanguageDestination> {
             val onboardingNavViewModel = hiltViewModel<OnboardingNavViewModel>()
-            val isFinishedOnboard by onboardingNavViewModel.isFinishedOnboard.collectAsStateWithLifecycle()
+            val navState by onboardingNavViewModel.navState.collectAsStateWithLifecycle()
 
-            if (isFinishedOnboard) {
-                finishOnboarding()
-            } else {
-                SelectLanguageScreen(
-                    onFinishSelectLanguage = {
-                        navController.navigate(OnboardingRequestPermissionDestination) {
-                            popUpTo<OnboardingNavGraphDestination> {
-                                inclusive = true
+            when (navState) {
+                OnboardingNavState.Loading -> {
+                    // no implementation
+                }
+
+                OnboardingNavState.IsFinishedOnboard -> {
+                    finishOnboarding()
+                }
+
+                OnboardingNavState.NotFinishedOnboard -> {
+                    SelectLanguageScreen(
+                        onFinishSelectLanguage = {
+                            navController.navigate(OnboardingRequestPermissionDestination) {
+                                popUpTo<OnboardingNavGraphDestination> {
+                                    inclusive = true
+                                }
                             }
-                        }
-                    },
-                )
+                        },
+                    )
+                }
             }
         }
 

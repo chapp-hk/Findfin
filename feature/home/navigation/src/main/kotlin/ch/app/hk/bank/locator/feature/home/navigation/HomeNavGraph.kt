@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import ch.app.hk.bank.locator.feature.auth.navigation.AuthNavGraphDestination
+import ch.app.hk.bank.locator.feature.auth.navigation.graph.AuthNavGraphDestination
 
 fun NavGraphBuilder.homeNavGraph(navController: NavController) {
     navigation<HomeNavGraphDestination>(
@@ -13,7 +13,7 @@ fun NavGraphBuilder.homeNavGraph(navController: NavController) {
         composable<HomeDestination> {
             HomeBottomNavigationLayout {
                 navController.navigate(
-                    route = AuthNavGraphDestination(shouldCheckIsInit = false),
+                    route = AuthNavGraphDestination,
                 )
             }
         }

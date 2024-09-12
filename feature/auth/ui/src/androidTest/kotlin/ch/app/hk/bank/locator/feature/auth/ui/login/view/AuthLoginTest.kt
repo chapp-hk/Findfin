@@ -130,7 +130,7 @@ class AuthLoginTest {
             AppContent {
                 AuthLogin(
                     authLoginViewModel = authLoginViewModel,
-                    onAuthorized = mockAuthorized,
+                    onFinishAuth = mockAuthorized,
                 )
             }
         }

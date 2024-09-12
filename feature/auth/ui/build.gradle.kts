@@ -26,7 +26,6 @@ android {
 
 dependencies {
     implementation(projects.core.design.ui)
-    implementation(projects.core.preferences.impl)
     implementation(projects.feature.auth.data.repo)
     implementation(projects.feature.auth.data.remoteFirebase)
     implementation(libs.androidx.compose.ui)

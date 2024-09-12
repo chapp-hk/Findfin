@@ -21,7 +21,7 @@ class OnboardingNavViewModelTest {
     private val appPreferencesRepository = mockk<AppPreferencesRepository>(relaxed = true)
 
     @Test
-    fun `test isFinishedOnboard`() {
+    fun `test navState IsFinishedOnboard`() {
         runTest {
             every { appPreferencesRepository.getBoolean(any()) } returns flowOf(true)
 
@@ -31,9 +31,28 @@ class OnboardingNavViewModelTest {
                 appPreferencesRepository.getBoolean("onboarding_pref_key_is_finished_onboard")
             }
 
-            onboardingNavViewModel.isFinishedOnboard.test {
-                awaitItem() shouldBe false
-                awaitItem() shouldBe true
+            onboardingNavViewModel.navState.test {
+                awaitItem() shouldBe OnboardingNavState.Loading
+                awaitItem() shouldBe OnboardingNavState.IsFinishedOnboard
+                cancelAndIgnoreRemainingEvents()
+            }
+        }
+    }
+
+    @Test
+    fun `test navState NotFinishedOnboard`() {
+        runTest {
+            every { appPreferencesRepository.getBoolean(any()) } returns flowOf(false)
+
+            val onboardingNavViewModel = createOnboardingNavViewModel()
+
+            verify {
+                appPreferencesRepository.getBoolean("onboarding_pref_key_is_finished_onboard")
+            }
+
+            onboardingNavViewModel.navState.test {
+                awaitItem() shouldBe OnboardingNavState.Loading
+                awaitItem() shouldBe OnboardingNavState.NotFinishedOnboard
                 cancelAndIgnoreRemainingEvents()
             }
         }

@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.onboarding.navigation.viewmodel
+package ch.app.hk.bank.locator.feature.auth.navigation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,30 +12,32 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-internal class OnboardingNavViewModel @Inject constructor(
+internal class AuthNavViewModel @Inject constructor(
     private val appPreferencesRepository: AppPreferencesRepository,
 ) : ViewModel() {
-    private val prefKeyIsFinishedOnboard = "onboarding_pref_key_is_finished_onboard"
-
-    val navState: StateFlow<OnboardingNavState> =
+    val navState: StateFlow<AuthNavState> =
         appPreferencesRepository
-            .getBoolean(key = prefKeyIsFinishedOnboard)
-            .map {
-                if (it) {
-                    OnboardingNavState.IsFinishedOnboard
+            .getBoolean(key = PREF_KEY_IS_INITIALIZED_AUTH)
+            .map { value ->
+                if (value) {
+                    AuthNavState.IsInitialized
                 } else {
-                    OnboardingNavState.NotFinishedOnboard
+                    AuthNavState.NotInitialized
                 }
             }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(),
-                initialValue = OnboardingNavState.Loading,
+                initialValue = AuthNavState.Loading,
             )
 
-    fun completeOnboarding() {
+    fun setAuthInitialized() {
         viewModelScope.launch {
-            appPreferencesRepository.setBoolean(key = prefKeyIsFinishedOnboard, value = true)
+            appPreferencesRepository.setBoolean(key = PREF_KEY_IS_INITIALIZED_AUTH, value = true)
         }
+    }
+
+    private companion object {
+        const val PREF_KEY_IS_INITIALIZED_AUTH = "auth_pref_key_is_initialized_auth"
     }
 }
