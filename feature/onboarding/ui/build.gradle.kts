@@ -29,6 +29,7 @@ dependencies {
     implementation(projects.core.design.ui)
     implementation(projects.core.locale.api)
     implementation(projects.core.locale.impl)
+    implementation(projects.core.permission)
     implementation(projects.feature.bank.data.localDatabase)
     implementation(projects.feature.onboarding.domain)
     implementation(libs.androidx.compose.ui)

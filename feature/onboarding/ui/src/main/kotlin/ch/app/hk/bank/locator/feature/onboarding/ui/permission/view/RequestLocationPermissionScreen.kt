@@ -1,12 +1,11 @@
 package ch.app.hk.bank.locator.feature.onboarding.ui.permission.view
 
 import android.Manifest
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import ch.app.hk.bank.locator.core.permission.rememberPermissionState
 
 @Composable
 fun RequestLocationPermissionScreen(onFinishRequestPermission: () -> Unit) {
@@ -17,10 +16,10 @@ fun RequestLocationPermissionScreen(onFinishRequestPermission: () -> Unit) {
         onFinishRequestPermission()
     }
 
-    val launcher =
-        rememberLauncherForActivityResult(
-            ActivityResultContracts.RequestPermission(),
-        ) { isGranted: Boolean ->
+    val permissionState =
+        rememberPermissionState(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+        ) { isGranted ->
             if (isGranted) {
                 onFinishRequestPermission()
             } else {
@@ -30,7 +29,7 @@ fun RequestLocationPermissionScreen(onFinishRequestPermission: () -> Unit) {
 
     RequestLocationPermissionContent(
         modifier = Modifier,
-        onGrantPermission = { launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION) },
+        onGrantPermission = { permissionState.launchPermissionRequest() },
         onSkip = { isShowDialog.value = true },
     )
 }
