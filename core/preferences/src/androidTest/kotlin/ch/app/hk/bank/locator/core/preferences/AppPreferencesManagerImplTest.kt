@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.preferences.impl
+package ch.app.hk.bank.locator.core.preferences
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
@@ -8,7 +8,6 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import app.cash.turbine.test
-import ch.app.hk.bank.locator.core.preferences.AppPreferencesManagerImpl
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
@@ -42,6 +41,27 @@ class AppPreferencesManagerImplTest {
             appPreferences.setBoolean("boolean", true)
             appPreferences.getBoolean("boolean").test {
                 awaitItem() shouldBe true
+                cancelAndIgnoreRemainingEvents()
+            }
+
+            testDataStore.edit { it.clear() }
+        }
+
+    @Test
+    fun test_initial_string_value() =
+        testScope.runTest {
+            appPreferences.getString("string").test {
+                awaitItem() shouldBe ""
+                cancelAndIgnoreRemainingEvents()
+            }
+        }
+
+    @Test
+    fun testString() =
+        testScope.runTest {
+            appPreferences.setString("string", "test_value")
+            appPreferences.getString("string").test {
+                awaitItem() shouldBe "test_value"
                 cancelAndIgnoreRemainingEvents()
             }
 
