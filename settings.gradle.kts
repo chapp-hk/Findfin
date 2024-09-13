@@ -70,6 +70,8 @@ include(":feature:locator:ui")
 // feature setting modules
 include(":feature:setting:data:local-preferences")
 include(":feature:setting:data:repo")
+include(":feature:setting:navigation")
+include(":feature:setting:ui")
 
 // library modules
 include(":library:hiltwrap:annotation")
