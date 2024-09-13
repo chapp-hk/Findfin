@@ -16,11 +16,3 @@ val homeBottomTabDestination =
         iconDrawableResource = R.drawable.home_ic_home,
         textStringResource = R.string.home_tab_home,
     )
-
-// TODO - move to setting module
-val settingBottomTabDestination =
-    BottomNavigationTab(
-        route = "home-bottom-setting",
-        iconDrawableResource = R.drawable.home_ic_setting,
-        textStringResource = R.string.home_tab_setting,
-    )
