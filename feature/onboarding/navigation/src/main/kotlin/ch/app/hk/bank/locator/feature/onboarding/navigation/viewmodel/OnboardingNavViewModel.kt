@@ -2,7 +2,7 @@ package ch.app.hk.bank.locator.feature.onboarding.navigation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ch.app.hk.bank.locator.core.preferences.api.AppPreferencesRepository
+import ch.app.hk.bank.locator.core.preferences.AppPreferencesManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -13,12 +13,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class OnboardingNavViewModel @Inject constructor(
-    private val appPreferencesRepository: AppPreferencesRepository,
+    private val appPreferencesManager: AppPreferencesManager,
 ) : ViewModel() {
     private val prefKeyIsFinishedOnboard = "onboarding_pref_key_is_finished_onboard"
 
     val navState: StateFlow<OnboardingNavState> =
-        appPreferencesRepository
+        appPreferencesManager
             .getBoolean(key = prefKeyIsFinishedOnboard)
             .map {
                 if (it) {
@@ -35,7 +35,7 @@ internal class OnboardingNavViewModel @Inject constructor(
 
     fun completeOnboarding() {
         viewModelScope.launch {
-            appPreferencesRepository.setBoolean(key = prefKeyIsFinishedOnboard, value = true)
+            appPreferencesManager.setBoolean(key = prefKeyIsFinishedOnboard, value = true)
         }
     }
 }

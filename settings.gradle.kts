@@ -34,8 +34,7 @@ include(":core:map")
 include(":core:navigation")
 include(":core:network")
 include(":core:permission")
-include(":core:preferences:api")
-include(":core:preferences:impl")
+include(":core:preferences")
 include(":core:threading")
 
 // feature auth modules

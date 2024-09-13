@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.auth.navigation.viewmodel
 
 import app.cash.turbine.test
-import ch.app.hk.bank.locator.core.preferences.api.AppPreferencesRepository
+import ch.app.hk.bank.locator.core.preferences.AppPreferencesManager
 import ch.app.hk.bank.locator.testing.extension.MainDispatcherExtension
 import io.kotest.matchers.shouldBe
 import io.mockk.coVerify
@@ -18,17 +18,17 @@ import org.junit.jupiter.api.extension.ExtendWith
 @ExtendWith(MainDispatcherExtension::class)
 @DisplayName("AuthNavViewModel unit tests")
 class AuthNavViewModelTest {
-    private val appPreferencesRepository = mockk<AppPreferencesRepository>(relaxed = true)
+    private val appPreferencesManager = mockk<AppPreferencesManager>(relaxed = true)
 
     @Test
     fun `navState should emit IsInitialized when preference is true`() =
         runTest {
-            every { appPreferencesRepository.getBoolean(any()) } returns flowOf(true)
+            every { appPreferencesManager.getBoolean(any()) } returns flowOf(true)
 
             val viewModel = createAuthNavViewModel()
 
             verify {
-                appPreferencesRepository.getBoolean("auth_pref_key_is_initialized_auth")
+                appPreferencesManager.getBoolean("auth_pref_key_is_initialized_auth")
             }
 
             viewModel.navState.test {
@@ -41,12 +41,12 @@ class AuthNavViewModelTest {
     @Test
     fun `navState should emit NotInitialized when preference is false`() =
         runTest {
-            every { appPreferencesRepository.getBoolean(any()) } returns flowOf(false)
+            every { appPreferencesManager.getBoolean(any()) } returns flowOf(false)
 
             val viewModel = createAuthNavViewModel()
 
             verify {
-                appPreferencesRepository.getBoolean("auth_pref_key_is_initialized_auth")
+                appPreferencesManager.getBoolean("auth_pref_key_is_initialized_auth")
             }
 
             viewModel.navState.test {
@@ -65,9 +65,9 @@ class AuthNavViewModelTest {
 
             delay(500)
             coVerify {
-                appPreferencesRepository.setBoolean("auth_pref_key_is_initialized_auth", true)
+                appPreferencesManager.setBoolean("auth_pref_key_is_initialized_auth", true)
             }
         }
 
-    private fun createAuthNavViewModel() = AuthNavViewModel(appPreferencesRepository)
+    private fun createAuthNavViewModel() = AuthNavViewModel(appPreferencesManager)
 }

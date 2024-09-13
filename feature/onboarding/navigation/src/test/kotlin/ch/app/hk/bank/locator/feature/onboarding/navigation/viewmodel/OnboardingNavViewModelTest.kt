@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.onboarding.navigation.viewmodel
 
 import app.cash.turbine.test
-import ch.app.hk.bank.locator.core.preferences.api.AppPreferencesRepository
+import ch.app.hk.bank.locator.core.preferences.AppPreferencesManager
 import ch.app.hk.bank.locator.testing.extension.MainDispatcherExtension
 import io.kotest.matchers.shouldBe
 import io.mockk.coVerify
@@ -18,17 +18,17 @@ import org.junit.jupiter.api.extension.ExtendWith
 @ExtendWith(MainDispatcherExtension::class)
 @DisplayName("OnboardingNavViewModel unit tests")
 class OnboardingNavViewModelTest {
-    private val appPreferencesRepository = mockk<AppPreferencesRepository>(relaxed = true)
+    private val appPreferencesManager = mockk<AppPreferencesManager>(relaxed = true)
 
     @Test
     fun `test navState IsFinishedOnboard`() {
         runTest {
-            every { appPreferencesRepository.getBoolean(any()) } returns flowOf(true)
+            every { appPreferencesManager.getBoolean(any()) } returns flowOf(true)
 
             val onboardingNavViewModel = createOnboardingNavViewModel()
 
             verify {
-                appPreferencesRepository.getBoolean("onboarding_pref_key_is_finished_onboard")
+                appPreferencesManager.getBoolean("onboarding_pref_key_is_finished_onboard")
             }
 
             onboardingNavViewModel.navState.test {
@@ -42,12 +42,12 @@ class OnboardingNavViewModelTest {
     @Test
     fun `test navState NotFinishedOnboard`() {
         runTest {
-            every { appPreferencesRepository.getBoolean(any()) } returns flowOf(false)
+            every { appPreferencesManager.getBoolean(any()) } returns flowOf(false)
 
             val onboardingNavViewModel = createOnboardingNavViewModel()
 
             verify {
-                appPreferencesRepository.getBoolean("onboarding_pref_key_is_finished_onboard")
+                appPreferencesManager.getBoolean("onboarding_pref_key_is_finished_onboard")
             }
 
             onboardingNavViewModel.navState.test {
@@ -61,7 +61,7 @@ class OnboardingNavViewModelTest {
     @Test
     fun `test completeOnboarding`() {
         runTest {
-            every { appPreferencesRepository.getBoolean(any()) } returns flowOf(false)
+            every { appPreferencesManager.getBoolean(any()) } returns flowOf(false)
 
             val onboardingNavViewModel = createOnboardingNavViewModel()
 
@@ -70,10 +70,10 @@ class OnboardingNavViewModelTest {
             // TODO - Find a better way to test this
             delay(500)
             coVerify {
-                appPreferencesRepository.setBoolean("onboarding_pref_key_is_finished_onboard", true)
+                appPreferencesManager.setBoolean("onboarding_pref_key_is_finished_onboard", true)
             }
         }
     }
 
-    private fun createOnboardingNavViewModel() = OnboardingNavViewModel(appPreferencesRepository = appPreferencesRepository)
+    private fun createOnboardingNavViewModel() = OnboardingNavViewModel(appPreferencesManager = appPreferencesManager)
 }

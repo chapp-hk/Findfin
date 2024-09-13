@@ -2,7 +2,7 @@ package ch.app.hk.bank.locator.feature.auth.navigation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ch.app.hk.bank.locator.core.preferences.api.AppPreferencesRepository
+import ch.app.hk.bank.locator.core.preferences.AppPreferencesManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -13,10 +13,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class AuthNavViewModel @Inject constructor(
-    private val appPreferencesRepository: AppPreferencesRepository,
+    private val appPreferencesManager: AppPreferencesManager,
 ) : ViewModel() {
     val navState: StateFlow<AuthNavState> =
-        appPreferencesRepository
+        appPreferencesManager
             .getBoolean(key = PREF_KEY_IS_INITIALIZED_AUTH)
             .map { value ->
                 if (value) {
@@ -33,7 +33,7 @@ internal class AuthNavViewModel @Inject constructor(
 
     fun setAuthInitialized() {
         viewModelScope.launch {
-            appPreferencesRepository.setBoolean(key = PREF_KEY_IS_INITIALIZED_AUTH, value = true)
+            appPreferencesManager.setBoolean(key = PREF_KEY_IS_INITIALIZED_AUTH, value = true)
         }
     }
 
