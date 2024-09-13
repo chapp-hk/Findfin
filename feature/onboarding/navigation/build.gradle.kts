@@ -25,8 +25,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.preferences.api)
-    implementation(projects.core.preferences.impl)
+    implementation(projects.core.preferences)
     implementation(projects.feature.onboarding.ui)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
