@@ -15,7 +15,6 @@ android {
 
 dependencies {
     implementation(projects.core.threading)
-    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.androidx.datastore.preferences)
 
     androidTestImplementation(libs.kotlinx.coroutines.test)
