@@ -57,7 +57,7 @@ class UserSettingRepositoryImplTest {
     }
 
     @Test
-    fun `getThemePreference should return the correct Flow from UserSettingLocalDataSource`()  {
+    fun `getThemePreference should return the correct Flow from UserSettingLocalDataSource`() {
         runTest(testDispatcher) {
             val theme = "DARK"
             coEvery { userSettingLocalDataSource.getThemePreference() } returns flowOf(theme)
