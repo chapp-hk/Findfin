@@ -21,4 +21,7 @@ dependencies {
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockk)
+
+    // TODO - Remove this dependency
+    androidTestImplementation(libs.androidx.test.runner)
 }
