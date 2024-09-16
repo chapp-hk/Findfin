@@ -66,6 +66,10 @@ include(":feature:locator:data:repo")
 include(":feature:locator:navigation")
 include(":feature:locator:ui")
 
+// feature setting modules
+include(":feature:setting:data:local-preferences")
+include(":feature:setting:data:repo")
+
 // library modules
 include(":library:hiltwrap:annotation")
 include(":library:hiltwrap:processor-binds")
