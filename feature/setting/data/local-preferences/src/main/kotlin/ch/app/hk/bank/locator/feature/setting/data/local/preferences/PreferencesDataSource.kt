@@ -1,6 +1,6 @@
 package ch.app.hk.bank.locator.feature.setting.data.local.preferences
 
-import ch.app.hk.bank.locator.core.preferences.AppPreferencesManager
+import ch.app.hk.bank.locator.core.preferences.storage.AppPreferencesManager
 import ch.app.hk.bank.locator.feature.setting.data.repo.preferece.local.datasource.UserSettingLocalDataSource
 import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import kotlinx.coroutines.flow.Flow

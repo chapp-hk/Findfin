@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.core.preferences.impl"
+    namespace = "ch.app.hk.bank.locator.core.preferences.storage"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
