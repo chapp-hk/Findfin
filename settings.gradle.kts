@@ -35,6 +35,7 @@ include(":core:navigation")
 include(":core:network")
 include(":core:permission")
 include(":core:preferences:storage")
+include(":core:preferences:ui-foundation")
 include(":core:threading")
 
 // feature auth modules
