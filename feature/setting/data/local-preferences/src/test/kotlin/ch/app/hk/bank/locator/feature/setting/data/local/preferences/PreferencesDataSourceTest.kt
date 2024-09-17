@@ -1,6 +1,6 @@
 package ch.app.hk.bank.locator.feature.setting.data.local.preferences
 
-import ch.app.hk.bank.locator.core.preferences.AppPreferencesManager
+import ch.app.hk.bank.locator.core.preferences.storage.AppPreferencesManager
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.coVerify

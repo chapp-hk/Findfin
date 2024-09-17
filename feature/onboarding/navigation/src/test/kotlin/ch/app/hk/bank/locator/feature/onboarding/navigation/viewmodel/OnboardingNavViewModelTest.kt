@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.onboarding.navigation.viewmodel
 
 import app.cash.turbine.test
-import ch.app.hk.bank.locator.core.preferences.AppPreferencesManager
+import ch.app.hk.bank.locator.core.preferences.storage.AppPreferencesManager
 import ch.app.hk.bank.locator.testing.extension.MainDispatcherExtension
 import io.kotest.matchers.shouldBe
 import io.mockk.coVerify

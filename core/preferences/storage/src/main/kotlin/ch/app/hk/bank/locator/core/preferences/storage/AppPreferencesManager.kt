@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.preferences
+package ch.app.hk.bank.locator.core.preferences.storage
 
 import kotlinx.coroutines.flow.Flow
 
