@@ -16,4 +16,5 @@ android {
 dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.lifecycle.compose)
 }
