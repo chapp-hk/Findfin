@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,25 +24,37 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import ch.app.hk.bank.locator.core.preferences.runtime.PreferenceStore
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
 
 @Composable
 fun ListPreference(
     title: String,
-    description: String? = null,
     list: List<ListPreferenceItem>,
+    preferenceStore: PreferenceStore<String>,
 ) {
+    val coroutineScope = rememberCoroutineScope()
+    val selectedValue by preferenceStore.get().collectAsStateWithLifecycle(initialValue = null)
     var isShowDialog by remember { mutableStateOf(false) }
 
     ListItem(
         modifier = Modifier.clickable { isShowDialog = true },
         headlineContent = { Text(text = title) },
-        supportingContent = description?.let { { Text(text = it) } },
+        supportingContent = selectedValue?.let { { Text(text = it) } },
     )
 
     if (isShowDialog) {
         ListPreferenceDialog(
             title = title,
             list = list,
+            onItemSelected = { key ->
+                coroutineScope.launch {
+                    preferenceStore.set(key)
+                }
+            },
             onDismissRequest = { isShowDialog = false },
         )
     }
@@ -51,6 +64,7 @@ fun ListPreference(
 private fun ListPreferenceDialog(
     title: String,
     list: List<ListPreferenceItem>,
+    onItemSelected: (String) -> Unit,
     onDismissRequest: () -> Unit,
 ) {
     Dialog(onDismissRequest = { onDismissRequest() }) {
@@ -74,7 +88,11 @@ private fun ListPreferenceDialog(
 
                 list.forEach { item ->
                     ListItem(
-                        modifier = Modifier.clickable { onDismissRequest() },
+                        modifier =
+                            Modifier.clickable {
+                                onItemSelected(item.key)
+                                onDismissRequest()
+                            },
                         headlineContent = { Text(text = item.title) },
                         leadingContent = {
                             RadioButton(
@@ -108,7 +126,6 @@ data class ListPreferenceItem(
 private fun ListPreferenceItemPreview() {
     ListPreference(
         title = "Title",
-        description = "Description",
         list =
             listOf(
                 ListPreferenceItem(
@@ -120,5 +137,13 @@ private fun ListPreferenceItemPreview() {
                     key = "item2",
                 ),
             ),
+        preferenceStore =
+            object : PreferenceStore<String> {
+                override val key: String = "key"
+
+                override fun get(): Flow<String> = flowOf("item1")
+
+                override suspend fun set(value: String) {}
+            },
     )
 }
