@@ -1,5 +1,6 @@
 package ch.app.hk.bank.locator.app.viewmodel
 
+import androidx.appcompat.app.AppCompatDelegate
 import app.cash.turbine.test
 import ch.app.hk.bank.locator.feature.setting.data.repo.preferece.model.Theme
 import ch.app.hk.bank.locator.feature.setting.data.repo.preferece.repository.UserSettingRepository
@@ -24,13 +25,10 @@ class MainViewModelTest {
             every { userSettingRepository.getThemePreference() } returns flowOf(theme)
             val mainViewModel = createMainViewModel()
 
-            // Act
-            val result = mainViewModel.themeFlow
-
-            // Assert
-            result.test {
+            // Act and Assert
+            mainViewModel.themeModeFlow.test {
                 awaitItem() shouldBe null
-                awaitItem() shouldBe theme
+                awaitItem() shouldBe AppCompatDelegate.MODE_NIGHT_YES
                 cancelAndIgnoreRemainingEvents()
             }
         }
