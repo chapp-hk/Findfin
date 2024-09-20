@@ -1,6 +1,7 @@
 package ch.app.hk.bank.locator.core.preferences.ui.foundation
 
 import android.content.res.Configuration
+import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,6 +21,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,26 +32,37 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
+/**
+ * A composable function that displays a list preference item with a dialog for selection.
+ *
+ * @param title The title of the preference item.
+ * @param list The list of preference items to display in the dialog.
+ * @param preferenceStore The preference store to manage the selected preference value.
+ */
 @Composable
 fun ListPreference(
     title: String,
     list: List<ListPreferenceItem>,
     preferenceStore: PreferenceStore<String>,
 ) {
+    val selectedValue by preferenceStore.get().collectAsStateWithLifecycle(initialValue = "")
+    val summaryText =
+        list.find { it.value == selectedValue }?.let { stringResource(id = it.titleRes) }
+
     val coroutineScope = rememberCoroutineScope()
-    val selectedValue by preferenceStore.get().collectAsStateWithLifecycle(initialValue = null)
     var isShowDialog by remember { mutableStateOf(false) }
 
     ListItem(
         modifier = Modifier.clickable { isShowDialog = true },
         headlineContent = { Text(text = title) },
-        supportingContent = selectedValue?.let { { Text(text = it) } },
+        supportingContent = summaryText?.let { { Text(text = it) } },
     )
 
     if (isShowDialog) {
         ListPreferenceDialog(
             title = title,
             list = list,
+            selectedItemKey = selectedValue,
             onItemSelected = { key ->
                 coroutineScope.launch {
                     preferenceStore.set(key)
@@ -60,10 +73,22 @@ fun ListPreference(
     }
 }
 
+/**
+ * Data class representing an item in a list preference.
+ *
+ * @property titleRes The resource ID of the title string for the preference item.
+ * @property value The value associated with the preference item.
+ */
+data class ListPreferenceItem(
+    @StringRes val titleRes: Int,
+    val value: String,
+)
+
 @Composable
 private fun ListPreferenceDialog(
     title: String,
     list: List<ListPreferenceItem>,
+    selectedItemKey: String?,
     onItemSelected: (String) -> Unit,
     onDismissRequest: () -> Unit,
 ) {
@@ -81,7 +106,8 @@ private fun ListPreferenceDialog(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .wrapContentSize(Alignment.Center),
+                            .wrapContentSize(Alignment.Center)
+                            .padding(vertical = 8.dp),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleLarge,
                 )
@@ -90,13 +116,13 @@ private fun ListPreferenceDialog(
                     ListItem(
                         modifier =
                             Modifier.clickable {
-                                onItemSelected(item.key)
+                                onItemSelected(item.value)
                                 onDismissRequest()
                             },
-                        headlineContent = { Text(text = item.title) },
+                        headlineContent = { Text(text = stringResource(id = item.titleRes)) },
                         leadingContent = {
                             RadioButton(
-                                selected = false,
+                                selected = item.value == selectedItemKey,
                                 onClick = null,
                             )
                         },
@@ -106,11 +132,6 @@ private fun ListPreferenceDialog(
         }
     }
 }
-
-data class ListPreferenceItem(
-    val title: String,
-    val key: String,
-)
 
 @Preview(
     showBackground = true,
@@ -129,12 +150,12 @@ private fun ListPreferenceItemPreview() {
         list =
             listOf(
                 ListPreferenceItem(
-                    title = "Item 1",
-                    key = "item1",
+                    titleRes = 0,
+                    value = "item1",
                 ),
                 ListPreferenceItem(
-                    title = "Item 2",
-                    key = "item2",
+                    titleRes = 0,
+                    value = "item2",
                 ),
             ),
         preferenceStore =
