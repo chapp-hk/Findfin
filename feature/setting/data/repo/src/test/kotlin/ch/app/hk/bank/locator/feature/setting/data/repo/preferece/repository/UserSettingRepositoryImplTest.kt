@@ -48,7 +48,7 @@ class UserSettingRepositoryImplTest {
     @Test
     fun `setThemePreference should call setThemePreference on UserSettingLocalDataSource`() {
         runTest(testDispatcher) {
-            val theme = Theme.Dark
+            val theme = Theme.DARK
 
             userSettingRepository.setThemePreference(theme)
 
@@ -64,7 +64,7 @@ class UserSettingRepositoryImplTest {
 
             val result = userSettingRepository.getThemePreference()
 
-            result.first() shouldBe Theme.Dark
+            result.first() shouldBe Theme.DARK
         }
     }
 }
