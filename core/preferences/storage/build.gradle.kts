@@ -17,6 +17,7 @@ dependencies {
     implementation(projects.core.threading)
     implementation(libs.androidx.datastore.preferences)
 
+    androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.kotest.assertions.core)
     androidTestImplementation(libs.turbine)
