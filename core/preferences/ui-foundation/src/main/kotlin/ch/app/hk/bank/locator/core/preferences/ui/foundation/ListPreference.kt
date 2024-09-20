@@ -164,7 +164,9 @@ private fun ListPreferenceItemPreview() {
 
                 override fun get(): Flow<String> = flowOf("item1")
 
-                override suspend fun set(value: String) {}
+                override suspend fun set(value: String) {
+                    // no implementation
+                }
             },
     )
 }
