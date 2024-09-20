@@ -39,8 +39,6 @@ class ListPreferenceTest {
                 list = items,
                 preferenceStore =
                     object : PreferenceStore<String> {
-                        override val key: String = "key"
-
                         override fun get() = flowOf("item1")
 
                         override suspend fun set(value: String) {}
@@ -85,7 +83,6 @@ class ListPreferenceTest {
                 preferenceStore =
                     object : PreferenceStore<String> {
                         private val _flow = MutableStateFlow("item2")
-                        override val key: String = "key"
 
                         override fun get() = _flow
 
