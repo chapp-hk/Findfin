@@ -30,26 +30,14 @@ internal class UserSettingRepositoryImpl @Inject constructor(
 
     override suspend fun setThemePreference(theme: Theme) {
         withContext(ioDispatcher) {
-            userSettingLocalDataSource.setThemePreference(
-                when (theme) {
-                    Theme.Light -> "LIGHT"
-                    Theme.Dark -> "DARK"
-                    Theme.System -> "SYSTEM"
-                },
-            )
+            userSettingLocalDataSource.setThemePreference(theme.themeValue)
         }
     }
 
     override fun getThemePreference(): Flow<Theme> {
         return userSettingLocalDataSource
             .getThemePreference()
-            .map { value ->
-                when (value) {
-                    "LIGHT" -> Theme.Light
-                    "DARK" -> Theme.Dark
-                    else -> Theme.System
-                }
-            }
+            .map { Theme.fromValue(it) }
             .flowOn(ioDispatcher)
     }
 }

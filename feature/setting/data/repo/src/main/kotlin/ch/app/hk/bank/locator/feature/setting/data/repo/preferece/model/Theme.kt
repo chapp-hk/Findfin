@@ -1,9 +1,40 @@
 package ch.app.hk.bank.locator.feature.setting.data.repo.preferece.model
 
-sealed interface Theme {
-    data object Light : Theme
+/**
+ * Enum class representing different themes available in the application.
+ *
+ * @property themeValue The string representation of the theme.
+ */
+enum class Theme(val themeValue: String) {
+    /**
+     * Light theme.
+     */
+    LIGHT("LIGHT"),
 
-    data object Dark : Theme
+    /**
+     * Dark theme.
+     */
+    DARK("DARK"),
 
-    data object System : Theme
+    /**
+     * System default theme.
+     */
+    SYSTEM("SYSTEM"),
+    ;
+
+    companion object {
+        /**
+         * Returns the [Theme] corresponding to the given string value.
+         *
+         * @param value The string representation of the theme.
+         * @return The corresponding [Theme] or [SYSTEM] if the value is null or does not match any theme.
+         */
+        fun fromValue(value: String?): Theme {
+            return when (value) {
+                LIGHT.themeValue -> LIGHT
+                DARK.themeValue -> DARK
+                else -> SYSTEM
+            }
+        }
+    }
 }
