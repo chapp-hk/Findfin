@@ -36,6 +36,7 @@ dependencies {
     implementation(projects.feature.onboarding.navigation)
     implementation(projects.feature.auth.navigation)
     implementation(projects.feature.home.navigation)
+    implementation(projects.feature.setting.data.repo)
     implementation(projects.core.logging.api)
     implementation(projects.core.logging.startup)
 
@@ -45,4 +46,11 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
+
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
+    testImplementation(projects.testing.extension)
 }
