@@ -6,4 +6,5 @@
     <string name="setting_theme_summary_system">System default</string>
     <string name="setting_theme_summary_light">Light</string>
     <string name="setting_theme_summary_dark">Dark</string>
+    <string name="setting_language_title">Language</string>
 </resources>
