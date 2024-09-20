@@ -160,8 +160,6 @@ private fun ListPreferenceItemPreview() {
             ),
         preferenceStore =
             object : PreferenceStore<String> {
-                override val key: String = "key"
-
                 override fun get(): Flow<String> = flowOf("item1")
 
                 override suspend fun set(value: String) {

@@ -29,8 +29,6 @@ internal fun rememberThemePreferenceStore(): PreferenceStore<String> {
 internal class ThemePreferenceStore @Inject constructor(
     private val userSettingRepository: UserSettingRepository,
 ) : PreferenceStore<String> {
-    override val key: String = ""
-
     override fun get(): Flow<String> {
         return userSettingRepository.getThemePreference().map { it.themeValue }
     }
