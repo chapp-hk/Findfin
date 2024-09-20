@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="setting_tab_setting">Setting</string>
+
+    <string name="setting_theme_title">Theme</string>
+    <string name="setting_theme_summary_system">System default</string>
+    <string name="setting_theme_summary_light">Light</string>
+    <string name="setting_theme_summary_dark">Dark</string>
 </resources>
