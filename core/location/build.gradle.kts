@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.app.android.common)
     alias(libs.plugins.app.hilt.android)
+    alias(libs.plugins.app.compose)
 }
 
 android {
@@ -14,6 +15,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.activity.compose)
     implementation(libs.play.services.base)
     implementation(libs.play.services.location)
     implementation(libs.kotlinx.coroutines.play.services)
