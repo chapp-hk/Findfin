@@ -10,7 +10,6 @@ import androidx.navigation.navigation
 import ch.app.hk.bank.locator.feature.onboarding.navigation.viewmodel.OnboardingNavState
 import ch.app.hk.bank.locator.feature.onboarding.navigation.viewmodel.OnboardingNavViewModel
 import ch.app.hk.bank.locator.feature.onboarding.ui.language.view.SelectLanguageScreen
-import ch.app.hk.bank.locator.feature.onboarding.ui.permission.view.RequestLocationPermissionScreen
 
 /**
  * Adds the onboarding navigation graph to the provided [NavGraphBuilder].
@@ -44,26 +43,12 @@ fun NavGraphBuilder.onboardingNavGraph(
                 OnboardingNavState.NotFinishedOnboard -> {
                     SelectLanguageScreen(
                         onFinishSelectLanguage = {
-                            navController.navigate(OnboardingRequestPermissionDestination) {
-                                popUpTo<OnboardingNavGraphDestination> {
-                                    inclusive = true
-                                }
-                            }
+                            onboardingNavViewModel.completeOnboarding()
+                            finishOnboarding()
                         },
                     )
                 }
             }
-        }
-
-        composable<OnboardingRequestPermissionDestination> {
-            val onboardingNavViewModel = hiltViewModel<OnboardingNavViewModel>()
-
-            RequestLocationPermissionScreen(
-                onFinishRequestPermission = {
-                    onboardingNavViewModel.completeOnboarding()
-                    finishOnboarding()
-                },
-            )
         }
     }
 }
