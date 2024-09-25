@@ -15,7 +15,7 @@ sealed interface HomeItem {
 
     data object LocationDisabled : HomeItem
 
-    data object LocationPermissionDenied : HomeItem
+    data class LocationPermissionDenied(val isPermanentlyDenied: Boolean) : HomeItem
 
     data object Empty : HomeItem
 

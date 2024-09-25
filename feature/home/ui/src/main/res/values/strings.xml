@@ -17,10 +17,11 @@
     <string name="home_label_find_your_bank">Find your bank</string>
     <string name="home_label_find_bank_or_atms">Find Bank/ATMs</string>
     <string name="home_title_nearby_services">"Near by services"</string>
-    <string name="home_label_nearby_location_disabled">Please enable device location service to find nearby services</string>
-    <string name="home_button_location_settings">Location settings</string>
+    <string name="home_label_nearby_location_disabled">Please turn on device location service to find nearby services</string>
+    <string name="home_button_turn_on_location">Turn on location</string>
     <string name="home_label_nearby_location_permission_denied">Please grant location permission to find nearby services</string>
-    <string name="home_button_app_settings">App settings</string>
+    <string name="home_button_grant_permission">Grant permission</string>
+    <string name="home_button_app_setting">App setting</string>
     <string name="home_label_nearby_device_no_gps">Your device don\'t have GPS supported</string>
     <string name="home_label_nearby_no_services">No services found</string>
 </resources>

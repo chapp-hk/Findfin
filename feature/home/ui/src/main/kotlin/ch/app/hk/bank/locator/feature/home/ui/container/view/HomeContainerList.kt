@@ -21,15 +21,16 @@ import ch.app.hk.bank.locator.feature.home.ui.container.model.HomeItem
 import ch.app.hk.bank.locator.feature.home.ui.finding.view.Finding
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.DeviceNoGpsResult
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.EmptyResult
-import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationDisabledResult
-import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationPermissionDeniedResult
+import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationDisabled
+import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationPermissionDenied
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.ServiceItem
 
 @Composable
 internal fun HomeContainerList(
     items: List<HomeItem>,
     onSearch: (String) -> Unit,
-    onLocationEnabled: () -> Unit,
+    onRequestEnableLocation: () -> Unit,
+    onRequestPermission: () -> Unit,
 ) {
     LazyColumn {
         itemsIndexed(
@@ -92,19 +93,20 @@ internal fun HomeContainerList(
                     val contentDescription =
                         stringResource(id = R.string.home_content_description_location_disabled)
 
-                    LocationDisabledResult(
+                    LocationDisabled(
                         modifier = Modifier.contentDescription(contentDescription),
-                        onLocationServiceEnabled = onLocationEnabled,
+                        onRequestEnableLocation = onRequestEnableLocation,
                     )
                 }
 
-                HomeItem.LocationPermissionDenied -> {
+                is HomeItem.LocationPermissionDenied -> {
                     val contentDescription =
                         stringResource(id = R.string.home_content_description_location_permission_denied)
 
-                    LocationPermissionDeniedResult(
+                    LocationPermissionDenied(
                         modifier = Modifier.contentDescription(contentDescription),
-                        onPermissionGranted = onLocationEnabled,
+                        isPermanentlyDenied = item.isPermanentlyDenied,
+                        onRequestPermission = onRequestPermission,
                     )
                 }
 

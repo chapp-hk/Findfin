@@ -1,88 +1,135 @@
 package ch.app.hk.bank.locator.feature.home.ui.container.view
 
+import android.Manifest
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ch.app.hk.bank.locator.core.design.ui.ScreenStateView
+import ch.app.hk.bank.locator.core.location.setting.LocationSettingResult
+import ch.app.hk.bank.locator.core.location.setting.rememberLocationSettingState
+import ch.app.hk.bank.locator.core.permission.PermissionResult
+import ch.app.hk.bank.locator.core.permission.rememberPermissionState
 import ch.app.hk.bank.locator.feature.home.ui.R
 import ch.app.hk.bank.locator.feature.home.ui.container.model.HomeItem
-import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByError
+import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByUiState
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModel
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModelImpl
 
 @Composable
-internal fun HomeContainerContent(
-    nearByViewModel: NearByViewModel = hiltViewModel<NearByViewModelImpl>(),
+internal fun HomeContainerContent(onSearch: (String) -> Unit) {
+    val nearByServiceHeaderText = stringResource(id = R.string.home_title_nearby_services)
+    val fixedItemList =
+        remember {
+            listOf(
+                HomeItem.Search,
+                HomeItem.Finding,
+                HomeItem.StickyHeader(nearByServiceHeaderText),
+            )
+        }
+
+    HomeContentLocationSettingCheck(
+        fixedHomeItemList = fixedItemList,
+        onSearch = onSearch,
+    )
+}
+
+@Composable
+private fun HomeContentLocationSettingCheck(
+    fixedHomeItemList: List<HomeItem>,
     onSearch: (String) -> Unit,
 ) {
-    val itemList =
-        listOf(
-            HomeItem.Search,
-            HomeItem.Finding,
-            HomeItem.StickyHeader(stringResource(id = R.string.home_title_nearby_services)),
-        )
+    val locationSettingState = rememberLocationSettingState()
+    val homeItem =
+        when (locationSettingState.result) {
+            LocationSettingResult.None -> HomeItem.NearByLoading
+            LocationSettingResult.NoSensor -> HomeItem.NoGps
+            LocationSettingResult.Disabled -> HomeItem.LocationDisabled
+            LocationSettingResult.Enabled -> HomeItem.Empty
+        }
 
-    ScreenStateView(
-        state = nearByViewModel.uiState.collectAsStateWithLifecycle(),
-        loading = {
-            HomeContainerList(
-                items = itemList + HomeItem.NearByLoading,
-                onSearch = onSearch,
-                onLocationEnabled = {
-                },
-            )
-        },
-        error = { error ->
-            when (error.reason) {
-                NearByError.PERMISSION_NOT_GRANTED -> {
-                    HomeContainerList(
-                        items = itemList + HomeItem.LocationPermissionDenied,
-                        onSearch = onSearch,
-                        onLocationEnabled = {
-                            nearByViewModel.getNearByServices()
-                        },
-                    )
-                }
-                NearByError.GPS_NOT_SUPPORTED -> {
-                    HomeContainerList(
-                        items = itemList + HomeItem.NoGps,
-                        onSearch = onSearch,
-                        onLocationEnabled = {
-                            nearByViewModel.getNearByServices()
-                        },
-                    )
-                }
-                NearByError.GPS_IS_OFF ->
-                    HomeContainerList(
-                        items = itemList + HomeItem.LocationDisabled,
-                        onSearch = onSearch,
-                        onLocationEnabled = {
-                            nearByViewModel.getNearByServices()
-                        },
-                    )
-                NearByError.UNKNOWN_ERROR -> {
-                    // TODO - implementation here
-                }
+    if (homeItem == HomeItem.Empty) {
+        HomeContentLocationPermissionCheck(
+            fixedHomeItemList = fixedHomeItemList,
+            onSearch = onSearch,
+        )
+    } else {
+        HomeContainerList(
+            items = fixedHomeItemList + homeItem,
+            onSearch = onSearch,
+            onRequestEnableLocation = {
+                locationSettingState.launchEnableLocation()
+            },
+            onRequestPermission = {},
+        )
+    }
+}
+
+@Composable
+private fun HomeContentLocationPermissionCheck(
+    fixedHomeItemList: List<HomeItem>,
+    onSearch: (String) -> Unit,
+) {
+    var isUserRejectedPermission by remember { mutableStateOf(false) }
+    val locationPermissionState =
+        rememberPermissionState(Manifest.permission.ACCESS_FINE_LOCATION) { isGranted ->
+            if (!isGranted) {
+                isUserRejectedPermission = true
             }
-        },
-        empty = {
-            HomeContainerList(
-                items = itemList + HomeItem.Empty,
-                onSearch = onSearch,
-                onLocationEnabled = {
-                    nearByViewModel.getNearByServices()
-                },
-            )
-        },
-        success = { data ->
-            HomeContainerList(
-                items = itemList + HomeItem.Services(data.list),
-                onSearch = onSearch,
-                onLocationEnabled = {
-                    nearByViewModel.getNearByServices()
-                },
-            )
-        },
+        }
+
+    val homeItem =
+        when (locationPermissionState.result) {
+            is PermissionResult.Granted -> HomeItem.NearByLoading
+            is PermissionResult.Denied ->
+                HomeItem.LocationPermissionDenied(isPermanentlyDenied = isUserRejectedPermission)
+        }
+
+    if (homeItem == HomeItem.NearByLoading) {
+        HomeContentNearByServices(
+            fixedHomeItemList = fixedHomeItemList,
+            onSearch = onSearch,
+        )
+    } else {
+        HomeContainerList(
+            items = fixedHomeItemList + homeItem,
+            onSearch = onSearch,
+            onRequestEnableLocation = {},
+            onRequestPermission = {
+                if (isUserRejectedPermission) {
+                    locationPermissionState.launchAppSetting()
+                } else {
+                    locationPermissionState.launchPermissionRequest()
+                }
+            },
+        )
+    }
+}
+
+@Composable
+private fun HomeContentNearByServices(
+    nearByViewModel: NearByViewModel = hiltViewModel<NearByViewModelImpl>(),
+    fixedHomeItemList: List<HomeItem>,
+    onSearch: (String) -> Unit,
+) {
+    val uiState = nearByViewModel.uiState.collectAsStateWithLifecycle()
+
+    val homeItemList =
+        fixedHomeItemList +
+            when (val uiStateValue = uiState.value) {
+                NearByUiState.Empty -> HomeItem.Empty
+                NearByUiState.Error -> HomeItem.NearByLoading
+                NearByUiState.Loading -> HomeItem.NearByLoading
+                is NearByUiState.Service -> HomeItem.Services(uiStateValue.list)
+            }
+
+    HomeContainerList(
+        items = homeItemList,
+        onSearch = onSearch,
+        onRequestEnableLocation = {},
+        onRequestPermission = {},
     )
 }

@@ -29,6 +29,7 @@ dependencies {
     implementation(projects.core.imageloader)
     implementation(projects.core.navigation)
     implementation(projects.core.location)
+    implementation(projects.core.permission)
     implementation(projects.feature.bank.data.localDatabase)
     implementation(projects.feature.auth.data.repo)
     implementation(projects.feature.auth.data.remoteFirebase)

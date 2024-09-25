@@ -11,36 +11,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import ch.app.hk.bank.locator.core.design.ui.AppContent
 import ch.app.hk.bank.locator.core.design.ui.result.ResultLayout
 import ch.app.hk.bank.locator.feature.home.ui.R
-import ch.app.hk.bank.locator.feature.locator.navigation.rememberLocationSourceSettingsLauncher
 
 @Composable
-internal fun LocationDisabledResult(
+internal fun LocationDisabled(
     modifier: Modifier = Modifier,
-    onLocationServiceEnabled: () -> Unit,
-) {
-    val launcher =
-        rememberLocationSourceSettingsLauncher { isLocationEnabled ->
-            if (isLocationEnabled) {
-                onLocationServiceEnabled()
-            }
-        }
-
-    LocationDisabled(
-        modifier = modifier,
-        onActionButtonClick = { launcher.launch(Unit) },
-    )
-}
-
-@Composable
-private fun LocationDisabled(
-    modifier: Modifier = Modifier,
-    onActionButtonClick: () -> Unit,
+    onRequestEnableLocation: () -> Unit,
 ) = ResultLayout(
     modifier = modifier,
     icon = ImageVector.vectorResource(id = R.drawable.home_ic_location_disabled),
     message = stringResource(id = R.string.home_label_nearby_location_disabled),
-    buttonText = stringResource(id = R.string.home_button_location_settings),
-    onActionButtonClick = onActionButtonClick,
+    buttonText = stringResource(id = R.string.home_button_turn_on_location),
+    onActionButtonClick = onRequestEnableLocation,
 )
 
 @Preview(
@@ -56,6 +37,6 @@ private fun LocationDisabled(
 @Composable
 private fun NearByLocationDisabledPreview() {
     AppContent {
-        LocationDisabled(onActionButtonClick = {})
+        LocationDisabled(onRequestEnableLocation = {})
     }
 }

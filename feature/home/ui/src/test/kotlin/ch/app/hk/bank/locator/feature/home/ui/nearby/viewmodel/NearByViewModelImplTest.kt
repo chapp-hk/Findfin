@@ -1,11 +1,9 @@
 package ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel
 
 import app.cash.turbine.test
-import ch.app.hk.bank.locator.core.design.ui.ScreenState
 import ch.app.hk.bank.locator.feature.home.domain.nearby.model.NearByResult
 import ch.app.hk.bank.locator.feature.home.domain.nearby.model.Service
 import ch.app.hk.bank.locator.feature.home.domain.nearby.usecase.GetNearByServicesUseCase
-import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByError
 import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByUiState
 import ch.app.hk.bank.locator.testing.extension.MainDispatcherExtension
 import io.kotest.matchers.shouldBe
@@ -21,7 +19,7 @@ class NearByViewModelImplTest {
     private val getNearByServicesUseCase = mockk<GetNearByServicesUseCase>()
 
     @Test
-    fun `getNearByServices emits Empty state when use case returns Location list`() {
+    fun `uiState emits Service state when use case returns Location list`() {
         runTest {
             val mockLocationList = listOf<Service>(mockk(relaxed = true))
             val mockResult = NearByResult.Location(mockLocationList)
@@ -30,16 +28,15 @@ class NearByViewModelImplTest {
             val nearByViewModel = createNearByViewModel()
 
             nearByViewModel.uiState.test {
-                awaitItem() shouldBe ScreenState.Loading
-                awaitItem()
-                    .shouldBeInstanceOf<ScreenState.Success<NearByUiState.Service, NearByUiState.Error>>()
+                awaitItem() shouldBe NearByUiState.Loading
+                awaitItem().shouldBeInstanceOf<NearByUiState.Service>()
                 cancelAndIgnoreRemainingEvents()
             }
         }
     }
 
     @Test
-    fun `getNearByServices emits Empty state when use case returns empty Location list`() {
+    fun `uiState emits Empty state when use case returns empty Location list`() {
         runTest {
             val mockResult = NearByResult.Location(listOf())
             coEvery { getNearByServicesUseCase() } returns mockResult
@@ -47,23 +44,23 @@ class NearByViewModelImplTest {
             val nearByViewModel = createNearByViewModel()
 
             nearByViewModel.uiState.test {
-                awaitItem() shouldBe ScreenState.Loading
-                awaitItem() shouldBe ScreenState.Empty
+                awaitItem() shouldBe NearByUiState.Loading
+                awaitItem() shouldBe NearByUiState.Empty
                 cancelAndIgnoreRemainingEvents()
             }
         }
     }
 
     @Test
-    fun `getNearByServices emits Error state when use case returns UnknownError`() {
+    fun `uiState emits Error state when use case returns UnknownError`() {
         runTest {
             coEvery { getNearByServicesUseCase() } returns NearByResult.UnknownError
 
             val nearByViewModel = createNearByViewModel()
 
             nearByViewModel.uiState.test {
-                awaitItem() shouldBe ScreenState.Loading
-                awaitItem() shouldBe ScreenState.Error(NearByUiState.Error(NearByError.UNKNOWN_ERROR))
+                awaitItem() shouldBe NearByUiState.Loading
+                awaitItem() shouldBe NearByUiState.Error
                 cancelAndIgnoreRemainingEvents()
             }
         }

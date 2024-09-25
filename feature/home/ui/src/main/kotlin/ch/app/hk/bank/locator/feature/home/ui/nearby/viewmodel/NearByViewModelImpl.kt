@@ -2,15 +2,12 @@ package ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ch.app.hk.bank.locator.core.design.ui.ScreenState
-import ch.app.hk.bank.locator.core.design.ui.ScreenStateFlow
-import ch.app.hk.bank.locator.core.design.ui.mutableScreenStateFlowOf
 import ch.app.hk.bank.locator.feature.home.domain.nearby.model.NearByResult
 import ch.app.hk.bank.locator.feature.home.domain.nearby.usecase.GetNearByServicesUseCase
-import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByError
 import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByItemUiModel
 import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,10 +16,8 @@ import javax.inject.Inject
 class NearByViewModelImpl @Inject constructor(
     private val getNearByBanks: GetNearByServicesUseCase,
 ) : NearByViewModel, ViewModel() {
-    private val _uiState =
-        mutableScreenStateFlowOf<NearByUiState.Service, NearByUiState.Error>(ScreenState.Loading)
-    override val uiState: ScreenStateFlow<NearByUiState.Service, NearByUiState.Error> =
-        _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<NearByUiState>(NearByUiState.Loading)
+    override val uiState = _uiState.asStateFlow()
 
     init {
         getNearByServices()
@@ -30,14 +25,13 @@ class NearByViewModelImpl @Inject constructor(
 
     override fun getNearByServices() {
         viewModelScope.launch {
-            _uiState.emit(ScreenState.Loading)
             when (val result = getNearByBanks()) {
                 is NearByResult.UnknownError ->
-                    _uiState.emit(ScreenState.Error(NearByUiState.Error(NearByError.UNKNOWN_ERROR)))
+                    _uiState.emit(NearByUiState.Error)
 
                 is NearByResult.Location -> {
                     if (result.list.isEmpty()) {
-                        _uiState.emit(ScreenState.Empty)
+                        _uiState.emit(NearByUiState.Empty)
                     } else {
                         val itemList =
                             result.list.map {
@@ -47,7 +41,7 @@ class NearByViewModelImpl @Inject constructor(
                                     isFavourite = false,
                                 )
                             }
-                        _uiState.emit(ScreenState.Success(NearByUiState.Service(itemList)))
+                        _uiState.emit(NearByUiState.Service(itemList))
                     }
                 }
             }
