@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("GpsRepositoryImpl unit tests")
+@DisplayName("GpsHelper unit tests")
 class GpsHelperTest {
     private val context = mockk<Context>()
     private val locationManager = mockk<LocationManager>()

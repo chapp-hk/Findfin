@@ -13,8 +13,10 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
+@DisplayName("SettingHelper unit tests")
 class SettingHelperTest {
     private val gpsHelper = mockk<GpsHelper>()
     private val settingsClient = mockk<SettingsClient>()
