@@ -55,51 +55,6 @@ class NearByViewModelImplTest {
     }
 
     @Test
-    fun `getNearByServices emits Error state when use case returns PermissionNotGranted`() {
-        runTest {
-            coEvery { getNearByServicesUseCase() } returns NearByResult.PermissionNotGranted
-
-            val nearByViewModel = createNearByViewModel()
-
-            nearByViewModel.uiState.test {
-                awaitItem() shouldBe ScreenState.Loading
-                awaitItem() shouldBe ScreenState.Error(NearByUiState.Error(NearByError.PERMISSION_NOT_GRANTED))
-                cancelAndIgnoreRemainingEvents()
-            }
-        }
-    }
-
-    @Test
-    fun `getNearByServices emits Error state when use case returns GpsNotSupported`() {
-        runTest {
-            coEvery { getNearByServicesUseCase() } returns NearByResult.GpsNotSupported
-
-            val nearByViewModel = createNearByViewModel()
-
-            nearByViewModel.uiState.test {
-                awaitItem() shouldBe ScreenState.Loading
-                awaitItem() shouldBe ScreenState.Error(NearByUiState.Error(NearByError.GPS_NOT_SUPPORTED))
-                cancelAndIgnoreRemainingEvents()
-            }
-        }
-    }
-
-    @Test
-    fun `getNearByServices emits Error state when use case returns GpsIsOff`() {
-        runTest {
-            coEvery { getNearByServicesUseCase() } returns NearByResult.GpsIsOff
-
-            val nearByViewModel = createNearByViewModel()
-
-            nearByViewModel.uiState.test {
-                awaitItem() shouldBe ScreenState.Loading
-                awaitItem() shouldBe ScreenState.Error(NearByUiState.Error(NearByError.GPS_IS_OFF))
-                cancelAndIgnoreRemainingEvents()
-            }
-        }
-    }
-
-    @Test
     fun `getNearByServices emits Error state when use case returns UnknownError`() {
         runTest {
             coEvery { getNearByServicesUseCase() } returns NearByResult.UnknownError

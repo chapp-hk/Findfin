@@ -2,8 +2,6 @@ package ch.app.hk.bank.locator.feature.locator.data.remote.location
 
 import android.location.Location
 import ch.app.hk.bank.locator.core.location.client.LocationClient
-import ch.app.hk.bank.locator.core.location.helper.hardware.GpsHelper
-import ch.app.hk.bank.locator.core.location.helper.permission.PermissionHelper
 import ch.app.hk.bank.locator.core.logging.appLogger
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationResult
@@ -16,31 +14,18 @@ import javax.inject.Inject
 @HiltWrapBindModule
 internal class LocationRepositoryImpl @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
-    private val permissionHelper: PermissionHelper,
-    private val gpsHelper: GpsHelper,
     private val locationClient: LocationClient,
 ) : LocationRepository {
     override suspend fun getCurrentLocation(): LocationResult {
         return withContext(ioDispatcher) {
-            if (!permissionHelper.checkPermission()) {
-                appLogger.debug(tag = javaClass.simpleName, message = "PermissionNotGranted")
-                LocationResult.PermissionNotGranted
-            } else if (!gpsHelper.hasGpsSensor()) {
-                appLogger.debug(tag = javaClass.simpleName, message = "GpsNotSupported")
-                LocationResult.GpsNotSupported
-            } else if (!gpsHelper.isGpsEnabled()) {
-                appLogger.debug(tag = javaClass.simpleName, message = "GpsIsOff")
-                LocationResult.GpsIsOff
-            } else {
-                val location = internalGetCurrentLocation()
+            val location = internalGetCurrentLocation()
 
-                appLogger.debug(
-                    tag = javaClass.simpleName,
-                    message = "latitude: ${location.latitude}, longitude: ${location.longitude}",
-                )
+            appLogger.debug(
+                tag = javaClass.simpleName,
+                message = "latitude: ${location.latitude}, longitude: ${location.longitude}",
+            )
 
-                LocationResult.Location(location.latitude, location.longitude)
-            }
+            LocationResult.Location(location.latitude, location.longitude)
         }
     }
 

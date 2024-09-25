@@ -27,39 +27,6 @@ class GetNearByServicesUseCaseImplTest {
         )
 
     @Test
-    fun `invoke should return GpsIsOff when LocationResult is GpsIsOff`() =
-        runTest(testDispatcher) {
-            coEvery { locationRepository.getCurrentLocation() } returns
-                LocationResult.GpsIsOff
-
-            val result = getNearByServiceUseCase()
-
-            result shouldBe NearByResult.GpsIsOff
-        }
-
-    @Test
-    fun `invoke should return GpsNotSupported when LocationResult is GpsNotSupported`() =
-        runTest(testDispatcher) {
-            coEvery { locationRepository.getCurrentLocation() } returns
-                LocationResult.GpsNotSupported
-
-            val result = getNearByServiceUseCase()
-
-            result shouldBe NearByResult.GpsNotSupported
-        }
-
-    @Test
-    fun `invoke should return PermissionNotGranted when LocationResult is PermissionNotGranted`() =
-        runTest(testDispatcher) {
-            coEvery { locationRepository.getCurrentLocation() } returns
-                LocationResult.PermissionNotGranted
-
-            val result = getNearByServiceUseCase()
-
-            result shouldBe NearByResult.PermissionNotGranted
-        }
-
-    @Test
     fun `invoke should return UnknownError when LocationResult is UnknownError`() =
         runTest(testDispatcher) {
             coEvery { locationRepository.getCurrentLocation() } returns

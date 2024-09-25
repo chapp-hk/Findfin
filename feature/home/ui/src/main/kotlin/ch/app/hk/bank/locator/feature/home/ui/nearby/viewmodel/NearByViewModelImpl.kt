@@ -32,15 +32,6 @@ class NearByViewModelImpl @Inject constructor(
         viewModelScope.launch {
             _uiState.emit(ScreenState.Loading)
             when (val result = getNearByBanks()) {
-                is NearByResult.PermissionNotGranted ->
-                    _uiState.emit(ScreenState.Error(NearByUiState.Error(NearByError.PERMISSION_NOT_GRANTED)))
-
-                is NearByResult.GpsNotSupported ->
-                    _uiState.emit(ScreenState.Error(NearByUiState.Error(NearByError.GPS_NOT_SUPPORTED)))
-
-                is NearByResult.GpsIsOff ->
-                    _uiState.emit(ScreenState.Error(NearByUiState.Error(NearByError.GPS_IS_OFF)))
-
                 is NearByResult.UnknownError ->
                     _uiState.emit(ScreenState.Error(NearByUiState.Error(NearByError.UNKNOWN_ERROR)))
 
