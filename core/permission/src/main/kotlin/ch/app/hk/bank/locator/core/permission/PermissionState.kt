@@ -2,6 +2,9 @@ package ch.app.hk.bank.locator.core.permission
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -33,6 +36,8 @@ interface PermissionState {
      * Launches the permission request.
      */
     fun launchPermissionRequest()
+
+    fun launchAppSetting()
 }
 
 /**
@@ -79,6 +84,15 @@ internal class MutablePermissionState(
     override fun launchPermissionRequest() {
         launcher?.launch(permission)
             ?: error("ActivityResultLauncher cannot be null")
+    }
+
+    override fun launchAppSetting() {
+        val intent =
+            Intent(
+                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                Uri.fromParts("package", context.packageName, null),
+            )
+        context.findActivity().startActivity(intent)
     }
 
     /**
