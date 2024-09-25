@@ -9,8 +9,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ch.app.hk.bank.locator.core.location.setting.LocationSettingResult
-import ch.app.hk.bank.locator.core.location.setting.rememberLocationSettingState
+import ch.app.hk.bank.locator.core.location.state.LocationSettingResult
+import ch.app.hk.bank.locator.core.location.state.rememberLocationSettingState
 import ch.app.hk.bank.locator.core.permission.PermissionResult
 import ch.app.hk.bank.locator.core.permission.rememberPermissionState
 import ch.app.hk.bank.locator.feature.home.ui.R

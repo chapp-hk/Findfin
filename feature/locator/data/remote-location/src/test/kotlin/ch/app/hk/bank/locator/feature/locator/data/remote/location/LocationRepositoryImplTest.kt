@@ -1,6 +1,6 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.location
 
-import ch.app.hk.bank.locator.core.location.client.LocationClient
+import ch.app.hk.bank.locator.core.location.provider.LocationProvider
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationResult
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
@@ -15,18 +15,18 @@ import org.junit.jupiter.api.Test
 @DisplayName("LocationRepositoryImpl unit tests")
 class LocationRepositoryImplTest {
     private val testDispatcher = StandardTestDispatcher()
-    private val locationClient = mockk<LocationClient>()
+    private val locationProvider = mockk<LocationProvider>()
 
     private val locationRepository =
         LocationRepositoryImpl(
             ioDispatcher = testDispatcher,
-            locationClient = locationClient,
+            locationProvider = locationProvider,
         )
 
     @Test
     fun `getCurrentLocation() should get location from FusedLocationDataSource`() {
         runTest(testDispatcher) {
-            coEvery { locationClient.getCurrentLocation() } returns
+            coEvery { locationProvider.getCurrentLocation() } returns
                 mockk {
                     every { latitude } returns 1.0
                     every { longitude } returns 2.0
@@ -41,7 +41,7 @@ class LocationRepositoryImplTest {
     @Test
     fun `getCurrentLocation() should retry with FusedLocationDataSource when first attempt returns null`() {
         runTest(testDispatcher) {
-            coEvery { locationClient.getCurrentLocation() } returnsMany
+            coEvery { locationProvider.getCurrentLocation() } returnsMany
                 listOf(
                     null,
                     mockk {
@@ -53,7 +53,7 @@ class LocationRepositoryImplTest {
             val result = locationRepository.getCurrentLocation()
 
             result shouldBe LocationResult.Location(1.0, 2.0)
-            coVerify(exactly = 2) { locationClient.getCurrentLocation() }
+            coVerify(exactly = 2) { locationProvider.getCurrentLocation() }
         }
     }
 }

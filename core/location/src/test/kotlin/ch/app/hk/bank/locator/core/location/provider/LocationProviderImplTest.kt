@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.client
+package ch.app.hk.bank.locator.core.location.provider
 
 import android.location.Location
 import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskResult
@@ -15,10 +15,10 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("FusedLocationDataSourceImpl unit tests")
-class LocationClientImplTest {
+class LocationProviderImplTest {
     private val fusedLocationProviderClient = mockk<FusedLocationProviderClient>()
 
-    private val fusedLocationDataSource = LocationClientImpl(fusedLocationProviderClient)
+    private val fusedLocationDataSource = LocationProviderImpl(fusedLocationProviderClient)
 
     @Test
     fun `getCurrentLocation returns expected location`() {

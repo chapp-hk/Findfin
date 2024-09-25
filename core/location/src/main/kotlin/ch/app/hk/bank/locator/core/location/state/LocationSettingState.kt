@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.setting
+package ch.app.hk.bank.locator.core.location.state
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -13,7 +13,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import ch.app.hk.bank.locator.core.location.helper.hardware.GpsHelperImpl
+import ch.app.hk.bank.locator.core.location.state.helper.gps.GpsHelper
+import ch.app.hk.bank.locator.core.location.state.helper.setting.SettingHelper
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -28,12 +29,12 @@ interface LocationSettingState {
 @Composable
 fun rememberLocationSettingState(onLocationSettingResult: (LocationSettingResult) -> Unit = {}): LocationSettingState {
     val context = LocalContext.current
-    val gpsHelperImpl = GpsHelperImpl(context)
+    val gpsHelper = GpsHelper(context)
     val settingClient = LocationServices.getSettingsClient(context)
-    val locationSettingHelper = LocationSettingHelper(gpsHelperImpl, settingClient)
+    val settingHelper = SettingHelper(gpsHelper, settingClient)
 
     return rememberMutableLocationSettingState(
-        locationSettingHelper = locationSettingHelper,
+        settingHelper = settingHelper,
         onLocationSettingResult = onLocationSettingResult,
     )
 }
@@ -41,7 +42,7 @@ fun rememberLocationSettingState(onLocationSettingResult: (LocationSettingResult
 @Stable
 internal class MutableLocationSettingState(
     private val coroutineScope: CoroutineScope,
-    private val locationSettingHelper: LocationSettingHelper,
+    private val settingHelper: SettingHelper,
 ) : LocationSettingState {
     override var result: LocationSettingResult by mutableStateOf(LocationSettingResult.None)
 
@@ -49,7 +50,7 @@ internal class MutableLocationSettingState(
 
     override fun launchEnableLocation() {
         coroutineScope.launch {
-            locationSettingHelper.getIntentSenderRequest()?.let {
+            settingHelper.getIntentSenderRequest()?.let {
                 launcher?.launch(it)
             }
         }
@@ -60,13 +61,13 @@ internal class MutableLocationSettingState(
     }
 
     private fun getLocationSettingResult(): LocationSettingResult {
-        return locationSettingHelper.getSettings()
+        return settingHelper.getSettings()
     }
 }
 
 @Composable
 internal fun rememberMutableLocationSettingState(
-    locationSettingHelper: LocationSettingHelper,
+    settingHelper: SettingHelper,
     onLocationSettingResult: (LocationSettingResult) -> Unit,
 ): MutableLocationSettingState {
     val coroutineScope = rememberCoroutineScope()
@@ -74,7 +75,7 @@ internal fun rememberMutableLocationSettingState(
         remember {
             MutableLocationSettingState(
                 coroutineScope = coroutineScope,
-                locationSettingHelper = locationSettingHelper,
+                settingHelper = settingHelper,
             )
         }
 

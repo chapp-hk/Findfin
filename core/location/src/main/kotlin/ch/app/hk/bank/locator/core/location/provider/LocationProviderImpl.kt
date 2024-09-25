@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.client
+package ch.app.hk.bank.locator.core.location.provider
 
 import android.location.Location
 import androidx.annotation.RequiresPermission
@@ -10,15 +10,15 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 /**
- * Implementation of the [LocationClient] interface that provides location data using the
+ * Implementation of the [LocationProvider] interface that provides location data using the
  * [FusedLocationProviderClient].
  *
  * @property fusedLocationProviderClient The client used to access location data.
  */
 @HiltWrapBindModule
-internal class LocationClientImpl @Inject constructor(
+internal class LocationProviderImpl @Inject constructor(
     private val fusedLocationProviderClient: FusedLocationProviderClient,
-) : LocationClient {
+) : LocationProvider {
     /**
      * Retrieves the current location of the device.
      *

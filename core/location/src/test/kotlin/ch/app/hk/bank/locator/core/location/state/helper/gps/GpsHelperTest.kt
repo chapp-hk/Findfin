@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.helper.hardware
+package ch.app.hk.bank.locator.core.location.state.helper.gps
 
 import android.content.Context
 import android.location.LocationManager
@@ -14,11 +14,11 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("GpsRepositoryImpl unit tests")
-class GpsHelperImplTest {
+class GpsHelperTest {
     private val context = mockk<Context>()
     private val locationManager = mockk<LocationManager>()
 
-    private val gpsRepository = GpsHelperImpl(context)
+    private val gpsRepository = GpsHelper(context)
 
     @BeforeEach
     fun setUp() {

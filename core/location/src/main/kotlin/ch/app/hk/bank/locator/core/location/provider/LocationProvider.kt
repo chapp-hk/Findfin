@@ -1,11 +1,11 @@
-package ch.app.hk.bank.locator.core.location.client
+package ch.app.hk.bank.locator.core.location.provider
 
 import android.location.Location
 
 /**
  * Interface representing a client for accessing location data.
  */
-interface LocationClient {
+interface LocationProvider {
     /**
      * Retrieves the current location of the device.
      *

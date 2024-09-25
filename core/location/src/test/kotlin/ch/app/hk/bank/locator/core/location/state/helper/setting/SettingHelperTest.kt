@@ -1,7 +1,8 @@
-package ch.app.hk.bank.locator.core.location.setting
+package ch.app.hk.bank.locator.core.location.state.helper.setting
 
 import androidx.activity.result.IntentSenderRequest
-import ch.app.hk.bank.locator.core.location.helper.hardware.GpsHelperImpl
+import ch.app.hk.bank.locator.core.location.state.LocationSettingResult
+import ch.app.hk.bank.locator.core.location.state.helper.gps.GpsHelper
 import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskError
 import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskResult
 import com.google.android.gms.common.api.ResolvableApiException
@@ -14,12 +15,12 @@ import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 
-class LocationSettingHelperTest {
-    private val gpsHelper = mockk<GpsHelperImpl>()
+class SettingHelperTest {
+    private val gpsHelper = mockk<GpsHelper>()
     private val settingsClient = mockk<SettingsClient>()
 
-    private val locationSettingHelper =
-        LocationSettingHelper(
+    private val settingHelper =
+        SettingHelper(
             gpsHelper = gpsHelper,
             settingsClient = settingsClient,
         )
@@ -28,7 +29,7 @@ class LocationSettingHelperTest {
     fun `getSettings returns NoSensor when no GPS sensor`() {
         every { gpsHelper.hasGpsSensor() } returns false
 
-        val result = locationSettingHelper.getSettings()
+        val result = settingHelper.getSettings()
 
         result shouldBe LocationSettingResult.NoSensor
     }
@@ -38,7 +39,7 @@ class LocationSettingHelperTest {
         every { gpsHelper.hasGpsSensor() } returns true
         every { gpsHelper.isGpsEnabled() } returns true
 
-        val result = locationSettingHelper.getSettings()
+        val result = settingHelper.getSettings()
 
         result shouldBe LocationSettingResult.Enabled
     }
@@ -48,7 +49,7 @@ class LocationSettingHelperTest {
         every { gpsHelper.hasGpsSensor() } returns true
         every { gpsHelper.isGpsEnabled() } returns false
 
-        val result = locationSettingHelper.getSettings()
+        val result = settingHelper.getSettings()
 
         result shouldBe LocationSettingResult.Disabled
     }
@@ -58,7 +59,7 @@ class LocationSettingHelperTest {
         runTest {
             coEvery { settingsClient.checkLocationSettings(any()) } returns mockTaskResult(mockk())
 
-            val result = locationSettingHelper.getIntentSenderRequest()
+            val result = settingHelper.getIntentSenderRequest()
 
             result shouldBe null
         }
@@ -76,7 +77,7 @@ class LocationSettingHelperTest {
             coEvery { settingsClient.checkLocationSettings(any()) } returns
                 mockTaskError(resolvableApiException)
 
-            val result = locationSettingHelper.getIntentSenderRequest()
+            val result = settingHelper.getIntentSenderRequest()
 
             result.shouldBeInstanceOf<IntentSenderRequest>()
         }
@@ -87,7 +88,7 @@ class LocationSettingHelperTest {
         runTest {
             coEvery { settingsClient.checkLocationSettings(any()) } returns mockTaskError(Exception())
 
-            val result = locationSettingHelper.getIntentSenderRequest()
+            val result = settingHelper.getIntentSenderRequest()
 
             result shouldBe null
         }

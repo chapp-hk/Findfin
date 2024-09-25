@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.di
+package ch.app.hk.bank.locator.core.location.provider.di
 
 import android.content.Context
 import com.google.android.gms.location.LocationServices

@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.setting
+package ch.app.hk.bank.locator.core.location.state
 
 import androidx.compose.runtime.Stable
 

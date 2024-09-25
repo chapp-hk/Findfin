@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.location
 
 import android.location.Location
-import ch.app.hk.bank.locator.core.location.client.LocationClient
+import ch.app.hk.bank.locator.core.location.provider.LocationProvider
 import ch.app.hk.bank.locator.core.logging.appLogger
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationResult
@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltWrapBindModule
 internal class LocationRepositoryImpl @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
-    private val locationClient: LocationClient,
+    private val locationProvider: LocationProvider,
 ) : LocationRepository {
     override suspend fun getCurrentLocation(): LocationResult {
         return withContext(ioDispatcher) {
@@ -35,7 +35,7 @@ internal class LocationRepositoryImpl @Inject constructor(
             message = "getting location...",
         )
 
-        val location = locationClient.getCurrentLocation()
+        val location = locationProvider.getCurrentLocation()
         return location ?: internalGetCurrentLocation()
     }
 }
