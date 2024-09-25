@@ -1,16 +1,15 @@
 package ch.app.hk.bank.locator.core.location.provider
 
-import android.location.Location
-
 /**
- * Interface representing a client for accessing location data.
+ * Interface for providing location data.
+ * Implementations of this interface should handle the retrieval of the current location.
  */
 interface LocationProvider {
     /**
-     * Retrieves the current location of the device.
+     * Retrieves the current location.
      *
-     * @return The current [Location] of the device, or `null` if the location could not be determined.
-     * @throws SecurityException if the required location permissions are not granted.
+     * @return [LocationProviderResult] which can be a success with the location data,
+     * an error, or an indication that the location is unavailable.
      */
-    suspend fun getCurrentLocation(): Location?
+    suspend fun getCurrentLocation(): LocationProviderResult
 }

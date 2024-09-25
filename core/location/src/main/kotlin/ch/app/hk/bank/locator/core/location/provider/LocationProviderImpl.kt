@@ -1,6 +1,5 @@
 package ch.app.hk.bank.locator.core.location.provider
 
-import android.location.Location
 import androidx.annotation.RequiresPermission
 import ch.app.library.hiltwrap.annotation.HiltWrapBindModule
 import com.google.android.gms.location.CurrentLocationRequest
@@ -24,7 +23,8 @@ internal class LocationProviderImpl @Inject constructor(
      *
      * This method requires either `ACCESS_FINE_LOCATION` or `ACCESS_COARSE_LOCATION` permission.
      *
-     * @return The current [Location] of the device, or `null` if the location could not be determined.
+     * @return [LocationProviderResult] which can be a success with the location data,
+     * an error, or an indication that the location is unavailable.
      */
     @RequiresPermission(
         anyOf = [
@@ -32,7 +32,7 @@ internal class LocationProviderImpl @Inject constructor(
             android.Manifest.permission.ACCESS_COARSE_LOCATION,
         ],
     )
-    override suspend fun getCurrentLocation(): Location? {
+    override suspend fun getCurrentLocation(): LocationProviderResult {
         val request =
             CurrentLocationRequest
                 .Builder()
@@ -40,8 +40,21 @@ internal class LocationProviderImpl @Inject constructor(
 
         val cancellationTokenSource = CancellationTokenSource()
 
-        return fusedLocationProviderClient
-            .getCurrentLocation(request, cancellationTokenSource.token)
-            .await(cancellationTokenSource)
+        return runCatching {
+            val location =
+                fusedLocationProviderClient
+                    .getCurrentLocation(request, cancellationTokenSource.token)
+                    .await()
+
+            if (location != null) {
+                LocationProviderResult.Success(location)
+            } else {
+                LocationProviderResult.LocationUnavailable
+            }
+        }.also {
+            cancellationTokenSource.cancel()
+        }.getOrElse {
+            LocationProviderResult.Error
+        }
     }
 }

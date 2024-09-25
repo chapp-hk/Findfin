@@ -1,7 +1,7 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.location
 
-import android.location.Location
 import ch.app.hk.bank.locator.core.location.provider.LocationProvider
+import ch.app.hk.bank.locator.core.location.provider.LocationProviderResult
 import ch.app.hk.bank.locator.core.logging.appLogger
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationResult
@@ -18,24 +18,25 @@ internal class LocationRepositoryImpl @Inject constructor(
 ) : LocationRepository {
     override suspend fun getCurrentLocation(): LocationResult {
         return withContext(ioDispatcher) {
-            val location = internalGetCurrentLocation()
+            when (val result = locationProvider.getCurrentLocation()) {
+                LocationProviderResult.Error,
+                LocationProviderResult.LocationUnavailable,
+                -> LocationResult.UnknownError
 
-            appLogger.debug(
-                tag = javaClass.simpleName,
-                message = "latitude: ${location.latitude}, longitude: ${location.longitude}",
-            )
+                is LocationProviderResult.Success -> {
+                    appLogger.debug(
+                        tag = javaClass.simpleName,
+                        message =
+                            "latitude: ${result.location.latitude}, " +
+                                "longitude: ${result.location.longitude}",
+                    )
 
-            LocationResult.Location(location.latitude, location.longitude)
+                    LocationResult.Location(
+                        lat = result.location.latitude,
+                        lon = result.location.longitude,
+                    )
+                }
+            }
         }
-    }
-
-    private suspend fun internalGetCurrentLocation(): Location {
-        appLogger.debug(
-            tag = javaClass.simpleName,
-            message = "getting location...",
-        )
-
-        val location = locationProvider.getCurrentLocation()
-        return location ?: internalGetCurrentLocation()
     }
 }
