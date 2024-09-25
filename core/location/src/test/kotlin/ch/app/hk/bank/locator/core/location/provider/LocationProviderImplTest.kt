@@ -14,16 +14,17 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("FusedLocationDataSourceImpl unit tests")
+@DisplayName("LocationProviderImpl unit tests")
 class LocationProviderImplTest {
     private val fusedLocationProviderClient = mockk<FusedLocationProviderClient>()
 
-    private val fusedLocationDataSource = LocationProviderImpl(fusedLocationProviderClient)
+    private val locationProvider = LocationProviderImpl(fusedLocationProviderClient)
 
     @Test
     fun `getCurrentLocation returns expected location`() {
         runTest(StandardTestDispatcher()) {
             val expectedLocation = mockk<Location>()
+
             every {
                 fusedLocationProviderClient.getCurrentLocation(
                     any<CurrentLocationRequest>(),
@@ -31,9 +32,9 @@ class LocationProviderImplTest {
                 )
             } returns mockTaskResult(expectedLocation)
 
-            val result = fusedLocationDataSource.getCurrentLocation()
+            locationProvider.getCurrentLocation() shouldBe
+                LocationProviderResult.Success(expectedLocation)
 
-            result shouldBe expectedLocation
             verify {
                 fusedLocationProviderClient.getCurrentLocation(
                     any<CurrentLocationRequest>(),
@@ -44,7 +45,7 @@ class LocationProviderImplTest {
     }
 
     @Test
-    fun `getCurrentLocation returns null when no location update is received`() {
+    fun `getCurrentLocation returns LocationUnavailable when no location update is received`() {
         runTest(StandardTestDispatcher()) {
             every {
                 fusedLocationProviderClient.getCurrentLocation(
@@ -53,9 +54,24 @@ class LocationProviderImplTest {
                 )
             } returns mockTaskResult(null)
 
-            val result = fusedLocationDataSource.getCurrentLocation()
+            locationProvider.getCurrentLocation() shouldBe
+                LocationProviderResult.LocationUnavailable
+        }
+    }
 
-            result shouldBe null
+    @Test
+    fun `getCurrentLocation returns Error on exception`() {
+        runTest(StandardTestDispatcher()) {
+            every {
+                fusedLocationProviderClient.getCurrentLocation(
+                    any<CurrentLocationRequest>(),
+                    any<CancellationToken>(),
+                )
+            } throws Exception("Test exception")
+
+            val result = locationProvider.getCurrentLocation()
+
+            result shouldBe LocationProviderResult.Error
         }
     }
 }
