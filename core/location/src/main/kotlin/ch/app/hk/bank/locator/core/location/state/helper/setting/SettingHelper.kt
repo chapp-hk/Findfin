@@ -26,7 +26,7 @@ internal class SettingHelper(
 
     suspend fun getIntentSenderRequest(): IntentSenderRequest? {
         val locationRequest =
-            LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000L).build()
+            LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, INTERVAL_MILLIS).build()
 
         val locationSettingsRequest =
             LocationSettingsRequest
@@ -45,5 +45,9 @@ internal class SettingHelper(
                 null
             }
         }
+    }
+
+    private companion object {
+        private const val INTERVAL_MILLIS = 1000L
     }
 }
