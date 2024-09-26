@@ -21,10 +21,6 @@ class NearByViewModelImpl @Inject constructor(
     private val _uiState = MutableStateFlow<NearByUiState>(NearByUiState.Loading)
     override val uiState = _uiState.asStateFlow()
 
-    init {
-        getNearByServices()
-    }
-
     override fun getNearByServices() {
         currentJob?.cancel()
         currentJob =

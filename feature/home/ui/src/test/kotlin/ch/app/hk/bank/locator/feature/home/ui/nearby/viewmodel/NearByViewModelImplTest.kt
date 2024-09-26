@@ -26,6 +26,7 @@ class NearByViewModelImplTest {
             coEvery { getNearByServicesUseCase() } returns mockResult
 
             val nearByViewModel = createNearByViewModel()
+            nearByViewModel.getNearByServices()
 
             nearByViewModel.uiState.test {
                 awaitItem() shouldBe NearByUiState.Loading
@@ -42,6 +43,7 @@ class NearByViewModelImplTest {
             coEvery { getNearByServicesUseCase() } returns mockResult
 
             val nearByViewModel = createNearByViewModel()
+            nearByViewModel.getNearByServices()
 
             nearByViewModel.uiState.test {
                 awaitItem() shouldBe NearByUiState.Loading
@@ -57,6 +59,7 @@ class NearByViewModelImplTest {
             coEvery { getNearByServicesUseCase() } returns NearByResult.UnknownError
 
             val nearByViewModel = createNearByViewModel()
+            nearByViewModel.getNearByServices()
 
             nearByViewModel.uiState.test {
                 awaitItem() shouldBe NearByUiState.Loading
