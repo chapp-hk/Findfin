@@ -34,7 +34,7 @@ internal fun HomeContainerList(
     LazyColumn {
         itemsIndexed(
             items = items,
-            key = { index, _ -> index },
+            key = { _, item -> item.hashCode() },
         ) { _, item ->
             when (item) {
                 HomeItem.Search -> {
