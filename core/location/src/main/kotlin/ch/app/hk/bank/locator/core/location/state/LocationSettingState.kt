@@ -29,9 +29,11 @@ interface LocationSettingState {
 @Composable
 fun rememberLocationSettingState(onLocationSettingResult: (LocationSettingResult) -> Unit = {}): LocationSettingState {
     val context = LocalContext.current
-    val gpsHelper = GpsHelper(context)
-    val settingClient = LocationServices.getSettingsClient(context)
-    val settingHelper = SettingHelper(gpsHelper, settingClient)
+    val settingHelper =
+        SettingHelper(
+            gpsHelper = GpsHelper(context),
+            settingsClient = LocationServices.getSettingsClient(context),
+        )
 
     return rememberMutableLocationSettingState(
         settingHelper = settingHelper,
