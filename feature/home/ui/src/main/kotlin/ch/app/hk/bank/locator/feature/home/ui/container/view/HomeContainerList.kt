@@ -9,6 +9,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,13 +28,16 @@ import ch.app.hk.bank.locator.feature.home.ui.nearby.view.ServiceItem
 
 @Composable
 internal fun HomeContainerList(
-    items: List<HomeItem>,
+    item: HomeItem,
     onSearch: (String) -> Unit,
-    onRequestLocation: () -> Unit,
+    onRequestEnableLocation: () -> Unit,
+    onRequestLocationPermission: () -> Unit,
 ) {
+    val headerItems = rememberHomeList()
+
     LazyColumn {
         itemsIndexed(
-            items = items,
+            items = headerItems + item,
             key = { _, item -> item.hashCode() },
         ) { _, item ->
             when (item) {
@@ -94,7 +98,7 @@ internal fun HomeContainerList(
 
                     LocationDisabled(
                         modifier = Modifier.contentDescription(contentDescription),
-                        onRequestEnableLocation = onRequestLocation,
+                        onRequestEnableLocation = onRequestEnableLocation,
                     )
                 }
 
@@ -105,7 +109,7 @@ internal fun HomeContainerList(
                     LocationPermissionDenied(
                         modifier = Modifier.contentDescription(contentDescription),
                         isPermanentlyDenied = item.isPermanentlyDenied,
-                        onRequestPermission = onRequestLocation,
+                        onRequestPermission = onRequestLocationPermission,
                     )
                 }
 
@@ -120,5 +124,17 @@ internal fun HomeContainerList(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun rememberHomeList(): List<HomeItem> {
+    val nearByServiceHeaderText = stringResource(id = R.string.home_title_nearby_services)
+    return remember {
+        listOf(
+            HomeItem.Search,
+            HomeItem.Finding,
+            HomeItem.StickyHeader(nearByServiceHeaderText),
+        )
     }
 }
