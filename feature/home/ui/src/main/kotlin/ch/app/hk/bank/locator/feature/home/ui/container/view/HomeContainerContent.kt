@@ -60,10 +60,9 @@ private fun HomeContentLocationSettingCheck(
         HomeContainerList(
             items = fixedHomeItemList + homeItem,
             onSearch = onSearch,
-            onRequestEnableLocation = {
+            onRequestLocation = {
                 locationSettingState.launchEnableLocation()
             },
-            onRequestPermission = {},
         )
     }
 }
@@ -97,8 +96,7 @@ private fun HomeContentLocationPermissionCheck(
         HomeContainerList(
             items = fixedHomeItemList + homeItem,
             onSearch = onSearch,
-            onRequestEnableLocation = {},
-            onRequestPermission = {
+            onRequestLocation = {
                 if (isUserRejectedPermission) {
                     locationPermissionState.launchAppSetting()
                 } else {
@@ -129,7 +127,6 @@ private fun HomeContentNearByServices(
     HomeContainerList(
         items = homeItemList,
         onSearch = onSearch,
-        onRequestEnableLocation = {},
-        onRequestPermission = {},
+        onRequestLocation = {},
     )
 }

@@ -29,8 +29,7 @@ import ch.app.hk.bank.locator.feature.home.ui.nearby.view.ServiceItem
 internal fun HomeContainerList(
     items: List<HomeItem>,
     onSearch: (String) -> Unit,
-    onRequestEnableLocation: () -> Unit,
-    onRequestPermission: () -> Unit,
+    onRequestLocation: () -> Unit,
 ) {
     LazyColumn {
         itemsIndexed(
@@ -95,7 +94,7 @@ internal fun HomeContainerList(
 
                     LocationDisabled(
                         modifier = Modifier.contentDescription(contentDescription),
-                        onRequestEnableLocation = onRequestEnableLocation,
+                        onRequestEnableLocation = onRequestLocation,
                     )
                 }
 
@@ -106,7 +105,7 @@ internal fun HomeContainerList(
                     LocationPermissionDenied(
                         modifier = Modifier.contentDescription(contentDescription),
                         isPermanentlyDenied = item.isPermanentlyDenied,
-                        onRequestPermission = onRequestPermission,
+                        onRequestPermission = onRequestLocation,
                     )
                 }
 
