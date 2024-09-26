@@ -3,6 +3,7 @@ package ch.app.hk.bank.locator.core.location.state.helper.setting
 import androidx.activity.result.IntentSenderRequest
 import ch.app.hk.bank.locator.core.location.state.LocationSettingResult
 import ch.app.hk.bank.locator.core.location.state.helper.gps.GpsHelper
+import ch.app.hk.bank.locator.core.location.state.helper.permission.PermissionHelper
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationSettingsRequest
@@ -12,15 +13,15 @@ import kotlinx.coroutines.tasks.await
 
 internal class SettingHelper(
     private val gpsHelper: GpsHelper,
+    private val permissionHelper: PermissionHelper,
     private val settingsClient: SettingsClient,
 ) {
     fun getSettings(): LocationSettingResult {
-        return if (!gpsHelper.hasGpsSensor()) {
-            LocationSettingResult.NoSensor
-        } else if (gpsHelper.isGpsEnabled()) {
-            LocationSettingResult.Enabled
-        } else {
-            LocationSettingResult.Disabled
+        return when {
+            !gpsHelper.hasGpsSensor() -> LocationSettingResult.NoSensor
+            !gpsHelper.isGpsEnabled() -> LocationSettingResult.Disabled
+            !permissionHelper.isPermissionGranted() -> LocationSettingResult.PermissionDenied
+            else -> LocationSettingResult.Enabled
         }
     }
 

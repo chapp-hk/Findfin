@@ -4,11 +4,13 @@ import androidx.compose.runtime.Stable
 
 @Stable
 sealed interface LocationSettingResult {
-    data object None : LocationSettingResult
+    data object Loading : LocationSettingResult
 
     data object Enabled : LocationSettingResult
 
     data object Disabled : LocationSettingResult
+
+    data object PermissionDenied : LocationSettingResult
 
     data object NoSensor : LocationSettingResult
 }

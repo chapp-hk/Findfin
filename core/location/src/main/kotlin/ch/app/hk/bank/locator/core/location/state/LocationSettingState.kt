@@ -14,6 +14,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import ch.app.hk.bank.locator.core.location.state.helper.gps.GpsHelper
+import ch.app.hk.bank.locator.core.location.state.helper.permission.PermissionHelper
 import ch.app.hk.bank.locator.core.location.state.helper.setting.SettingHelper
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.CoroutineScope
@@ -32,6 +33,7 @@ fun rememberLocationSettingState(onLocationSettingResult: (LocationSettingResult
     val settingHelper =
         SettingHelper(
             gpsHelper = GpsHelper(context),
+            permissionHelper = PermissionHelper(context),
             settingsClient = LocationServices.getSettingsClient(context),
         )
 
@@ -46,7 +48,7 @@ internal class MutableLocationSettingState(
     private val coroutineScope: CoroutineScope,
     private val settingHelper: SettingHelper,
 ) : LocationSettingState {
-    override var result: LocationSettingResult by mutableStateOf(LocationSettingResult.None)
+    override var result: LocationSettingResult by mutableStateOf(LocationSettingResult.Loading)
 
     internal var launcher: ActivityResultLauncher<IntentSenderRequest>? = null
 
