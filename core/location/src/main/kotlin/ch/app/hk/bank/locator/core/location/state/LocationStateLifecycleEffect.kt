@@ -8,25 +8,25 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 
 @Composable
-internal fun LocationSettingLifecycleCheckerEffect(
-    locationSettingState: MutableLocationSettingState,
+internal fun LocationStateLifecycleEffect(
+    locationSettingState: MutableLocationState,
     lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_RESUME,
 ) {
     val lifecycle = LocalLifecycleOwner.current.lifecycle
 
-    val locationSettingCheckerObserver =
+    val locationStateCheckerObserver =
         remember(locationSettingState) {
             LifecycleEventObserver { _, event ->
                 if (event == lifecycleEvent) {
-                    locationSettingState.refreshLocationSettingState()
+                    locationSettingState.refreshLocationState()
                 }
             }
         }
 
-    DisposableEffect(lifecycle, locationSettingCheckerObserver) {
-        lifecycle.addObserver(locationSettingCheckerObserver)
+    DisposableEffect(lifecycle, locationStateCheckerObserver) {
+        lifecycle.addObserver(locationStateCheckerObserver)
         onDispose {
-            lifecycle.removeObserver(locationSettingCheckerObserver)
+            lifecycle.removeObserver(locationStateCheckerObserver)
         }
     }
 }

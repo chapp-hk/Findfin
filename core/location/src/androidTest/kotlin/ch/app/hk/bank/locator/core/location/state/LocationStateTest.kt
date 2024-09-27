@@ -12,14 +12,14 @@ import io.mockk.mockk
 import org.junit.Rule
 import org.junit.Test
 
-class LocationSettingStateTest {
+class LocationStateTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
     fun testRememberLocationSettingState() {
         composeTestRule.setContent {
-            val locationSettingState = rememberLocationSettingState()
+            val locationSettingState = rememberLocationState()
 
             ResultText(locationSettingState.result)
         }
@@ -32,10 +32,10 @@ class LocationSettingStateTest {
     @Test
     fun testMutableLocationSettingStateDisabled() {
         val settingHelper = mockk<SettingHelper>()
-        every { settingHelper.getSettings() } returns LocationSettingResult.Disabled
+        every { settingHelper.getSettings() } returns LocationStateResult.Disabled
 
         composeTestRule.setContent {
-            val locationSettingState = rememberMutableLocationSettingState(settingHelper) {}
+            val locationSettingState = rememberMutableLocationState(settingHelper) {}
 
             ResultText(locationSettingState.result)
         }
@@ -48,10 +48,10 @@ class LocationSettingStateTest {
     @Test
     fun testMutableLocationSettingStateEnabled() {
         val settingHelper = mockk<SettingHelper>()
-        every { settingHelper.getSettings() } returns LocationSettingResult.Enabled
+        every { settingHelper.getSettings() } returns LocationStateResult.Enabled
 
         composeTestRule.setContent {
-            val locationSettingState = rememberMutableLocationSettingState(settingHelper) {}
+            val locationSettingState = rememberMutableLocationState(settingHelper) {}
 
             ResultText(locationSettingState.result)
         }
@@ -64,10 +64,10 @@ class LocationSettingStateTest {
     @Test
     fun testMutableLocationSettingStateNoSensor() {
         val settingHelper = mockk<SettingHelper>()
-        every { settingHelper.getSettings() } returns LocationSettingResult.NoSensor
+        every { settingHelper.getSettings() } returns LocationStateResult.NoSensor
 
         composeTestRule.setContent {
-            val locationSettingState = rememberMutableLocationSettingState(settingHelper) {}
+            val locationSettingState = rememberMutableLocationState(settingHelper) {}
 
             ResultText(locationSettingState.result)
         }
@@ -78,12 +78,12 @@ class LocationSettingStateTest {
     }
 
     @Composable
-    private fun ResultText(result: LocationSettingResult) {
+    private fun ResultText(result: LocationStateResult) {
         when (result) {
-            LocationSettingResult.Disabled -> Text("Disabled")
-            LocationSettingResult.Enabled -> Text("Enabled")
-            LocationSettingResult.NoSensor -> Text("NoSensor")
-            LocationSettingResult.Loading -> Text("None")
+            LocationStateResult.Disabled -> Text("Disabled")
+            LocationStateResult.Enabled -> Text("Enabled")
+            LocationStateResult.NoSensor -> Text("NoSensor")
+            LocationStateResult.Loading -> Text("None")
         }
     }
 }

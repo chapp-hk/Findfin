@@ -1,18 +1,14 @@
 package ch.app.hk.bank.locator.feature.home.ui.container.view
 
-import android.Manifest
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ch.app.hk.bank.locator.core.location.state.LocationSettingResult
-import ch.app.hk.bank.locator.core.location.state.LocationSettingState
-import ch.app.hk.bank.locator.core.location.state.rememberLocationSettingState
-import ch.app.hk.bank.locator.core.permission.PermissionResult
-import ch.app.hk.bank.locator.core.permission.rememberPermissionState
+import ch.app.hk.bank.locator.core.location.state.LocationState
+import ch.app.hk.bank.locator.core.location.state.LocationStateResult
+import ch.app.hk.bank.locator.core.location.state.rememberLocationState
 import ch.app.hk.bank.locator.feature.home.ui.container.model.HomeItem
 import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByUiState
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModel
@@ -21,55 +17,55 @@ import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModelIm
 @Composable
 internal fun HomeContainerContent(
     nearByViewModel: NearByViewModel = hiltViewModel<NearByViewModelImpl>(),
-    locationSettingState: LocationSettingState = rememberLocationSettingState(),
+    locationState: LocationState = rememberLocationState(),
     onSearch: (String) -> Unit,
 ) {
-    var isUserRejectedPermission by remember { mutableStateOf(false) }
-    val locationPermissionState =
-        rememberPermissionState(Manifest.permission.ACCESS_FINE_LOCATION) { isGranted ->
-            if (!isGranted) {
-                isUserRejectedPermission = true
-            }
-        }
-
     val uiState = nearByViewModel.uiState.collectAsStateWithLifecycle().value
-    val locationSettings = locationSettingState.result
-    val locationPermission = locationPermissionState.result
+    val locationStateResult by remember { derivedStateOf { locationState.result } }
 
     val homeItem =
-        when {
-            uiState is NearByUiState.Service -> HomeItem.Services(uiState.list)
+        remember(uiState, locationStateResult) {
+            when {
+                uiState is NearByUiState.Service ->
+                    HomeItem.Services(uiState.list)
 
-            uiState is NearByUiState.Empty -> HomeItem.Empty
+                uiState is NearByUiState.Empty ->
+                    HomeItem.Empty
 
-            locationSettings == LocationSettingResult.Disabled -> HomeItem.LocationDisabled
+                locationStateResult == LocationStateResult.Disabled ->
+                    HomeItem.LocationDisabled
 
-            locationSettings == LocationSettingResult.NoSensor -> HomeItem.NoGps
+                locationStateResult == LocationStateResult.NoSensor ->
+                    HomeItem.NoGps
 
-            locationSettings == LocationSettingResult.Enabled &&
-                locationPermission is PermissionResult.Denied ->
-                HomeItem.LocationPermissionDenied(isPermanentlyDenied = isUserRejectedPermission)
+                locationStateResult is LocationStateResult.PermissionDenied ->
+                    HomeItem.LocationPermissionDenied(isPermanentlyDenied = false)
 
-            locationPermission is PermissionResult.Granted -> {
-                nearByViewModel.getNearByServices()
-                HomeItem.NearByLoading
+                locationStateResult is LocationStateResult.Enabled ->
+                    HomeItem.NearByLoading
+
+                else ->
+                    HomeItem.NearByLoading
             }
-
-            else -> HomeItem.NearByLoading
         }
+
+    if (locationStateResult is LocationStateResult.Enabled) {
+        nearByViewModel.getNearByServices()
+    }
 
     HomeContainerList(
         item = homeItem,
         onSearch = onSearch,
         onRequestEnableLocation = {
-            locationSettingState.launchEnableLocation()
+            locationState.launchEnableLocation()
         },
         onRequestLocationPermission = {
-            if (isUserRejectedPermission) {
-                locationPermissionState.launchAppSetting()
-            } else {
-                locationPermissionState.launchPermissionRequest()
-            }
+//            if (isUserRejectedPermission) {
+//                locationPermissionState.launchAppSetting()
+//            } else {
+//                locationPermissionState.launchPermissionRequest()
+//            }
+            locationState.launchPermissionRequest()
         },
     )
 }

@@ -21,14 +21,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Stable
-interface LocationSettingState {
-    val result: LocationSettingResult
+interface LocationState {
+    val result: LocationStateResult
 
     fun launchEnableLocation()
+
+    fun launchPermissionRequest()
 }
 
 @Composable
-fun rememberLocationSettingState(onLocationSettingResult: (LocationSettingResult) -> Unit = {}): LocationSettingState {
+fun rememberLocationState(onLocationStateResult: (LocationStateResult) -> Unit = {}): LocationState {
     val context = LocalContext.current
     val settingHelper =
         SettingHelper(
@@ -37,68 +39,81 @@ fun rememberLocationSettingState(onLocationSettingResult: (LocationSettingResult
             settingsClient = LocationServices.getSettingsClient(context),
         )
 
-    return rememberMutableLocationSettingState(
+    return rememberMutableLocationState(
         settingHelper = settingHelper,
-        onLocationSettingResult = onLocationSettingResult,
+        onLocationStateResult = onLocationStateResult,
     )
 }
 
 @Stable
-internal class MutableLocationSettingState(
+internal class MutableLocationState(
     private val coroutineScope: CoroutineScope,
     private val settingHelper: SettingHelper,
-) : LocationSettingState {
-    override var result: LocationSettingResult by mutableStateOf(LocationSettingResult.Loading)
+) : LocationState {
+    internal var enableLocationLauncher: ActivityResultLauncher<IntentSenderRequest>? = null
+    internal var requestPermissionLauncher: ActivityResultLauncher<String>? = null
 
-    internal var launcher: ActivityResultLauncher<IntentSenderRequest>? = null
+    override var result: LocationStateResult by mutableStateOf(getLocationStateResult())
 
     override fun launchEnableLocation() {
         coroutineScope.launch {
             settingHelper.getIntentSenderRequest()?.let {
-                launcher?.launch(it)
+                enableLocationLauncher?.launch(it)
             }
         }
     }
 
-    internal fun refreshLocationSettingState() {
-        result = getLocationSettingResult()
+    override fun launchPermissionRequest() {
+        requestPermissionLauncher?.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
     }
 
-    private fun getLocationSettingResult(): LocationSettingResult {
+    internal fun refreshLocationState() {
+        result = getLocationStateResult()
+    }
+
+    private fun getLocationStateResult(): LocationStateResult {
         return settingHelper.getSettings()
     }
 }
 
 @Composable
-internal fun rememberMutableLocationSettingState(
+internal fun rememberMutableLocationState(
     settingHelper: SettingHelper,
-    onLocationSettingResult: (LocationSettingResult) -> Unit,
-): MutableLocationSettingState {
+    onLocationStateResult: (LocationStateResult) -> Unit,
+): MutableLocationState {
     val coroutineScope = rememberCoroutineScope()
-    val locationSettingState =
+    val locationState =
         remember {
-            MutableLocationSettingState(
+            MutableLocationState(
                 coroutineScope = coroutineScope,
                 settingHelper = settingHelper,
             )
         }
 
-    val launcher =
+    // Remember RequestPermission launcher and assign it to permissionState
+    val enableLocationLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) {
-            locationSettingState.refreshLocationSettingState()
-            onLocationSettingResult(locationSettingState.result)
+            locationState.refreshLocationState()
+            onLocationStateResult(locationState.result)
         }
 
-    locationSettingState.launcher = launcher
+    val requestPermissionLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
+            locationState.refreshLocationState()
+            onLocationStateResult(locationState.result)
+        }
 
-    LocationSettingLifecycleCheckerEffect(locationSettingState)
+    LocationStateLifecycleEffect(locationState)
 
-    DisposableEffect(locationSettingState, launcher) {
-        locationSettingState.launcher = launcher
+    DisposableEffect(locationState, enableLocationLauncher, requestPermissionLauncher) {
+        locationState.enableLocationLauncher = enableLocationLauncher
+        locationState.requestPermissionLauncher = requestPermissionLauncher
+
         onDispose {
-            locationSettingState.launcher = null
+            locationState.enableLocationLauncher = null
+            locationState.requestPermissionLauncher = null
         }
     }
 
-    return locationSettingState
+    return locationState
 }
