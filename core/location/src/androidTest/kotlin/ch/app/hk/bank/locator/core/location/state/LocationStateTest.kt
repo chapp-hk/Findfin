@@ -83,7 +83,6 @@ class LocationStateTest {
             LocationStateResult.Disabled -> Text("Disabled")
             LocationStateResult.Enabled -> Text("Enabled")
             LocationStateResult.NoSensor -> Text("NoSensor")
-            LocationStateResult.Loading -> Text("None")
         }
     }
 }

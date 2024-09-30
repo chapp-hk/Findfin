@@ -14,7 +14,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import ch.app.hk.bank.locator.core.location.state.helper.gps.GpsHelper
-import ch.app.hk.bank.locator.core.location.state.helper.permission.PermissionHelper
 import ch.app.hk.bank.locator.core.location.state.helper.setting.SettingHelper
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.CoroutineScope
@@ -25,8 +24,6 @@ interface LocationState {
     val result: LocationStateResult
 
     fun launchEnableLocation()
-
-    fun launchPermissionRequest()
 }
 
 @Composable
@@ -35,7 +32,6 @@ fun rememberLocationState(onLocationStateResult: (LocationStateResult) -> Unit =
     val settingHelper =
         SettingHelper(
             gpsHelper = GpsHelper(context),
-            permissionHelper = PermissionHelper(context),
             settingsClient = LocationServices.getSettingsClient(context),
         )
 
@@ -51,7 +47,6 @@ internal class MutableLocationState(
     private val settingHelper: SettingHelper,
 ) : LocationState {
     internal var enableLocationLauncher: ActivityResultLauncher<IntentSenderRequest>? = null
-    internal var requestPermissionLauncher: ActivityResultLauncher<String>? = null
 
     override var result: LocationStateResult by mutableStateOf(getLocationStateResult())
 
@@ -61,10 +56,6 @@ internal class MutableLocationState(
                 enableLocationLauncher?.launch(it)
             }
         }
-    }
-
-    override fun launchPermissionRequest() {
-        requestPermissionLauncher?.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
     }
 
     internal fun refreshLocationState() {
@@ -90,28 +81,19 @@ internal fun rememberMutableLocationState(
             )
         }
 
-    // Remember RequestPermission launcher and assign it to permissionState
     val enableLocationLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) {
             locationState.refreshLocationState()
             onLocationStateResult(locationState.result)
         }
 
-    val requestPermissionLauncher =
-        rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
-            locationState.refreshLocationState()
-            onLocationStateResult(locationState.result)
-        }
-
     LocationStateLifecycleEffect(locationState)
 
-    DisposableEffect(locationState, enableLocationLauncher, requestPermissionLauncher) {
+    DisposableEffect(locationState, enableLocationLauncher) {
         locationState.enableLocationLauncher = enableLocationLauncher
-        locationState.requestPermissionLauncher = requestPermissionLauncher
 
         onDispose {
             locationState.enableLocationLauncher = null
-            locationState.requestPermissionLauncher = null
         }
     }
 

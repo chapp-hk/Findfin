@@ -8,7 +8,5 @@ sealed interface LocationStateResult {
 
     data object Disabled : LocationStateResult
 
-    data object PermissionDenied : LocationStateResult
-
     data object NoSensor : LocationStateResult
 }

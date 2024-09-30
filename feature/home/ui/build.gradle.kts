@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation("com.google.accompanist:accompanist-permissions:0.36.0")
 
     testImplementation(projects.testing.extension)
     testImplementation(libs.junit.jupiter)
