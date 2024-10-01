@@ -3,7 +3,7 @@ package ch.app.hk.bank.locator.feature.home.ui.container.view
 import android.Manifest
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -18,6 +18,7 @@ import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModelIm
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.shouldShowRationale
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -26,17 +27,15 @@ internal fun HomeContainerContent(
     onSearch: (String) -> Unit,
 ) {
     val uiState by nearByViewModel.uiState.collectAsStateWithLifecycle()
-    var permissionRequestStartTime by remember { mutableLongStateOf(0L) }
+    var isUserDeniedPermission by remember { mutableStateOf(false) }
 
     val locationPermissionState =
         rememberPermissionState(Manifest.permission.ACCESS_FINE_LOCATION) { isGranted ->
             if (isGranted) {
                 nearByViewModel.getNearByServices()
             } else {
-                if (System.currentTimeMillis() - permissionRequestStartTime > 200L) {
-                }
+                isUserDeniedPermission = true
             }
-            permissionRequestStartTime = 0L
         }
 
     val locationState =
@@ -48,7 +47,7 @@ internal fun HomeContainerContent(
 
     val appSettingLauncher =
         rememberLauncherForAppSetting {
-            permissionRequestStartTime = System.currentTimeMillis()
+            isUserDeniedPermission = false
             locationPermissionState.launchPermissionRequest()
         }
 
@@ -67,7 +66,8 @@ internal fun HomeContainerContent(
                     LocationStateResult.Enabled -> {
                         when (val permission = locationPermissionState.status) {
                             is PermissionStatus.Denied -> {
-                                HomeItem.LocationPermissionDenied(isPermanentlyDenied = false)
+                                val isPermanentlyDenied = isUserDeniedPermission && !permission.shouldShowRationale
+                                HomeItem.LocationPermissionDenied(isPermanentlyDenied = isPermanentlyDenied)
                             }
                             PermissionStatus.Granted -> {
                                 HomeItem.NearByLoading
@@ -89,14 +89,11 @@ internal fun HomeContainerContent(
             locationState.launchEnableLocation()
         },
         onRequestLocationPermission = {
-//            if (System.currentTimeMillis() - permissionRequestStartTime > 200L) {
-//                appSettingLauncher.launch(Unit)
-//            } else {
-//                permissionRequestStartTime = System.currentTimeMillis()
-//                locationPermissionState.launchPermissionRequest()
-//            }
-            permissionRequestStartTime = System.currentTimeMillis()
-            locationPermissionState.launchPermissionRequest()
+            if (isUserDeniedPermission && !locationPermissionState.status.shouldShowRationale) {
+                appSettingLauncher.launch(Unit)
+            } else {
+                locationPermissionState.launchPermissionRequest()
+            }
         },
     )
 }
