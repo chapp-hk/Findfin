@@ -8,9 +8,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ch.app.hk.bank.locator.core.location.state.LocationStateResult
-import ch.app.hk.bank.locator.core.location.state.helper.setting.rememberLauncherForAppSetting
-import ch.app.hk.bank.locator.core.location.state.rememberLocationState
+import ch.app.hk.bank.locator.core.location.state.setting.LocationSettingStatus
+import ch.app.hk.bank.locator.core.location.state.setting.rememberLauncherForAppSetting
+import ch.app.hk.bank.locator.core.location.state.setting.rememberLocationSettingState
 import ch.app.hk.bank.locator.feature.home.ui.container.model.HomeItem
 import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByUiState
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModel
@@ -39,8 +39,8 @@ internal fun HomeContainerContent(
         }
 
     val locationState =
-        rememberLocationState { state ->
-            if (state == LocationStateResult.Enabled) {
+        rememberLocationSettingState { state ->
+            if (state == LocationSettingStatus.Enabled) {
                 locationPermissionState.launchPermissionRequest()
             }
         }
@@ -56,14 +56,14 @@ internal fun HomeContainerContent(
             is NearByUiState.Service -> HomeItem.Services(state.list)
             NearByUiState.Empty -> HomeItem.Empty
             else -> {
-                when (locationState.result) {
-                    LocationStateResult.NoSensor -> {
+                when (locationState.status) {
+                    LocationSettingStatus.NoSensor -> {
                         HomeItem.NoGps
                     }
-                    LocationStateResult.Disabled -> {
+                    LocationSettingStatus.Disabled -> {
                         HomeItem.LocationDisabled
                     }
-                    LocationStateResult.Enabled -> {
+                    LocationSettingStatus.Enabled -> {
                         when (val permission = locationPermissionState.status) {
                             is PermissionStatus.Denied -> {
                                 val isPermanentlyDenied = isUserDeniedPermission && !permission.shouldShowRationale

@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.state
+package ch.app.hk.bank.locator.core.location.state.setting
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect

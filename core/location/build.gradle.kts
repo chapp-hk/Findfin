@@ -28,6 +28,7 @@ dependencies {
     implementation(libs.play.services.location)
     implementation(libs.kotlinx.coroutines.play.services)
     implementation(projects.core.logging.api)
+    implementation("com.google.accompanist:accompanist-permissions:0.36.0")
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.assertions.core)

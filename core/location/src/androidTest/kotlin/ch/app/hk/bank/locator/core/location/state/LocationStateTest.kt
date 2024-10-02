@@ -6,7 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import ch.app.hk.bank.locator.core.location.state.helper.setting.SettingHelper
+import ch.app.hk.bank.locator.core.location.state.setting.LocationSettingStatus
+import ch.app.hk.bank.locator.core.location.state.setting.internal.SettingHelper
+import ch.app.hk.bank.locator.core.location.state.setting.rememberLocationSettingState
+import ch.app.hk.bank.locator.core.location.state.setting.rememberMutableLocationState
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Rule
@@ -19,9 +22,9 @@ class LocationStateTest {
     @Test
     fun testRememberLocationSettingState() {
         composeTestRule.setContent {
-            val locationSettingState = rememberLocationState()
+            val locationSettingState = rememberLocationSettingState()
 
-            ResultText(locationSettingState.result)
+            ResultText(locationSettingState.status)
         }
 
         composeTestRule
@@ -32,12 +35,12 @@ class LocationStateTest {
     @Test
     fun testMutableLocationSettingStateDisabled() {
         val settingHelper = mockk<SettingHelper>()
-        every { settingHelper.getSettings() } returns LocationStateResult.Disabled
+        every { settingHelper.getSettings() } returns LocationSettingStatus.Disabled
 
         composeTestRule.setContent {
             val locationSettingState = rememberMutableLocationState(settingHelper) {}
 
-            ResultText(locationSettingState.result)
+            ResultText(locationSettingState.status)
         }
 
         composeTestRule
@@ -48,12 +51,12 @@ class LocationStateTest {
     @Test
     fun testMutableLocationSettingStateEnabled() {
         val settingHelper = mockk<SettingHelper>()
-        every { settingHelper.getSettings() } returns LocationStateResult.Enabled
+        every { settingHelper.getSettings() } returns LocationSettingStatus.Enabled
 
         composeTestRule.setContent {
             val locationSettingState = rememberMutableLocationState(settingHelper) {}
 
-            ResultText(locationSettingState.result)
+            ResultText(locationSettingState.status)
         }
 
         composeTestRule
@@ -64,12 +67,12 @@ class LocationStateTest {
     @Test
     fun testMutableLocationSettingStateNoSensor() {
         val settingHelper = mockk<SettingHelper>()
-        every { settingHelper.getSettings() } returns LocationStateResult.NoSensor
+        every { settingHelper.getSettings() } returns LocationSettingStatus.NoSensor
 
         composeTestRule.setContent {
             val locationSettingState = rememberMutableLocationState(settingHelper) {}
 
-            ResultText(locationSettingState.result)
+            ResultText(locationSettingState.status)
         }
 
         composeTestRule
@@ -78,11 +81,11 @@ class LocationStateTest {
     }
 
     @Composable
-    private fun ResultText(result: LocationStateResult) {
+    private fun ResultText(result: LocationSettingStatus) {
         when (result) {
-            LocationStateResult.Disabled -> Text("Disabled")
-            LocationStateResult.Enabled -> Text("Enabled")
-            LocationStateResult.NoSensor -> Text("NoSensor")
+            LocationSettingStatus.Disabled -> Text("Disabled")
+            LocationSettingStatus.Enabled -> Text("Enabled")
+            LocationSettingStatus.NoSensor -> Text("NoSensor")
         }
     }
 }

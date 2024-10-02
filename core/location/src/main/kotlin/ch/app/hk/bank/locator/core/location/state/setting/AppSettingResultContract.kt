@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.state.helper.setting
+package ch.app.hk.bank.locator.core.location.state.setting
 
 import android.content.Context
 import android.content.Intent
@@ -12,17 +12,18 @@ class AppSettingResultContract : ActivityResultContract<Unit, Unit>() {
     override fun createIntent(
         context: Context,
         input: Unit,
-    ): Intent {
-        return Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-            .setData(Uri.fromParts("package", context.packageName, null))
-    }
+    ) = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        .setData(Uri.fromParts("package", context.packageName, null))
 
     override fun parseResult(
         resultCode: Int,
         intent: Intent?,
-    ) {
-    }
+    ) = Unit
 }
 
 @Composable
-fun rememberLauncherForAppSetting(onResult: (Unit) -> Unit) = rememberLauncherForActivityResult(AppSettingResultContract(), onResult)
+fun rememberLauncherForAppSetting(onResult: (Unit) -> Unit) =
+    rememberLauncherForActivityResult(
+        contract = AppSettingResultContract(),
+        onResult = onResult,
+    )

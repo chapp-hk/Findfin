@@ -1,8 +1,9 @@
 package ch.app.hk.bank.locator.core.location.state.helper.setting
 
 import androidx.activity.result.IntentSenderRequest
-import ch.app.hk.bank.locator.core.location.state.LocationStateResult
-import ch.app.hk.bank.locator.core.location.state.helper.gps.GpsHelper
+import ch.app.hk.bank.locator.core.location.state.setting.LocationSettingStatus
+import ch.app.hk.bank.locator.core.location.state.setting.helper.gps.GpsHelper
+import ch.app.hk.bank.locator.core.location.state.setting.internal.SettingHelper
 import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskError
 import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskResult
 import com.google.android.gms.common.api.ResolvableApiException
@@ -33,7 +34,7 @@ class SettingHelperTest {
 
         val result = settingHelper.getSettings()
 
-        result shouldBe LocationStateResult.NoSensor
+        result shouldBe LocationSettingStatus.NoSensor
     }
 
     @Test
@@ -43,7 +44,7 @@ class SettingHelperTest {
 
         val result = settingHelper.getSettings()
 
-        result shouldBe LocationStateResult.Enabled
+        result shouldBe LocationSettingStatus.Enabled
     }
 
     @Test
@@ -53,7 +54,7 @@ class SettingHelperTest {
 
         val result = settingHelper.getSettings()
 
-        result shouldBe LocationStateResult.Disabled
+        result shouldBe LocationSettingStatus.Disabled
     }
 
     @Test

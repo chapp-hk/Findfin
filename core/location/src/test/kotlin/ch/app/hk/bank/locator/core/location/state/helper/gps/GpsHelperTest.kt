@@ -3,6 +3,7 @@ package ch.app.hk.bank.locator.core.location.state.helper.gps
 import android.content.Context
 import android.location.LocationManager
 import androidx.core.content.ContextCompat
+import ch.app.hk.bank.locator.core.location.state.setting.helper.gps.GpsHelper
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk

@@ -1,8 +1,8 @@
-package ch.app.hk.bank.locator.core.location.state.helper.setting
+package ch.app.hk.bank.locator.core.location.state.setting.internal
 
+import android.content.Context
 import androidx.activity.result.IntentSenderRequest
-import ch.app.hk.bank.locator.core.location.state.LocationStateResult
-import ch.app.hk.bank.locator.core.location.state.helper.gps.GpsHelper
+import ch.app.hk.bank.locator.core.location.state.setting.LocationSettingStatus
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationSettingsRequest
@@ -11,14 +11,14 @@ import com.google.android.gms.location.SettingsClient
 import kotlinx.coroutines.tasks.await
 
 internal class SettingHelper(
-    private val gpsHelper: GpsHelper,
+    private val context: Context,
     private val settingsClient: SettingsClient,
 ) {
-    fun getSettings(): LocationStateResult {
+    fun getSettings(): LocationSettingStatus {
         return when {
-            !gpsHelper.hasGpsSensor() -> LocationStateResult.NoSensor
-            !gpsHelper.isGpsEnabled() -> LocationStateResult.Disabled
-            else -> LocationStateResult.Enabled
+            !context.hasGpsSensor() -> LocationSettingStatus.NoSensor
+            !context.isGpsEnabled() -> LocationSettingStatus.Disabled
+            else -> LocationSettingStatus.Enabled
         }
     }
 
