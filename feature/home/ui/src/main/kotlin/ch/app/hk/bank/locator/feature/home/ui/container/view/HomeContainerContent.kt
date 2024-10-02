@@ -8,9 +8,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ch.app.hk.bank.locator.core.location.state.setting.LocationSettingStatus
-import ch.app.hk.bank.locator.core.location.state.setting.rememberLauncherForAppSetting
-import ch.app.hk.bank.locator.core.location.state.setting.rememberLocationSettingState
+import ch.app.hk.bank.locator.core.location.launcher.rememberLauncherForAppSetting
+import ch.app.hk.bank.locator.core.location.setting.LocationSettingStatus
+import ch.app.hk.bank.locator.core.location.setting.rememberLocationSettingState
 import ch.app.hk.bank.locator.feature.home.ui.container.model.HomeItem
 import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByUiState
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModel

@@ -1,9 +1,9 @@
 package ch.app.hk.bank.locator.core.location.state.helper.setting
 
 import androidx.activity.result.IntentSenderRequest
-import ch.app.hk.bank.locator.core.location.state.setting.LocationSettingStatus
+import ch.app.hk.bank.locator.core.location.setting.LocationSettingStatus
+import ch.app.hk.bank.locator.core.location.setting.SettingHelper
 import ch.app.hk.bank.locator.core.location.state.setting.helper.gps.GpsHelper
-import ch.app.hk.bank.locator.core.location.state.setting.internal.SettingHelper
 import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskError
 import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskResult
 import com.google.android.gms.common.api.ResolvableApiException

@@ -1,8 +1,10 @@
-package ch.app.hk.bank.locator.core.location.state.setting.internal
+package ch.app.hk.bank.locator.core.location.setting
 
 import android.content.Context
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import androidx.activity.result.IntentSenderRequest
-import ch.app.hk.bank.locator.core.location.state.setting.LocationSettingStatus
+import androidx.core.content.ContextCompat
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationSettingsRequest
@@ -42,6 +44,21 @@ internal class SettingHelper(
             } else {
                 null
             }
+        }
+    }
+
+    private fun Context.hasGpsSensor(): Boolean {
+        return packageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)
+    }
+
+    private fun Context.isGpsEnabled(): Boolean {
+        return runCatching {
+            ContextCompat.getSystemService(
+                this,
+                LocationManager::class.java,
+            )!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        }.getOrElse {
+            false
         }
     }
 

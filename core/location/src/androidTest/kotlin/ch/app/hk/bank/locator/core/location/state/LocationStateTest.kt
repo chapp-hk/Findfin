@@ -6,10 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import ch.app.hk.bank.locator.core.location.state.setting.LocationSettingStatus
-import ch.app.hk.bank.locator.core.location.state.setting.internal.SettingHelper
-import ch.app.hk.bank.locator.core.location.state.setting.rememberLocationSettingState
-import ch.app.hk.bank.locator.core.location.state.setting.rememberMutableLocationState
+import ch.app.hk.bank.locator.core.location.setting.LocationSettingStatus
+import ch.app.hk.bank.locator.core.location.setting.SettingHelper
+import ch.app.hk.bank.locator.core.location.setting.rememberLocationSettingState
+import ch.app.hk.bank.locator.core.location.setting.rememberMutableLocationState
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Rule

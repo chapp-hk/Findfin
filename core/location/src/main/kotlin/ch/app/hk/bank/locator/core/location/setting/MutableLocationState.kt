@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.state.setting
+package ch.app.hk.bank.locator.core.location.setting
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -12,42 +12,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
-import ch.app.hk.bank.locator.core.location.state.setting.internal.SettingHelper
-import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-
-@Stable
-interface LocationState {
-    val status: LocationSettingStatus
-
-    fun launchEnableLocation()
-}
-
-@Stable
-sealed interface LocationSettingStatus {
-    data object Enabled : LocationSettingStatus
-
-    data object Disabled : LocationSettingStatus
-
-    data object NoSensor : LocationSettingStatus
-}
-
-@Composable
-fun rememberLocationSettingState(onLocationStateResult: (LocationSettingStatus) -> Unit = {}): LocationState {
-    val context = LocalContext.current
-    val settingHelper =
-        SettingHelper(
-            context = context,
-            settingsClient = LocationServices.getSettingsClient(context),
-        )
-
-    return rememberMutableLocationState(
-        settingHelper = settingHelper,
-        onLocationStateResult = onLocationStateResult,
-    )
-}
 
 @Stable
 internal class MutableLocationState(
@@ -95,7 +61,7 @@ internal fun rememberMutableLocationState(
             onLocationStateResult(locationState.status)
         }
 
-    LocationStateLifecycleEffect(locationState)
+    LocationSettingStateLifecycleEffect(locationState)
 
     DisposableEffect(locationState, enableLocationLauncher) {
         locationState.enableLocationLauncher = enableLocationLauncher

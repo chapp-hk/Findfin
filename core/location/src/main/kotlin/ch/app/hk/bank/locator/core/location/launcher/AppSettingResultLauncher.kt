@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.state.setting
+package ch.app.hk.bank.locator.core.location.launcher
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,14 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.runtime.Composable
 
-class AppSettingResultContract : ActivityResultContract<Unit, Unit>() {
+@Composable
+fun rememberLauncherForAppSetting(onResult: (Unit) -> Unit) =
+    rememberLauncherForActivityResult(
+        contract = AppSettingResultContract(),
+        onResult = onResult,
+    )
+
+internal class AppSettingResultContract : ActivityResultContract<Unit, Unit>() {
     override fun createIntent(
         context: Context,
         input: Unit,
@@ -20,10 +27,3 @@ class AppSettingResultContract : ActivityResultContract<Unit, Unit>() {
         intent: Intent?,
     ) = Unit
 }
-
-@Composable
-fun rememberLauncherForAppSetting(onResult: (Unit) -> Unit) =
-    rememberLauncherForActivityResult(
-        contract = AppSettingResultContract(),
-        onResult = onResult,
-    )

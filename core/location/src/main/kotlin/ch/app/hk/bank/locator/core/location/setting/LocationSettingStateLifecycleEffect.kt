@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.state.setting
+package ch.app.hk.bank.locator.core.location.setting
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -8,7 +8,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 
 @Composable
-internal fun LocationStateLifecycleEffect(
+internal fun LocationSettingStateLifecycleEffect(
     locationSettingState: MutableLocationState,
     lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_RESUME,
 ) {
