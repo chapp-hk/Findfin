@@ -46,12 +46,12 @@ class HomeContainerContentTest {
             .onNodeWithContentDescription(getResourceString(R.string.home_content_description_finding))
             .assertIsDisplayed()
     }
-//
+
 //    @Test
 //    fun homeContainerContent_displaysLoadingIndicator() {
 //        // Set up the mock function
 //        every { nearByViewModel.uiState } returns
-//            MutableStateFlow(ScreenState.Loading)
+//            MutableStateFlow(NearByUiState.NearByLoading)
 //
 //        // Start the HomeContainerContent composable
 //        composeTestRule.setContent {

@@ -7,9 +7,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 
+/**
+ * A composable function that observes the lifecycle of the current lifecycle owner and refreshes
+ * the location setting state when the specified lifecycle event occurs.
+ *
+ * @param locationSettingState The [MutableLocationSettingState] instance to be refreshed.
+ * @param lifecycleEvent The [Lifecycle.Event] that triggers the refresh of the location setting state.
+ *                        Defaults to [Lifecycle.Event.ON_RESUME].
+ */
 @Composable
 internal fun LocationSettingStateLifecycleEffect(
-    locationSettingState: MutableLocationState,
+    locationSettingState: MutableLocationSettingState,
     lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_RESUME,
 ) {
     val lifecycle = LocalLifecycleOwner.current.lifecycle

@@ -12,10 +12,21 @@ import com.google.android.gms.location.Priority
 import com.google.android.gms.location.SettingsClient
 import kotlinx.coroutines.tasks.await
 
+/**
+ * Helper class to manage location settings and provide the current location setting status.
+ *
+ * @property context The application context.
+ * @property settingsClient The [SettingsClient] used to check and manage location settings.
+ */
 internal class SettingHelper(
     private val context: Context,
     private val settingsClient: SettingsClient,
 ) {
+    /**
+     * Gets the current location setting status.
+     *
+     * @return The current [LocationSettingStatus].
+     */
     fun getSettings(): LocationSettingStatus {
         return when {
             !context.hasGpsSensor() -> LocationSettingStatus.NoSensor
@@ -24,6 +35,11 @@ internal class SettingHelper(
         }
     }
 
+    /**
+     * Gets an [IntentSenderRequest] to prompt the user to enable location settings if needed.
+     *
+     * @return An [IntentSenderRequest] if the location settings need to be enabled, or null if they are already enabled.
+     */
     suspend fun getIntentSenderRequest(): IntentSenderRequest? {
         val locationRequest =
             LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, INTERVAL_MILLIS).build()
@@ -47,10 +63,20 @@ internal class SettingHelper(
         }
     }
 
+    /**
+     * Checks if the device has a GPS sensor.
+     *
+     * @return True if the device has a GPS sensor, false otherwise.
+     */
     private fun Context.hasGpsSensor(): Boolean {
         return packageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)
     }
 
+    /**
+     * Checks if GPS is enabled on the device.
+     *
+     * @return True if GPS is enabled, false otherwise.
+     */
     private fun Context.isGpsEnabled(): Boolean {
         return runCatching {
             ContextCompat.getSystemService(
