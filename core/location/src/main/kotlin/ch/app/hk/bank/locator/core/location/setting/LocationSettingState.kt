@@ -3,7 +3,6 @@ package ch.app.hk.bank.locator.core.location.setting
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.platform.LocalContext
-import com.google.android.gms.location.LocationServices
 
 /**
  * Interface representing the state of location settings.
@@ -51,11 +50,7 @@ sealed interface LocationSettingStatus {
 @Composable
 fun rememberLocationSettingState(onResult: (LocationSettingStatus) -> Unit = {}): LocationSettingState {
     val context = LocalContext.current
-    val settingHelper =
-        SettingHelper(
-            context = context,
-            settingsClient = LocationServices.getSettingsClient(context),
-        )
+    val settingHelper = SettingHelper(context = context)
 
     return rememberMutableLocationState(
         settingHelper = settingHelper,

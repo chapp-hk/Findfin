@@ -8,24 +8,21 @@ import androidx.core.content.ContextCompat
 import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskError
 import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskResult
 import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.SettingsClient
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.mockkStatic
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 
 class SettingHelperTest {
-    private val context = mockk<Context>()
-    private val settingsClient = mockk<SettingsClient>()
+    private val context = mockk<Context>(relaxed = true)
 
-    private val settingHelper =
-        SettingHelper(
-            context = context,
-            settingsClient = settingsClient,
-        )
+    private val settingHelper = SettingHelper(context = context)
 
     @Test
     fun `getSettings returns NoSensor when device has no GPS sensor`() {
@@ -65,29 +62,40 @@ class SettingHelperTest {
     @Test
     fun `getIntentSenderRequest returns null when settings are already enabled`() {
         runTest {
-            coEvery { settingsClient.checkLocationSettings(any()) } returns
-                mockTaskResult(mockk(relaxed = true))
+            mockkStatic(LocationServices::class) {
+                val settingsClient = mockk<SettingsClient>()
+                every { LocationServices.getSettingsClient(context) } returns settingsClient
+                coEvery { settingsClient.checkLocationSettings(any()) } returns
+                    mockTaskResult(mockk(relaxed = true))
 
-            val result = settingHelper.getIntentSenderRequest()
+                val result = settingHelper.getIntentSenderRequest()
 
-            result shouldBe null
+                result shouldBe null
+            }
         }
     }
 
     @Test
     fun `getIntentSenderRequest returns IntentSenderRequest when settings need to be enabled`() {
         runTest {
-            val resolvableApiException =
-                mockk<ResolvableApiException> {
-                    every { resolution } returns mockk(relaxed = true)
-                }
+            mockkStatic(LocationServices::class) {
+                val settingsClient = mockk<SettingsClient>()
+                every { LocationServices.getSettingsClient(context) } returns settingsClient
+                coEvery { settingsClient.checkLocationSettings(any()) } returns
+                    mockTaskResult(mockk(relaxed = true))
 
-            coEvery { settingsClient.checkLocationSettings(any()) } returns
-                mockTaskError(resolvableApiException)
+                val resolvableApiException =
+                    mockk<ResolvableApiException> {
+                        every { resolution } returns mockk(relaxed = true)
+                    }
 
-            val result = settingHelper.getIntentSenderRequest()
+                coEvery { settingsClient.checkLocationSettings(any()) } returns
+                    mockTaskError(resolvableApiException)
 
-            result.shouldBeInstanceOf<IntentSenderRequest>()
+                val result = settingHelper.getIntentSenderRequest()
+
+                result.shouldBeInstanceOf<IntentSenderRequest>()
+            }
         }
     }
 }
