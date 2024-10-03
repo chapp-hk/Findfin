@@ -8,7 +8,7 @@ import ch.app.hk.bank.locator.core.location.setting.state.LocationSettingStatus
  * A static composition local to provide a [SettingHelper] instance.
  * This is used to access location settings within a composable hierarchy.
  */
-internal val LocalSettingHelper =
+val LocalSettingHelper =
     staticCompositionLocalOf<SettingHelper> { error("SettingHelper is not provided") }
 
 /**
