@@ -9,6 +9,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -21,20 +22,23 @@ import ch.app.hk.bank.locator.feature.home.ui.container.model.HomeItem
 import ch.app.hk.bank.locator.feature.home.ui.finding.view.Finding
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.DeviceNoGpsResult
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.EmptyResult
-import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationDisabledResult
-import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationPermissionDeniedResult
+import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationDisabled
+import ch.app.hk.bank.locator.feature.home.ui.nearby.view.LocationPermissionDenied
 import ch.app.hk.bank.locator.feature.home.ui.nearby.view.ServiceItem
 
 @Composable
 internal fun HomeContainerList(
-    items: List<HomeItem>,
+    item: HomeItem,
     onSearch: (String) -> Unit,
-    onLocationEnabled: () -> Unit,
+    onRequestEnableLocation: () -> Unit,
+    onRequestLocationPermission: () -> Unit,
 ) {
+    val headerItems = rememberHomeList()
+
     LazyColumn {
         itemsIndexed(
-            items = items,
-            key = { index, _ -> index },
+            items = headerItems + item,
+            key = { _, item -> item.hashCode() },
         ) { _, item ->
             when (item) {
                 HomeItem.Search -> {
@@ -92,19 +96,20 @@ internal fun HomeContainerList(
                     val contentDescription =
                         stringResource(id = R.string.home_content_description_location_disabled)
 
-                    LocationDisabledResult(
+                    LocationDisabled(
                         modifier = Modifier.contentDescription(contentDescription),
-                        onLocationServiceEnabled = onLocationEnabled,
+                        onRequestEnableLocation = onRequestEnableLocation,
                     )
                 }
 
-                HomeItem.LocationPermissionDenied -> {
+                is HomeItem.LocationPermissionDenied -> {
                     val contentDescription =
                         stringResource(id = R.string.home_content_description_location_permission_denied)
 
-                    LocationPermissionDeniedResult(
+                    LocationPermissionDenied(
                         modifier = Modifier.contentDescription(contentDescription),
-                        onPermissionGranted = onLocationEnabled,
+                        isPermanentlyDenied = item.isPermanentlyDenied,
+                        onRequestPermission = onRequestLocationPermission,
                     )
                 }
 
@@ -119,5 +124,17 @@ internal fun HomeContainerList(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun rememberHomeList(): List<HomeItem> {
+    val nearByServiceHeaderText = stringResource(id = R.string.home_title_nearby_services)
+    return remember {
+        listOf(
+            HomeItem.Search,
+            HomeItem.Finding,
+            HomeItem.StickyHeader(nearByServiceHeaderText),
+        )
     }
 }

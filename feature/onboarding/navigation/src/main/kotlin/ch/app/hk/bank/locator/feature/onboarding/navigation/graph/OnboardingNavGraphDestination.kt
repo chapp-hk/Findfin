@@ -17,11 +17,3 @@ object OnboardingNavGraphDestination
  */
 @Serializable
 object OnboardingSelectLanguageDestination
-
-/**
- * Represents the destination for requesting location permissions during onboarding.
- *
- * This object is used as a marker for the screen where users are asked to grant location permissions.
- */
-@Serializable
-object OnboardingRequestPermissionDestination

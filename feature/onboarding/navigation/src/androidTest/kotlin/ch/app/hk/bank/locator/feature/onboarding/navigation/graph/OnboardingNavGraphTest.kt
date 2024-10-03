@@ -23,7 +23,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-// TODO - test for navigating to OnboardingRequestPermissionDestination
 @HiltAndroidTest
 class OnboardingNavGraphTest {
     private val context = ApplicationProvider.getApplicationContext<Context>()

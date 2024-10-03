@@ -15,6 +15,23 @@ import org.junit.rules.ExternalResource
  * This rule is used to test components that interact with the Activity Result API.
  *
  * @property context The context used to create intents for the mocked activity results.
+ *
+ * Example usage:
+ * ```
+ * @get:Rule
+ * val activityResultTestRule = ActivityResultTestRule(context)
+ *
+ * @Test
+ * fun testActivityResult() {
+ *     val registryOwner = activityResultTestRule.registryOwner(mockedActivityResult)
+ *     composeTestRule.setContent {
+ *         CompositionLocalProvider(LocalActivityResultRegistryOwner provides registryOwner) {
+ *              // Your composable content here
+ *         }
+ *     }
+ *     // Verify the launched intent or other test assertions
+ * }
+ * ```
  */
 @RestrictTo(Scope.TESTS)
 class ActivityResultTestRule(private val context: Context) : ExternalResource() {

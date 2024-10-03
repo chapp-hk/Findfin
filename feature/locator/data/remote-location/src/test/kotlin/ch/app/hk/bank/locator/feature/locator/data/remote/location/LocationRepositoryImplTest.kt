@@ -1,8 +1,7 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.location
 
-import ch.app.hk.bank.locator.core.location.client.LocationClient
-import ch.app.hk.bank.locator.core.location.helper.hardware.GpsHelper
-import ch.app.hk.bank.locator.core.location.helper.permission.PermissionHelper
+import ch.app.hk.bank.locator.core.location.provider.LocationProvider
+import ch.app.hk.bank.locator.core.location.provider.LocationProviderResult
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationResult
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
@@ -17,91 +16,53 @@ import org.junit.jupiter.api.Test
 @DisplayName("LocationRepositoryImpl unit tests")
 class LocationRepositoryImplTest {
     private val testDispatcher = StandardTestDispatcher()
-    private val permissionHelper = mockk<PermissionHelper>()
-    private val gpsHelper = mockk<GpsHelper>()
-    private val locationClient = mockk<LocationClient>()
+    private val locationProvider = mockk<LocationProvider>()
 
     private val locationRepository =
         LocationRepositoryImpl(
             ioDispatcher = testDispatcher,
-            permissionHelper = permissionHelper,
-            gpsHelper = gpsHelper,
-            locationClient = locationClient,
+            locationProvider = locationProvider,
         )
 
     @Test
-    fun `getCurrentLocation() should return PermissionNotGranted when permission is not granted`() {
+    fun `getCurrentLocation() should return Location when location is available`() {
         runTest(testDispatcher) {
-            every { permissionHelper.checkPermission() } returns false
-
-            val result = locationRepository.getCurrentLocation()
-
-            result shouldBe LocationResult.PermissionNotGranted
-        }
-    }
-
-    @Test
-    fun `getCurrentLocation() should return GpsNotSupported when gps sensor is not supported`() {
-        runTest(testDispatcher) {
-            every { permissionHelper.checkPermission() } returns true
-            every { gpsHelper.hasGpsSensor() } returns false
-
-            val result = locationRepository.getCurrentLocation()
-
-            result shouldBe LocationResult.GpsNotSupported
-        }
-    }
-
-    @Test
-    fun `getCurrentLocation() should return GpsIsOff when gps is disabled`() {
-        runTest(testDispatcher) {
-            every { permissionHelper.checkPermission() } returns true
-            every { gpsHelper.hasGpsSensor() } returns true
-            every { gpsHelper.isGpsEnabled() } returns false
-
-            val result = locationRepository.getCurrentLocation()
-
-            result shouldBe LocationResult.GpsIsOff
-        }
-    }
-
-    @Test
-    fun `getCurrentLocation() should get location from FusedLocationDataSource`() {
-        runTest(testDispatcher) {
-            every { permissionHelper.checkPermission() } returns true
-            every { gpsHelper.hasGpsSensor() } returns true
-            every { gpsHelper.isGpsEnabled() } returns true
-            coEvery { locationClient.getCurrentLocation() } returns
-                mockk {
-                    every { latitude } returns 1.0
-                    every { longitude } returns 2.0
+            val mockLocation =
+                mockk<LocationProviderResult.Success> {
+                    every { location.latitude } returns 1.0
+                    every { location.longitude } returns 2.0
                 }
+            coEvery { locationProvider.getCurrentLocation() } returns mockLocation
 
             val result = locationRepository.getCurrentLocation()
 
             result shouldBe LocationResult.Location(1.0, 2.0)
+            coVerify { locationProvider.getCurrentLocation() }
         }
     }
 
     @Test
-    fun `getCurrentLocation() should retry with FusedLocationDataSource when first attempt returns null`() {
+    fun `getCurrentLocation() should return UnknownError when location is unavailable`() {
         runTest(testDispatcher) {
-            every { permissionHelper.checkPermission() } returns true
-            every { gpsHelper.hasGpsSensor() } returns true
-            every { gpsHelper.isGpsEnabled() } returns true
-            coEvery { locationClient.getCurrentLocation() } returnsMany
-                listOf(
-                    null,
-                    mockk {
-                        every { latitude } returns 1.0
-                        every { longitude } returns 2.0
-                    },
-                )
+            coEvery { locationProvider.getCurrentLocation() } returns
+                LocationProviderResult.LocationUnavailable
 
             val result = locationRepository.getCurrentLocation()
 
-            result shouldBe LocationResult.Location(1.0, 2.0)
-            coVerify(exactly = 2) { locationClient.getCurrentLocation() }
+            result shouldBe LocationResult.UnknownError
+            coVerify { locationProvider.getCurrentLocation() }
+        }
+    }
+
+    @Test
+    fun `getCurrentLocation() should return UnknownError on Error`() {
+        runTest(testDispatcher) {
+            coEvery { locationProvider.getCurrentLocation() } returns LocationProviderResult.Error
+
+            val result = locationRepository.getCurrentLocation()
+
+            result shouldBe LocationResult.UnknownError
+            coVerify { locationProvider.getCurrentLocation() }
         }
     }
 }

@@ -23,9 +23,6 @@ internal class GetNearByServicesUseCaseImpl @Inject constructor(
     override suspend fun invoke(): NearByResult {
         return withContext(defaultDispatcher) {
             when (val locationResult = locationRepository.getCurrentLocation()) {
-                LocationResult.GpsIsOff -> NearByResult.GpsIsOff
-                LocationResult.GpsNotSupported -> NearByResult.GpsNotSupported
-                LocationResult.PermissionNotGranted -> NearByResult.PermissionNotGranted
                 LocationResult.UnknownError -> NearByResult.UnknownError
                 is LocationResult.Location -> {
                     val mapper = Mappers.getMapper(ServiceMapper::class.java)

@@ -1,88 +1,95 @@
 package ch.app.hk.bank.locator.feature.home.ui.container.view
 
+import android.Manifest
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ch.app.hk.bank.locator.core.design.ui.ScreenStateView
-import ch.app.hk.bank.locator.feature.home.ui.R
+import ch.app.hk.bank.locator.core.location.LocationSettingCheckContent
+import ch.app.hk.bank.locator.core.location.launcher.rememberLauncherForAppSetting
+import ch.app.hk.bank.locator.core.location.setting.state.LocationSettingStatus
 import ch.app.hk.bank.locator.feature.home.ui.container.model.HomeItem
-import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByError
+import ch.app.hk.bank.locator.feature.home.ui.nearby.model.NearByUiState
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModel
 import ch.app.hk.bank.locator.feature.home.ui.nearby.viewmodel.NearByViewModelImpl
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionStatus
+import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.shouldShowRationale
 
+// TODO - fix detekt CognitiveComplexMethod(threshold: 15) and CyclomaticComplexMethod(threshold: 15)
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 internal fun HomeContainerContent(
     nearByViewModel: NearByViewModel = hiltViewModel<NearByViewModelImpl>(),
     onSearch: (String) -> Unit,
 ) {
-    val itemList =
-        listOf(
-            HomeItem.Search,
-            HomeItem.Finding,
-            HomeItem.StickyHeader(stringResource(id = R.string.home_title_nearby_services)),
-        )
+    val uiState by nearByViewModel.uiState.collectAsStateWithLifecycle()
+    var isUserDeniedPermission by remember { mutableStateOf(false) }
 
-    ScreenStateView(
-        state = nearByViewModel.uiState.collectAsStateWithLifecycle(),
-        loading = {
-            HomeContainerList(
-                items = itemList + HomeItem.NearByLoading,
-                onSearch = onSearch,
-                onLocationEnabled = {
-                },
-            )
-        },
-        error = { error ->
-            when (error.reason) {
-                NearByError.PERMISSION_NOT_GRANTED -> {
-                    HomeContainerList(
-                        items = itemList + HomeItem.LocationPermissionDenied,
-                        onSearch = onSearch,
-                        onLocationEnabled = {
-                            nearByViewModel.getNearByServices()
-                        },
-                    )
-                }
-                NearByError.GPS_NOT_SUPPORTED -> {
-                    HomeContainerList(
-                        items = itemList + HomeItem.NoGps,
-                        onSearch = onSearch,
-                        onLocationEnabled = {
-                            nearByViewModel.getNearByServices()
-                        },
-                    )
-                }
-                NearByError.GPS_IS_OFF ->
-                    HomeContainerList(
-                        items = itemList + HomeItem.LocationDisabled,
-                        onSearch = onSearch,
-                        onLocationEnabled = {
-                            nearByViewModel.getNearByServices()
-                        },
-                    )
-                NearByError.UNKNOWN_ERROR -> {
-                    // TODO - implementation here
-                }
+    val locationPermissionState =
+        rememberPermissionState(Manifest.permission.ACCESS_FINE_LOCATION) { isGranted ->
+            if (isGranted) {
+                nearByViewModel.getNearByServices()
+            } else {
+                isUserDeniedPermission = true
+            }
+        }
+
+    val appSettingLauncher =
+        rememberLauncherForAppSetting {
+            isUserDeniedPermission = false
+            locationPermissionState.launchPermissionRequest()
+        }
+
+    LocationSettingCheckContent(
+        onResult = { state ->
+            if (state.status == LocationSettingStatus.Enabled) {
+                locationPermissionState.launchPermissionRequest()
             }
         },
-        empty = {
-            HomeContainerList(
-                items = itemList + HomeItem.Empty,
-                onSearch = onSearch,
-                onLocationEnabled = {
-                    nearByViewModel.getNearByServices()
-                },
-            )
-        },
-        success = { data ->
-            HomeContainerList(
-                items = itemList + HomeItem.Services(data.list),
-                onSearch = onSearch,
-                onLocationEnabled = {
-                    nearByViewModel.getNearByServices()
-                },
-            )
-        },
-    )
+    ) { locationSettingState ->
+        val homeItem =
+            when (val state = uiState) {
+                is NearByUiState.Service -> HomeItem.Services(state.list)
+                NearByUiState.Empty -> HomeItem.Empty
+                else -> {
+                    when (locationSettingState.status) {
+                        LocationSettingStatus.NoSensor -> HomeItem.NoGps
+                        LocationSettingStatus.Disabled -> HomeItem.LocationDisabled
+                        LocationSettingStatus.Enabled -> {
+                            when (val permission = locationPermissionState.status) {
+                                is PermissionStatus.Denied -> {
+                                    val isPermanentlyDenied = isUserDeniedPermission && !permission.shouldShowRationale
+                                    HomeItem.LocationPermissionDenied(isPermanentlyDenied = isPermanentlyDenied)
+                                }
+                                PermissionStatus.Granted -> HomeItem.NearByLoading
+                            }
+                        }
+                    }
+                }
+            }
+
+        if (locationPermissionState.status == PermissionStatus.Granted) {
+            nearByViewModel.getNearByServices()
+        }
+
+        HomeContainerList(
+            item = homeItem,
+            onSearch = onSearch,
+            onRequestEnableLocation = {
+                locationSettingState.launchEnableLocation()
+            },
+            onRequestLocationPermission = {
+                if (isUserDeniedPermission && !locationPermissionState.status.shouldShowRationale) {
+                    appSettingLauncher.launch(Unit)
+                } else {
+                    locationPermissionState.launchPermissionRequest()
+                }
+            },
+        )
+    }
 }

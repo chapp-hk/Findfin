@@ -40,6 +40,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.accompanist.permissions)
 
     testImplementation(projects.testing.extension)
     testImplementation(libs.junit.jupiter)

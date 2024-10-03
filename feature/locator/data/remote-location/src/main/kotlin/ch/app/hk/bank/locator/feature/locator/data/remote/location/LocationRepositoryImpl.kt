@@ -1,9 +1,7 @@
 package ch.app.hk.bank.locator.feature.locator.data.remote.location
 
-import android.location.Location
-import ch.app.hk.bank.locator.core.location.client.LocationClient
-import ch.app.hk.bank.locator.core.location.helper.hardware.GpsHelper
-import ch.app.hk.bank.locator.core.location.helper.permission.PermissionHelper
+import ch.app.hk.bank.locator.core.location.provider.LocationProvider
+import ch.app.hk.bank.locator.core.location.provider.LocationProviderResult
 import ch.app.hk.bank.locator.core.logging.appLogger
 import ch.app.hk.bank.locator.core.threading.DispatcherIo
 import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationResult
@@ -16,41 +14,29 @@ import javax.inject.Inject
 @HiltWrapBindModule
 internal class LocationRepositoryImpl @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
-    private val permissionHelper: PermissionHelper,
-    private val gpsHelper: GpsHelper,
-    private val locationClient: LocationClient,
+    private val locationProvider: LocationProvider,
 ) : LocationRepository {
     override suspend fun getCurrentLocation(): LocationResult {
         return withContext(ioDispatcher) {
-            if (!permissionHelper.checkPermission()) {
-                appLogger.debug(tag = javaClass.simpleName, message = "PermissionNotGranted")
-                LocationResult.PermissionNotGranted
-            } else if (!gpsHelper.hasGpsSensor()) {
-                appLogger.debug(tag = javaClass.simpleName, message = "GpsNotSupported")
-                LocationResult.GpsNotSupported
-            } else if (!gpsHelper.isGpsEnabled()) {
-                appLogger.debug(tag = javaClass.simpleName, message = "GpsIsOff")
-                LocationResult.GpsIsOff
-            } else {
-                val location = internalGetCurrentLocation()
+            when (val result = locationProvider.getCurrentLocation()) {
+                LocationProviderResult.Error,
+                LocationProviderResult.LocationUnavailable,
+                -> LocationResult.UnknownError
 
-                appLogger.debug(
-                    tag = javaClass.simpleName,
-                    message = "latitude: ${location.latitude}, longitude: ${location.longitude}",
-                )
+                is LocationProviderResult.Success -> {
+                    appLogger.debug(
+                        tag = javaClass.simpleName,
+                        message =
+                            "latitude: ${result.location.latitude}, " +
+                                "longitude: ${result.location.longitude}",
+                    )
 
-                LocationResult.Location(location.latitude, location.longitude)
+                    LocationResult.Location(
+                        lat = result.location.latitude,
+                        lon = result.location.longitude,
+                    )
+                }
             }
         }
-    }
-
-    private suspend fun internalGetCurrentLocation(): Location {
-        appLogger.debug(
-            tag = javaClass.simpleName,
-            message = "getting location...",
-        )
-
-        val location = locationClient.getCurrentLocation()
-        return location ?: internalGetCurrentLocation()
     }
 }
