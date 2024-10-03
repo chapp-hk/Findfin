@@ -38,7 +38,8 @@ internal class SettingHelperImpl(
     /**
      * Gets an [IntentSenderRequest] to prompt the user to enable location settings if needed.
      *
-     * @return An [IntentSenderRequest] if the location settings need to be enabled, or null if they are already enabled.
+     * @return An [IntentSenderRequest] if the location settings need to be enabled,
+     *         or null if they are already enabled.
      */
     override suspend fun getIntentSenderRequest(): IntentSenderRequest? {
         val locationRequest =

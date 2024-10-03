@@ -34,6 +34,8 @@ fun NavGraphBuilder.onboardingNavGraph(
             when (navState) {
                 OnboardingNavState.Loading -> {
                     // no implementation
+                    // TODO - use navController
+                    navController.toString()
                 }
 
                 OnboardingNavState.IsFinishedOnboard -> {

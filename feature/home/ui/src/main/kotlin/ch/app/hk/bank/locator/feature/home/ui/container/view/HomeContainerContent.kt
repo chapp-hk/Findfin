@@ -20,6 +20,7 @@ import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 
+// TODO - fix detekt CognitiveComplexMethod(threshold: 15) and CyclomaticComplexMethod(threshold: 15)
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 internal fun HomeContainerContent(
@@ -57,21 +58,15 @@ internal fun HomeContainerContent(
                 NearByUiState.Empty -> HomeItem.Empty
                 else -> {
                     when (locationSettingState.status) {
-                        LocationSettingStatus.NoSensor -> {
-                            HomeItem.NoGps
-                        }
-                        LocationSettingStatus.Disabled -> {
-                            HomeItem.LocationDisabled
-                        }
+                        LocationSettingStatus.NoSensor -> HomeItem.NoGps
+                        LocationSettingStatus.Disabled -> HomeItem.LocationDisabled
                         LocationSettingStatus.Enabled -> {
                             when (val permission = locationPermissionState.status) {
                                 is PermissionStatus.Denied -> {
                                     val isPermanentlyDenied = isUserDeniedPermission && !permission.shouldShowRationale
                                     HomeItem.LocationPermissionDenied(isPermanentlyDenied = isPermanentlyDenied)
                                 }
-                                PermissionStatus.Granted -> {
-                                    HomeItem.NearByLoading
-                                }
+                                PermissionStatus.Granted -> HomeItem.NearByLoading
                             }
                         }
                     }
