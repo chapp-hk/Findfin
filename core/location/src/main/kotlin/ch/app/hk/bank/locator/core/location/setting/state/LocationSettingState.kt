@@ -1,8 +1,8 @@
-package ch.app.hk.bank.locator.core.location.setting
+package ch.app.hk.bank.locator.core.location.setting.state
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.ui.platform.LocalContext
+import ch.app.hk.bank.locator.core.location.setting.helper.SettingHelper
 
 /**
  * Interface representing the state of location settings.
@@ -44,15 +44,15 @@ sealed interface LocationSettingStatus {
 /**
  * Remembers the state of location settings and provides a [LocationSettingState] instance.
  *
- * @param onResult A callback invoked with the current [LocationSettingStatus].
+ * @param onResult A callback invoked with the current [LocationSettingState].
  * @return A [LocationSettingState] instance.
  */
 @Composable
-fun rememberLocationSettingState(onResult: (LocationSettingStatus) -> Unit = {}): LocationSettingState {
-    val context = LocalContext.current
-    val settingHelper = SettingHelper(context = context)
-
-    return rememberMutableLocationState(
+fun rememberLocationSettingState(
+    settingHelper: SettingHelper,
+    onResult: (LocationSettingState) -> Unit = {},
+): LocationSettingState {
+    return rememberMutableLocationSettingState(
         settingHelper = settingHelper,
         onResult = onResult,
     )

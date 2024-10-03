@@ -1,10 +1,11 @@
-package ch.app.hk.bank.locator.core.location.setting
+package ch.app.hk.bank.locator.core.location.setting.helper
 
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import androidx.activity.result.IntentSenderRequest
 import androidx.core.content.ContextCompat
+import ch.app.hk.bank.locator.core.location.setting.state.LocationSettingStatus
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
@@ -18,15 +19,15 @@ import kotlinx.coroutines.tasks.await
  *
  * @property context The application context.
  */
-internal class SettingHelper(
+internal class SettingHelperImpl(
     private val context: Context,
-) {
+) : SettingHelper {
     /**
      * Gets the current location setting status.
      *
      * @return The current [LocationSettingStatus].
      */
-    fun getSettings(): LocationSettingStatus {
+    override fun getSettings(): LocationSettingStatus {
         return when {
             !context.hasGpsSensor() -> LocationSettingStatus.NoSensor
             !context.isGpsEnabled() -> LocationSettingStatus.Disabled
@@ -39,7 +40,7 @@ internal class SettingHelper(
      *
      * @return An [IntentSenderRequest] if the location settings need to be enabled, or null if they are already enabled.
      */
-    suspend fun getIntentSenderRequest(): IntentSenderRequest? {
+    override suspend fun getIntentSenderRequest(): IntentSenderRequest? {
         val locationRequest =
             LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, INTERVAL_MILLIS).build()
 

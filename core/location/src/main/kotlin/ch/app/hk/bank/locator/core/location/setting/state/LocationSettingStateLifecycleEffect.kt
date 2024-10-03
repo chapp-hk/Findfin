@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.setting
+package ch.app.hk.bank.locator.core.location.setting.state
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -26,7 +26,7 @@ internal fun LocationSettingStateLifecycleEffect(
         remember(locationSettingState) {
             LifecycleEventObserver { _, event ->
                 if (event == lifecycleEvent) {
-                    locationSettingState.refreshLocationState()
+                    locationSettingState.refreshLocationSettingState()
                 }
             }
         }

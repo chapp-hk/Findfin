@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.location.setting
+package ch.app.hk.bank.locator.core.location.setting.state
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -12,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import ch.app.hk.bank.locator.core.location.setting.helper.SettingHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -26,12 +27,12 @@ internal class MutableLocationSettingState(
     private val coroutineScope: CoroutineScope,
     private val settingHelper: SettingHelper,
 ) : LocationSettingState {
-    internal var enableLocationLauncher: ActivityResultLauncher<IntentSenderRequest>? = null
-
     /**
      * The current status of the location settings.
      */
-    override var status: LocationSettingStatus by mutableStateOf(getLocationStateResult())
+    override var status: LocationSettingStatus by mutableStateOf(getLocationSettingStateResult())
+
+    internal var enableLocationLauncher: ActivityResultLauncher<IntentSenderRequest>? = null
 
     /**
      * Launches an intent to enable location settings.
@@ -47,11 +48,11 @@ internal class MutableLocationSettingState(
     /**
      * Refreshes the current status of the location settings.
      */
-    internal fun refreshLocationState() {
-        status = getLocationStateResult()
+    internal fun refreshLocationSettingState() {
+        status = getLocationSettingStateResult()
     }
 
-    private fun getLocationStateResult(): LocationSettingStatus {
+    private fun getLocationSettingStateResult(): LocationSettingStatus {
         return settingHelper.getSettings()
     }
 }
@@ -60,38 +61,38 @@ internal class MutableLocationSettingState(
  * Remembers the state of location settings and provides a [MutableLocationSettingState] instance.
  *
  * @param settingHelper The [SettingHelper] used to interact with location settings.
- * @param onResult A callback invoked with the current [LocationSettingStatus].
+ * @param onResult A callback invoked with the current [LocationSettingState].
  * @return A [MutableLocationSettingState] instance.
  */
 @Composable
-internal fun rememberMutableLocationState(
+internal fun rememberMutableLocationSettingState(
     settingHelper: SettingHelper,
-    onResult: (LocationSettingStatus) -> Unit,
+    onResult: (LocationSettingState) -> Unit,
 ): MutableLocationSettingState {
     val coroutineScope = rememberCoroutineScope()
-    val locationState =
-        remember {
+    val locationSettingState =
+        remember(settingHelper) {
             MutableLocationSettingState(
                 coroutineScope = coroutineScope,
                 settingHelper = settingHelper,
             )
         }
 
+    LocationSettingStateLifecycleEffect(locationSettingState)
+
     val enableLocationLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) {
-            locationState.refreshLocationState()
-            onResult(locationState.status)
+            locationSettingState.refreshLocationSettingState()
+            onResult(locationSettingState)
         }
 
-    LocationSettingStateLifecycleEffect(locationState)
-
-    DisposableEffect(locationState, enableLocationLauncher) {
-        locationState.enableLocationLauncher = enableLocationLauncher
+    DisposableEffect(locationSettingState, enableLocationLauncher) {
+        locationSettingState.enableLocationLauncher = enableLocationLauncher
 
         onDispose {
-            locationState.enableLocationLauncher = null
+            locationSettingState.enableLocationLauncher = null
         }
     }
 
-    return locationState
+    return locationSettingState
 }

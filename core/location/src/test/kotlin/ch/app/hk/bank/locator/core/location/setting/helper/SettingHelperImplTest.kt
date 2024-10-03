@@ -1,10 +1,11 @@
-package ch.app.hk.bank.locator.core.location.setting
+package ch.app.hk.bank.locator.core.location.setting.helper
 
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import androidx.activity.result.IntentSenderRequest
 import androidx.core.content.ContextCompat
+import ch.app.hk.bank.locator.core.location.setting.state.LocationSettingStatus
 import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskError
 import ch.app.hk.bank.locator.testing.google.play.services.task.mockTaskResult
 import com.google.android.gms.common.api.ResolvableApiException
@@ -17,12 +18,14 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkStatic
 import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-class SettingHelperTest {
+@DisplayName("SettingHelperImpl unit tests")
+class SettingHelperImplTest {
     private val context = mockk<Context>(relaxed = true)
 
-    private val settingHelper = SettingHelper(context = context)
+    private val settingHelper = SettingHelperImpl(context = context)
 
     @Test
     fun `getSettings returns NoSensor when device has no GPS sensor`() {
