@@ -1,6 +1,6 @@
-package ch.app.hk.bank.locator.buildlogic.plugin.room
+package org.chapp.findfin.buildlogic.plugin.room
 
-import ch.app.hk.bank.locator.buildlogic.util.libs
+import org.chapp.findfin.buildlogic.util.libs
 import com.google.devtools.ksp.gradle.KspExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project

@@ -1,6 +1,6 @@
-package ch.app.hk.bank.locator.feature.locator.data.repo.repo
+package org.chapp.findfin.feature.locator.data.repo.repo
 
-import ch.app.hk.bank.locator.feature.locator.data.repo.model.LocationResult
+import org.chapp.findfin.feature.locator.data.repo.model.LocationResult
 
 interface LocationRepository {
     suspend fun getCurrentLocation(): LocationResult

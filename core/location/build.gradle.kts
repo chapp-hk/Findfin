@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.core.location"
+    namespace = "org.chapp.findfin.core.location"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

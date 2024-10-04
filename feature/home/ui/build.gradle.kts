@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.feature.home.ui"
+    namespace = "org.chapp.findfin.feature.home.ui"
     resourcePrefix = "home_"
 
     defaultConfig {

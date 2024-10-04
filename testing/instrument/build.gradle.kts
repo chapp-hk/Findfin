@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.testing.instrument"
+    namespace = "org.chapp.findfin.testing.instrument"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

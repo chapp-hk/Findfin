@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.feature.onboarding.navigation"
+    namespace = "org.chapp.findfin.feature.onboarding.navigation"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

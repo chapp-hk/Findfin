@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.core.design.theme"
+    namespace = "org.chapp.findfin.core.design.theme"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

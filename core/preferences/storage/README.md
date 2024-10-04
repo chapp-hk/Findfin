@@ -30,7 +30,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.core.preferences.impl"
+    namespace = "org.chapp.findfin.core.preferences.impl"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

@@ -1,7 +1,7 @@
-package ch.app.hk.bank.locator.buildlogic.plugin.ktlint
+package org.chapp.findfin.buildlogic.plugin.ktlint
 
-import ch.app.hk.bank.locator.buildlogic.util.assertRootProjectAppliedPlugin
-import ch.app.hk.bank.locator.buildlogic.util.libs
+import org.chapp.findfin.buildlogic.util.assertRootProjectAppliedPlugin
+import org.chapp.findfin.buildlogic.util.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Copy

@@ -8,10 +8,10 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator"
+    namespace = "org.chapp.findfin"
 
     defaultConfig {
-        applicationId = "ch.app.hk.bank.locator"
+        applicationId = "org.chapp.findfin"
         targetSdk = 35
         versionCode = 1
         versionName = "1.0.0"

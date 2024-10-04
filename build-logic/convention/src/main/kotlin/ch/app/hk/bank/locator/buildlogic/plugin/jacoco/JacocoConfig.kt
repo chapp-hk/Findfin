@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.buildlogic.plugin.jacoco
+package org.chapp.findfin.buildlogic.plugin.jacoco
 
 internal val excludeClassed =
     listOf(

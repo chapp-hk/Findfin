@@ -9,7 +9,7 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="ch.app.hk.bank.locator.core.logging.startup.AppLoggerInitializer"
+                android:name="org.chapp.findfin.core.logging.startup.AppLoggerInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>

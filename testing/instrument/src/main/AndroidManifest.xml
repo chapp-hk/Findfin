@@ -2,6 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application>
-        <activity android:name="ch.app.hk.bank.locator.testing.instrument.HiltComponentActivity" />
+        <activity android:name="org.chapp.findfin.testing.instrument.HiltComponentActivity" />
     </application>
 </manifest>

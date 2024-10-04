@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.feature.onboarding.ui"
+    namespace = "org.chapp.findfin.feature.onboarding.ui"
     resourcePrefix = "onboarding_"
 
     defaultConfig {

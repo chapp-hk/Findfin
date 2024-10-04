@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.core.navigation"
+    namespace = "org.chapp.findfin.core.navigation"
     resourcePrefix = "navigation_"
 
     defaultConfig {

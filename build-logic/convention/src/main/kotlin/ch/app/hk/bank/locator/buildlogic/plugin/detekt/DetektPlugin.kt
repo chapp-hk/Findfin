@@ -1,6 +1,6 @@
-package ch.app.hk.bank.locator.buildlogic.plugin.detekt
+package org.chapp.findfin.buildlogic.plugin.detekt
 
-import ch.app.hk.bank.locator.buildlogic.util.assertRootProjectAppliedPlugin
+import org.chapp.findfin.buildlogic.util.assertRootProjectAppliedPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply

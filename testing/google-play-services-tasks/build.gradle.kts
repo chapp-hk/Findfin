@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.testing.google.play.services.task"
+    namespace = "org.chapp.findfin.testing.google.play.services.task"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

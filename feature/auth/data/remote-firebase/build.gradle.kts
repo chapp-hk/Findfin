@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.feature.auth.data.remote.firebase"
+    namespace = "org.chapp.findfin.feature.auth.data.remote.firebase"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

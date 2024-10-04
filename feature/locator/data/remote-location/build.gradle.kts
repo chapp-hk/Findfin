@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.feature.locator.data.remote.location"
+    namespace = "org.chapp.findfin.feature.locator.data.remote.location"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

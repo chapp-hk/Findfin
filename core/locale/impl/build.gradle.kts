@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.core.locale.impl"
+    namespace = "org.chapp.findfin.core.locale.impl"
     resourcePrefix = "locale_"
 
     defaultConfig {

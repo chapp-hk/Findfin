@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.buildlogic.util
+package org.chapp.findfin.buildlogic.util
 
 import org.gradle.api.Project
 import org.jetbrains.kotlin.konan.properties.Properties

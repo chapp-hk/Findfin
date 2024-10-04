@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.feature.auth.ui"
+    namespace = "org.chapp.findfin.feature.auth.ui"
     resourcePrefix = "auth_"
 
     defaultConfig {
