@@ -1,6 +1,6 @@
-package ch.app.hk.bank.locator.buildlogic.plugin.hilt
+package org.chapp.findfin.buildlogic.plugin.hilt
 
-import ch.app.hk.bank.locator.buildlogic.util.libs
+import org.chapp.findfin.buildlogic.util.libs
 import com.android.build.api.variant.AndroidComponentsExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -13,7 +13,7 @@ class HiltAndroidTestPlugin : Plugin<Project> {
                 .getByType(AndroidComponentsExtension::class.java)
                 .finalizeDsl { extension ->
                     extension.defaultConfig {
-                        testInstrumentationRunner = "ch.app.hk.bank.locator.testing.instrument.AppTestRunner"
+                        testInstrumentationRunner = "org.chapp.findfin.testing.instrument.AppTestRunner"
                     }
                 }
 

@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.buildlogic.plugin.jvm
+package org.chapp.findfin.buildlogic.plugin.jvm
 
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin

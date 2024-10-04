@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.feature.auth.navigation"
+    namespace = "org.chapp.findfin.feature.auth.navigation"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

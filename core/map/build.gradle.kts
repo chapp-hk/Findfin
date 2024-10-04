@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.core.map"
+    namespace = "org.chapp.findfin.core.map"
     resourcePrefix = "core_map_"
 
     defaultConfig {

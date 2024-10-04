@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.core.logging.startup"
+    namespace = "org.chapp.findfin.core.logging.startup"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

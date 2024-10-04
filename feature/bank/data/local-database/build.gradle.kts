@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.feature.bank.data.local.database"
+    namespace = "org.chapp.findfin.feature.bank.data.local.database"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

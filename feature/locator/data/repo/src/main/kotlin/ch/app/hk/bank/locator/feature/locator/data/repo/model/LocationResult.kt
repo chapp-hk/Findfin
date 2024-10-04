@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.locator.data.repo.model
+package org.chapp.findfin.feature.locator.data.repo.model
 
 sealed interface LocationResult {
     data class Location(val lat: Double, val lon: Double) : LocationResult

@@ -1,6 +1,6 @@
-package ch.app.hk.bank.locator.buildlogic.plugin.compose
+package org.chapp.findfin.buildlogic.plugin.compose
 
-import ch.app.hk.bank.locator.buildlogic.util.libs
+import org.chapp.findfin.buildlogic.util.libs
 import com.android.build.api.variant.AndroidComponentsExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project

@@ -1,6 +1,6 @@
-package ch.app.hk.bank.locator.buildlogic.plugin.jacoco
+package org.chapp.findfin.buildlogic.plugin.jacoco
 
-import ch.app.hk.bank.locator.buildlogic.util.getLocalProperties
+import org.chapp.findfin.buildlogic.util.getLocalProperties
 import org.gradle.api.Project
 
 /**

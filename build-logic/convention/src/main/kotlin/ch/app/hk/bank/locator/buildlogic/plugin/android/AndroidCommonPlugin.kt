@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.buildlogic.plugin.android
+package org.chapp.findfin.buildlogic.plugin.android
 
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.variant.AndroidComponentsExtension

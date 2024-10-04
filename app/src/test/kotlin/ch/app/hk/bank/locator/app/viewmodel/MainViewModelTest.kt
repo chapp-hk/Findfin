@@ -1,15 +1,15 @@
-package ch.app.hk.bank.locator.app.viewmodel
+package org.chapp.findfin.app.viewmodel
 
 import androidx.appcompat.app.AppCompatDelegate
 import app.cash.turbine.test
-import ch.app.hk.bank.locator.feature.setting.data.repo.preferece.model.Theme
-import ch.app.hk.bank.locator.feature.setting.data.repo.preferece.repository.UserSettingRepository
-import ch.app.hk.bank.locator.testing.extension.MainDispatcherExtension
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import org.chapp.findfin.feature.setting.data.repo.preferece.model.Theme
+import org.chapp.findfin.feature.setting.data.repo.preferece.repository.UserSettingRepository
+import org.chapp.findfin.testing.extension.MainDispatcherExtension
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

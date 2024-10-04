@@ -1,6 +1,6 @@
-package ch.app.hk.bank.locator.buildlogic.plugin.hilt
+package org.chapp.findfin.buildlogic.plugin.hilt
 
-import ch.app.hk.bank.locator.buildlogic.util.libs
+import org.chapp.findfin.buildlogic.util.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies

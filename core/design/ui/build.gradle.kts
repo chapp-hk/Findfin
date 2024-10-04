@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.core.design.ui"
+    namespace = "org.chapp.findfin.core.design.ui"
     resourcePrefix = "core_ui_"
 
     defaultConfig {

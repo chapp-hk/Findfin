@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ch.app.hk.bank.locator.core.imageloader"
+    namespace = "org.chapp.findfin.core.imageloader"
     resourcePrefix = "core_imageloader_"
 
     defaultConfig {

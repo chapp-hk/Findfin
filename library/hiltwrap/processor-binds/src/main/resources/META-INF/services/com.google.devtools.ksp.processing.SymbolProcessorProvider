@@ -1,1 +1,1 @@
-ch.app.library.hiltwrap.binds.processor.HiltWrapBindProcessorProvider
+org.chapp.library.hiltwrap.binds.processor.HiltWrapBindProcessorProvider
