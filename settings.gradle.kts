@@ -15,7 +15,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "HK-Bank-Locator"
+rootProject.name = "Findfin"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 // app module
