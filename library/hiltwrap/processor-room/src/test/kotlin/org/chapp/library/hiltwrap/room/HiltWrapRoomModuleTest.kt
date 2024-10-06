@@ -15,7 +15,7 @@ import java.io.File
 @OptIn(ExperimentalCompilerApi::class)
 @DisplayName("@HiltWrapRoomModule tests")
 class HiltWrapRoomModuleTest {
-    private val generatedCodePath = "/kotlin/ch/app/library/hiltwrap/room/"
+    private val generatedCodePath = "/kotlin/org/chapp/library/hiltwrap/room/"
     private val generatedFileNamePostfix = "HiltWrapRoomModule"
 
     @Test

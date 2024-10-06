@@ -35,7 +35,7 @@ class HiltWrapBindModuleTest {
         val compilation = compileKotlinSource(kotlinSource)
         compilation.compile()
 
-        val generatedFilePath = "kotlin/ch/app/library/hiltwrap/TestClassDefaultHiltWrapBindModule.kt"
+        val generatedFilePath = "kotlin/org/chapp/library/hiltwrap/TestClassDefaultHiltWrapBindModule.kt"
         File("${compilation.kspSourcesDir.path}/$generatedFilePath")
             .readText() shouldBe
             """
@@ -86,7 +86,7 @@ class HiltWrapBindModuleTest {
         val compilation = compileKotlinSource(kotlinSource)
         compilation.compile()
 
-        val generatedFilePath = "kotlin/ch/app/library/hiltwrap/TestClassParametersHiltWrapBindModule.kt"
+        val generatedFilePath = "kotlin/org/chapp/library/hiltwrap/TestClassParametersHiltWrapBindModule.kt"
         File("${compilation.kspSourcesDir.path}/$generatedFilePath")
             .readText() shouldBe
             """
