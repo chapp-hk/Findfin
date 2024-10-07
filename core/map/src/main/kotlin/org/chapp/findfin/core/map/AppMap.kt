@@ -9,14 +9,15 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
-import com.google.maps.android.compose.Marker
-import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.MapsComposeExperimentalApi
+import com.google.maps.android.compose.clustering.Clustering
 import com.google.maps.android.compose.rememberCameraPositionState
 
+@OptIn(MapsComposeExperimentalApi::class)
 @Composable
 fun AppMap(
     modifier: Modifier = Modifier,
-    markers: List<MapMarker> = listOf(),
+    markers: List<MapClusterItem> = listOf(),
     isMyLocationEnabled: Boolean = false,
     onMapLoaded: () -> Unit = {},
     initPosition: Position,
@@ -45,11 +46,17 @@ fun AppMap(
         properties = properties,
         onMapLoaded = onMapLoaded,
     ) {
-        markers.forEach {
-            Marker(
-                state = MarkerState(position = LatLng(it.position.latitude, it.position.longitude)),
-                title = it.title,
-            )
-        }
+        Clustering(
+            items = markers,
+            onClusterClick = {
+                false
+            },
+            onClusterItemClick = {
+                false
+            },
+            onClusterItemInfoWindowClick = {
+            },
+            clusterItemContent = null,
+        )
     }
 }
