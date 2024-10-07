@@ -18,6 +18,7 @@ fun AppMap(
     modifier: Modifier = Modifier,
     markers: List<MapMarker> = listOf(),
     isMyLocationEnabled: Boolean = false,
+    onMapLoaded: () -> Unit = {},
     initPosition: Position,
     initZoom: Float,
 ) {
@@ -42,7 +43,7 @@ fun AppMap(
         modifier = modifier,
         cameraPositionState = cameraPositionState,
         properties = properties,
-        onMapLoaded = { },
+        onMapLoaded = onMapLoaded,
     ) {
         markers.forEach {
             Marker(
