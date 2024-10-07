@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.core.map
+package org.chapp.findfin.core.map
 
 data class Position(
     val latitude: Double,
