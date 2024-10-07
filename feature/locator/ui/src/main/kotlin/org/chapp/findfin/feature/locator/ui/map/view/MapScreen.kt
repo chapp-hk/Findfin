@@ -8,6 +8,6 @@ import org.chapp.findfin.core.map.Position
 fun MapScreen() {
     AppMap(
         initPosition = Position(22.3193, 114.1694),
-        initZoom = 17f,
+        initZoom = 10f,
     )
 }
