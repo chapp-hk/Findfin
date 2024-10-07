@@ -23,6 +23,7 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
     implementation(libs.google.maps.compose)
+    implementation("com.google.maps.android:maps-compose-utils:6.1.2")
 }
 
 secrets {
