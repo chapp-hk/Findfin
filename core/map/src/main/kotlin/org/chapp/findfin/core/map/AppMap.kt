@@ -1,10 +1,13 @@
 package org.chapp.findfin.core.map
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
@@ -13,16 +16,26 @@ import com.google.maps.android.compose.MapsComposeExperimentalApi
 import com.google.maps.android.compose.clustering.Clustering
 import com.google.maps.android.compose.rememberCameraPositionState
 
-@OptIn(MapsComposeExperimentalApi::class)
+@OptIn(MapsComposeExperimentalApi::class, ExperimentalPermissionsApi::class)
 @Composable
 fun AppMap(
     modifier: Modifier = Modifier,
-    markers: List<MapClusterItem> = listOf(),
     isMyLocationEnabled: Boolean = false,
+    markers: List<MapMarker> = listOf(),
     onMapLoaded: () -> Unit = {},
     initPosition: Position,
     initZoom: Float,
 ) {
+    val permissionState = rememberPermissionState(android.Manifest.permission.ACCESS_FINE_LOCATION)
+
+    val properties by remember {
+        derivedStateOf {
+            MapProperties(
+                isMyLocationEnabled = permissionState.status.isGranted && isMyLocationEnabled,
+            )
+        }
+    }
+
     val cameraPositionState =
         rememberCameraPositionState {
             position =
@@ -31,14 +44,6 @@ fun AppMap(
                     initZoom,
                 )
         }
-
-    val properties by remember {
-        mutableStateOf(
-            MapProperties(
-                isMyLocationEnabled = isMyLocationEnabled,
-            ),
-        )
-    }
 
     GoogleMap(
         modifier = modifier,
