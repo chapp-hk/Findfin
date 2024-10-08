@@ -22,8 +22,14 @@ android {
 dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
-    implementation(libs.google.maps.compose)
-    implementation("com.google.maps.android:maps-compose-utils:6.1.2")
+    implementation(libs.maps.compose)
+    implementation(libs.maps.compose.utils)
+    implementation(libs.accompanist.permissions)
+
+    androidTestImplementation(libs.kotest.assertions.core)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
 
 secrets {
