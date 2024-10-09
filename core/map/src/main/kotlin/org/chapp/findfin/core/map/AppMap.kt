@@ -21,10 +21,9 @@ import com.google.maps.android.compose.rememberCameraPositionState
 fun AppMap(
     modifier: Modifier = Modifier,
     isMyLocationEnabled: Boolean = false,
+    cameraState: AppMapCameraState = rememberAppMapCameraState(),
     markers: List<MapMarker> = listOf(),
     onMapLoaded: () -> Unit = {},
-    initPosition: Position,
-    initZoom: Float,
 ) {
     val permissionState = rememberPermissionState(android.Manifest.permission.ACCESS_FINE_LOCATION)
 
@@ -40,8 +39,8 @@ fun AppMap(
         rememberCameraPositionState {
             position =
                 CameraPosition.fromLatLngZoom(
-                    LatLng(initPosition.latitude, initPosition.longitude),
-                    initZoom,
+                    LatLng(cameraState.position.latitude, cameraState.position.longitude),
+                    cameraState.zoom,
                 )
         }
 
@@ -51,17 +50,6 @@ fun AppMap(
         properties = properties,
         onMapLoaded = onMapLoaded,
     ) {
-        Clustering(
-            items = markers,
-            onClusterClick = {
-                false
-            },
-            onClusterItemClick = {
-                false
-            },
-            onClusterItemInfoWindowClick = {
-            },
-            clusterItemContent = null,
-        )
+        Clustering(items = markers)
     }
 }
