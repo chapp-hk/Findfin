@@ -4,12 +4,18 @@ import androidx.compose.runtime.Composable
 import org.chapp.findfin.core.map.AppMap
 import org.chapp.findfin.core.map.MapMarker
 import org.chapp.findfin.core.map.Position
+import org.chapp.findfin.core.map.rememberAppMapCameraState
 
 @Composable
 fun MapScreen() {
+    val mapCameraState =
+        rememberAppMapCameraState(
+            initPosition = Position(22.3193, 114.1694),
+            initZoom = 10f,
+        )
+
     AppMap(
-        initPosition = Position(22.3193, 114.1694),
-        initZoom = 10f,
+        cameraState = mapCameraState,
         markers =
             (1..100).map { index ->
                 MapMarker(
