@@ -16,6 +16,15 @@ import com.google.maps.android.compose.MapsComposeExperimentalApi
 import com.google.maps.android.compose.clustering.Clustering
 import com.google.maps.android.compose.rememberCameraPositionState
 
+/**
+ * Composable function that displays a Google Map with clustering support.
+ *
+ * @param modifier Modifier to be applied to the map.
+ * @param isMyLocationEnabled Boolean flag to enable or disable the My Location layer.
+ * @param cameraState State object that holds the camera position and zoom level.
+ * @param markers List of markers to be displayed on the map.
+ * @param onMapLoaded Callback function to be invoked when the map is loaded.
+ */
 @OptIn(MapsComposeExperimentalApi::class, ExperimentalPermissionsApi::class)
 @Composable
 fun AppMap(
