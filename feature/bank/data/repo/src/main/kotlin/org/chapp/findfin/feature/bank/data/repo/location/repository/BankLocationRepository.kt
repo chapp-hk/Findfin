@@ -16,4 +16,6 @@ interface BankLocationRepository {
     suspend fun getLocationsWithinBound(bound: BankLocationBound): List<BankLocationModel>
 
     suspend fun getAllBanks(): List<String>
+
+    suspend fun getAll(): List<BankLocationModel>
 }
