@@ -27,4 +27,7 @@ internal interface BankLocationDao {
 
     @Query("SELECT DISTINCT bank_name FROM locator")
     suspend fun getDistinctBanks(): List<String>
+
+    @Query("SELECT * FROM locator")
+    suspend fun getAll(): List<BankLocationEntity>
 }
