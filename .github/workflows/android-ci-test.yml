@@ -68,6 +68,7 @@ jobs:
           disable-animations: true
           disk-size: 6000M
           heap-size: 600M
+          emulator-build: 12414864
           script: ./gradlew rootJacocoCoverageReport
 
       - name: Upload jacoco coverage report
