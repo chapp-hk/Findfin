@@ -68,7 +68,7 @@ jobs:
           disable-animations: true
           disk-size: 6000M
           heap-size: 600M
-          script: ./gradlew rootJacocoCoverageReport
+          script: ls -al ~/.android; ls -al ~/.android/avd; ./gradlew rootJacocoCoverageReport
 
       - name: Upload jacoco coverage report
         uses: actions/upload-artifact@v4
