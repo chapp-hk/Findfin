@@ -221,4 +221,20 @@ class BankLocationDaoTest {
                 )
         }
     }
+
+    @Test
+    fun testGetAll() {
+        runTest(testDispatcher) {
+            val database =
+                Room
+                    .databaseBuilder(
+                        context,
+                        BankDatabase::class.java,
+                        "locator_db.db",
+                    ).createFromAsset("locator_db.db")
+                    .build()
+
+            database.bankLocationDao.getAll().size shouldBe 2139
+        }
+    }
 }
