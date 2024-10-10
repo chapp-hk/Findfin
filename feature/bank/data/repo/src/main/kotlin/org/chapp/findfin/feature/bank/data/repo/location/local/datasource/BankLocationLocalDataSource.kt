@@ -13,4 +13,6 @@ interface BankLocationLocalDataSource {
     ): List<BankLocationLocal>
 
     suspend fun getAllBanks(): List<String>
+
+    suspend fun getAll(): List<BankLocationLocal>
 }
