@@ -175,4 +175,57 @@ class BankLocationLocalDataSourceImplTest {
 
             result shouldBe emptyList()
         }
+
+    @Test
+    @DisplayName("When invoke getAll() successfully, should return the list of LocatorLocal")
+    fun testGetAllSuccess() =
+        runTest(testDispatcher) {
+            coEvery { bankLocationDao.getAll() } returns
+                listOf(
+                    BankLocationEntity(
+                        type = "bank",
+                        district = "mock district",
+                        bankName = "mock bank name",
+                        typeName = "mock type name",
+                        address = "mock address",
+                        serviceHours = "mock service hours",
+                        latitude = 0.0,
+                        longitude = 0.0,
+                    ),
+                )
+
+            val result = locatorLocalDataSourceImpl.getAll()
+
+            coVerify { bankLocationDao.getAll() }
+
+            result shouldBe
+                listOf(
+                    BankLocationLocal(
+                        type = "bank",
+                        district = "mock district",
+                        bankName = "mock bank name",
+                        typeName = "mock type name",
+                        address = "mock address",
+                        serviceHours = "mock service hours",
+                        latitude = 0.0,
+                        longitude = 0.0,
+                    ),
+                )
+        }
+
+    @Test
+    @DisplayName(
+        "When invoke getAll() and LocatorDao.getAll() throws an exception, " +
+            "should catch the exception and return an empty list",
+    )
+    fun testGetAllErrorHandling() =
+        runTest(testDispatcher) {
+            coEvery { bankLocationDao.getAll() } throws Exception("Test exception")
+
+            val result = locatorLocalDataSourceImpl.getAll()
+
+            coVerify { bankLocationDao.getAll() }
+
+            result shouldBe emptyList()
+        }
 }
