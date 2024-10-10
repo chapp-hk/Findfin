@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.app.compose)
     alias(libs.plugins.app.hilt.android)
     alias(libs.plugins.app.hilt.android.test)
+    kotlin("plugin.serialization") version libs.versions.kotlin
 }
 
 android {
@@ -20,6 +21,7 @@ dependencies {
     implementation(projects.core.navigation)
     implementation(projects.feature.locator.ui)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
 
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.test.core)

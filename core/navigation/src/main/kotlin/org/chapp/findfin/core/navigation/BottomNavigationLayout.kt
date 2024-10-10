@@ -19,10 +19,9 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 
@@ -32,14 +31,14 @@ import androidx.navigation.compose.rememberNavController
  * @param modifier The modifier to be applied to the layout.
  * @param navController The navigation controller for managing navigation.
  * @param bottomTabItems The list of bottom navigation tabs.
- * @param content The content to be displayed for each tab.
+ * @param navGraphBuilder The builder for the navigation graph.
  */
 @Composable
 fun BottomNavigationLayout(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     bottomTabItems: List<BottomNavigationTab>,
-    content: @Composable (BottomNavigationTab) -> Unit,
+    navGraphBuilder: NavGraphBuilder.() -> Unit,
 ) {
     Scaffold(
         modifier = modifier,
@@ -54,7 +53,7 @@ fun BottomNavigationLayout(
             navController = navController,
             paddingValues = innerPadding,
             bottomTabItems = bottomTabItems,
-            content = content,
+            navGraphBuilder = navGraphBuilder,
         )
     }
 }
@@ -80,29 +79,20 @@ private fun BottomNavigationBar(
                     navBackStackEntry?.destination?.hierarchy?.any { it.route == tab.route } == true
                 },
                 onTabClick = {
-                    navController.routeToBottomNavigationTab(tab)
+                    navController.navigate(tab) {
+                        // Pop up to the start destination of the graph to
+                        // avoid building up a large stack of destinations
+                        // on the back stack as users select items
+                        popUpTo(bottomTabItems.first()) { saveState = true }
+                        // Avoid multiple copies of the same destination when
+                        // reselecting the same item
+                        launchSingleTop = true
+                        // Restore state when reselecting a previously selected item
+                        restoreState = true
+                    }
                 },
             )
         }
-    }
-}
-
-/**
- * Extension function for navigating to a bottom navigation tab.
- *
- * @param tab The bottom navigation tab to navigate to.
- */
-fun NavHostController.routeToBottomNavigationTab(tab: BottomNavigationTab) {
-    navigate(tab.route) {
-        // Pop up to the start destination of the graph to
-        // avoid building up a large stack of destinations
-        // on the back stack as users select items
-        popUpTo(graph.findStartDestination().id) { saveState = true }
-        // Avoid multiple copies of the same destination when
-        // reselecting the same item
-        launchSingleTop = true
-        // Restore state when reselecting a previously selected item
-        restoreState = true
     }
 }
 
@@ -139,39 +129,36 @@ private fun RowScope.BottomNavigationItemComponent(
  * @param navController The navigation controller for managing navigation.
  * @param paddingValues The padding values to be applied to the content.
  * @param bottomTabItems The list of bottom navigation tabs.
- * @param content The content to be displayed for each tab.
+ * @param navGraphBuilder The builder for the navigation graph.
  */
 @Composable
 private fun BottomNavigationContent(
     navController: NavHostController,
     paddingValues: PaddingValues,
     bottomTabItems: List<BottomNavigationTab>,
-    content: @Composable (BottomNavigationTab) -> Unit,
+    navGraphBuilder: NavGraphBuilder.() -> Unit,
 ) {
     NavHost(
         navController = navController,
-        startDestination = bottomTabItems.first().route,
+        startDestination = bottomTabItems.first(),
         modifier = Modifier.padding(paddingValues),
-    ) {
-        bottomTabItems.forEach { tab ->
-            composable(route = tab.route) {
-                content(tab)
-            }
-        }
-    }
+        builder = navGraphBuilder,
+    )
 }
 
 /**
- * Data class representing a bottom navigation tab.
+ * Interface representing a bottom navigation tab.
  *
  * @property route The route associated with the tab.
  * @property iconDrawableResource The drawable resource ID for the tab's icon.
  * @property textStringResource The string resource ID for the tab's text.
  */
-data class BottomNavigationTab(
-    val route: String,
+interface BottomNavigationTab {
+    val route: String
+
     @get:DrawableRes
-    val iconDrawableResource: Int,
+    val iconDrawableResource: Int
+
     @get:StringRes
-    val textStringResource: Int,
-)
+    val textStringResource: Int
+}
