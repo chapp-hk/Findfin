@@ -1,17 +1,22 @@
 package org.chapp.findfin.feature.home.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import org.chapp.findfin.core.navigation.BottomNavigationLayout
-import org.chapp.findfin.core.navigation.routeToBottomNavigationTab
+import org.chapp.findfin.feature.bank.navigation.BankBottomTabDestination
 import org.chapp.findfin.feature.bank.navigation.BankDestination
-import org.chapp.findfin.feature.bank.navigation.bankBottomTabDestination
 import org.chapp.findfin.feature.home.ui.container.view.HomeContainer
+import org.chapp.findfin.feature.locator.navigation.MapBottomTabDestination
 import org.chapp.findfin.feature.locator.navigation.MapDestination
-import org.chapp.findfin.feature.locator.navigation.mapBottomTabDestination
+import org.chapp.findfin.feature.navigation.graph.SettingBottomTabDestination
 import org.chapp.findfin.feature.navigation.graph.SettingDestination
-import org.chapp.findfin.feature.navigation.graph.settingBottomTabDestination
 
+/**
+ * Composable function that sets up the home bottom navigation layout.
+ *
+ * @param onRequestAuth A callback function that is invoked to request authentication.
+ */
 @Composable
 fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
     val bottomNavController = rememberNavController()
@@ -19,37 +24,44 @@ fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
     BottomNavigationLayout(
         navController = bottomNavController,
         bottomTabItems = bottomTabList,
-    ) { tab ->
-        when (tab) {
-            bankBottomTabDestination -> {
-                BankDestination()
-            }
+    ) {
+        composable<HomeBottomTabDestination> {
+            HomeContainer(
+                onRequestAuth = onRequestAuth,
+                onSearch = {
+                    bottomNavController.navigate(MapBottomTabDestination(searchKeyword = it)) {
+                        // Pop up to the start destination of the graph to
+                        // avoid building up a large stack of destinations
+                        // on the back stack as users select items
+                        popUpTo(bottomTabList.first()) { saveState = true }
+                        // Avoid multiple copies of the same destination when
+                        // reselecting the same item
+                        launchSingleTop = true
+                        // Restore state when reselecting a previously selected item
+                        restoreState = true
+                    }
+                },
+            )
+        }
 
-            homeBottomTabDestination -> {
-                HomeContainer(
-                    onRequestAuth = onRequestAuth,
-                    onSearch = {
-                        // TODO - pass searchString to target tab
-                        bottomNavController.routeToBottomNavigationTab(bottomTabList[2])
-                    },
-                )
-            }
+        composable<BankBottomTabDestination> {
+            BankDestination()
+        }
 
-            mapBottomTabDestination -> {
-                MapDestination()
-            }
+        composable<MapBottomTabDestination> {
+            MapDestination()
+        }
 
-            settingBottomTabDestination -> {
-                SettingDestination()
-            }
+        composable<SettingBottomTabDestination> {
+            SettingDestination()
         }
     }
 }
 
 private val bottomTabList =
     listOf(
-        homeBottomTabDestination,
-        bankBottomTabDestination,
-        mapBottomTabDestination,
-        settingBottomTabDestination,
+        HomeBottomTabDestination(),
+        BankBottomTabDestination(),
+        MapBottomTabDestination(),
+        SettingBottomTabDestination(),
     )

@@ -1,0 +1,34 @@
+package org.chapp.findfin.feature.bank.navigation
+
+import androidx.compose.runtime.Composable
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import org.chapp.findfin.core.navigation.BottomNavigationTab
+import org.chapp.findfin.feature.bank.ui.R
+import org.chapp.findfin.feature.bank.ui.banklist.view.BankListScreen
+
+/**
+ * Composable function that represents the bank destination.
+ * This function displays the bank list screen.
+ */
+@Composable
+fun BankDestination() {
+    BankListScreen()
+}
+
+/**
+ * Serializable class representing a bottom navigation tab for the bank feature.
+ *
+ * @property route The route associated with the tab.
+ * @property iconDrawableResource The drawable resource ID for the tab's icon.
+ * @property textStringResource The string resource ID for the tab's text.
+ */
+@Serializable
+class BankBottomTabDestination(
+    @SerialName("route")
+    override val route: String = "home-bottom-bank",
+    @SerialName("iconDrawableResource")
+    override val iconDrawableResource: Int = R.drawable.bank_ic_list,
+    @SerialName("textStringResource")
+    override val textStringResource: Int = R.string.bank_title_bank_list,
+) : BottomNavigationTab

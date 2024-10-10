@@ -8,7 +8,12 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.ComposeNavigator
+import androidx.navigation.compose.composable
 import androidx.navigation.testing.TestNavHostController
+import androidx.navigation.toRoute
+import io.kotest.matchers.types.shouldBeInstanceOf
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import org.chapp.findfin.core.navigation.test.R
 import org.junit.Before
 import org.junit.Rule
@@ -20,19 +25,25 @@ class BottomNavigationLayoutTest {
 
     private lateinit var navController: NavHostController
 
-    private val homeTab =
-        BottomNavigationTab(
-            route = "test-bottom-home",
-            iconDrawableResource = R.drawable.navigation_test_ic_home,
-            textStringResource = R.string.navigation_test_home,
-        )
+    @Serializable
+    private class HomeTab(
+        @SerialName("route")
+        override val route: String = "test-bottom-home",
+        @SerialName("iconDrawableResource")
+        override val iconDrawableResource: Int = R.drawable.navigation_test_ic_home,
+        @SerialName("textStringResource")
+        override val textStringResource: Int = R.string.navigation_test_home,
+    ) : BottomNavigationTab
 
-    private val settingTab =
-        BottomNavigationTab(
-            route = "test-bottom-setting",
-            iconDrawableResource = R.drawable.navigation_test_ic_setting,
-            textStringResource = R.string.navigation_test_setting,
-        )
+    @Serializable
+    private class SettingTab(
+        @SerialName("route")
+        override val route: String = "test-bottom-setting",
+        @SerialName("iconDrawableResource")
+        override val iconDrawableResource: Int = R.drawable.navigation_test_ic_setting,
+        @SerialName("textStringResource")
+        override val textStringResource: Int = R.string.navigation_test_setting,
+    ) : BottomNavigationTab
 
     @Before
     fun setUp() {
@@ -44,13 +55,16 @@ class BottomNavigationLayoutTest {
                 navController = navController,
                 bottomTabItems =
                     listOf(
-                        homeTab,
-                        settingTab,
+                        HomeTab(),
+                        SettingTab(),
                     ),
-            ) { tab ->
-                when (tab) {
-                    homeTab -> Text(text = tab.route)
-                    settingTab -> Text(text = tab.route)
+            ) {
+                composable<HomeTab> {
+                    Text(text = "Home")
+                }
+
+                composable<SettingTab> {
+                    Text(text = "Setting")
                 }
             }
         }
@@ -58,7 +72,10 @@ class BottomNavigationLayoutTest {
 
     @Test
     fun assertInitialRoute() {
-        assert(navController.currentDestination?.route == "test-bottom-home")
+        navController
+            .currentBackStackEntry
+            ?.toRoute<HomeTab>()
+            ?.shouldBeInstanceOf<HomeTab>()
     }
 
     @Test
@@ -67,6 +84,9 @@ class BottomNavigationLayoutTest {
             .onNodeWithContentDescription("test-bottom-setting")
             .performClick()
 
-        assert(navController.currentDestination?.route == "test-bottom-setting")
+        navController
+            .currentBackStackEntry
+            ?.toRoute<SettingTab>()
+            ?.shouldBeInstanceOf<SettingTab>()
     }
 }
