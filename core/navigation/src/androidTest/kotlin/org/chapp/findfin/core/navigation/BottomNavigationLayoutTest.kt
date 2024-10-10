@@ -58,6 +58,7 @@ class BottomNavigationLayoutTest {
                         HomeTab(),
                         SettingTab(),
                     ),
+                onTabClick = {},
             ) {
                 composable<HomeTab> {
                     Text(text = "Home")
