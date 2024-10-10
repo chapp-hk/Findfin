@@ -18,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -31,6 +30,7 @@ import androidx.navigation.compose.rememberNavController
  * @param modifier The modifier to be applied to the layout.
  * @param navController The navigation controller for managing navigation.
  * @param bottomTabItems The list of bottom navigation tabs.
+ * @param onTabClick A lambda to handle tab click events.
  * @param navGraphBuilder The builder for the navigation graph.
  */
 @Composable
@@ -38,6 +38,7 @@ fun BottomNavigationLayout(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     bottomTabItems: List<BottomNavigationTab>,
+    onTabClick: (BottomNavigationTab) -> Unit,
     navGraphBuilder: NavGraphBuilder.() -> Unit,
 ) {
     Scaffold(
@@ -46,6 +47,7 @@ fun BottomNavigationLayout(
             BottomNavigationBar(
                 navController = navController,
                 bottomTabItems = bottomTabItems,
+                onTabClick = onTabClick,
             )
         },
     ) { innerPadding ->
@@ -63,11 +65,13 @@ fun BottomNavigationLayout(
  *
  * @param navController The navigation controller for managing navigation.
  * @param bottomTabItems The list of bottom navigation tabs.
+ * @param onTabClick A lambda to handle tab click events.
  */
 @Composable
 private fun BottomNavigationBar(
     navController: NavHostController,
     bottomTabItems: List<BottomNavigationTab>,
+    onTabClick: (BottomNavigationTab) -> Unit,
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
@@ -76,21 +80,12 @@ private fun BottomNavigationBar(
             BottomNavigationItemComponent(
                 tab = tab,
                 isSelected = {
-                    navBackStackEntry?.destination?.hierarchy?.any { it.route == tab.route } == true
+                    navBackStackEntry
+                        ?.destination
+                        ?.route
+                        ?.startsWith(it::class.qualifiedName.orEmpty()) ?: false
                 },
-                onTabClick = {
-                    navController.navigate(tab) {
-                        // Pop up to the start destination of the graph to
-                        // avoid building up a large stack of destinations
-                        // on the back stack as users select items
-                        popUpTo(bottomTabItems.first()) { saveState = true }
-                        // Avoid multiple copies of the same destination when
-                        // reselecting the same item
-                        launchSingleTop = true
-                        // Restore state when reselecting a previously selected item
-                        restoreState = true
-                    }
-                },
+                onTabClick = onTabClick,
             )
         }
     }
