@@ -70,4 +70,10 @@ internal class BankLocationRepositoryImpl @Inject constructor(
     override suspend fun getAllBanks(): List<String> {
         return bankLocationLocalDataSource.getAllBanks()
     }
+
+    override suspend fun getAll(): List<BankLocationModel> {
+        return bankLocationLocalDataSource
+            .getAll()
+            .map(mapper::convertToDataModel)
+    }
 }

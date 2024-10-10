@@ -13,6 +13,7 @@ import org.chapp.findfin.feature.bank.data.remote.location.api.LocationPath
 import org.chapp.findfin.feature.bank.data.remote.location.datasource.BankLocationRemoteDataSource
 import org.chapp.findfin.feature.bank.data.remote.location.model.LocationResult
 import org.chapp.findfin.feature.bank.data.repo.location.local.datasource.BankLocationLocalDataSource
+import org.chapp.findfin.feature.bank.data.repo.location.local.model.BankLocationLocal
 import org.chapp.findfin.feature.bank.data.repo.location.mapper.BankLocationFetchResult
 import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationBound
 import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationModel
@@ -225,5 +226,44 @@ class BankLocationRepositoryImplTest {
             coVerify { bankLocationLocalDataSource.getAllBanks() }
 
             result shouldBe expectedBanks
+        }
+
+    @Test
+    @DisplayName("When getAll() is successful, should return the list of BankLocationModel")
+    fun testGetAllSuccess() =
+        runTest(StandardTestDispatcher()) {
+            val mockLocalData =
+                listOf(
+                    BankLocationLocal(
+                        type = "BRANCH",
+                        district = "Kowloon",
+                        bankName = "Bank A",
+                        typeName = "Branch",
+                        address = "Some address",
+                        serviceHours = "9:00 - 17:00",
+                        latitude = 22.3193,
+                        longitude = 114.1694,
+                    ),
+                )
+
+            coEvery { bankLocationLocalDataSource.getAll() } returns mockLocalData
+
+            val result = locatorRepositoryImpl.getAll()
+
+            coVerify { bankLocationLocalDataSource.getAll() }
+
+            result shouldBe
+                listOf(
+                    BankLocationModel(
+                        type = "BRANCH",
+                        district = "Kowloon",
+                        bankName = "Bank A",
+                        typeName = "Branch",
+                        address = "Some address",
+                        serviceHours = "9:00 - 17:00",
+                        latitude = 22.3193,
+                        longitude = 114.1694,
+                    ),
+                )
         }
 }
