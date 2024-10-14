@@ -12,8 +12,8 @@ import org.chapp.findfin.feature.auth.navigation.graph.authNavGraph
 import org.chapp.findfin.feature.auth.navigation.graph.authOnboardingNavGraph
 import org.chapp.findfin.feature.home.navigation.HomeNavGraphDestination
 import org.chapp.findfin.feature.home.navigation.homeNavGraph
-import org.chapp.findfin.feature.onboarding.navigation.graph.OnboardingNavGraphDestination
-import org.chapp.findfin.feature.onboarding.navigation.graph.onboardingNavGraph
+import org.chapp.findfin.feature.onboarding.presentation.navigation.graph.OnboardingNavGraphDestination
+import org.chapp.findfin.feature.onboarding.presentation.navigation.graph.onboardingNavGraph
 
 @Composable
 fun AppNavHost(
