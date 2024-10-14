@@ -27,20 +27,20 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.preferences.storage)
-    implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.kotlinx.serialization.json)
-
     implementation(projects.core.design.ui)
     implementation(projects.core.locale.api)
     implementation(projects.core.locale.impl)
+    implementation(projects.core.preferences.storage)
     implementation(projects.feature.bank.data.localDatabase)
     implementation(projects.feature.onboarding.domain)
+
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.compose)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.android.lottie.compose)
+    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(projects.testing.extension)
     testImplementation(libs.junit.jupiter)
