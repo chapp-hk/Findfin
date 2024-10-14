@@ -6,15 +6,15 @@ appcompat = "1.7.0"
 core-ktx = "1.13.1"
 hilt = "2.52"
 kermit = "2.0.4"
-kotlin = "2.0.20"
+kotlin = "2.0.21"
 kotlinPoet = "1.18.1"
 kotlinxCoroutines = "1.9.0"
 ktlint = "1.1.1"
-ktor = "2.3.12"
+ktor = "3.0.0"
 mapsCompose = "6.1.2"
 mapStruct = "1.6.2"
 material = "1.12.0"
-mockk = "1.13.12"
+mockk = "1.13.13"
 jacoco = "0.8.12"
 room = "2.6.1"
 
@@ -93,7 +93,7 @@ kermit-test = { module = "co.touchlab:kermit-test", version.ref = "kermit" }
 mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapStruct" }
 mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapStruct" }
 #used in library
-ksp-symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-api", version = "2.0.20-1.0.25" }
+ksp-symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-api", version = "2.0.21-1.0.25" }
 kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
 kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinPoet" }
 kotlin-compile-testing-ksp = { module = "com.github.tschuchortdev:kotlin-compile-testing-ksp", version = "1.6.0" }
@@ -103,7 +103,7 @@ jacoco-core-plugin = { module = "org.jacoco:org.jacoco.core", version.ref = "jac
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 ktlint-gradle-plugin = { module = "org.jlleitschuh.gradle:ktlint-gradle", version = "12.1.0" }
 detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version = "1.23.7" }
-ksp-gradle-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "2.0.20-1.0.25" }
+ksp-gradle-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "2.0.21-1.0.25" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -112,7 +112,7 @@ kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.52" }
-ksp = { id = "com.google.devtools.ksp", version = "2.0.20-1.0.25" }
+ksp = { id = "com.google.devtools.ksp", version = "2.0.21-1.0.25" }
 google-gms-services = { id = "com.google.gms.google-services", version = "4.4.2" }
 google-secrets = { id  = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version = "2.0.1" }
 
