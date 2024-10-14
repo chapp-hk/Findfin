@@ -53,7 +53,6 @@ include(":feature:bank:ui")
 // feature onboarding modules
 include(":feature:onboarding:domain")
 include(":feature:onboarding:presentation")
-include(":feature:onboarding:ui")
 
 // feature home modules
 include(":feature:home:domain")
