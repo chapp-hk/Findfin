@@ -59,7 +59,6 @@ class OnboardingNavGraphTest {
                 startDestination = OnboardingNavGraphDestination,
             ) {
                 onboardingNavGraph(
-                    navController = navController,
                     finishOnboarding = finishOnboarding,
                 )
             }
@@ -82,7 +81,6 @@ class OnboardingNavGraphTest {
                 startDestination = OnboardingNavGraphDestination,
             ) {
                 onboardingNavGraph(
-                    navController = navController,
                     finishOnboarding = finishOnboarding,
                 )
             }

@@ -3,7 +3,6 @@ package org.chapp.findfin.feature.onboarding.presentation.navigation.graph
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
@@ -14,16 +13,11 @@ import org.chapp.findfin.feature.onboarding.presentation.ui.language.view.Select
 /**
  * Adds the onboarding navigation graph to the provided [NavGraphBuilder].
  *
- * This function sets up the navigation graph for the onboarding flow,
- * including the screens for selecting a language and requesting location permissions.
+ * This function sets up the navigation graph for the onboarding flow.
  *
- * @param navController The [NavController] used for navigation.
  * @param finishOnboarding A callback to be invoked when the onboarding process is finished.
  */
-fun NavGraphBuilder.onboardingNavGraph(
-    navController: NavController,
-    finishOnboarding: () -> Unit,
-) {
+fun NavGraphBuilder.onboardingNavGraph(finishOnboarding: () -> Unit) {
     navigation<OnboardingNavGraphDestination>(
         startDestination = OnboardingSelectLanguageDestination,
     ) {
@@ -34,8 +28,6 @@ fun NavGraphBuilder.onboardingNavGraph(
             when (navState) {
                 OnboardingNavState.Loading -> {
                     // no implementation
-                    // TODO - use navController
-                    navController.toString()
                 }
 
                 OnboardingNavState.IsFinishedOnboard -> {
