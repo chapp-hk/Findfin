@@ -7,9 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import org.chapp.findfin.feature.auth.navigation.graph.AuthNavGraphDestination
-import org.chapp.findfin.feature.auth.navigation.graph.AuthOnboardingNavGraphDestination
 import org.chapp.findfin.feature.auth.navigation.graph.authNavGraph
-import org.chapp.findfin.feature.auth.navigation.graph.authOnboardingNavGraph
 import org.chapp.findfin.feature.home.navigation.HomeNavGraphDestination
 import org.chapp.findfin.feature.home.navigation.homeNavGraph
 import org.chapp.findfin.feature.onboarding.presentation.navigation.graph.OnboardingNavGraphDestination
@@ -27,21 +25,9 @@ fun AppNavHost(
     ) {
         onboardingNavGraph(
             finishOnboarding = {
-                navController.navigate(AuthOnboardingNavGraphDestination) {
-                    launchSingleTop = true
-                    popUpTo<OnboardingNavGraphDestination> {
-                        inclusive = true
-                    }
-                }
-            },
-        )
-
-        authOnboardingNavGraph(
-            navController = navController,
-            onFinishAuthOnboarding = {
                 navController.navigate(HomeNavGraphDestination) {
                     launchSingleTop = true
-                    popUpTo<AuthOnboardingNavGraphDestination> {
+                    popUpTo<OnboardingNavGraphDestination> {
                         inclusive = true
                     }
                 }
