@@ -26,7 +26,6 @@ fun AppNavHost(
         startDestination = OnboardingNavGraphDestination,
     ) {
         onboardingNavGraph(
-            navController = navController,
             finishOnboarding = {
                 navController.navigate(AuthOnboardingNavGraphDestination) {
                     launchSingleTop = true
