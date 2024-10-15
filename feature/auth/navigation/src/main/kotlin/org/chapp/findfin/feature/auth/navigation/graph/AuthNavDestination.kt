@@ -3,14 +3,6 @@ package org.chapp.findfin.feature.auth.navigation.graph
 import kotlinx.serialization.Serializable
 
 /**
- * Represents the destination for the onboarding navigation graph in the authentication flow.
- *
- * This object is used as a marker for the start of the authentication onboarding navigation graph.
- */
-@Serializable
-object AuthOnboardingNavGraphDestination
-
-/**
  * Represents the destination for the main navigation graph in the authentication flow.
  *
  * This object is used as a marker for the start of the main authentication navigation graph.

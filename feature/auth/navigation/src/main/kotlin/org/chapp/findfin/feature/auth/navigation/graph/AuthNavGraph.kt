@@ -2,79 +2,12 @@ package org.chapp.findfin.feature.auth.navigation.graph
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
-import androidx.compose.runtime.getValue
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import org.chapp.findfin.feature.auth.navigation.viewmodel.AuthNavState
-import org.chapp.findfin.feature.auth.navigation.viewmodel.AuthNavViewModel
 import org.chapp.findfin.feature.auth.ui.login.view.AuthLogin
 import org.chapp.findfin.feature.auth.ui.register.view.AuthRegister
-
-/**
- * Adds the authentication onboarding navigation graph to the provided [NavGraphBuilder].
- *
- * @param navController The [NavController] used for navigation.
- * @param onFinishAuthOnboarding A callback invoked when the authentication onboarding is finished.
- */
-fun NavGraphBuilder.authOnboardingNavGraph(
-    navController: NavController,
-    onFinishAuthOnboarding: () -> Unit,
-) {
-    navigation<AuthOnboardingNavGraphDestination>(
-        startDestination = AuthRegisterDestination,
-    ) {
-        composable<AuthRegisterDestination> {
-            val authNavViewModel = hiltViewModel<AuthNavViewModel>()
-            val navState by authNavViewModel.navState.collectAsStateWithLifecycle()
-
-            when (navState) {
-                AuthNavState.Loading -> {
-                    // no implementation
-                }
-
-                AuthNavState.IsInitialized -> {
-                    onFinishAuthOnboarding()
-                }
-
-                AuthNavState.NotInitialized -> {
-                    AuthRegister(
-                        onClose = {
-                            authNavViewModel.setAuthInitialized()
-                            onFinishAuthOnboarding()
-                        },
-                        onFinishAuth = {
-                            authNavViewModel.setAuthInitialized()
-                            onFinishAuthOnboarding()
-                        },
-                        onHaveAccount = {
-                            navController.navigate(AuthLoginDestination)
-                        },
-                    )
-                }
-            }
-        }
-
-        composable<AuthLoginDestination> {
-            val authNavViewModel = hiltViewModel<AuthNavViewModel>()
-
-            AuthLogin(
-                onClose = {
-                    authNavViewModel.setAuthInitialized()
-                    navController.navigateUp()
-                },
-                onFinishAuth = {
-                    authNavViewModel.setAuthInitialized()
-                    onFinishAuthOnboarding()
-                },
-                onDontHaveAccount = navController::navigateUp,
-            )
-        }
-    }
-}
 
 /**
  * Adds the main authentication navigation graph to the provided [NavGraphBuilder].
