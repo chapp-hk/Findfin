@@ -1,6 +1,5 @@
 package org.chapp.findfin.feature.auth.data.repo.register.repository
 
-import org.chapp.findfin.feature.auth.data.repo.register.model.RegisterErrorCode
 import org.chapp.findfin.feature.auth.data.repo.register.model.RegisterResult
 import org.chapp.findfin.feature.auth.data.repo.register.remote.datasource.RegisterRemoteDataSource
 import org.chapp.findfin.feature.auth.data.repo.register.remote.response.RegisterResponse
@@ -22,16 +21,11 @@ internal class RegisterRepositoryImpl @Inject constructor(
             )
 
         return when (response) {
-            is RegisterResponse.Error -> {
-                when (RegisterErrorCode.fromString(response.code)) {
-                    RegisterErrorCode.ERROR_UNKNOWN -> RegisterResult.Error.Unknown
-                    RegisterErrorCode.ERROR_INVALID_EMAIL -> RegisterResult.Error.Register.InvalidEmail
-                    RegisterErrorCode.ERROR_WEAK_PASSWORD -> RegisterResult.Error.Register.WeakPassword
-                    RegisterErrorCode.ERROR_EMAIL_ALREADY_IN_USE -> RegisterResult.Error.Register.EmailAlreadyInUse
-                }
-            }
-
-            is RegisterResponse.Success -> RegisterResult.Authorized
+            RegisterResponse.Error.InvalidEmail -> RegisterResult.Error.Register.InvalidEmail
+            RegisterResponse.Error.Unknown -> RegisterResult.Error.Unknown
+            RegisterResponse.Error.UserCollision -> RegisterResult.Error.Register.EmailAlreadyInUse
+            RegisterResponse.Error.WeakPassword -> RegisterResult.Error.Register.WeakPassword
+            RegisterResponse.Success -> RegisterResult.Authorized
         }
     }
 }
