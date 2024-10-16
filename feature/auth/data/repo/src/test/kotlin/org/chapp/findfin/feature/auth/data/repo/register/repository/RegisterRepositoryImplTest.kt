@@ -50,7 +50,7 @@ class RegisterRepositoryImplTest {
         override fun provideArguments(context: ExtensionContext): Stream<Arguments> =
             Stream.of(
                 Arguments.arguments(
-                    RegisterResponse.Success(isAnonymous = false),
+                    RegisterResponse.Success,
                     RegisterResult.Authorized,
                 ),
                 Arguments.arguments(

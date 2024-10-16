@@ -23,7 +23,7 @@ internal class RegisterService @Inject constructor(
         return withContext(ioDispatcher) {
             runCatching {
                 firebaseAuth.createUserWithEmailAndPassword(email, password).await()
-                RegisterResponse.Success(isAnonymous = false)
+                RegisterResponse.Success
             }.getOrElse { error ->
                 val errorCode =
                     if (error is FirebaseAuthException) {
