@@ -9,6 +9,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,18 +18,17 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import org.chapp.findfin.core.design.ui.ScreenStateView
 import org.chapp.findfin.core.design.ui.modifier.contentDescription
 import org.chapp.findfin.core.design.ui.text.rememberAppTextFieldState
 import org.chapp.findfin.feature.auth.ui.R
 import org.chapp.findfin.feature.auth.ui.login.state.LoginError
+import org.chapp.findfin.feature.auth.ui.login.state.LoginUiState
 import org.chapp.findfin.feature.auth.ui.login.viewmodel.AuthLoginViewModel
-import org.chapp.findfin.feature.auth.ui.login.viewmodel.AuthLoginViewModelImpl
 
 @Composable
 fun AuthLogin(
     modifier: Modifier = Modifier,
-    authLoginViewModel: AuthLoginViewModel = hiltViewModel<AuthLoginViewModelImpl>(),
+    authLoginViewModel: AuthLoginViewModel = hiltViewModel(),
     onClose: () -> Unit = {},
     onFinishAuth: () -> Unit = {},
     onDontHaveAccount: () -> Unit = {},
@@ -43,6 +43,7 @@ fun AuthLogin(
         )
     val focusManager = LocalFocusManager.current
     val snackbarHostState = remember { SnackbarHostState() }
+    val uiState by authLoginViewModel.uiState.collectAsStateWithLifecycle()
 
     AuthLoginForm(
         snackbarHostState = snackbarHostState,
@@ -59,9 +60,9 @@ fun AuthLogin(
         onDontHaveAccount = onDontHaveAccount,
     )
 
-    ScreenStateView(
-        state = authLoginViewModel.uiState.collectAsStateWithLifecycle(),
-        loading = {
+    when (val state = uiState) {
+        LoginUiState.None -> {}
+        LoginUiState.Loading -> {
             CircularProgressIndicator(
                 modifier =
                     Modifier
@@ -75,38 +76,35 @@ fun AuthLogin(
                         .matchParentSize()
                         .wrapContentSize(Alignment.Center),
             )
-        },
-        error = { error ->
-            when (error.reason) {
+        }
+        LoginUiState.Authorized -> {
+            onFinishAuth()
+        }
+        is LoginUiState.Error -> {
+            when (state.reason) {
                 LoginError.UNKNOWN -> {
                     val message = stringResource(id = R.string.auth_error_message)
-                    LaunchedEffect(error.reason) {
+                    LaunchedEffect(state.reason) {
                         snackbarHostState.showSnackbar(message)
                     }
                 }
-
                 LoginError.INVALID_CREDENTIAL -> {
                     emailState.setErrorText(
                         errorText = stringResource(id = R.string.auth_error_message_invalid_credential),
                     )
                 }
-
                 LoginError.ACCOUNT_DISABLED -> {
                     emailState.setErrorText(
                         errorText = stringResource(id = R.string.auth_error_message_account_disabled),
                     )
                 }
-
                 LoginError.TOO_MANY_REQUEST -> {
                     val message = stringResource(id = R.string.auth_error_message_too_many_request)
-                    LaunchedEffect(error.reason) {
+                    LaunchedEffect(state.reason) {
                         snackbarHostState.showSnackbar(message)
                     }
                 }
             }
-        },
-        success = {
-            onFinishAuth()
-        },
-    )
+        }
+    }
 }

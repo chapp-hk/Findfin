@@ -9,6 +9,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,18 +18,17 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import org.chapp.findfin.core.design.ui.ScreenStateView
 import org.chapp.findfin.core.design.ui.modifier.contentDescription
 import org.chapp.findfin.core.design.ui.text.rememberAppTextFieldState
 import org.chapp.findfin.feature.auth.ui.R
 import org.chapp.findfin.feature.auth.ui.register.state.AuthRegisterError
+import org.chapp.findfin.feature.auth.ui.register.state.AuthRegisterUiState
 import org.chapp.findfin.feature.auth.ui.register.viewmodel.AuthRegisterViewModel
-import org.chapp.findfin.feature.auth.ui.register.viewmodel.AuthRegisterViewModelImpl
 
 @Composable
 fun AuthRegister(
     modifier: Modifier = Modifier,
-    authRegisterViewModel: AuthRegisterViewModel = hiltViewModel<AuthRegisterViewModelImpl>(),
+    authRegisterViewModel: AuthRegisterViewModel = hiltViewModel(),
     onClose: () -> Unit = {},
     onFinishAuth: () -> Unit,
     onHaveAccount: () -> Unit,
@@ -43,6 +43,7 @@ fun AuthRegister(
         )
     val focusManager = LocalFocusManager.current
     val snackbarHostState = remember { SnackbarHostState() }
+    val uiState by authRegisterViewModel.uiState.collectAsStateWithLifecycle()
 
     AuthRegisterForm(
         snackbarHostState = snackbarHostState,
@@ -59,9 +60,9 @@ fun AuthRegister(
         onHaveAccount = onHaveAccount,
     )
 
-    ScreenStateView(
-        state = authRegisterViewModel.uiState.collectAsStateWithLifecycle(),
-        loading = {
+    when (val state = uiState) {
+        AuthRegisterUiState.None -> {}
+        AuthRegisterUiState.Loading -> {
             CircularProgressIndicator(
                 modifier =
                     Modifier
@@ -75,12 +76,15 @@ fun AuthRegister(
                         .matchParentSize()
                         .wrapContentSize(Alignment.Center),
             )
-        },
-        error = { error ->
-            when (error.reason) {
+        }
+        AuthRegisterUiState.Authorized -> {
+            onFinishAuth()
+        }
+        is AuthRegisterUiState.Error -> {
+            when (state.reason) {
                 AuthRegisterError.UNKNOWN -> {
                     val message = stringResource(id = R.string.auth_error_message)
-                    LaunchedEffect(error.reason) {
+                    LaunchedEffect(state.reason) {
                         snackbarHostState.showSnackbar(message)
                         authRegisterViewModel.resetUiState()
                     }
@@ -104,9 +108,6 @@ fun AuthRegister(
                     )
                 }
             }
-        },
-        success = {
-            onFinishAuth()
-        },
-    )
+        }
+    }
 }
