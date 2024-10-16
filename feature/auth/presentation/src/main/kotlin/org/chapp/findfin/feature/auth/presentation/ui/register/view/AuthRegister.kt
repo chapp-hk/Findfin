@@ -1,0 +1,113 @@
+package org.chapp.findfin.feature.auth.presentation.ui.register.view
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.chapp.findfin.core.design.ui.modifier.contentDescription
+import org.chapp.findfin.core.design.ui.text.rememberAppTextFieldState
+import org.chapp.findfin.feature.auth.presentation.R
+import org.chapp.findfin.feature.auth.presentation.ui.register.state.AuthRegisterError
+import org.chapp.findfin.feature.auth.presentation.ui.register.state.AuthRegisterUiState
+import org.chapp.findfin.feature.auth.presentation.ui.register.viewmodel.AuthRegisterViewModel
+
+@Composable
+fun AuthRegister(
+    modifier: Modifier = Modifier,
+    authRegisterViewModel: AuthRegisterViewModel = hiltViewModel(),
+    onClose: () -> Unit = {},
+    onFinishAuth: () -> Unit,
+    onHaveAccount: () -> Unit,
+) = Box(modifier = modifier) {
+    val emailState =
+        rememberAppTextFieldState(
+            placeholder = stringResource(id = R.string.auth_placeholder_email),
+        )
+    val passwordState =
+        rememberAppTextFieldState(
+            placeholder = stringResource(id = R.string.auth_placeholder_password),
+        )
+    val focusManager = LocalFocusManager.current
+    val snackbarHostState = remember { SnackbarHostState() }
+    val uiState by authRegisterViewModel.uiState.collectAsStateWithLifecycle()
+
+    AuthRegisterForm(
+        snackbarHostState = snackbarHostState,
+        emailState = emailState,
+        passwordState = passwordState,
+        onClose = onClose,
+        onRegister = {
+            focusManager.clearFocus(force = true)
+            authRegisterViewModel.emailPasswordRegister(
+                email = emailState.value,
+                password = passwordState.value,
+            )
+        },
+        onHaveAccount = onHaveAccount,
+    )
+
+    when (val state = uiState) {
+        AuthRegisterUiState.None -> {}
+        AuthRegisterUiState.Loading -> {
+            CircularProgressIndicator(
+                modifier =
+                    Modifier
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null,
+                            onClick = {},
+                        )
+                        .contentDescription(stringResource(id = R.string.auth_content_description_loading))
+                        .background(Color.Transparent)
+                        .matchParentSize()
+                        .wrapContentSize(Alignment.Center),
+            )
+        }
+        AuthRegisterUiState.Authorized -> {
+            onFinishAuth()
+        }
+        is AuthRegisterUiState.Error -> {
+            when (state.reason) {
+                AuthRegisterError.UNKNOWN -> {
+                    val message = stringResource(id = R.string.auth_error_message)
+                    LaunchedEffect(state.reason) {
+                        snackbarHostState.showSnackbar(message)
+                        authRegisterViewModel.resetUiState()
+                    }
+                }
+
+                AuthRegisterError.INVALID_EMAIL -> {
+                    emailState.setErrorText(
+                        errorText = stringResource(id = R.string.auth_error_message_invalid_email),
+                    )
+                }
+
+                AuthRegisterError.WEAK_PASSWORD -> {
+                    passwordState.setErrorText(
+                        errorText = stringResource(id = R.string.auth_error_message_password_strength),
+                    )
+                }
+
+                AuthRegisterError.EMAIL_ALREADY_IN_USE -> {
+                    emailState.setErrorText(
+                        errorText = stringResource(id = R.string.auth_error_message_email_already_in_use),
+                    )
+                }
+            }
+        }
+    }
+}

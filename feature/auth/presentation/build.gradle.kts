@@ -10,6 +10,7 @@ plugins {
 
 android {
     namespace = "org.chapp.findfin.feature.auth.presentation"
+    resourcePrefix = "auth_"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
@@ -25,11 +26,24 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.design.ui)
     implementation(projects.core.preferences.storage)
-    implementation(projects.feature.auth.ui)
+    implementation(projects.feature.auth.data.repo)
+    implementation(projects.feature.auth.data.remoteFirebase)
+
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.lifecycle.compose)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+
+    testImplementation(projects.testing.extension)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
 
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.androidx.test.runner)
