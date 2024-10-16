@@ -31,13 +31,6 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 
-    testImplementation(projects.testing.extension)
-    testImplementation(libs.junit.jupiter)
-    testImplementation(libs.kotest.assertions.core)
-    testImplementation(libs.mockk)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.turbine)
-
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.mockk.android)
