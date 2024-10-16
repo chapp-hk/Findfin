@@ -13,7 +13,6 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.chapp.findfin.core.design.ui.AppContent
-import org.chapp.findfin.core.design.ui.ScreenState
 import org.chapp.findfin.feature.auth.ui.R
 import org.chapp.findfin.feature.auth.ui.register.state.AuthRegisterError
 import org.chapp.findfin.feature.auth.ui.register.state.AuthRegisterUiState
@@ -31,7 +30,7 @@ class AuthRegisterTest {
     @Test
     fun testLoading() {
         every { authRegisterViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Loading)
+            MutableStateFlow(AuthRegisterUiState.Loading)
 
         composeTestRule.setContent {
             AppContent {
@@ -51,7 +50,7 @@ class AuthRegisterTest {
     @Test
     fun testUnknownError() {
         every { authRegisterViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN)))
+            MutableStateFlow(AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN))
 
         composeTestRule.setContent {
             AppContent {
@@ -71,7 +70,7 @@ class AuthRegisterTest {
     @Test
     fun testInvalidEmailError() {
         every { authRegisterViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.INVALID_EMAIL)))
+            MutableStateFlow(AuthRegisterUiState.Error(AuthRegisterError.INVALID_EMAIL))
 
         composeTestRule.setContent {
             AppContent {
@@ -96,7 +95,7 @@ class AuthRegisterTest {
     @Test
     fun testWeakPasswordError() {
         every { authRegisterViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.WEAK_PASSWORD)))
+            MutableStateFlow(AuthRegisterUiState.Error(AuthRegisterError.WEAK_PASSWORD))
 
         composeTestRule.setContent {
             AppContent {
@@ -121,7 +120,7 @@ class AuthRegisterTest {
     @Test
     fun testEmailAlreadyInUseError() {
         every { authRegisterViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Error(AuthRegisterUiState.Error(AuthRegisterError.EMAIL_ALREADY_IN_USE)))
+            MutableStateFlow(AuthRegisterUiState.Error(AuthRegisterError.EMAIL_ALREADY_IN_USE))
 
         composeTestRule.setContent {
             AppContent {
@@ -149,7 +148,7 @@ class AuthRegisterTest {
         every { mockAuthorized() } just Runs
 
         every { authRegisterViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Success(AuthRegisterUiState.Authorized))
+            MutableStateFlow(AuthRegisterUiState.Authorized)
 
         composeTestRule.setContent {
             AppContent {

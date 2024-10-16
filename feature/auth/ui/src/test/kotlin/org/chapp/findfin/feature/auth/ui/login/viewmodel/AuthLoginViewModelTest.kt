@@ -6,7 +6,6 @@ import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.core.design.ui.ScreenState
 import org.chapp.findfin.feature.auth.data.repo.login.model.LoginResult
 import org.chapp.findfin.feature.auth.data.repo.login.repository.LoginRepository
 import org.chapp.findfin.feature.auth.ui.login.state.LoginError
@@ -22,21 +21,21 @@ import org.junit.jupiter.params.provider.ArgumentsSource
 import java.util.stream.Stream
 
 @ExtendWith(MainDispatcherExtension::class)
-@DisplayName("AuthLoginViewModelImpl unit tests")
-class AuthLoginViewModelImplTest {
+@DisplayName("AuthLoginViewModel unit tests")
+class AuthLoginViewModelTest {
     private val loginRepositoryImpl = mockk<LoginRepository>()
 
-    private val authLoginViewModel = AuthLoginViewModelImpl(loginRepository = loginRepositoryImpl)
+    private val authLoginViewModel = AuthLoginViewModel(loginRepository = loginRepositoryImpl)
 
     @ParameterizedTest(
         name =
             "when loginRepositoryImpl.emailPasswordLogin() returns {0}, " +
-                "then AuthLoginViewModelImpl.uiState should be {1}",
+                "then AuthLoginViewModel.uiState should be {1}",
     )
     @ArgumentsSource(EmailPasswordLoginArgumentProvider::class)
     fun `test emailPasswordLogin`(
         mockAuthRepositoryAnonymousLoginValue: LoginResult,
-        expectedResult: ScreenState<LoginUiState, LoginUiState.Error>,
+        expectedResult: LoginUiState,
     ) = runTest {
         coEvery {
             loginRepositoryImpl.emailPasswordLogin(
@@ -51,8 +50,8 @@ class AuthLoginViewModelImplTest {
         )
 
         authLoginViewModel.uiState.test {
-            awaitItem() shouldBe ScreenState.Empty
-            awaitItem() shouldBe ScreenState.Loading
+            awaitItem() shouldBe LoginUiState.None
+            awaitItem() shouldBe LoginUiState.Loading
             awaitItem() shouldBeEqualToComparingFields expectedResult
             cancelAndIgnoreRemainingEvents()
         }
@@ -63,23 +62,23 @@ class AuthLoginViewModelImplTest {
             return Stream.of(
                 Arguments.arguments(
                     LoginResult.Success,
-                    ScreenState.Success<LoginUiState, LoginUiState.Error>(LoginUiState.Authorized),
+                    LoginUiState.Authorized,
                 ),
                 Arguments.arguments(
                     LoginResult.Error.Unknown,
-                    ScreenState.Error<LoginUiState, LoginUiState.Error>(LoginUiState.Error(LoginError.UNKNOWN)),
+                    LoginUiState.Error(LoginError.UNKNOWN),
                 ),
                 Arguments.arguments(
                     LoginResult.Error.AccountDisabled,
-                    ScreenState.Error<LoginUiState, LoginUiState.Error>(LoginUiState.Error(LoginError.ACCOUNT_DISABLED)),
+                    LoginUiState.Error(LoginError.ACCOUNT_DISABLED),
                 ),
                 Arguments.arguments(
                     LoginResult.Error.InvalidCredential,
-                    ScreenState.Error<LoginUiState, LoginUiState.Error>(LoginUiState.Error(LoginError.INVALID_CREDENTIAL)),
+                    LoginUiState.Error(LoginError.INVALID_CREDENTIAL),
                 ),
                 Arguments.arguments(
                     LoginResult.Error.TooManyRequest,
-                    ScreenState.Error<LoginUiState, LoginUiState.Error>(LoginUiState.Error(LoginError.TOO_MANY_REQUEST)),
+                    LoginUiState.Error(LoginError.TOO_MANY_REQUEST),
                 ),
             )
         }

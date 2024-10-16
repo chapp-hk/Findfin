@@ -13,7 +13,6 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.chapp.findfin.core.design.ui.AppContent
-import org.chapp.findfin.core.design.ui.ScreenState
 import org.chapp.findfin.feature.auth.ui.R
 import org.chapp.findfin.feature.auth.ui.login.state.LoginError
 import org.chapp.findfin.feature.auth.ui.login.state.LoginUiState
@@ -31,7 +30,7 @@ class AuthLoginTest {
     @Test
     fun testLoading() {
         every { authLoginViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Loading)
+            MutableStateFlow(LoginUiState.Loading)
 
         composeTestRule.setContent {
             AppContent {
@@ -47,7 +46,7 @@ class AuthLoginTest {
     @Test
     fun testUnknownError() {
         every { authLoginViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Error(LoginUiState.Error(LoginError.UNKNOWN)))
+            MutableStateFlow(LoginUiState.Error(LoginError.UNKNOWN))
 
         composeTestRule.setContent {
             AppContent {
@@ -63,7 +62,7 @@ class AuthLoginTest {
     @Test
     fun testInvalidCredentialError() {
         every { authLoginViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Error(LoginUiState.Error(LoginError.INVALID_CREDENTIAL)))
+            MutableStateFlow(LoginUiState.Error(LoginError.INVALID_CREDENTIAL))
 
         composeTestRule.setContent {
             AppContent {
@@ -84,7 +83,7 @@ class AuthLoginTest {
     @Test
     fun testAccountDisabledError() {
         every { authLoginViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Error(LoginUiState.Error(LoginError.ACCOUNT_DISABLED)))
+            MutableStateFlow(LoginUiState.Error(LoginError.ACCOUNT_DISABLED))
 
         composeTestRule.setContent {
             AppContent {
@@ -105,7 +104,7 @@ class AuthLoginTest {
     @Test
     fun testTooManyRequestError() {
         every { authLoginViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Error(LoginUiState.Error(LoginError.TOO_MANY_REQUEST)))
+            MutableStateFlow(LoginUiState.Error(LoginError.TOO_MANY_REQUEST))
 
         composeTestRule.setContent {
             AppContent {
@@ -124,7 +123,7 @@ class AuthLoginTest {
         every { mockAuthorized() } just Runs
 
         every { authLoginViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Success(LoginUiState.Authorized))
+            MutableStateFlow(LoginUiState.Authorized)
 
         composeTestRule.setContent {
             AppContent {
