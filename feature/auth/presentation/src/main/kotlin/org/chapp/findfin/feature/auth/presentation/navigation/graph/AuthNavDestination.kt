@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.auth.navigation.graph
+package org.chapp.findfin.feature.auth.presentation.navigation.graph
 
 import kotlinx.serialization.Serializable
 

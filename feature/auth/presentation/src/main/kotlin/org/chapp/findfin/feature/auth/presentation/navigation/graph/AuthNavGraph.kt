@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.auth.navigation.graph
+package org.chapp.findfin.feature.auth.presentation.navigation.graph
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
