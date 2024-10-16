@@ -43,7 +43,7 @@ class RegisterServiceTest {
             registerService.emailPasswordRegister(
                 email = "test@domain.com",
                 password = "*****",
-            ) shouldBe RegisterResponse.Success(isAnonymous = false)
+            ) shouldBe RegisterResponse.Success
         }
 
     @Test
