@@ -5,7 +5,6 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.feature.auth.data.repo.register.model.RegisterErrorCode
 import org.chapp.findfin.feature.auth.data.repo.register.model.RegisterResult
 import org.chapp.findfin.feature.auth.data.repo.register.remote.datasource.RegisterRemoteDataSource
 import org.chapp.findfin.feature.auth.data.repo.register.remote.response.RegisterResponse
@@ -54,31 +53,19 @@ class RegisterRepositoryImplTest {
                     RegisterResult.Authorized,
                 ),
                 Arguments.arguments(
-                    RegisterResponse.Error(
-                        code = RegisterErrorCode.ERROR_UNKNOWN.name,
-                        message = "",
-                    ),
+                    RegisterResponse.Error.Unknown,
                     RegisterResult.Error.Unknown,
                 ),
                 Arguments.arguments(
-                    RegisterResponse.Error(
-                        code = RegisterErrorCode.ERROR_INVALID_EMAIL.name,
-                        message = "",
-                    ),
+                    RegisterResponse.Error.InvalidEmail,
                     RegisterResult.Error.Register.InvalidEmail,
                 ),
                 Arguments.arguments(
-                    RegisterResponse.Error(
-                        code = RegisterErrorCode.ERROR_WEAK_PASSWORD.name,
-                        message = "",
-                    ),
+                    RegisterResponse.Error.WeakPassword,
                     RegisterResult.Error.Register.WeakPassword,
                 ),
                 Arguments.arguments(
-                    RegisterResponse.Error(
-                        code = RegisterErrorCode.ERROR_EMAIL_ALREADY_IN_USE.name,
-                        message = "",
-                    ),
+                    RegisterResponse.Error.UserCollision,
                     RegisterResult.Error.Register.EmailAlreadyInUse,
                 ),
             )

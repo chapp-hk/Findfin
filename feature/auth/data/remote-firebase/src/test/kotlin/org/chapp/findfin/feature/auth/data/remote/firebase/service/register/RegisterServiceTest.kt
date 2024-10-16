@@ -3,6 +3,9 @@ package org.chapp.findfin.feature.auth.data.remote.firebase.service.register
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
@@ -48,39 +51,73 @@ class RegisterServiceTest {
 
     @Test
     @DisplayName(
-        "When firebaseAuth.createUserWithEmailAndPassword() returns FirebaseAuthException, " +
-            "then emailPasswordRegister() should return error with error code",
+        "When firebaseAuth.createUserWithEmailAndPassword() returns FirebaseAuthWeakPasswordException, " +
+            "then emailPasswordRegister() should return RegisterResponse.Error.WeakPassword",
     )
-    fun testEmailPasswordRegisterErrorFirebaseAuthException() =
+    fun testEmailPasswordRegisterErrorWeakPassword() =
         runTest(testDispatcher) {
-            val firebaseAuthException =
-                mockk<FirebaseAuthException> {
-                    every { errorCode } returns "error-code"
-                    every { message } returns "message"
-                }
+            val exception = mockk<FirebaseAuthWeakPasswordException>()
 
             every { firebaseAuth.createUserWithEmailAndPassword(any(), any()) } returns
-                mockTaskError<AuthResult>(firebaseAuthException)
+                mockTaskError<AuthResult>(exception)
 
             registerService.emailPasswordRegister(
                 email = "test@domain.com",
                 password = "*****",
-            ) shouldBe RegisterResponse.Error(code = "error-code", message = "")
+            ) shouldBe RegisterResponse.Error.WeakPassword
         }
 
     @Test
     @DisplayName(
-        "When firebaseAuth.createUserWithEmailAndPassword() returns Exception, " +
-            "then emailPasswordRegister() should return error with empty error code",
+        "When firebaseAuth.createUserWithEmailAndPassword() returns FirebaseAuthInvalidCredentialsException, " +
+            "then emailPasswordRegister() should return RegisterResponse.Error.InvalidEmail",
     )
-    fun testEmailPasswordRegisterErrorException() =
+    fun testEmailPasswordRegisterErrorInvalidEmail() =
         runTest(testDispatcher) {
+            val exception = mockk<FirebaseAuthInvalidCredentialsException>()
+
             every { firebaseAuth.createUserWithEmailAndPassword(any(), any()) } returns
-                mockTaskError<AuthResult>(Exception())
+                mockTaskError<AuthResult>(exception)
 
             registerService.emailPasswordRegister(
                 email = "test@domain.com",
                 password = "*****",
-            ) shouldBe RegisterResponse.Error(code = "", message = "")
+            ) shouldBe RegisterResponse.Error.InvalidEmail
+        }
+
+    @Test
+    @DisplayName(
+        "When firebaseAuth.createUserWithEmailAndPassword() returns FirebaseAuthUserCollisionException, " +
+            "then emailPasswordRegister() should return RegisterResponse.Error.UserCollision",
+    )
+    fun testEmailPasswordRegisterErrorUserCollision() =
+        runTest(testDispatcher) {
+            val exception = mockk<FirebaseAuthUserCollisionException>()
+
+            every { firebaseAuth.createUserWithEmailAndPassword(any(), any()) } returns
+                mockTaskError<AuthResult>(exception)
+
+            registerService.emailPasswordRegister(
+                email = "test@domain.com",
+                password = "*****",
+            ) shouldBe RegisterResponse.Error.UserCollision
+        }
+
+    @Test
+    @DisplayName(
+        "When firebaseAuth.createUserWithEmailAndPassword() returns any exception, " +
+            "then emailPasswordRegister() should return RegisterResponse.Error.Unknown",
+    )
+    fun testEmailPasswordRegisterErrorUnknown() =
+        runTest(testDispatcher) {
+            val exception = mockk<FirebaseAuthException>()
+
+            every { firebaseAuth.createUserWithEmailAndPassword(any(), any()) } returns
+                mockTaskError<AuthResult>(exception)
+
+            registerService.emailPasswordRegister(
+                email = "test@domain.com",
+                password = "*****",
+            ) shouldBe RegisterResponse.Error.Unknown
         }
 }
