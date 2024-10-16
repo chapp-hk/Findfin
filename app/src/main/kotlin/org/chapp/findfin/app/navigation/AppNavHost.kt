@@ -6,8 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import org.chapp.findfin.feature.auth.navigation.graph.AuthNavGraphDestination
-import org.chapp.findfin.feature.auth.navigation.graph.authNavGraph
+import org.chapp.findfin.feature.auth.presentation.navigation.graph.AuthNavGraphDestination
+import org.chapp.findfin.feature.auth.presentation.navigation.graph.authNavGraph
 import org.chapp.findfin.feature.home.navigation.HomeNavGraphDestination
 import org.chapp.findfin.feature.home.navigation.homeNavGraph
 import org.chapp.findfin.feature.onboarding.presentation.navigation.graph.OnboardingNavGraphDestination

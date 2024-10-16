@@ -17,7 +17,7 @@ android {
 dependencies {
     implementation(projects.core.navigation)
     implementation(projects.feature.home.ui)
-    implementation(projects.feature.auth.navigation)
+    implementation(projects.feature.auth.presentation)
     implementation(projects.feature.bank.navigation)
     implementation(projects.feature.locator.navigation)
     implementation(projects.feature.setting.navigation)
