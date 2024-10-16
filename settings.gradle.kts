@@ -41,7 +41,6 @@ include(":core:threading")
 include(":feature:auth:data:remote-firebase")
 include(":feature:auth:data:repo")
 include(":feature:auth:presentation")
-include(":feature:auth:ui")
 
 // feature bank modules
 include(":feature:bank:data:local-database")

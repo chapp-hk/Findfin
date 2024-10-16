@@ -6,8 +6,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import org.chapp.findfin.feature.auth.ui.login.view.AuthLogin
-import org.chapp.findfin.feature.auth.ui.register.view.AuthRegister
+import org.chapp.findfin.feature.auth.presentation.ui.login.view.AuthLogin
+import org.chapp.findfin.feature.auth.presentation.ui.register.view.AuthRegister
 
 /**
  * Adds the main authentication navigation graph to the provided [NavGraphBuilder].
