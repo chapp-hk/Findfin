@@ -70,15 +70,15 @@ class AuthRegisterViewModelTest {
                     AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN),
                 ),
                 Arguments.arguments(
-                    RegisterResult.Error.Register.EmailAlreadyInUse,
+                    RegisterResult.Error.EmailAlreadyInUse,
                     AuthRegisterUiState.Error(AuthRegisterError.EMAIL_ALREADY_IN_USE),
                 ),
                 Arguments.arguments(
-                    RegisterResult.Error.Register.WeakPassword,
+                    RegisterResult.Error.WeakPassword,
                     AuthRegisterUiState.Error(AuthRegisterError.WEAK_PASSWORD),
                 ),
                 Arguments.arguments(
-                    RegisterResult.Error.Register.InvalidEmail,
+                    RegisterResult.Error.InvalidEmail,
                     AuthRegisterUiState.Error(AuthRegisterError.INVALID_EMAIL),
                 ),
             )

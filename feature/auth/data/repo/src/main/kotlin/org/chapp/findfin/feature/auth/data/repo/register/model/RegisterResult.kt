@@ -6,12 +6,10 @@ sealed interface RegisterResult {
     sealed interface Error : RegisterResult {
         data object Unknown : Error
 
-        sealed interface Register : Error {
-            data object InvalidEmail : Register
+        data object InvalidEmail : Error
 
-            data object WeakPassword : Register
+        data object WeakPassword : Error
 
-            data object EmailAlreadyInUse : Register
-        }
+        data object EmailAlreadyInUse : Error
     }
 }
