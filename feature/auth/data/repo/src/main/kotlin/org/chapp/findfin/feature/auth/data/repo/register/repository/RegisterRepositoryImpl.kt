@@ -21,10 +21,10 @@ internal class RegisterRepositoryImpl @Inject constructor(
             )
 
         return when (response) {
-            RegisterResponse.Error.InvalidEmail -> RegisterResult.Error.Register.InvalidEmail
+            RegisterResponse.Error.InvalidEmail -> RegisterResult.Error.InvalidEmail
             RegisterResponse.Error.Unknown -> RegisterResult.Error.Unknown
-            RegisterResponse.Error.UserCollision -> RegisterResult.Error.Register.EmailAlreadyInUse
-            RegisterResponse.Error.WeakPassword -> RegisterResult.Error.Register.WeakPassword
+            RegisterResponse.Error.UserCollision -> RegisterResult.Error.EmailAlreadyInUse
+            RegisterResponse.Error.WeakPassword -> RegisterResult.Error.WeakPassword
             RegisterResponse.Success -> RegisterResult.Authorized
         }
     }

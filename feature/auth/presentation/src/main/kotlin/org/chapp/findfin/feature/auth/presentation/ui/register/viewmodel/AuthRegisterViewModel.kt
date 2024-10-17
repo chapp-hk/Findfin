@@ -32,13 +32,13 @@ class AuthRegisterViewModel @Inject constructor(
                     RegisterResult.Authorized ->
                         AuthRegisterUiState.Authorized
 
-                    RegisterResult.Error.Register.EmailAlreadyInUse ->
+                    RegisterResult.Error.EmailAlreadyInUse ->
                         AuthRegisterUiState.Error(AuthRegisterError.EMAIL_ALREADY_IN_USE)
 
-                    RegisterResult.Error.Register.InvalidEmail ->
+                    RegisterResult.Error.InvalidEmail ->
                         AuthRegisterUiState.Error(AuthRegisterError.INVALID_EMAIL)
 
-                    RegisterResult.Error.Register.WeakPassword ->
+                    RegisterResult.Error.WeakPassword ->
                         AuthRegisterUiState.Error(AuthRegisterError.WEAK_PASSWORD)
 
                     RegisterResult.Error.Unknown ->

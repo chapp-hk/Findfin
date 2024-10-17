@@ -58,15 +58,15 @@ class RegisterRepositoryImplTest {
                 ),
                 Arguments.arguments(
                     RegisterResponse.Error.InvalidEmail,
-                    RegisterResult.Error.Register.InvalidEmail,
+                    RegisterResult.Error.InvalidEmail,
                 ),
                 Arguments.arguments(
                     RegisterResponse.Error.WeakPassword,
-                    RegisterResult.Error.Register.WeakPassword,
+                    RegisterResult.Error.WeakPassword,
                 ),
                 Arguments.arguments(
                     RegisterResponse.Error.UserCollision,
-                    RegisterResult.Error.Register.EmailAlreadyInUse,
+                    RegisterResult.Error.EmailAlreadyInUse,
                 ),
             )
     }
