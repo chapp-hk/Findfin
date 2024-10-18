@@ -9,40 +9,40 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.chapp.findfin.feature.auth.data.repo.register.model.RegisterResult
 import org.chapp.findfin.feature.auth.data.repo.register.repository.RegisterRepository
-import org.chapp.findfin.feature.auth.presentation.ui.register.state.AuthRegisterError
-import org.chapp.findfin.feature.auth.presentation.ui.register.state.AuthRegisterUiState
+import org.chapp.findfin.feature.auth.presentation.ui.register.state.RegisterError
+import org.chapp.findfin.feature.auth.presentation.ui.register.state.RegisterUiState
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthRegisterViewModel @Inject constructor(
+class RegisterViewModel @Inject constructor(
     private val registerRepository: RegisterRepository,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<AuthRegisterUiState>(AuthRegisterUiState.None)
-    val uiState: StateFlow<AuthRegisterUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<RegisterUiState>(RegisterUiState.None)
+    val uiState: StateFlow<RegisterUiState> = _uiState.asStateFlow()
 
     fun emailPasswordRegister(
         email: String,
         password: String,
     ) {
         viewModelScope.launch {
-            _uiState.emit(AuthRegisterUiState.Loading)
+            _uiState.emit(RegisterUiState.Loading)
 
             val result =
                 when (registerRepository.emailPasswordRegister(email, password)) {
                     RegisterResult.Authorized ->
-                        AuthRegisterUiState.Authorized
+                        RegisterUiState.Authorized
 
                     RegisterResult.Error.EmailAlreadyInUse ->
-                        AuthRegisterUiState.Error(AuthRegisterError.EMAIL_ALREADY_IN_USE)
+                        RegisterUiState.Error(RegisterError.EMAIL_ALREADY_IN_USE)
 
                     RegisterResult.Error.InvalidEmail ->
-                        AuthRegisterUiState.Error(AuthRegisterError.INVALID_EMAIL)
+                        RegisterUiState.Error(RegisterError.INVALID_EMAIL)
 
                     RegisterResult.Error.WeakPassword ->
-                        AuthRegisterUiState.Error(AuthRegisterError.WEAK_PASSWORD)
+                        RegisterUiState.Error(RegisterError.WEAK_PASSWORD)
 
                     RegisterResult.Error.Unknown ->
-                        AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN)
+                        RegisterUiState.Error(RegisterError.UNKNOWN)
                 }
             _uiState.emit(result)
         }
@@ -50,7 +50,7 @@ class AuthRegisterViewModel @Inject constructor(
 
     fun resetUiState() {
         viewModelScope.launch {
-            _uiState.emit(AuthRegisterUiState.None)
+            _uiState.emit(RegisterUiState.None)
         }
     }
 }

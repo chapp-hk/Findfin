@@ -22,10 +22,10 @@ import java.util.stream.Stream
 
 @ExtendWith(MainDispatcherExtension::class)
 @DisplayName("AuthLoginViewModel unit tests")
-class AuthLoginViewModelTest {
+class LoginViewModelTest {
     private val loginRepositoryImpl = mockk<LoginRepository>()
 
-    private val authLoginViewModel = AuthLoginViewModel(loginRepository = loginRepositoryImpl)
+    private val loginViewModel = LoginViewModel(loginRepository = loginRepositoryImpl)
 
     @ParameterizedTest(
         name =
@@ -44,12 +44,12 @@ class AuthLoginViewModelTest {
             )
         } returns mockAuthRepositoryAnonymousLoginValue
 
-        authLoginViewModel.emailPasswordLogin(
+        loginViewModel.emailPasswordLogin(
             email = "name@test.com",
             password = "123456",
         )
 
-        authLoginViewModel.uiState.test {
+        loginViewModel.uiState.test {
             awaitItem() shouldBe LoginUiState.None
             awaitItem() shouldBe LoginUiState.Loading
             awaitItem() shouldBeEqualToComparingFields expectedResult

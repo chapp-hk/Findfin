@@ -18,7 +18,7 @@ import org.chapp.findfin.testing.instrument.getResourceString
 import org.junit.Rule
 import org.junit.Test
 
-class AuthRegisterFormTest {
+class RegisterFormTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -31,7 +31,7 @@ class AuthRegisterFormTest {
             AppContent {
                 val emailState = rememberAppTextFieldState()
                 val passwordState = rememberAppTextFieldState()
-                AuthRegisterForm(
+                RegisterForm(
                     emailState = emailState,
                     passwordState = passwordState,
                     onClose = mockedOnClose,
@@ -55,7 +55,7 @@ class AuthRegisterFormTest {
             AppContent {
                 val emailState = rememberAppTextFieldState()
                 val passwordState = rememberAppTextFieldState()
-                AuthRegisterForm(
+                RegisterForm(
                     emailState = emailState,
                     passwordState = passwordState,
                     onRegister = mockedOnRegister,
@@ -87,7 +87,7 @@ class AuthRegisterFormTest {
             AppContent {
                 val emailState = rememberAppTextFieldState()
                 val passwordState = rememberAppTextFieldState()
-                AuthRegisterForm(
+                RegisterForm(
                     emailState = emailState,
                     passwordState = passwordState,
                     onHaveAccount = mockedOnHaveAccount,
@@ -108,7 +108,7 @@ class AuthRegisterFormTest {
             AppContent {
                 val emailState = rememberAppTextFieldState()
                 val passwordState = rememberAppTextFieldState()
-                AuthRegisterForm(
+                RegisterForm(
                     emailState = emailState,
                     passwordState = passwordState,
                 )
@@ -130,7 +130,7 @@ class AuthRegisterFormTest {
             AppContent {
                 val emailState = rememberAppTextFieldState()
                 val passwordState = rememberAppTextFieldState()
-                AuthRegisterForm(
+                RegisterForm(
                     emailState = emailState,
                     passwordState = passwordState,
                 )

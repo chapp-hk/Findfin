@@ -12,7 +12,7 @@ import org.chapp.findfin.testing.instrument.getResourceString
 import org.junit.Rule
 import org.junit.Test
 
-class AuthLoginFormTest {
+class LoginFormTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -22,7 +22,7 @@ class AuthLoginFormTest {
             AppContent {
                 val emailState = rememberAppTextFieldState()
                 val passwordState = rememberAppTextFieldState()
-                AuthLoginForm(
+                LoginForm(
                     emailState = emailState,
                     passwordState = passwordState,
                 )
@@ -44,7 +44,7 @@ class AuthLoginFormTest {
             AppContent {
                 val emailState = rememberAppTextFieldState()
                 val passwordState = rememberAppTextFieldState()
-                AuthLoginForm(
+                LoginForm(
                     emailState = emailState,
                     passwordState = passwordState,
                 )

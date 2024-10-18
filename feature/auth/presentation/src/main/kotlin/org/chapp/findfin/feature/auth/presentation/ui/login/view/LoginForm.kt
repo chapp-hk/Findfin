@@ -33,7 +33,7 @@ import org.chapp.findfin.core.design.ui.text.rememberAppTextFieldState
 import org.chapp.findfin.feature.auth.presentation.R
 
 @Composable
-internal fun AuthLoginForm(
+internal fun LoginForm(
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     emailState: AppTextFieldState,
     passwordState: AppTextFieldState,
@@ -110,9 +110,9 @@ internal fun AuthLoginForm(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun AuthRegisterFormPreview() {
+private fun LoginFormPreview() {
     AppContent {
-        AuthLoginForm(
+        LoginForm(
             emailState = rememberAppTextFieldState(),
             passwordState = rememberAppTextFieldState(),
         )

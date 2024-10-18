@@ -23,12 +23,12 @@ import org.chapp.findfin.core.design.ui.text.rememberAppTextFieldState
 import org.chapp.findfin.feature.auth.presentation.R
 import org.chapp.findfin.feature.auth.presentation.ui.login.state.LoginError
 import org.chapp.findfin.feature.auth.presentation.ui.login.state.LoginUiState
-import org.chapp.findfin.feature.auth.presentation.ui.login.viewmodel.AuthLoginViewModel
+import org.chapp.findfin.feature.auth.presentation.ui.login.viewmodel.LoginViewModel
 
 @Composable
-fun AuthLogin(
+fun LoginScreen(
     modifier: Modifier = Modifier,
-    authLoginViewModel: AuthLoginViewModel = hiltViewModel(),
+    loginViewModel: LoginViewModel = hiltViewModel(),
     onClose: () -> Unit = {},
     onFinishAuth: () -> Unit = {},
     onDontHaveAccount: () -> Unit = {},
@@ -43,16 +43,16 @@ fun AuthLogin(
         )
     val focusManager = LocalFocusManager.current
     val snackbarHostState = remember { SnackbarHostState() }
-    val uiState by authLoginViewModel.uiState.collectAsStateWithLifecycle()
+    val uiState by loginViewModel.uiState.collectAsStateWithLifecycle()
 
-    AuthLoginForm(
+    LoginForm(
         snackbarHostState = snackbarHostState,
         emailState = emailState,
         passwordState = passwordState,
         onClose = onClose,
         onLogin = {
             focusManager.clearFocus(force = true)
-            authLoginViewModel.emailPasswordLogin(
+            loginViewModel.emailPasswordLogin(
                 email = emailState.value,
                 password = passwordState.value,
             )

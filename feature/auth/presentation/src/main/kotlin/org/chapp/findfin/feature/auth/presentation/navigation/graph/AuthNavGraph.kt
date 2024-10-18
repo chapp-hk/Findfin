@@ -6,8 +6,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import org.chapp.findfin.feature.auth.presentation.ui.login.view.AuthLogin
-import org.chapp.findfin.feature.auth.presentation.ui.register.view.AuthRegister
+import org.chapp.findfin.feature.auth.presentation.ui.login.view.LoginScreen
+import org.chapp.findfin.feature.auth.presentation.ui.register.view.RegisterScreen
 
 /**
  * Adds the main authentication navigation graph to the provided [NavGraphBuilder].
@@ -38,7 +38,7 @@ fun NavGraphBuilder.authNavGraph(
                 )
             },
         ) {
-            AuthLogin(
+            LoginScreen(
                 onClose = navController::navigateUp,
                 onFinishAuth = finishAuth,
                 onDontHaveAccount = {
@@ -48,7 +48,7 @@ fun NavGraphBuilder.authNavGraph(
         }
 
         composable<AuthRegisterDestination> {
-            AuthRegister(
+            RegisterScreen(
                 onClose = finishAuth,
                 onFinishAuth = finishAuth,
                 onHaveAccount = navController::navigateUp,
