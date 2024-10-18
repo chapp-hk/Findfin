@@ -1,6 +1,6 @@
 package org.chapp.findfin.feature.auth.presentation.ui.login.state
 
-sealed interface LoginUiState {
+internal sealed interface LoginUiState {
     data object None : LoginUiState
 
     data object Loading : LoginUiState

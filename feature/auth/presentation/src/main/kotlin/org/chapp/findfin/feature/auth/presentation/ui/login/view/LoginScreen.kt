@@ -26,7 +26,7 @@ import org.chapp.findfin.feature.auth.presentation.ui.login.state.LoginUiState
 import org.chapp.findfin.feature.auth.presentation.ui.login.viewmodel.LoginViewModel
 
 @Composable
-fun LoginScreen(
+internal fun LoginScreen(
     modifier: Modifier = Modifier,
     loginViewModel: LoginViewModel = hiltViewModel(),
     onClose: () -> Unit = {},

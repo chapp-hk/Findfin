@@ -1,6 +1,6 @@
 package org.chapp.findfin.feature.auth.presentation.ui.register.state
 
-sealed interface RegisterUiState {
+internal sealed interface RegisterUiState {
     data object None : RegisterUiState
 
     data object Loading : RegisterUiState

@@ -26,7 +26,7 @@ import org.chapp.findfin.feature.auth.presentation.ui.register.state.RegisterUiS
 import org.chapp.findfin.feature.auth.presentation.ui.register.viewmodel.RegisterViewModel
 
 @Composable
-fun RegisterScreen(
+internal fun RegisterScreen(
     modifier: Modifier = Modifier,
     registerViewModel: RegisterViewModel = hiltViewModel(),
     onClose: () -> Unit = {},

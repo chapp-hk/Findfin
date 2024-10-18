@@ -14,7 +14,7 @@ import org.chapp.findfin.feature.auth.presentation.ui.login.state.LoginUiState
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+internal class LoginViewModel @Inject constructor(
     private val loginRepository: LoginRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.None)
