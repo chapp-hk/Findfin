@@ -16,25 +16,25 @@ import org.chapp.findfin.core.design.ui.AppContent
 import org.chapp.findfin.feature.auth.presentation.R
 import org.chapp.findfin.feature.auth.presentation.ui.login.state.LoginError
 import org.chapp.findfin.feature.auth.presentation.ui.login.state.LoginUiState
-import org.chapp.findfin.feature.auth.presentation.ui.login.viewmodel.AuthLoginViewModel
+import org.chapp.findfin.feature.auth.presentation.ui.login.viewmodel.LoginViewModel
 import org.chapp.findfin.testing.instrument.getResourceString
 import org.junit.Rule
 import org.junit.Test
 
-class AuthLoginTest {
+class LoginTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val authLoginViewModel = mockk<AuthLoginViewModel>()
+    private val loginViewModel = mockk<LoginViewModel>()
 
     @Test
     fun testLoading() {
-        every { authLoginViewModel.uiState } returns
+        every { loginViewModel.uiState } returns
             MutableStateFlow(LoginUiState.Loading)
 
         composeTestRule.setContent {
             AppContent {
-                AuthLogin(authLoginViewModel = authLoginViewModel)
+                LoginScreen(loginViewModel = loginViewModel)
             }
         }
 
@@ -45,12 +45,12 @@ class AuthLoginTest {
 
     @Test
     fun testUnknownError() {
-        every { authLoginViewModel.uiState } returns
+        every { loginViewModel.uiState } returns
             MutableStateFlow(LoginUiState.Error(LoginError.UNKNOWN))
 
         composeTestRule.setContent {
             AppContent {
-                AuthLogin(authLoginViewModel = authLoginViewModel)
+                LoginScreen(loginViewModel = loginViewModel)
             }
         }
 
@@ -61,12 +61,12 @@ class AuthLoginTest {
 
     @Test
     fun testInvalidCredentialError() {
-        every { authLoginViewModel.uiState } returns
+        every { loginViewModel.uiState } returns
             MutableStateFlow(LoginUiState.Error(LoginError.INVALID_CREDENTIAL))
 
         composeTestRule.setContent {
             AppContent {
-                AuthLogin(authLoginViewModel = authLoginViewModel)
+                LoginScreen(loginViewModel = loginViewModel)
             }
         }
 
@@ -82,12 +82,12 @@ class AuthLoginTest {
 
     @Test
     fun testAccountDisabledError() {
-        every { authLoginViewModel.uiState } returns
+        every { loginViewModel.uiState } returns
             MutableStateFlow(LoginUiState.Error(LoginError.ACCOUNT_DISABLED))
 
         composeTestRule.setContent {
             AppContent {
-                AuthLogin(authLoginViewModel = authLoginViewModel)
+                LoginScreen(loginViewModel = loginViewModel)
             }
         }
 
@@ -103,12 +103,12 @@ class AuthLoginTest {
 
     @Test
     fun testTooManyRequestError() {
-        every { authLoginViewModel.uiState } returns
+        every { loginViewModel.uiState } returns
             MutableStateFlow(LoginUiState.Error(LoginError.TOO_MANY_REQUEST))
 
         composeTestRule.setContent {
             AppContent {
-                AuthLogin(authLoginViewModel = authLoginViewModel)
+                LoginScreen(loginViewModel = loginViewModel)
             }
         }
 
@@ -122,13 +122,13 @@ class AuthLoginTest {
         val mockAuthorized = mockk<() -> Unit>()
         every { mockAuthorized() } just Runs
 
-        every { authLoginViewModel.uiState } returns
+        every { loginViewModel.uiState } returns
             MutableStateFlow(LoginUiState.Authorized)
 
         composeTestRule.setContent {
             AppContent {
-                AuthLogin(
-                    authLoginViewModel = authLoginViewModel,
+                LoginScreen(
+                    loginViewModel = loginViewModel,
                     onFinishAuth = mockAuthorized,
                 )
             }

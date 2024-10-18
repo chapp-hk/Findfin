@@ -8,8 +8,8 @@ import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.feature.auth.data.repo.register.model.RegisterResult
 import org.chapp.findfin.feature.auth.data.repo.register.repository.RegisterRepository
-import org.chapp.findfin.feature.auth.presentation.ui.register.state.AuthRegisterError
-import org.chapp.findfin.feature.auth.presentation.ui.register.state.AuthRegisterUiState
+import org.chapp.findfin.feature.auth.presentation.ui.register.state.RegisterError
+import org.chapp.findfin.feature.auth.presentation.ui.register.state.RegisterUiState
 import org.chapp.findfin.testing.extension.MainDispatcherExtension
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -23,10 +23,10 @@ import java.util.stream.Stream
 
 @ExtendWith(MainDispatcherExtension::class)
 @DisplayName("AuthRegisterViewModel unit tests")
-class AuthRegisterViewModelTest {
+class RegisterViewModelTest {
     private val registerRepository = mockk<RegisterRepository>()
 
-    private val authRegisterViewModel = AuthRegisterViewModel(registerRepository = registerRepository)
+    private val registerViewModel = RegisterViewModel(registerRepository = registerRepository)
 
     @ParameterizedTest(
         name =
@@ -36,7 +36,7 @@ class AuthRegisterViewModelTest {
     @ArgumentsSource(EmailPasswordRegisterArgumentProvider::class)
     fun `test emailPasswordRegister`(
         mockAuthRepositoryAnonymousLoginValue: RegisterResult,
-        expectedResult: AuthRegisterUiState,
+        expectedResult: RegisterUiState,
     ) = runTest {
         coEvery {
             registerRepository.emailPasswordRegister(
@@ -45,14 +45,14 @@ class AuthRegisterViewModelTest {
             )
         } returns mockAuthRepositoryAnonymousLoginValue
 
-        authRegisterViewModel.emailPasswordRegister(
+        registerViewModel.emailPasswordRegister(
             email = "name@test.com",
             password = "123456",
         )
 
-        authRegisterViewModel.uiState.test {
-            awaitItem() shouldBe AuthRegisterUiState.None
-            awaitItem() shouldBe AuthRegisterUiState.Loading
+        registerViewModel.uiState.test {
+            awaitItem() shouldBe RegisterUiState.None
+            awaitItem() shouldBe RegisterUiState.Loading
             awaitItem() shouldBeEqualToComparingFields expectedResult
             cancelAndIgnoreRemainingEvents()
         }
@@ -63,23 +63,23 @@ class AuthRegisterViewModelTest {
             return Stream.of(
                 Arguments.arguments(
                     RegisterResult.Authorized,
-                    AuthRegisterUiState.Authorized,
+                    RegisterUiState.Authorized,
                 ),
                 Arguments.arguments(
                     RegisterResult.Error.Unknown,
-                    AuthRegisterUiState.Error(AuthRegisterError.UNKNOWN),
+                    RegisterUiState.Error(RegisterError.UNKNOWN),
                 ),
                 Arguments.arguments(
                     RegisterResult.Error.EmailAlreadyInUse,
-                    AuthRegisterUiState.Error(AuthRegisterError.EMAIL_ALREADY_IN_USE),
+                    RegisterUiState.Error(RegisterError.EMAIL_ALREADY_IN_USE),
                 ),
                 Arguments.arguments(
                     RegisterResult.Error.WeakPassword,
-                    AuthRegisterUiState.Error(AuthRegisterError.WEAK_PASSWORD),
+                    RegisterUiState.Error(RegisterError.WEAK_PASSWORD),
                 ),
                 Arguments.arguments(
                     RegisterResult.Error.InvalidEmail,
-                    AuthRegisterUiState.Error(AuthRegisterError.INVALID_EMAIL),
+                    RegisterUiState.Error(RegisterError.INVALID_EMAIL),
                 ),
             )
         }
@@ -95,14 +95,14 @@ class AuthRegisterViewModelTest {
                 )
             } returns RegisterResult.Authorized
 
-            authRegisterViewModel.emailPasswordRegister(email = "test@test.com", password = "1111")
-            authRegisterViewModel.resetUiState()
+            registerViewModel.emailPasswordRegister(email = "test@test.com", password = "1111")
+            registerViewModel.resetUiState()
 
-            authRegisterViewModel.uiState.test {
-                awaitItem() shouldBe AuthRegisterUiState.None
-                awaitItem() shouldBe AuthRegisterUiState.Loading
-                awaitItem() shouldBeEqualToComparingFields AuthRegisterUiState.Authorized
-                awaitItem() shouldBe AuthRegisterUiState.None
+            registerViewModel.uiState.test {
+                awaitItem() shouldBe RegisterUiState.None
+                awaitItem() shouldBe RegisterUiState.Loading
+                awaitItem() shouldBeEqualToComparingFields RegisterUiState.Authorized
+                awaitItem() shouldBe RegisterUiState.None
                 cancelAndIgnoreRemainingEvents()
             }
         }

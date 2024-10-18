@@ -1,6 +1,6 @@
 package org.chapp.findfin.feature.auth.presentation.ui.register.state
 
-enum class AuthRegisterError {
+enum class RegisterError {
     UNKNOWN,
     INVALID_EMAIL,
     WEAK_PASSWORD,
