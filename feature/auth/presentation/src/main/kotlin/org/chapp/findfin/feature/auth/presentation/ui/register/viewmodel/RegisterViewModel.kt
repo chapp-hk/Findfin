@@ -14,7 +14,7 @@ import org.chapp.findfin.feature.auth.presentation.ui.register.state.RegisterUiS
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(
+internal class RegisterViewModel @Inject constructor(
     private val registerRepository: RegisterRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<RegisterUiState>(RegisterUiState.None)

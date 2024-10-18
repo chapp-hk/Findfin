@@ -1,6 +1,6 @@
 package org.chapp.findfin.feature.auth.presentation.ui.login.state
 
-enum class LoginError {
+internal enum class LoginError {
     UNKNOWN,
     INVALID_CREDENTIAL,
     ACCOUNT_DISABLED,
