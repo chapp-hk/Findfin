@@ -61,6 +61,7 @@ internal class AuthNavGraphTest {
             .onNodeWithText(getResourceString(R.string.auth_button_dont_have_account))
             .performClick()
 
-        testNavController.currentBackStackEntry?.destination?.route shouldBe AuthRegisterDestination.toString()
+        testNavController.currentBackStackEntry?.destination?.route shouldBe
+            AuthRegisterDestination::class.qualifiedName
     }
 }
