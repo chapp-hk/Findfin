@@ -6,7 +6,7 @@ import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
 @Mapper
-interface UserModelMapper {
+internal interface UserModelMapper {
     @Mapping(source = "emailVerified", target = "isEmailVerified")
     fun clone(userResponse: UserResponse): UserModel
 }
