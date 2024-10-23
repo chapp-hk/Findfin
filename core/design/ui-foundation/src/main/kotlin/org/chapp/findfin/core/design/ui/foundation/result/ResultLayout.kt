@@ -18,13 +18,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 /**
- * A composable function that displays a result layout with an icon, message, and an optional action button.
+ * A composable function that displays a result layout with an icon, message,
+ * and an optional action button.
  *
  * @param modifier The modifier to be applied to the layout.
  * @param icon The icon to be displayed in the layout.
  * @param message The message to be displayed in the layout.
- * @param buttonText The text to be displayed on the optional action button. If null, the button is not displayed.
- * @param onActionButtonClick The callback to be invoked when the action button is clicked. If null, the button is not displayed.
+ * @param buttonText The text to be displayed on the optional action button.
+ *                   If null, the button is not displayed.
+ * @param onActionButtonClick The callback to be invoked when the action button is clicked.
+ *                            If null, the button is not displayed.
  */
 @Composable
 fun ResultLayout(

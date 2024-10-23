@@ -14,13 +14,18 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import org.chapp.findfin.core.design.ui.foundation.AppContent
 
 /**
- * A composable function that displays a text field with customizable state, trailing icon, visual transformation, and keyboard options.
+ * A composable function that displays a text field with customizable state,
+ * trailing icon, visual transformation, and keyboard options.
  *
  * @param modifier The modifier to be applied to the text field.
- * @param state The state of the text field, including the current value, placeholder, supporting text, and error state.
- * @param trailingIcon A composable function to display a trailing icon in the text field. If null, no trailing icon is displayed.
- * @param visualTransformation The visual transformation to be applied to the text field's input. Defaults to [VisualTransformation.None].
- * @param keyboardOptions The keyboard options to be applied to the text field. Defaults to [KeyboardOptions.Default].
+ * @param state The state of the text field, including the current value, placeholder,
+ *              supporting text, and error state.
+ * @param trailingIcon A composable function to display a trailing icon in the text field.
+ *                     If null, no trailing icon is displayed.
+ * @param visualTransformation The visual transformation to be applied to the text field's input.
+ *                             Defaults to [VisualTransformation.None].
+ * @param keyboardOptions The keyboard options to be applied to the text field.
+ *                        Defaults to [KeyboardOptions.Default].
  */
 @Composable
 fun AppTextField(
