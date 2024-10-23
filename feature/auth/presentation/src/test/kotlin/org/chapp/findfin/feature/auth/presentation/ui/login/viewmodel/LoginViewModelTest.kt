@@ -22,7 +22,7 @@ import java.util.stream.Stream
 
 @ExtendWith(MainDispatcherExtension::class)
 @DisplayName("AuthLoginViewModel unit tests")
-class LoginViewModelTest {
+internal class LoginViewModelTest {
     private val loginRepositoryImpl = mockk<LoginRepository>()
 
     private val loginViewModel = LoginViewModel(loginRepository = loginRepositoryImpl)
