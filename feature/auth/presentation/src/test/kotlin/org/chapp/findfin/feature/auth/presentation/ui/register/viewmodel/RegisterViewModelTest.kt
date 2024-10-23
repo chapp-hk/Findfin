@@ -23,7 +23,7 @@ import java.util.stream.Stream
 
 @ExtendWith(MainDispatcherExtension::class)
 @DisplayName("AuthRegisterViewModel unit tests")
-class RegisterViewModelTest {
+internal class RegisterViewModelTest {
     private val registerRepository = mockk<RegisterRepository>()
 
     private val registerViewModel = RegisterViewModel(registerRepository = registerRepository)
