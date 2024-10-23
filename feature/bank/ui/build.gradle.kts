@@ -30,7 +30,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.compose)
     implementation(libs.androidx.hilt.navigation.compose)
 
-    implementation(projects.core.design.ui)
+    implementation(projects.core.design.uiFoundation)
     implementation(projects.feature.bank.data.repo)
 
     testImplementation(projects.testing.extension)

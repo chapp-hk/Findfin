@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.chapp.findfin.core.design.ui.ScreenState
-import org.chapp.findfin.core.design.ui.mutableScreenStateFlowOf
+import org.chapp.findfin.core.design.ui.foundation.ScreenState
+import org.chapp.findfin.core.design.ui.foundation.mutableScreenStateFlowOf
 import org.chapp.findfin.core.locale.api.AppLocaleRepository
 import org.chapp.findfin.feature.onboarding.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel

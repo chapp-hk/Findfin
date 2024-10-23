@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.chapp.findfin.app.navigation.AppNavHost
 import org.chapp.findfin.app.viewmodel.MainViewModel
-import org.chapp.findfin.core.design.ui.AppContent
+import org.chapp.findfin.core.design.ui.foundation.AppContent
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

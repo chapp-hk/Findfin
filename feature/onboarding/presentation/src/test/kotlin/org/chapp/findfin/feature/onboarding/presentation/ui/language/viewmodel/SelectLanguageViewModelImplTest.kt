@@ -10,7 +10,7 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.core.design.ui.ScreenState
+import org.chapp.findfin.core.design.ui.foundation.ScreenState
 import org.chapp.findfin.core.locale.api.AppLocale
 import org.chapp.findfin.core.locale.api.AppLocaleRepository
 import org.chapp.findfin.feature.onboarding.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase

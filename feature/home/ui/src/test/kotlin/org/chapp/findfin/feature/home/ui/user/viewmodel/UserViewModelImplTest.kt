@@ -5,7 +5,7 @@ import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.core.design.ui.ScreenState
+import org.chapp.findfin.core.design.ui.foundation.ScreenState
 import org.chapp.findfin.feature.auth.data.repo.user.model.UserModel
 import org.chapp.findfin.feature.auth.data.repo.user.repository.UserRepository
 import org.chapp.findfin.feature.home.ui.user.state.UserUiState

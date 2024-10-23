@@ -18,8 +18,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import org.chapp.findfin.core.design.ui.modifier.contentDescription
-import org.chapp.findfin.core.design.ui.text.rememberAppTextFieldState
+import org.chapp.findfin.core.design.ui.foundation.modifier.contentDescription
+import org.chapp.findfin.core.design.ui.foundation.text.rememberAppTextFieldState
 import org.chapp.findfin.feature.auth.presentation.R
 import org.chapp.findfin.feature.auth.presentation.ui.login.state.LoginError
 import org.chapp.findfin.feature.auth.presentation.ui.login.state.LoginUiState

@@ -9,8 +9,8 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.chapp.findfin.core.design.ui.AppContent
-import org.chapp.findfin.core.design.ui.ScreenState
+import org.chapp.findfin.core.design.ui.foundation.AppContent
+import org.chapp.findfin.core.design.ui.foundation.ScreenState
 import org.chapp.findfin.feature.auth.data.repo.user.model.UserModel
 import org.chapp.findfin.feature.home.ui.R
 import org.chapp.findfin.feature.home.ui.user.state.UserUiState

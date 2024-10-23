@@ -12,7 +12,7 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.chapp.findfin.core.design.ui.AppContent
+import org.chapp.findfin.core.design.ui.foundation.AppContent
 import org.chapp.findfin.feature.auth.presentation.R
 import org.chapp.findfin.feature.auth.presentation.ui.register.state.RegisterError
 import org.chapp.findfin.feature.auth.presentation.ui.register.state.RegisterUiState

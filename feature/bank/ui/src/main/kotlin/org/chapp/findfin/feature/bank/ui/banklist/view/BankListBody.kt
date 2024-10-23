@@ -18,8 +18,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import org.chapp.findfin.core.design.ui.ScreenStateView
-import org.chapp.findfin.core.design.ui.modifier.contentDescription
+import org.chapp.findfin.core.design.ui.foundation.ScreenStateView
+import org.chapp.findfin.core.design.ui.foundation.modifier.contentDescription
 import org.chapp.findfin.feature.bank.ui.R
 import org.chapp.findfin.feature.bank.ui.banklist.viewmodel.BankListViewModel
 import org.chapp.findfin.feature.bank.ui.banklist.viewmodel.BankListViewModelImpl

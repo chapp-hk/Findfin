@@ -14,9 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import org.chapp.findfin.core.design.ui.modifier.contentDescription
-import org.chapp.findfin.core.design.ui.search.AppSearchBar
-import org.chapp.findfin.core.design.ui.search.rememberAppSearchBarState
+import org.chapp.findfin.core.design.ui.foundation.modifier.contentDescription
+import org.chapp.findfin.core.design.ui.foundation.search.AppSearchBar
+import org.chapp.findfin.core.design.ui.foundation.search.rememberAppSearchBarState
 import org.chapp.findfin.feature.home.ui.R
 import org.chapp.findfin.feature.home.ui.container.model.HomeItem
 import org.chapp.findfin.feature.home.ui.finding.view.Finding
