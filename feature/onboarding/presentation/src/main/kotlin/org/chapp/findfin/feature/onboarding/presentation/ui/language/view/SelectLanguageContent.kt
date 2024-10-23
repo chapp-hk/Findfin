@@ -21,8 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import org.chapp.findfin.core.design.ui.AppContent
-import org.chapp.findfin.core.design.ui.modifier.contentDescription
+import org.chapp.findfin.core.design.ui.foundation.AppContent
+import org.chapp.findfin.core.design.ui.foundation.modifier.contentDescription
 import org.chapp.findfin.feature.onboarding.presentation.R
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 

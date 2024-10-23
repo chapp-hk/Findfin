@@ -8,8 +8,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
-import org.chapp.findfin.core.design.ui.AppContent
-import org.chapp.findfin.core.design.ui.result.ResultLayout
+import org.chapp.findfin.core.design.ui.foundation.AppContent
+import org.chapp.findfin.core.design.ui.foundation.result.ResultLayout
 import org.chapp.findfin.feature.home.ui.R
 
 @Composable

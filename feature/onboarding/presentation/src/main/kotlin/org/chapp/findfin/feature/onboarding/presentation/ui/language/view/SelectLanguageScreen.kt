@@ -21,8 +21,8 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
-import org.chapp.findfin.core.design.ui.ScreenStateView
-import org.chapp.findfin.core.design.ui.modifier.contentDescription
+import org.chapp.findfin.core.design.ui.foundation.ScreenStateView
+import org.chapp.findfin.core.design.ui.foundation.modifier.contentDescription
 import org.chapp.findfin.feature.onboarding.presentation.R
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.viewmodel.SelectLanguageViewModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.viewmodel.SelectLanguageViewModelImpl

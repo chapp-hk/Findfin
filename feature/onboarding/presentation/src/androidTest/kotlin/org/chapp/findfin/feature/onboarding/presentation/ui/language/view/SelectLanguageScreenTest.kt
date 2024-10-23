@@ -13,8 +13,8 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.chapp.findfin.core.design.ui.AppContent
-import org.chapp.findfin.core.design.ui.ScreenState
+import org.chapp.findfin.core.design.ui.foundation.AppContent
+import org.chapp.findfin.core.design.ui.foundation.ScreenState
 import org.chapp.findfin.feature.onboarding.presentation.R
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.viewmodel.SelectLanguageViewModelImpl

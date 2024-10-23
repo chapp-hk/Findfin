@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import org.chapp.findfin.core.design.ui.ScreenStateView
+import org.chapp.findfin.core.design.ui.foundation.ScreenStateView
 import org.chapp.findfin.feature.home.ui.user.state.UserUiState
 import org.chapp.findfin.feature.home.ui.user.viewmodel.UserViewModel
 import org.chapp.findfin.feature.home.ui.user.viewmodel.UserViewModelImpl

@@ -23,7 +23,7 @@ include(":app")
 
 // core modules
 include(":core:design:theme")
-include(":core:design:ui")
+include(":core:design:ui-foundation")
 include(":core:imageloader")
 include(":core:locale:api")
 include(":core:locale:impl")

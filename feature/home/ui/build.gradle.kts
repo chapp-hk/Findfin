@@ -25,7 +25,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.design.ui)
+    implementation(projects.core.design.uiFoundation)
     implementation(projects.core.imageloader)
     implementation(projects.core.navigation)
     implementation(projects.core.location)

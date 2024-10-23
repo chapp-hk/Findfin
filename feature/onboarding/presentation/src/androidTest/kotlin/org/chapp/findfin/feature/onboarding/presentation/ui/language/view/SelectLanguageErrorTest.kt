@@ -8,7 +8,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
-import org.chapp.findfin.core.design.ui.AppContent
+import org.chapp.findfin.core.design.ui.foundation.AppContent
 import org.chapp.findfin.feature.onboarding.presentation.R
 import org.chapp.findfin.testing.instrument.getResourceString
 import org.junit.Rule

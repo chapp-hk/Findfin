@@ -11,8 +11,8 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
-import org.chapp.findfin.core.design.ui.AppContent
-import org.chapp.findfin.core.design.ui.text.rememberAppTextFieldState
+import org.chapp.findfin.core.design.ui.foundation.AppContent
+import org.chapp.findfin.core.design.ui.foundation.text.rememberAppTextFieldState
 import org.chapp.findfin.feature.auth.presentation.R
 import org.chapp.findfin.testing.instrument.getResourceString
 import org.junit.Rule

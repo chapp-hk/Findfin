@@ -6,8 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
-import org.chapp.findfin.core.design.ui.ScreenState
-import org.chapp.findfin.core.design.ui.ScreenStateFlow
+import org.chapp.findfin.core.design.ui.foundation.ScreenState
+import org.chapp.findfin.core.design.ui.foundation.ScreenStateFlow
 import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
 import javax.inject.Inject
 

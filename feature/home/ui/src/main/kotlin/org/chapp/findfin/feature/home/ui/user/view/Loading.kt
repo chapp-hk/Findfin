@@ -13,9 +13,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.chapp.findfin.core.design.ui.loading.CirclePlaceHolder
-import org.chapp.findfin.core.design.ui.loading.RectanglePlaceHolder
-import org.chapp.findfin.core.design.ui.modifier.contentDescription
+import org.chapp.findfin.core.design.ui.foundation.loading.CirclePlaceHolder
+import org.chapp.findfin.core.design.ui.foundation.loading.RectanglePlaceHolder
+import org.chapp.findfin.core.design.ui.foundation.modifier.contentDescription
 import org.chapp.findfin.feature.home.ui.R
 
 @Composable

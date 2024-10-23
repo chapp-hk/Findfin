@@ -24,12 +24,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.chapp.findfin.core.design.ui.AppContent
-import org.chapp.findfin.core.design.ui.modifier.contentDescription
-import org.chapp.findfin.core.design.ui.text.AppTextField
-import org.chapp.findfin.core.design.ui.text.AppTextFieldState
-import org.chapp.findfin.core.design.ui.text.PasswordTextField
-import org.chapp.findfin.core.design.ui.text.rememberAppTextFieldState
+import org.chapp.findfin.core.design.ui.foundation.AppContent
+import org.chapp.findfin.core.design.ui.foundation.modifier.contentDescription
+import org.chapp.findfin.core.design.ui.foundation.text.AppTextField
+import org.chapp.findfin.core.design.ui.foundation.text.AppTextFieldState
+import org.chapp.findfin.core.design.ui.foundation.text.PasswordTextField
+import org.chapp.findfin.core.design.ui.foundation.text.rememberAppTextFieldState
 import org.chapp.findfin.feature.auth.presentation.R
 
 @Composable

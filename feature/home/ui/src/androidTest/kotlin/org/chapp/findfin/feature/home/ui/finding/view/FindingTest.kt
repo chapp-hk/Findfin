@@ -7,7 +7,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import io.mockk.mockk
 import io.mockk.verify
-import org.chapp.findfin.core.design.ui.AppContent
+import org.chapp.findfin.core.design.ui.foundation.AppContent
 import org.chapp.findfin.feature.home.ui.R
 import org.chapp.findfin.testing.instrument.getResourceString
 import org.junit.Rule

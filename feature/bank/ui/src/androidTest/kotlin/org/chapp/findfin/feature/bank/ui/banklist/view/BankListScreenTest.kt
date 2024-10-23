@@ -10,9 +10,9 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.every
 import io.mockk.mockk
-import org.chapp.findfin.core.design.ui.AppContent
-import org.chapp.findfin.core.design.ui.ScreenState
-import org.chapp.findfin.core.design.ui.mutableScreenStateFlowOf
+import org.chapp.findfin.core.design.ui.foundation.AppContent
+import org.chapp.findfin.core.design.ui.foundation.ScreenState
+import org.chapp.findfin.core.design.ui.foundation.mutableScreenStateFlowOf
 import org.chapp.findfin.feature.bank.ui.R
 import org.chapp.findfin.feature.bank.ui.banklist.viewmodel.BankListViewModelImpl
 import org.chapp.findfin.testing.instrument.HiltComponentActivity
