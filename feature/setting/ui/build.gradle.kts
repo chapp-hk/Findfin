@@ -17,6 +17,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.locale.api)
+    implementation(projects.core.locale.impl)
     implementation(projects.core.preferences.uiFoundation)
     implementation(projects.feature.setting.data.repo)
     implementation(projects.feature.setting.data.localPreferences)
