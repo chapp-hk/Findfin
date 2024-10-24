@@ -12,8 +12,8 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.test.core.app.ApplicationProvider
-import org.chapp.findfin.core.design.ui.R
 import org.chapp.findfin.core.design.ui.foundation.AppContent
+import org.chapp.findfin.core.design.ui.foundation.R
 import org.junit.Rule
 import org.junit.Test
 
