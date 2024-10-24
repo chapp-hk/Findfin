@@ -1,24 +1,21 @@
 package org.chapp.findfin.core.locale.impl
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import io.kotest.matchers.shouldBe
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
-import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.verify
+import org.chapp.findfin.core.locale.api.AppLocale
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.util.Locale
 
 @DisplayName("AppLocaleRepositoryImpl unit tests")
 class AppLocaleRepositoryImplTest {
-    private val context = mockk<Context>()
-
-    private val appLocaleRepositoryImpl = AppLocaleRepositoryImpl(context = context)
+    private val appLocaleRepositoryImpl = AppLocaleRepositoryImpl()
 
     @Test
     fun `test SetLocale`() {
@@ -56,5 +53,20 @@ class AppLocaleRepositoryImplTest {
             LocaleListCompat.create()
 
         appLocaleRepositoryImpl.getCurrentLocale() shouldBe Locale.ENGLISH
+    }
+
+    @Test
+    fun test_availableLocales() {
+        appLocaleRepositoryImpl.availableLocales() shouldBe
+            listOf(
+                AppLocale(
+                    displayName = "English",
+                    tag = "en",
+                ),
+                AppLocale(
+                    displayName = "中文",
+                    tag = "zh",
+                ),
+            )
     }
 }

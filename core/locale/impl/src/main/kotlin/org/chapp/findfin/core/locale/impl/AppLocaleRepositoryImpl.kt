@@ -1,9 +1,7 @@
 package org.chapp.findfin.core.locale.impl
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
-import dagger.hilt.android.qualifiers.ApplicationContext
 import org.chapp.findfin.core.locale.api.AppLocale
 import org.chapp.findfin.core.locale.api.AppLocaleRepository
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
@@ -11,9 +9,7 @@ import java.util.Locale
 import javax.inject.Inject
 
 @HiltWrapBindModule
-internal class AppLocaleRepositoryImpl @Inject constructor(
-    @ApplicationContext private val context: Context,
-) : AppLocaleRepository {
+internal class AppLocaleRepositoryImpl @Inject constructor() : AppLocaleRepository {
     override fun setLocale(locale: String) {
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(locale))
     }
@@ -23,11 +19,11 @@ internal class AppLocaleRepositoryImpl @Inject constructor(
     override fun availableLocales(): List<AppLocale> =
         listOf(
             AppLocale(
-                displayName = context.getString(R.string.locale_name_en),
+                displayName = Locale("en").let { it.getDisplayName(it) },
                 tag = "en",
             ),
             AppLocale(
-                displayName = context.getString(R.string.locale_name_zh),
+                displayName = Locale("zh").let { it.getDisplayName(it) },
                 tag = "zh",
             ),
         )
