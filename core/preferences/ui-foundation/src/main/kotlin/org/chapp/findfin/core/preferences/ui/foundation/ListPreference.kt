@@ -1,7 +1,6 @@
 package org.chapp.findfin.core.preferences.ui.foundation
 
 import android.content.res.Configuration
-import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,7 +20,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,7 +45,7 @@ fun ListPreference(
 ) {
     val selectedValue by preferenceStore.get().collectAsStateWithLifecycle(initialValue = "")
     val summaryText =
-        list.find { it.value == selectedValue }?.let { stringResource(id = it.titleRes) }
+        list.find { it.value == selectedValue }?.title
 
     val coroutineScope = rememberCoroutineScope()
     var isShowDialog by remember { mutableStateOf(false) }
@@ -76,11 +74,11 @@ fun ListPreference(
 /**
  * Data class representing an item in a list preference.
  *
- * @property titleRes The resource ID of the title string for the preference item.
+ * @property title The title string for the preference item.
  * @property value The value associated with the preference item.
  */
 data class ListPreferenceItem(
-    @StringRes val titleRes: Int,
+    val title: String,
     val value: String,
 )
 
@@ -119,7 +117,7 @@ private fun ListPreferenceDialog(
                                 onItemSelected(item.value)
                                 onDismissRequest()
                             },
-                        headlineContent = { Text(text = stringResource(id = item.titleRes)) },
+                        headlineContent = { Text(text = item.title) },
                         leadingContent = {
                             RadioButton(
                                 selected = item.value == selectedItemKey,
@@ -150,11 +148,11 @@ private fun ListPreferenceItemPreview() {
         list =
             listOf(
                 ListPreferenceItem(
-                    titleRes = 0,
+                    title = "Title 1",
                     value = "item1",
                 ),
                 ListPreferenceItem(
-                    titleRes = 0,
+                    title = "Title 2",
                     value = "item2",
                 ),
             ),

@@ -10,7 +10,6 @@ import androidx.compose.ui.test.performClick
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOf
 import org.chapp.findfin.core.preferences.runtime.PreferenceStore
-import org.chapp.findfin.core.preferences.ui.foundation.test.R
 import org.junit.Rule
 import org.junit.Test
 
@@ -24,11 +23,11 @@ class ListPreferenceTest {
         val items =
             listOf(
                 ListPreferenceItem(
-                    titleRes = R.string.setting_test_summary_1,
+                    title = "Title 1",
                     value = "item1",
                 ),
                 ListPreferenceItem(
-                    titleRes = R.string.setting_test_summary_2,
+                    title = "Title 2",
                     value = "item2",
                 ),
             )
@@ -67,11 +66,11 @@ class ListPreferenceTest {
         val items =
             listOf(
                 ListPreferenceItem(
-                    titleRes = R.string.setting_test_summary_1,
+                    title = "Title 1",
                     value = "item1",
                 ),
                 ListPreferenceItem(
-                    titleRes = R.string.setting_test_summary_2,
+                    title = "Title 2",
                     value = "item2",
                 ),
             )

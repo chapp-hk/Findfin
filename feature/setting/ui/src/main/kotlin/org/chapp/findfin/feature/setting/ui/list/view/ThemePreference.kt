@@ -11,21 +11,20 @@ import org.chapp.findfin.feature.setting.ui.list.runtime.rememberThemePreference
 
 @Composable
 internal fun ThemePreference() {
-    val list =
+    val themes =
         remember {
             listOf(
-                ListPreferenceItem(
-                    titleRes = R.string.setting_theme_summary_system,
-                    value = Theme.SYSTEM.themeValue,
-                ),
-                ListPreferenceItem(
-                    titleRes = R.string.setting_theme_summary_light,
-                    value = Theme.LIGHT.themeValue,
-                ),
-                ListPreferenceItem(
-                    titleRes = R.string.setting_theme_summary_dark,
-                    value = Theme.DARK.themeValue,
-                ),
+                Theme.SYSTEM to R.string.setting_theme_summary_system,
+                Theme.LIGHT to R.string.setting_theme_summary_light,
+                Theme.DARK to R.string.setting_theme_summary_dark,
+            )
+        }
+
+    val list =
+        themes.map { (theme, summaryResId) ->
+            ListPreferenceItem(
+                title = stringResource(id = summaryResId),
+                value = theme.themeValue,
             )
         }
 
