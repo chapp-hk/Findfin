@@ -14,7 +14,7 @@ internal fun LanguagePreference() {
         list =
             listOf(
                 ListPreferenceItem(
-                    titleRes = "English",
+                    title = "English",
                     value = "en",
                 ),
             ),
