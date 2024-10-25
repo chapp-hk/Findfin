@@ -50,12 +50,12 @@ class ListPreferenceTest {
 
         // Check if the dialog is displayed with all items
         composeTestRule.onNode(
-            matcher = isDialog() and hasAnyDescendant(hasText("Item 1")),
+            matcher = isDialog() and hasAnyDescendant(hasText("Title 1")),
             useUnmergedTree = true,
         ).assertIsDisplayed()
 
         composeTestRule.onNode(
-            matcher = isDialog() and hasAnyDescendant(hasText("Item 2")),
+            matcher = isDialog() and hasAnyDescendant(hasText("Title 2")),
             useUnmergedTree = true,
         ).assertIsDisplayed()
     }
@@ -93,18 +93,18 @@ class ListPreferenceTest {
         }
 
         // Check if stored value shows
-        composeTestRule.onNodeWithText("Item 2").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Title 2").assertIsDisplayed()
 
         // Click on the ListPreference to open the dialog
         composeTestRule.onNodeWithText(title).performClick()
 
         // Click on dialog item
         composeTestRule.onNode(
-            matcher = isDialog() and hasAnyDescendant(hasText("Item 1")),
+            matcher = isDialog() and hasAnyDescendant(hasText("Title 1")),
             useUnmergedTree = true,
         ).performClick()
 
         // Check if value updated
-        composeTestRule.onNodeWithText("Item 1").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Title 1").assertIsDisplayed()
     }
 }
