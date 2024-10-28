@@ -12,13 +12,10 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 internal class TestDatabaseDefaultParametersHiltWrapRoomModule {
   @Provides
-  public fun providesDatabase(@ApplicationContext context: Context): TestDatabaseDefaultParameters =
-      Room.databaseBuilder(context, TestDatabaseDefaultParameters::class.java,
-      "test_database").build()
+  public fun providesDatabase(@ApplicationContext context: Context): TestDatabaseDefaultParameters = Room.databaseBuilder(context, TestDatabaseDefaultParameters::class.java, "test_database").build()
 
   @Provides
-  public fun provideTestDao1(database: TestDatabaseDefaultParameters): TestDao1 =
-      database.testDao1()
+  public fun provideTestDao1(database: TestDatabaseDefaultParameters): TestDao1 = database.testDao1()
 
   @Provides
   public fun provideTestDao2(database: TestDatabaseDefaultParameters): TestDao2 = database.testDao2
