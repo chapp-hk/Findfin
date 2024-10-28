@@ -4,14 +4,17 @@ import android.content.res.Configuration
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun Preference(
+    modifier: Modifier = Modifier,
     title: String,
     description: String? = null,
 ) {
     ListItem(
+        modifier = modifier,
         headlineContent = { Text(text = title) },
         supportingContent = description?.let { { Text(text = it) } },
     )
