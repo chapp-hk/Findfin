@@ -12,9 +12,7 @@ import javax.inject.Singleton
 @InstallIn(TestComponent::class)
 internal class TestDatabaseCustomParametersHiltWrapRoomModule {
   @Provides
-  public fun providesDatabase(@ApplicationContext context: Context): TestDatabaseCustomParameters =
-      Room.databaseBuilder(context, TestDatabaseCustomParameters::class.java,
-      "test_database").build()
+  public fun providesDatabase(@ApplicationContext context: Context): TestDatabaseCustomParameters = Room.databaseBuilder(context, TestDatabaseCustomParameters::class.java, "test_database").build()
 
   @Provides
   @Singleton
