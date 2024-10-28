@@ -14,7 +14,7 @@ internal class AppLocaleRepositoryImpl @Inject constructor() : AppLocaleReposito
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(locale))
     }
 
-    override fun getCurrentLocale(): Locale = AppCompatDelegate.getApplicationLocales()[0] ?: Locale.ENGLISH
+    override fun getCurrentLocale(): Locale = AppCompatDelegate.getApplicationLocales()[0] ?: Locale.getDefault()
 
     override fun availableLocales(): List<AppLocale> =
         listOf(

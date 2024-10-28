@@ -24,6 +24,7 @@ dependencies {
     implementation(projects.feature.setting.data.localPreferences)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.assertions.core)
