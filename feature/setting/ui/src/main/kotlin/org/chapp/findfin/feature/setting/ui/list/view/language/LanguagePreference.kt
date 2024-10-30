@@ -57,7 +57,7 @@ private fun LanguagePreferenceLegacy(languagePreferenceViewModel: LanguagePrefer
             ) +
                 languagePreferenceViewModel.supportedLocales.map {
                     ListPreferenceItem(
-                        title = it.displayName,
+                        title = it.name,
                         value = it.tag,
                     )
                 },

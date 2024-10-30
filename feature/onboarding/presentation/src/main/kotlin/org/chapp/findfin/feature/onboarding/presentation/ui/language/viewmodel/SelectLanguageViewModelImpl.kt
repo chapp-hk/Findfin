@@ -12,11 +12,13 @@ import org.chapp.findfin.feature.onboarding.domain.fetch.usecase.FetchAllBankLoc
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModelMapper
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
+import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject
 
 @HiltViewModel
 internal class SelectLanguageViewModelImpl @Inject constructor(
+    languageRepository: LanguageRepository,
     private val appLocaleRepository: AppLocaleRepository,
     private val fetchAllLocatorsWithLanguage: FetchAllBankLocationsWithLanguageUseCase,
 ) : SelectLanguageViewModel, ViewModel() {
@@ -27,7 +29,7 @@ internal class SelectLanguageViewModelImpl @Inject constructor(
         Mappers.getMapper(SelectLanguageUiModelMapper::class.java)
 
     override val availableLanguages: List<SelectLanguageUiModel> =
-        appLocaleRepository.availableLocales().map(selectLanguageUiModelMapper::clone)
+        languageRepository.getAvailableLanguages().map(selectLanguageUiModelMapper::clone)
 
     override fun setLanguage(language: String) {
         appLocaleRepository.setLocale(language)

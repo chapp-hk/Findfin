@@ -3,14 +3,16 @@ package org.chapp.findfin.feature.setting.ui.list.view.language
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.chapp.findfin.core.locale.api.AppLocaleRepository
+import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
 import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
 class LanguagePreferenceViewModel @Inject constructor(
+    languageRepository: LanguageRepository,
     private val appLocaleRepository: AppLocaleRepository,
 ) : ViewModel() {
-    val supportedLocales = appLocaleRepository.availableLocales()
+    val supportedLocales = languageRepository.getAvailableLanguages()
 
     fun getCurrentLanguageName(): String {
         val locale = appLocaleRepository.getCurrentLocale().language

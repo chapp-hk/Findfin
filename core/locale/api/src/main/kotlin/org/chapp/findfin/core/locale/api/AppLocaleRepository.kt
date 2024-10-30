@@ -6,6 +6,4 @@ interface AppLocaleRepository {
     fun setLocale(locale: String)
 
     fun getCurrentLocale(): Locale
-
-    fun availableLocales(): List<AppLocale>
 }
