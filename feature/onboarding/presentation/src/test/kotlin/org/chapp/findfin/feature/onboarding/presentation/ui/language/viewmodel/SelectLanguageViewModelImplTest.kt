@@ -11,11 +11,12 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.core.design.ui.foundation.ScreenState
-import org.chapp.findfin.core.locale.api.AppLocale
 import org.chapp.findfin.core.locale.api.AppLocaleRepository
 import org.chapp.findfin.feature.onboarding.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
+import org.chapp.findfin.feature.setting.data.repo.language.model.Language
+import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
 import org.chapp.findfin.testing.extension.MainDispatcherExtension
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -25,19 +26,20 @@ import org.junit.jupiter.api.extension.ExtendWith
 @ExtendWith(MainDispatcherExtension::class)
 @DisplayName("SelectLanguageViewModelImpl unit tests")
 class SelectLanguageViewModelImplTest {
+    private val languageRepository = mockk<LanguageRepository>()
     private val appLocaleRepository = mockk<AppLocaleRepository>()
     private val fetchAllLocatorsWithLanguage = mockk<FetchAllBankLocationsWithLanguageUseCase>(relaxed = true)
 
     @BeforeEach
     fun setUp() {
-        every { appLocaleRepository.availableLocales() } returns
+        every { languageRepository.getAvailableLanguages() } returns
             listOf(
-                AppLocale(
-                    displayName = "English",
+                Language(
+                    name = "English",
                     tag = "en",
                 ),
-                AppLocale(
-                    displayName = "Chinese",
+                Language(
+                    name = "Chinese",
                     tag = "zh",
                 ),
             )
@@ -116,6 +118,7 @@ class SelectLanguageViewModelImplTest {
 
     private fun createViewModel() =
         SelectLanguageViewModelImpl(
+            languageRepository = languageRepository,
             appLocaleRepository = appLocaleRepository,
             fetchAllLocatorsWithLanguage = fetchAllLocatorsWithLanguage,
         )

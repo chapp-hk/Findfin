@@ -8,7 +8,6 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockkStatic
 import io.mockk.verify
-import org.chapp.findfin.core.locale.api.AppLocale
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.util.Locale
@@ -53,20 +52,5 @@ class AppLocaleRepositoryImplTest {
             LocaleListCompat.create()
 
         appLocaleRepositoryImpl.getCurrentLocale() shouldBe Locale.ENGLISH
-    }
-
-    @Test
-    fun test_availableLocales() {
-        appLocaleRepositoryImpl.availableLocales() shouldBe
-            listOf(
-                AppLocale(
-                    displayName = "English",
-                    tag = "en",
-                ),
-                AppLocale(
-                    displayName = "中文",
-                    tag = "zh",
-                ),
-            )
     }
 }
