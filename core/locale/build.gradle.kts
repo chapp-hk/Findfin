@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "org.chapp.findfin.core.locale.impl"
+    namespace = "org.chapp.findfin.core.locale"
     resourcePrefix = "locale_"
 
     defaultConfig {
@@ -15,7 +15,6 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.locale.api)
     implementation(libs.androidx.appcompat)
 
     testImplementation(libs.junit.jupiter)

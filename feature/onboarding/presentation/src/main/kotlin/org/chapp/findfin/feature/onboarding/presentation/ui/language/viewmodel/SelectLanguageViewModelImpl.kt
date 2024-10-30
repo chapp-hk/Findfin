@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.chapp.findfin.core.design.ui.foundation.ScreenState
 import org.chapp.findfin.core.design.ui.foundation.mutableScreenStateFlowOf
-import org.chapp.findfin.core.locale.api.AppLocaleRepository
+import org.chapp.findfin.core.locale.AppLocaleRepository
 import org.chapp.findfin.feature.onboarding.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModelMapper

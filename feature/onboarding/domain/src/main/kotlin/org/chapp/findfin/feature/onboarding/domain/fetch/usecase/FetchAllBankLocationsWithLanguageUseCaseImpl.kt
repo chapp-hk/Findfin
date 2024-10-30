@@ -2,7 +2,6 @@ package org.chapp.findfin.feature.onboarding.domain.fetch.usecase
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import org.chapp.findfin.core.locale.api.AppLocaleRepository
 import org.chapp.findfin.core.threading.DispatcherDefault
 import org.chapp.findfin.feature.bank.data.repo.location.mapper.BankLocationFetchResult
 import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationType
@@ -14,7 +13,6 @@ import javax.inject.Inject
 class FetchAllBankLocationsWithLanguageUseCaseImpl @Inject constructor(
     @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
     private val bankLocationRepository: BankLocationRepository,
-    private val appLocaleRepository: AppLocaleRepository,
 ) : FetchAllBankLocationsWithLanguageUseCase {
     override suspend operator fun invoke(): Boolean {
         return withContext(defaultDispatcher) {
@@ -31,7 +29,7 @@ class FetchAllBankLocationsWithLanguageUseCaseImpl @Inject constructor(
             val result =
                 bankLocationRepository.fetchLocations(
                     type = type,
-                    localeTag = appLocaleRepository.getCurrentLocale().toLanguageTag(),
+                    localeTag = "", // TODO - add back current locale tag
                     page = page,
                     pageSize = 1000,
                 )

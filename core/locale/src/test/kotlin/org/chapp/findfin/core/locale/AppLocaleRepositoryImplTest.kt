@@ -1,4 +1,4 @@
-package org.chapp.findfin.core.locale.impl
+package org.chapp.findfin.core.locale
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
