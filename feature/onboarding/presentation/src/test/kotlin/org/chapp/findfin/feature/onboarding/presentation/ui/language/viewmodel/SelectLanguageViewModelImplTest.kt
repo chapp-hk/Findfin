@@ -11,7 +11,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.core.design.ui.foundation.ScreenState
-import org.chapp.findfin.core.locale.api.AppLocaleRepository
+import org.chapp.findfin.core.locale.AppLocaleRepository
 import org.chapp.findfin.feature.onboarding.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState

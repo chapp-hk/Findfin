@@ -2,7 +2,7 @@ package org.chapp.findfin.feature.setting.ui.list.view.language
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import org.chapp.findfin.core.locale.api.AppLocaleRepository
+import org.chapp.findfin.core.locale.AppLocaleRepository
 import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
 import java.util.Locale
 import javax.inject.Inject

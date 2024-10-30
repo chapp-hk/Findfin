@@ -1,8 +1,7 @@
-package org.chapp.findfin.core.locale.impl
+package org.chapp.findfin.core.locale
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
-import org.chapp.findfin.core.locale.api.AppLocaleRepository
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import java.util.Locale
 import javax.inject.Inject

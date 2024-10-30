@@ -28,8 +28,7 @@ android {
 
 dependencies {
     implementation(projects.core.design.uiFoundation)
-    implementation(projects.core.locale.api)
-    implementation(projects.core.locale.impl)
+    implementation(projects.core.locale)
     implementation(projects.core.preferences.storage)
     implementation(projects.feature.bank.data.localDatabase)
     implementation(projects.feature.onboarding.domain)
