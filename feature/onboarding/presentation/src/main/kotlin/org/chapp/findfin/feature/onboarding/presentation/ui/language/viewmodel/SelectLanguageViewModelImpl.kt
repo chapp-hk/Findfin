@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.chapp.findfin.core.design.ui.foundation.ScreenState
 import org.chapp.findfin.core.design.ui.foundation.mutableScreenStateFlowOf
-import org.chapp.findfin.core.locale.AppLocaleRepository
+import org.chapp.findfin.core.locale.AppLocaleManager
 import org.chapp.findfin.feature.onboarding.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModelMapper
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class SelectLanguageViewModelImpl @Inject constructor(
     languageRepository: LanguageRepository,
-    private val appLocaleRepository: AppLocaleRepository,
+    private val appLocaleManager: AppLocaleManager,
     private val fetchAllLocatorsWithLanguage: FetchAllBankLocationsWithLanguageUseCase,
 ) : SelectLanguageViewModel, ViewModel() {
     private val _uiState = mutableScreenStateFlowOf<SelectLanguageUiState, String>(ScreenState.Empty)
@@ -32,7 +32,7 @@ internal class SelectLanguageViewModelImpl @Inject constructor(
         languageRepository.getAvailableLanguages().map(selectLanguageUiModelMapper::clone)
 
     override fun setLanguage(language: String) {
-        appLocaleRepository.setLocale(language)
+        appLocaleManager.setLocale(language)
         viewModelScope.launch {
             _uiState.emit(ScreenState.Loading)
             if (fetchAllLocatorsWithLanguage()) {

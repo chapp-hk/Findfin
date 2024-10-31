@@ -11,7 +11,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.core.design.ui.foundation.ScreenState
-import org.chapp.findfin.core.locale.AppLocaleRepository
+import org.chapp.findfin.core.locale.AppLocaleManager
 import org.chapp.findfin.feature.onboarding.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
@@ -27,7 +27,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 @DisplayName("SelectLanguageViewModelImpl unit tests")
 class SelectLanguageViewModelImplTest {
     private val languageRepository = mockk<LanguageRepository>()
-    private val appLocaleRepository = mockk<AppLocaleRepository>()
+    private val appLocaleManager = mockk<AppLocaleManager>()
     private val fetchAllLocatorsWithLanguage = mockk<FetchAllBankLocationsWithLanguageUseCase>(relaxed = true)
 
     @BeforeEach
@@ -68,11 +68,11 @@ class SelectLanguageViewModelImplTest {
         "When setLanguage, should invoke appLocaleRepository.setLocale() with input language value",
     )
     fun `test setLanguage should invoke appLocaleRepository setLocale`() {
-        every { appLocaleRepository.setLocale(any()) } just Runs
+        every { appLocaleManager.setLocale(any()) } just Runs
 
         createViewModel().setLanguage("en")
 
-        verify { appLocaleRepository.setLocale("en") }
+        verify { appLocaleManager.setLocale("en") }
     }
 
     @Test
@@ -82,7 +82,7 @@ class SelectLanguageViewModelImplTest {
     )
     fun testUiStateSuccess() =
         runTest {
-            every { appLocaleRepository.setLocale(any()) } just Runs
+            every { appLocaleManager.setLocale(any()) } just Runs
             coEvery { fetchAllLocatorsWithLanguage() } returns true
 
             val viewModel = createViewModel()
@@ -102,7 +102,7 @@ class SelectLanguageViewModelImplTest {
     )
     fun testUiStateError() =
         runTest {
-            every { appLocaleRepository.setLocale(any()) } just Runs
+            every { appLocaleManager.setLocale(any()) } just Runs
             coEvery { fetchAllLocatorsWithLanguage() } returns false
 
             val viewModel = createViewModel()
@@ -119,7 +119,7 @@ class SelectLanguageViewModelImplTest {
     private fun createViewModel() =
         SelectLanguageViewModelImpl(
             languageRepository = languageRepository,
-            appLocaleRepository = appLocaleRepository,
+            appLocaleManager = appLocaleManager,
             fetchAllLocatorsWithLanguage = fetchAllLocatorsWithLanguage,
         )
 }

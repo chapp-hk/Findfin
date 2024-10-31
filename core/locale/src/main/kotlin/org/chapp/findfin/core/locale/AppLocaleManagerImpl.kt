@@ -7,7 +7,7 @@ import java.util.Locale
 import javax.inject.Inject
 
 @HiltWrapBindModule
-internal class AppLocaleRepositoryImpl @Inject constructor() : AppLocaleRepository {
+internal class AppLocaleManagerImpl @Inject constructor() : AppLocaleManager {
     override fun setLocale(locale: String) {
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(locale))
     }

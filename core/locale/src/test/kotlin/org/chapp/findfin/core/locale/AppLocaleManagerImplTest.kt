@@ -12,16 +12,16 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.util.Locale
 
-@DisplayName("AppLocaleRepositoryImpl unit tests")
-class AppLocaleRepositoryImplTest {
-    private val appLocaleRepositoryImpl = AppLocaleRepositoryImpl()
+@DisplayName("AppLocaleManagerImpl unit tests")
+class AppLocaleManagerImplTest {
+    private val appLocaleManagerImpl = AppLocaleManagerImpl()
 
     @Test
     fun `test SetLocale`() {
         mockkStatic(AppCompatDelegate::setApplicationLocales)
         every { AppCompatDelegate.setApplicationLocales(any()) } just Runs
 
-        appLocaleRepositoryImpl.setLocale("en")
+        appLocaleManagerImpl.setLocale("en")
 
         verify {
             AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"))
@@ -38,7 +38,7 @@ class AppLocaleRepositoryImplTest {
         every { AppCompatDelegate.getApplicationLocales() } returns
             LocaleListCompat.create(Locale.CANADA)
 
-        appLocaleRepositoryImpl.getCurrentLocale() shouldBe Locale.CANADA
+        appLocaleManagerImpl.getCurrentLocale() shouldBe Locale.CANADA
     }
 
     @Test
@@ -51,6 +51,6 @@ class AppLocaleRepositoryImplTest {
         every { AppCompatDelegate.getApplicationLocales() } returns
             LocaleListCompat.create()
 
-        appLocaleRepositoryImpl.getCurrentLocale() shouldBe Locale.ENGLISH
+        appLocaleManagerImpl.getCurrentLocale() shouldBe Locale.ENGLISH
     }
 }
