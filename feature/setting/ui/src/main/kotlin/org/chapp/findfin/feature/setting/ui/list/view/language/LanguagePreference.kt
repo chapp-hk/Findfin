@@ -23,11 +23,11 @@ import org.chapp.findfin.feature.setting.ui.R
 
 @Composable
 internal fun LanguagePreference(languagePreferenceViewModel: LanguagePreferenceViewModel = hiltViewModel()) {
-//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//        LanguagePreferenceApi33(languagePreferenceViewModel)
-//    } else {
-    LanguagePreferenceLegacy(languagePreferenceViewModel)
-//    }
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        LanguagePreferenceApi33(languagePreferenceViewModel)
+    } else {
+        LanguagePreferenceLegacy(languagePreferenceViewModel)
+    }
 }
 
 internal data class LanguagePreferenceItem(
