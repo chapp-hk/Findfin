@@ -2,8 +2,10 @@ package org.chapp.findfin.feature.setting.ui.list.view.language
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import org.chapp.findfin.core.design.ui.foundation.text.UiText
 import org.chapp.findfin.core.locale.AppLocaleManager
 import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
+import org.chapp.findfin.feature.setting.ui.R
 import java.util.Locale
 import javax.inject.Inject
 
@@ -17,13 +19,17 @@ internal class LanguagePreferenceViewModel @Inject constructor(
     val availableLanguages: List<LanguagePreferenceItem> =
         languageRepository.getAvailableLanguages().map(languageMapper::map)
 
-    fun getCurrentLanguageName(): String {
-        val locale = appLocaleManager.getCurrentLocale().language
-        return Locale(locale).let { it.getDisplayLanguage(it) }
+    fun getCurrentLanguageName(): UiText {
+        val locale = appLocaleManager.getCurrentLocale()?.language
+        return if (locale == null) {
+            UiText.ResourceString(R.string.setting_theme_summary_system)
+        } else {
+            UiText.ActualString(Locale(locale).let { it.getDisplayLanguage(it) })
+        }
     }
 
-    fun getCurrentLanguage(): String {
-        return appLocaleManager.getCurrentLocale().language
+    fun getCurrentLanguageTag(): String {
+        return appLocaleManager.getCurrentLocale()?.language.orEmpty()
     }
 
     fun setLanguage(locale: String) {
