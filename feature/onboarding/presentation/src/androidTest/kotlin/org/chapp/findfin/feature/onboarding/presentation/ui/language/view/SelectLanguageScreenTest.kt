@@ -17,7 +17,7 @@ import org.chapp.findfin.core.design.ui.foundation.AppContent
 import org.chapp.findfin.core.design.ui.foundation.ScreenState
 import org.chapp.findfin.feature.onboarding.presentation.R
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
-import org.chapp.findfin.feature.onboarding.presentation.ui.language.viewmodel.SelectLanguageViewModelImpl
+import org.chapp.findfin.feature.onboarding.presentation.ui.language.viewmodel.SelectLanguageViewModel
 import org.chapp.findfin.testing.instrument.HiltComponentActivity
 import org.chapp.findfin.testing.instrument.getResourceString
 import org.junit.Before
@@ -33,7 +33,7 @@ internal class SelectLanguageScreenTest {
     val composeTestRule = createAndroidComposeRule<HiltComponentActivity>()
 
     @BindValue
-    val selectLanguageViewModel = mockk<SelectLanguageViewModelImpl>(relaxed = true)
+    val selectLanguageViewModel = mockk<SelectLanguageViewModel>(relaxed = true)
 
     @Before
     fun setup() {

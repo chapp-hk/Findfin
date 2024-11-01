@@ -1,12 +1,47 @@
 package org.chapp.findfin.feature.onboarding.presentation.ui.language.viewmodel
 
-import org.chapp.findfin.core.design.ui.foundation.ScreenStateFlow
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import org.chapp.findfin.core.design.ui.foundation.ScreenState
+import org.chapp.findfin.core.design.ui.foundation.mutableScreenStateFlowOf
+import org.chapp.findfin.core.locale.AppLocaleManager
+import org.chapp.findfin.feature.onboarding.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
+import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModelMapper
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
+import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
+import javax.inject.Inject
 
-internal interface SelectLanguageViewModel {
-    val availableLanguages: List<SelectLanguageUiModel>
-    val uiState: ScreenStateFlow<SelectLanguageUiState, String>
+@HiltViewModel
+internal class SelectLanguageViewModel @Inject constructor(
+    languageRepository: LanguageRepository,
+    private val appLocaleManager: AppLocaleManager,
+    private val fetchAllLocatorsWithLanguage: FetchAllBankLocationsWithLanguageUseCase,
+) : ViewModel() {
+    private val _uiState = mutableScreenStateFlowOf<SelectLanguageUiState, String>(ScreenState.Empty)
+    val uiState = _uiState.asStateFlow()
 
-    fun setLanguage(language: String)
+    private val selectLanguageUiModelMapper = SelectLanguageUiModelMapper()
+
+    val availableLanguages: List<SelectLanguageUiModel> =
+        languageRepository.getAvailableLanguages().map(selectLanguageUiModelMapper::map)
+
+    fun setLanguage(language: String) {
+        appLocaleManager.setLocale(language)
+        viewModelScope.launch {
+            _uiState.emit(ScreenState.Loading)
+            if (fetchAllLocatorsWithLanguage()) {
+                _uiState.emit(
+                    ScreenState.Success<SelectLanguageUiState, Nothing>(
+                        SelectLanguageUiState(language),
+                    ),
+                )
+            } else {
+                _uiState.emit(ScreenState.Error<Nothing, String>(language))
+            }
+        }
+    }
 }

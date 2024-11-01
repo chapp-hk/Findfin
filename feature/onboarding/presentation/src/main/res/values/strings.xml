@@ -6,4 +6,5 @@
 
     <string name="onboarding_content_description_language_list">Language list</string>
     <string name="onboarding_content_description_loading">Loading</string>
+    <string name="onboarding_select_language_default">System default</string>
 </resources>
