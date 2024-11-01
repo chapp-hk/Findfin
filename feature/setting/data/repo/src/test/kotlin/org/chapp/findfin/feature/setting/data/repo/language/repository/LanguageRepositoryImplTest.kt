@@ -11,8 +11,9 @@ class LanguageRepositoryImplTest {
     fun `getAvailableLanguages should return list of available languages`() {
         languageRepositoryImpl.getAvailableLanguages() shouldBe
             listOf(
-                Language(name = "English", tag = "en"),
-                Language(name = "中文", tag = "zh"),
+                Language(isDefault = true, name = "", tag = ""),
+                Language(isDefault = false, name = "English", tag = "en"),
+                Language(isDefault = false, name = "中文", tag = "zh"),
             )
     }
 }
