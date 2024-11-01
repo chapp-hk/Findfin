@@ -2,11 +2,9 @@ package org.chapp.findfin.feature.onboarding.domain.fetch.usecase
 
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.core.locale.api.AppLocaleRepository
 import org.chapp.findfin.feature.bank.data.repo.location.mapper.BankLocationFetchResult
 import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationType
 import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
@@ -17,20 +15,17 @@ import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.ArgumentsProvider
 import org.junit.jupiter.params.provider.ArgumentsSource
-import java.util.Locale
 import java.util.stream.Stream
 
 @DisplayName("FetchAllBankLocationsWithLanguageUseCaseImpl unit tests")
 class FetchAllBankLocationsWithLanguageUseCaseImplTest {
     private val testDispatcher = StandardTestDispatcher()
     private val bankLocationRepository = mockk<BankLocationRepository>()
-    private val appLocaleRepository = mockk<AppLocaleRepository>()
 
     private val fetchAllLocatorsWithLanguage =
         FetchAllBankLocationsWithLanguageUseCaseImpl(
             defaultDispatcher = testDispatcher,
             bankLocationRepository = bankLocationRepository,
-            appLocaleRepository = appLocaleRepository,
         )
 
     @ParameterizedTest(
@@ -71,9 +66,7 @@ class FetchAllBankLocationsWithLanguageUseCaseImplTest {
             )
         } returns atmMockedResult
 
-        every { appLocaleRepository.getCurrentLocale() } returns Locale("en")
-
-        fetchAllLocatorsWithLanguage() shouldBe expectedResult
+        fetchAllLocatorsWithLanguage(languageTag = "en") shouldBe expectedResult
     }
 
     private class FetchArgumentsProvider : ArgumentsProvider {
