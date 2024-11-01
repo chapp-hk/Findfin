@@ -23,6 +23,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import org.chapp.findfin.core.design.ui.foundation.AppContent
 import org.chapp.findfin.core.design.ui.foundation.modifier.contentDescription
+import org.chapp.findfin.core.design.ui.foundation.text.UiText
+import org.chapp.findfin.core.design.ui.foundation.text.asString
 import org.chapp.findfin.feature.onboarding.presentation.R
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 
@@ -58,7 +60,7 @@ internal fun SelectLanguageContent(
                             .fillMaxWidth()
                             .height(40.dp)
                             .wrapContentHeight(),
-                    text = language.displayName,
+                    text = language.displayName.asString(),
                     textAlign = TextAlign.Start,
                     style = MaterialTheme.typography.titleMedium,
                 )
@@ -101,11 +103,11 @@ private class AvailableLanguagesParameterProvider :
         sequenceOf(
             listOf(
                 SelectLanguageUiModel(
-                    displayName = "English",
+                    displayName = UiText.ActualString("English"),
                     tag = "en",
                 ),
                 SelectLanguageUiModel(
-                    displayName = "Chinese",
+                    displayName = UiText.ActualString("中文"),
                     tag = "zh",
                 ),
             ),

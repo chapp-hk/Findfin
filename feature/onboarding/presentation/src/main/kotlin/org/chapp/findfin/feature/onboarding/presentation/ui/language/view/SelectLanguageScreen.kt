@@ -25,7 +25,6 @@ import org.chapp.findfin.core.design.ui.foundation.ScreenStateView
 import org.chapp.findfin.core.design.ui.foundation.modifier.contentDescription
 import org.chapp.findfin.feature.onboarding.presentation.R
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.viewmodel.SelectLanguageViewModel
-import org.chapp.findfin.feature.onboarding.presentation.ui.language.viewmodel.SelectLanguageViewModelImpl
 
 @Composable
 internal fun SelectLanguageScreen(
@@ -74,7 +73,7 @@ internal fun SelectLanguageScreen(
 
 @Composable
 private fun SelectLanguageScreenStateView(
-    selectLanguageViewModel: SelectLanguageViewModel = hiltViewModel<SelectLanguageViewModelImpl>(),
+    selectLanguageViewModel: SelectLanguageViewModel = hiltViewModel(),
     onFinishSelectLanguage: () -> Unit,
 ) {
     ScreenStateView(
