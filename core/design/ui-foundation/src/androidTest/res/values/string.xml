@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="core_ui_text_test_no_args">This is a test string</string>
+    <string name="core_ui_text_test_with_args">Hello %1$s, this class have %2$d tests.</string>
+</resources>
