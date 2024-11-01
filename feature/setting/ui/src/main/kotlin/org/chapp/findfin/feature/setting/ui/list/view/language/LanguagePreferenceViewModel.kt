@@ -8,11 +8,14 @@ import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
-class LanguagePreferenceViewModel @Inject constructor(
+internal class LanguagePreferenceViewModel @Inject constructor(
     languageRepository: LanguageRepository,
     private val appLocaleManager: AppLocaleManager,
 ) : ViewModel() {
-    val supportedLocales = languageRepository.getAvailableLanguages()
+    private val languageMapper = LanguageMapper()
+
+    val availableLanguages: List<LanguagePreferenceItem> =
+        languageRepository.getAvailableLanguages().map(languageMapper::map)
 
     fun getCurrentLanguageName(): String {
         val locale = appLocaleManager.getCurrentLocale().language

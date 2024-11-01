@@ -13,6 +13,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import org.chapp.findfin.core.design.ui.foundation.text.UiText
+import org.chapp.findfin.core.design.ui.foundation.text.asString
 import org.chapp.findfin.core.preferences.runtime.PreferenceStore
 import org.chapp.findfin.core.preferences.ui.foundation.ListPreference
 import org.chapp.findfin.core.preferences.ui.foundation.ListPreferenceItem
@@ -27,6 +29,11 @@ internal fun LanguagePreference(languagePreferenceViewModel: LanguagePreferenceV
         LanguagePreferenceLegacy(languagePreferenceViewModel)
     }
 }
+
+internal data class LanguagePreferenceItem(
+    val title: UiText,
+    val value: String,
+)
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
@@ -49,16 +56,11 @@ private fun LanguagePreferenceLegacy(languagePreferenceViewModel: LanguagePrefer
     ListPreference(
         title = stringResource(id = R.string.setting_language_title),
         list =
-            listOf(
-                ListPreferenceItem(
-                    title = stringResource(id = R.string.setting_theme_summary_system),
-                    value = "",
-                ),
-            ) +
-                languagePreferenceViewModel.supportedLocales.map {
+            languagePreferenceViewModel.availableLanguages
+                .map { language ->
                     ListPreferenceItem(
-                        title = it.name,
-                        value = it.tag,
+                        title = language.title.asString(),
+                        value = language.value,
                     )
                 },
         preferenceStore =

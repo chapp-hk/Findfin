@@ -17,6 +17,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.design.uiFoundation)
     implementation(projects.core.locale)
     implementation(projects.core.preferences.uiFoundation)
     implementation(projects.feature.setting.data.repo)
