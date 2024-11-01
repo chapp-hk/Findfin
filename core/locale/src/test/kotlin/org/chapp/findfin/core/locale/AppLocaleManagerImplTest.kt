@@ -44,13 +44,13 @@ class AppLocaleManagerImplTest {
     @Test
     @DisplayName(
         "When AppCompatDelegate.getApplicationLocales() returns empty locale list, " +
-            "then getCurrentLocale() should return default item",
+            "then getCurrentLocale() should return null",
     )
     fun testGetCurrentLocaleReturnsDefault() {
         mockkStatic(AppCompatDelegate::getApplicationLocales)
         every { AppCompatDelegate.getApplicationLocales() } returns
-            LocaleListCompat.create()
+            LocaleListCompat.getEmptyLocaleList()
 
-        appLocaleManagerImpl.getCurrentLocale() shouldBe Locale.ENGLISH
+        appLocaleManagerImpl.getCurrentLocale() shouldBe null
     }
 }

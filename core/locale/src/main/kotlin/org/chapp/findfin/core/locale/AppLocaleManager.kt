@@ -16,7 +16,7 @@ interface AppLocaleManager {
     /**
      * Retrieves the current application locale.
      *
-     * @return The current [Locale].
+     * @return The current [Locale], or null if no locale is set.
      */
-    fun getCurrentLocale(): Locale
+    fun getCurrentLocale(): Locale?
 }

@@ -23,11 +23,11 @@ import org.chapp.findfin.feature.setting.ui.R
 
 @Composable
 internal fun LanguagePreference(languagePreferenceViewModel: LanguagePreferenceViewModel = hiltViewModel()) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        LanguagePreferenceApi33(languagePreferenceViewModel)
-    } else {
-        LanguagePreferenceLegacy(languagePreferenceViewModel)
-    }
+//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//        LanguagePreferenceApi33(languagePreferenceViewModel)
+//    } else {
+    LanguagePreferenceLegacy(languagePreferenceViewModel)
+//    }
 }
 
 internal data class LanguagePreferenceItem(
@@ -47,7 +47,7 @@ private fun LanguagePreferenceApi33(languagePreferenceViewModel: LanguagePrefere
                 context.startActivity(intent)
             },
         title = stringResource(id = R.string.setting_language_title),
-        description = languagePreferenceViewModel.getCurrentLanguageName(),
+        description = languagePreferenceViewModel.getCurrentLanguageName().asString(),
     )
 }
 
@@ -66,7 +66,7 @@ private fun LanguagePreferenceLegacy(languagePreferenceViewModel: LanguagePrefer
         preferenceStore =
             object : PreferenceStore<String> {
                 override fun get(): Flow<String> {
-                    return flowOf(languagePreferenceViewModel.getCurrentLanguage())
+                    return flowOf(languagePreferenceViewModel.getCurrentLanguageTag())
                 }
 
                 override suspend fun set(value: String) {

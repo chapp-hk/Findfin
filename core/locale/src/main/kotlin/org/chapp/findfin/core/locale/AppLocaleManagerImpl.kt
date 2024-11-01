@@ -12,5 +12,5 @@ internal class AppLocaleManagerImpl @Inject constructor() : AppLocaleManager {
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(locale))
     }
 
-    override fun getCurrentLocale(): Locale = AppCompatDelegate.getApplicationLocales()[0] ?: Locale.getDefault()
+    override fun getCurrentLocale(): Locale? = AppCompatDelegate.getApplicationLocales()[0]
 }
