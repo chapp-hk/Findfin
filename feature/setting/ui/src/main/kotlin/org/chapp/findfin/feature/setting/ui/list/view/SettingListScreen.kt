@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import org.chapp.findfin.feature.setting.ui.R
 import org.chapp.findfin.feature.setting.ui.list.view.language.LanguagePreference
+import org.chapp.findfin.feature.setting.ui.list.view.theme.ThemePreference
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

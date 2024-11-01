@@ -11,11 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import org.chapp.findfin.core.design.ui.foundation.text.UiText
 import org.chapp.findfin.core.design.ui.foundation.text.asString
-import org.chapp.findfin.core.preferences.runtime.PreferenceStore
 import org.chapp.findfin.core.preferences.ui.foundation.ListPreference
 import org.chapp.findfin.core.preferences.ui.foundation.ListPreferenceItem
 import org.chapp.findfin.core.preferences.ui.foundation.Preference
@@ -63,15 +60,7 @@ private fun LanguagePreferenceLegacy(languagePreferenceViewModel: LanguagePrefer
                         value = language.value,
                     )
                 },
-        preferenceStore =
-            object : PreferenceStore<String> {
-                override fun get(): Flow<String> {
-                    return flowOf(languagePreferenceViewModel.getCurrentLanguageTag())
-                }
-
-                override suspend fun set(value: String) {
-                    languagePreferenceViewModel.setLanguage(value)
-                }
-            },
+        selectedValue = { languagePreferenceViewModel.getCurrentLanguageTag() },
+        onChange = { languagePreferenceViewModel.setLanguage(it) },
     )
 }

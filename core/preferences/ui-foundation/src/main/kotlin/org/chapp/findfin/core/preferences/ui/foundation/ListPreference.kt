@@ -13,10 +13,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,30 +24,26 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.launch
-import org.chapp.findfin.core.preferences.runtime.PreferenceStore
 
 /**
  * A composable function that displays a list preference item with a dialog for selection.
  *
  * @param title The title of the preference item.
  * @param list The list of preference items to display in the dialog.
- * @param preferenceStore The preference store to manage the selected preference value.
+ * @param selectedValue A lambda function that returns the currently selected value.
+ * @param onChange A lambda function to be called when a new item is selected.
  */
 @Composable
-fun ListPreference(
+fun <T> ListPreference(
     title: String,
-    list: List<ListPreferenceItem>,
-    preferenceStore: PreferenceStore<String>,
+    list: List<ListPreferenceItem<T>>,
+    selectedValue: () -> T,
+    onChange: (T) -> Unit,
 ) {
-    val selectedValue by preferenceStore.get().collectAsStateWithLifecycle(initialValue = "")
-    val summaryText =
-        list.find { it.value == selectedValue }?.title
+    val summaryText by remember {
+        derivedStateOf { list.find { it.value == selectedValue() }?.title }
+    }
 
-    val coroutineScope = rememberCoroutineScope()
     var isShowDialog by remember { mutableStateOf(false) }
 
     ListItem(
@@ -60,12 +56,8 @@ fun ListPreference(
         ListPreferenceDialog(
             title = title,
             list = list,
-            selectedItemKey = selectedValue,
-            onItemSelected = { key ->
-                coroutineScope.launch {
-                    preferenceStore.set(key)
-                }
-            },
+            selectedItemKey = selectedValue(),
+            onItemSelected = onChange,
             onDismissRequest = { isShowDialog = false },
         )
     }
@@ -77,17 +69,26 @@ fun ListPreference(
  * @property title The title string for the preference item.
  * @property value The value associated with the preference item.
  */
-data class ListPreferenceItem(
+data class ListPreferenceItem<T>(
     val title: String,
-    val value: String,
+    val value: T,
 )
 
+/**
+ * A composable function that displays a dialog for selecting a list preference item.
+ *
+ * @param title The title of the dialog.
+ * @param list The list of preference items to display in the dialog.
+ * @param selectedItemKey The currently selected item key.
+ * @param onItemSelected A lambda function to be called when a new item is selected.
+ * @param onDismissRequest A lambda function to be called when the dialog is dismissed.
+ */
 @Composable
-private fun ListPreferenceDialog(
+private fun <T> ListPreferenceDialog(
     title: String,
-    list: List<ListPreferenceItem>,
-    selectedItemKey: String?,
-    onItemSelected: (String) -> Unit,
+    list: List<ListPreferenceItem<T>>,
+    selectedItemKey: T?,
+    onItemSelected: (T) -> Unit,
     onDismissRequest: () -> Unit,
 ) {
     Dialog(onDismissRequest = { onDismissRequest() }) {
@@ -156,13 +157,7 @@ private fun ListPreferenceItemPreview() {
                     value = "item2",
                 ),
             ),
-        preferenceStore =
-            object : PreferenceStore<String> {
-                override fun get(): Flow<String> = flowOf("item1")
-
-                override suspend fun set(value: String) {
-                    // no implementation
-                }
-            },
+        selectedValue = { "item1" },
+        onChange = { },
     )
 }

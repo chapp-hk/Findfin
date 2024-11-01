@@ -1,16 +1,20 @@
-package org.chapp.findfin.feature.setting.ui.list.view
+package org.chapp.findfin.feature.setting.ui.list.view.theme
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.launch
 import org.chapp.findfin.core.preferences.ui.foundation.ListPreference
 import org.chapp.findfin.core.preferences.ui.foundation.ListPreferenceItem
 import org.chapp.findfin.feature.setting.data.repo.preferece.model.Theme
 import org.chapp.findfin.feature.setting.ui.R
-import org.chapp.findfin.feature.setting.ui.list.runtime.rememberThemePreferenceStore
 
 @Composable
-internal fun ThemePreference() {
+internal fun ThemePreference(themePreferenceViewModel: ThemePreferenceViewModel = hiltViewModel()) {
     val themes =
         remember {
             listOf(
@@ -28,11 +32,17 @@ internal fun ThemePreference() {
             )
         }
 
-    val preferenceStore = rememberThemePreferenceStore()
+    val coroutineScope = rememberCoroutineScope()
+    val selectedValue by themePreferenceViewModel.getCurrentTheme().collectAsStateWithLifecycle(initialValue = "")
 
     ListPreference(
         title = stringResource(id = R.string.setting_theme_title),
         list = list,
-        preferenceStore = preferenceStore,
+        selectedValue = { selectedValue },
+        onChange = {
+            coroutineScope.launch {
+                themePreferenceViewModel.setTheme(it)
+            }
+        },
     )
 }
