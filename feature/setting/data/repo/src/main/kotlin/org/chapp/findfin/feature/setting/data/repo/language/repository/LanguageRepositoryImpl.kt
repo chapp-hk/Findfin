@@ -8,8 +8,9 @@ import javax.inject.Inject
 @HiltWrapBindModule
 internal class LanguageRepositoryImpl @Inject constructor() : LanguageRepository {
     override fun getAvailableLanguages(): List<Language> {
-        return listOf("en", "zh").map { languageTag ->
+        return listOf("", "en", "zh").map { languageTag ->
             Language(
+                isDefault = languageTag.isEmpty(),
                 name = Locale.forLanguageTag(languageTag).let { it.getDisplayName(it) },
                 tag = languageTag,
             )
