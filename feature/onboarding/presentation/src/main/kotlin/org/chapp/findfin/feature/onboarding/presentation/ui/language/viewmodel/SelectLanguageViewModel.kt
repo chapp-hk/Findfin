@@ -33,7 +33,8 @@ internal class SelectLanguageViewModel @Inject constructor(
         appLocaleManager.setLocale(language)
         viewModelScope.launch {
             _uiState.emit(ScreenState.Loading)
-            if (fetchAllLocatorsWithLanguage()) {
+
+            if (fetchAllLocatorsWithLanguage(language)) {
                 _uiState.emit(
                     ScreenState.Success<SelectLanguageUiState, Nothing>(
                         SelectLanguageUiState(language),

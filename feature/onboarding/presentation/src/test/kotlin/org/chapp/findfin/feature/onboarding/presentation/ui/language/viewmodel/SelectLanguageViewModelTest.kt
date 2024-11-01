@@ -5,6 +5,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import io.mockk.Runs
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
@@ -97,7 +98,7 @@ class SelectLanguageViewModelTest {
     fun testUiStateSuccess() =
         runTest {
             every { appLocaleManager.setLocale(any()) } just Runs
-            coEvery { fetchAllLocatorsWithLanguage() } returns true
+            coEvery { fetchAllLocatorsWithLanguage(any()) } returns true
 
             val viewModel = createViewModel()
             viewModel.setLanguage("en")
@@ -107,6 +108,8 @@ class SelectLanguageViewModelTest {
                 awaitItem() shouldBe ScreenState.Loading
                 awaitItem() shouldBe ScreenState.Success(SelectLanguageUiState("en"))
             }
+
+            coVerify { fetchAllLocatorsWithLanguage("en") }
         }
 
     @Test
@@ -117,7 +120,7 @@ class SelectLanguageViewModelTest {
     fun testUiStateError() =
         runTest {
             every { appLocaleManager.setLocale(any()) } just Runs
-            coEvery { fetchAllLocatorsWithLanguage() } returns false
+            coEvery { fetchAllLocatorsWithLanguage(any()) } returns false
 
             val viewModel = createViewModel()
             viewModel.setLanguage("en")
@@ -128,6 +131,8 @@ class SelectLanguageViewModelTest {
                 awaitItem().shouldBeInstanceOf<ScreenState.Error<SelectLanguageUiState, String>>()
                     .error shouldBe "en"
             }
+
+            coVerify { fetchAllLocatorsWithLanguage("en") }
         }
 
     private fun createViewModel() =

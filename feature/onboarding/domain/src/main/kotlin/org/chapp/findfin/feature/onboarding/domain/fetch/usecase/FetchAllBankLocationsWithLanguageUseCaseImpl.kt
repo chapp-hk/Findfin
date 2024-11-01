@@ -14,22 +14,25 @@ class FetchAllBankLocationsWithLanguageUseCaseImpl @Inject constructor(
     @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
     private val bankLocationRepository: BankLocationRepository,
 ) : FetchAllBankLocationsWithLanguageUseCase {
-    override suspend operator fun invoke(): Boolean {
+    override suspend operator fun invoke(languageTag: String): Boolean {
         return withContext(defaultDispatcher) {
-            val isFetchBranchSuccess = getBankLocations(BankLocationType.BRANCH)
-            val isFetchAtmSuccess = getBankLocations(BankLocationType.ATM)
+            val isFetchBranchSuccess = getBankLocations(languageTag, BankLocationType.BRANCH)
+            val isFetchAtmSuccess = getBankLocations(languageTag, BankLocationType.ATM)
             isFetchBranchSuccess && isFetchAtmSuccess
         }
     }
 
-    private suspend fun getBankLocations(type: BankLocationType): Boolean {
+    private suspend fun getBankLocations(
+        languageTag: String,
+        type: BankLocationType,
+    ): Boolean {
         var page = 0
 
         do {
             val result =
                 bankLocationRepository.fetchLocations(
                     type = type,
-                    localeTag = "", // TODO - add back current locale tag
+                    localeTag = languageTag,
                     page = page,
                     pageSize = 1000,
                 )
