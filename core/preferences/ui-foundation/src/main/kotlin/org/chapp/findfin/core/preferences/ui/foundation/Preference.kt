@@ -7,6 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
+/**
+ * A composable function that displays a preference item with a title and an optional description.
+ *
+ * @param modifier The modifier to be applied to the preference item.
+ * @param title The title of the preference item.
+ * @param description The optional description of the preference item.
+ */
 @Composable
 fun Preference(
     modifier: Modifier = Modifier,
