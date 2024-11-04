@@ -13,6 +13,7 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import org.chapp.findfin.core.design.ui.foundation.AppContent
+import org.chapp.findfin.core.design.ui.foundation.text.UiText
 import org.chapp.findfin.feature.onboarding.presentation.R
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.junit.Rule
@@ -34,11 +35,11 @@ class SelectLanguageContentTest {
                     availableLanguages =
                         listOf(
                             SelectLanguageUiModel(
-                                displayName = "English",
+                                displayName = UiText.ActualString(value = "English"),
                                 tag = "en",
                             ),
                             SelectLanguageUiModel(
-                                displayName = "Chinese",
+                                displayName = UiText.ActualString(value = "Chinese"),
                                 tag = "zh",
                             ),
                         ),
@@ -69,7 +70,7 @@ class SelectLanguageContentTest {
                     availableLanguages =
                         listOf(
                             SelectLanguageUiModel(
-                                displayName = "English",
+                                displayName = UiText.ActualString(value = "English"),
                                 tag = "en",
                             ),
                         ),

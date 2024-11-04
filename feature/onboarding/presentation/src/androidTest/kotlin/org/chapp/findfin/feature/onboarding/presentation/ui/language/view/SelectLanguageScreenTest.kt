@@ -15,7 +15,9 @@ import io.mockk.verify
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.chapp.findfin.core.design.ui.foundation.AppContent
 import org.chapp.findfin.core.design.ui.foundation.ScreenState
+import org.chapp.findfin.core.design.ui.foundation.text.UiText
 import org.chapp.findfin.feature.onboarding.presentation.R
+import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.viewmodel.SelectLanguageViewModel
 import org.chapp.findfin.testing.instrument.HiltComponentActivity
@@ -79,7 +81,16 @@ internal class SelectLanguageScreenTest {
     @Test
     fun testContentShown() {
         every { selectLanguageViewModel.availableLanguages } returns
-            listOf(mockk(relaxed = true))
+            listOf(
+                SelectLanguageUiModel(
+                    displayName = UiText.ActualString(value = "English"),
+                    tag = "en",
+                ),
+                SelectLanguageUiModel(
+                    displayName = UiText.ActualString(value = "Japanese"),
+                    tag = "jp",
+                ),
+            )
         every { selectLanguageViewModel.uiState } returns
             MutableStateFlow(ScreenState.Empty)
 

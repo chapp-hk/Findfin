@@ -23,7 +23,7 @@ class SelectLanguageUiModelMapperTest {
         selectLanguageUiModelMapper.map(language) shouldBe
             SelectLanguageUiModel(
                 displayName = UiText.ResourceString(resId = R.string.onboarding_select_language_default),
-                tag = "code",
+                tag = "",
             )
     }
 
