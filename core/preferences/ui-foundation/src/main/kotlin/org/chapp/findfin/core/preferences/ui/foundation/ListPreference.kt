@@ -28,6 +28,7 @@ import androidx.compose.ui.window.Dialog
 /**
  * A composable function that displays a list preference item with a dialog for selection.
  *
+ * @param modifier The modifier to be applied to the preference item.
  * @param title The title of the preference item.
  * @param list The list of preference items to display in the dialog.
  * @param selectedValue A lambda function that returns the currently selected value.
@@ -35,6 +36,7 @@ import androidx.compose.ui.window.Dialog
  */
 @Composable
 fun <T> ListPreference(
+    modifier: Modifier = Modifier,
     title: String,
     list: List<ListPreferenceItem<T>>,
     selectedValue: () -> T,
@@ -47,7 +49,7 @@ fun <T> ListPreference(
     var isShowDialog by remember { mutableStateOf(false) }
 
     ListItem(
-        modifier = Modifier.clickable { isShowDialog = true },
+        modifier = modifier.clickable { isShowDialog = true },
         headlineContent = { Text(text = title) },
         supportingContent = summaryText?.let { { Text(text = it) } },
     )
