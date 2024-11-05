@@ -7,4 +7,7 @@
     <string name="setting_theme_summary_light">Light</string>
     <string name="setting_theme_summary_dark">Dark</string>
     <string name="setting_language_title">Language</string>
+
+    <string name="setting_description_system_language_picker">Launch system language picker</string>
+    <string name="setting_description_inapp_language_picker">Launch in-app language picker</string>
 </resources>
