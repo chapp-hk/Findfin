@@ -1,37 +1,29 @@
 package org.chapp.findfin.feature.setting.ui.list.view.language
 
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import org.chapp.findfin.core.design.ui.foundation.text.UiText
 import org.chapp.findfin.feature.setting.ui.R
-import org.chapp.findfin.testing.instrument.HiltComponentActivity
 import org.chapp.findfin.testing.instrument.getResourceString
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-@HiltAndroidTest
 class LanguagePreferenceTest {
-    @get:Rule(order = 0)
-    val hiltTestRule = HiltAndroidRule(this)
-
-    @get:Rule(order = 1)
-    val composeTestRule = createAndroidComposeRule<HiltComponentActivity>()
+    @get:Rule
+    val composeTestRule = createComposeRule()
 
     private val languagePreferenceViewModel = mockk<LanguagePreferenceViewModel>()
 
     @Before
     fun setup() {
-        hiltTestRule.inject()
         mockkObject(BuildVersion)
     }
 
