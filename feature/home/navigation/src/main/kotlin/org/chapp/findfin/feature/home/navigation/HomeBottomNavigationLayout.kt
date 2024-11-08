@@ -11,8 +11,8 @@ import org.chapp.findfin.feature.bank.navigation.BankDestination
 import org.chapp.findfin.feature.home.ui.container.view.HomeContainer
 import org.chapp.findfin.feature.locator.navigation.MapBottomTabDestination
 import org.chapp.findfin.feature.locator.navigation.MapDestination
-import org.chapp.findfin.feature.navigation.graph.SettingBottomTabDestination
-import org.chapp.findfin.feature.navigation.graph.SettingDestination
+import org.chapp.findfin.feature.presentation.navigation.graph.SettingBottomTabDestination
+import org.chapp.findfin.feature.presentation.navigation.graph.SettingDestination
 
 /**
  * Composable function that sets up the home bottom navigation layout.

@@ -20,7 +20,7 @@ dependencies {
     implementation(projects.feature.auth.presentation)
     implementation(projects.feature.bank.navigation)
     implementation(projects.feature.locator.navigation)
-    implementation(projects.feature.setting.navigation)
+    implementation(projects.feature.setting.presentation)
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.compose.material)
