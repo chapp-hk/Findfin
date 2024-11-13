@@ -12,7 +12,7 @@ import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocation
 import javax.inject.Inject
 
 @HiltViewModel
-class BankListViewModelImpl @Inject constructor(
+internal class BankListViewModelImpl @Inject constructor(
     private val bankLocationRepository: BankLocationRepository,
 ) : ViewModel(), BankListViewModel {
     override val screenState: ScreenStateFlow<List<String>, Nothing> =
