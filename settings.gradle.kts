@@ -46,7 +46,6 @@ include(":feature:bank:data:local-database")
 include(":feature:bank:data:remote")
 include(":feature:bank:data:repo")
 include(":feature:bank:presentation")
-include(":feature:bank:ui")
 
 // feature onboarding modules
 include(":feature:onboarding:domain")

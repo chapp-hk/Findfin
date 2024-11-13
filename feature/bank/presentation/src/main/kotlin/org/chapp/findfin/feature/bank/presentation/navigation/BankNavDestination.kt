@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.chapp.findfin.core.navigation.BottomNavigationTab
-import org.chapp.findfin.feature.bank.ui.R
-import org.chapp.findfin.feature.bank.ui.banklist.view.BankListScreen
+import org.chapp.findfin.feature.bank.presentation.R
+import org.chapp.findfin.feature.bank.presentation.ui.banklist.view.BankListScreen
 
 /**
  * Composable function that represents the bank destination.
