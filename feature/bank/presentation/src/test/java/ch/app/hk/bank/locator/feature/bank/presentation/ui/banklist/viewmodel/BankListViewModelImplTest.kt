@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.bank.ui.banklist.viewmodel
+package ch.app.hk.bank.locator.feature.bank.presentation.ui.banklist.viewmodel
 
 import app.cash.turbine.test
 import io.kotest.matchers.shouldBe
