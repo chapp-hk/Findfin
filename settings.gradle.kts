@@ -55,7 +55,6 @@ include(":feature:onboarding:presentation")
 // feature home modules
 include(":feature:home:domain")
 include(":feature:home:presentation")
-include(":feature:home:ui")
 
 // feature locator modules
 include(":feature:locator:data:remote-location")
