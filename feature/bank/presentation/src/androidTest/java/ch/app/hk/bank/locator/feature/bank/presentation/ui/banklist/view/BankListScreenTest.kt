@@ -1,4 +1,4 @@
-package ch.app.hk.bank.locator.feature.bank.ui.banklist.view
+package ch.app.hk.bank.locator.feature.bank.presentation.ui.banklist.view
 
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
