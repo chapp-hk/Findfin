@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.home.navigation
+package org.chapp.findfin.feature.home.presentation.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
