@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.bank.navigation
+package org.chapp.findfin.feature.bank.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import kotlinx.serialization.SerialName
