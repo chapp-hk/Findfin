@@ -3,7 +3,7 @@ package org.chapp.findfin.feature.home.presentation.navigation
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.chapp.findfin.core.navigation.BottomNavigationTab
-import org.chapp.findfin.feature.home.ui.R
+import org.chapp.findfin.feature.home.presentation.R
 
 /**
  * Object representing the home navigation graph destination.

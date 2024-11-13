@@ -8,7 +8,7 @@ import org.chapp.findfin.core.navigation.BottomNavigationLayout
 import org.chapp.findfin.core.navigation.BottomNavigationTab
 import org.chapp.findfin.feature.bank.navigation.BankBottomTabDestination
 import org.chapp.findfin.feature.bank.navigation.BankDestination
-import org.chapp.findfin.feature.home.ui.container.view.HomeContainer
+import org.chapp.findfin.feature.home.presentation.ui.container.view.HomeContainer
 import org.chapp.findfin.feature.locator.navigation.MapBottomTabDestination
 import org.chapp.findfin.feature.locator.navigation.MapDestination
 import org.chapp.findfin.feature.setting.presentation.navigation.graph.SettingBottomTabDestination
