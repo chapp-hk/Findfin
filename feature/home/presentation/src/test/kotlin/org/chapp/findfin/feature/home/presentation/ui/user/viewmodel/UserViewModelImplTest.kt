@@ -62,5 +62,5 @@ internal class UserViewModelImplTest {
         }
     }
 
-    private fun createUserViewModel() = org.chapp.findfin.feature.home.ui.user.viewmodel.UserViewModelImpl(userRepository = userRepository)
+    private fun createUserViewModel() = UserViewModelImpl(userRepository = userRepository)
 }

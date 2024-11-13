@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import org.chapp.findfin.feature.home.presentation.ui.user.view.UserStatus
 
 @Composable
-fun HomeContainer(
+internal fun HomeContainer(
     onRequestAuth: () -> Unit,
     onSearch: (String) -> Unit,
 ) {

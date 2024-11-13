@@ -2,7 +2,7 @@ package org.chapp.findfin.feature.home.presentation.ui.container.model
 
 import org.chapp.findfin.feature.home.presentation.ui.nearby.model.NearByItemUiModel
 
-sealed interface HomeItem {
+internal sealed interface HomeItem {
     data object Search : HomeItem
 
     data object Finding : HomeItem

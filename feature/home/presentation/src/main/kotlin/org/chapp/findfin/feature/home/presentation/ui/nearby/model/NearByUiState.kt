@@ -1,6 +1,6 @@
 package org.chapp.findfin.feature.home.presentation.ui.nearby.model
 
-sealed interface NearByUiState {
+internal sealed interface NearByUiState {
     data object Loading : NearByUiState
 
     data object Error : NearByUiState
