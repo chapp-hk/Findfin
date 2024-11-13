@@ -12,7 +12,7 @@ import org.chapp.findfin.feature.bank.presentation.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BankListScreen(modifier: Modifier = Modifier) {
+internal fun BankListScreen(modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier,
         topBar = {
