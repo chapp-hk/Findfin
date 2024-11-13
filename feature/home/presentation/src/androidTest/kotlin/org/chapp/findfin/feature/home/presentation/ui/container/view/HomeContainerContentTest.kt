@@ -26,7 +26,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @HiltAndroidTest
-class HomeContainerContentTest {
+internal class HomeContainerContentTest {
     @get:Rule(order = 0)
     val hiltTestRule = HiltAndroidRule(this)
 
