@@ -54,7 +54,7 @@ include(":feature:onboarding:presentation")
 
 // feature home modules
 include(":feature:home:domain")
-include(":feature:home:navigation")
+include(":feature:home:presentation")
 include(":feature:home:ui")
 
 // feature locator modules

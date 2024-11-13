@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "org.chapp.findfin.feature.home.navigation"
+    namespace = "org.chapp.findfin.feature.home.presentation"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

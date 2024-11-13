@@ -35,7 +35,7 @@ dependencies {
     implementation(projects.core.navigation)
     implementation(projects.feature.onboarding.presentation)
     implementation(projects.feature.auth.presentation)
-    implementation(projects.feature.home.navigation)
+    implementation(projects.feature.home.presentation)
     implementation(projects.feature.setting.data.repo)
     implementation(projects.core.logging.api)
     implementation(projects.core.logging.startup)

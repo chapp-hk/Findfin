@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.home.navigation
+package org.chapp.findfin.feature.home.presentation.navigation
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
