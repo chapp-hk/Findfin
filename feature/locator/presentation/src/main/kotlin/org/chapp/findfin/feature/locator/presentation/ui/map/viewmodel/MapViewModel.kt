@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.locator.ui.map.viewmodel
+package org.chapp.findfin.feature.locator.presentation.ui.map.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

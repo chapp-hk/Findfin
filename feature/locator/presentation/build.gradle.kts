@@ -21,7 +21,8 @@ dependencies {
     implementation(projects.core.location)
     implementation(projects.core.navigation)
     implementation(projects.core.map)
-    implementation(libs.androidx.navigation.compose)
+    implementation(projects.feature.bank.data.repo)
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 
     androidTestImplementation(libs.androidx.test.runner)
