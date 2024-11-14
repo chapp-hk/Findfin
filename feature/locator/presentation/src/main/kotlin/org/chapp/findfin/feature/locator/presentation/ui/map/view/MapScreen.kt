@@ -8,7 +8,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.chapp.findfin.core.map.AppMap
 import org.chapp.findfin.core.map.Position
 import org.chapp.findfin.core.map.rememberAppMapCameraState
-import org.chapp.findfin.feature.locator.ui.map.viewmodel.MapViewModel
+import org.chapp.findfin.feature.locator.presentation.ui.map.viewmodel.MapViewModel
 
 @Composable
 internal fun MapScreen(
