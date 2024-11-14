@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.chapp.findfin.core.navigation.BottomNavigationTab
-import org.chapp.findfin.feature.locator.ui.R
-import org.chapp.findfin.feature.locator.ui.map.view.MapScreen
+import org.chapp.findfin.feature.locator.presentation.R
+import org.chapp.findfin.feature.locator.presentation.ui.map.view.MapScreen
 
 /**
  * Composable function that displays the map screen.

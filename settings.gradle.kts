@@ -59,7 +59,6 @@ include(":feature:home:presentation")
 include(":feature:locator:data:remote-location")
 include(":feature:locator:data:repo")
 include(":feature:locator:presentation")
-include(":feature:locator:ui")
 
 // feature setting modules
 include(":feature:setting:data:local-preferences")

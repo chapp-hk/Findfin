@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.locator.ui.map.view
+package org.chapp.findfin.feature.locator.presentation.ui.map.view
 
 import androidx.compose.runtime.Composable
 import org.chapp.findfin.core.map.AppMap
