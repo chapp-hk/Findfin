@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.locator.navigation
+package org.chapp.findfin.feature.locator.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import kotlinx.serialization.SerialName

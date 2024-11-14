@@ -58,7 +58,7 @@ include(":feature:home:presentation")
 // feature locator modules
 include(":feature:locator:data:remote-location")
 include(":feature:locator:data:repo")
-include(":feature:locator:navigation")
+include(":feature:locator:presentation")
 include(":feature:locator:ui")
 
 // feature setting modules
