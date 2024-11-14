@@ -7,7 +7,7 @@ import org.chapp.findfin.core.map.Position
 import org.chapp.findfin.core.map.rememberAppMapCameraState
 
 @Composable
-fun MapScreen() {
+internal fun MapScreen() {
     val mapCameraState =
         rememberAppMapCameraState(
             initPosition = Position(latitude = 22.3193, longitude = 114.1694),
