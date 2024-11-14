@@ -10,6 +10,7 @@ plugins {
 
 android {
     namespace = "org.chapp.findfin.feature.locator.presentation"
+    resourcePrefix = "locator_"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
@@ -19,7 +20,7 @@ android {
 dependencies {
     implementation(projects.core.location)
     implementation(projects.core.navigation)
-    implementation(projects.feature.locator.ui)
+    implementation(projects.core.map)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 
