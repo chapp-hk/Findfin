@@ -14,7 +14,6 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.chapp.findfin.core.design.ui.foundation.AppContent
-import org.chapp.findfin.core.design.ui.foundation.ScreenState
 import org.chapp.findfin.core.design.ui.foundation.text.UiText
 import org.chapp.findfin.feature.onboarding.presentation.R
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
@@ -45,7 +44,7 @@ internal class SelectLanguageScreenTest {
     @Test
     fun testLoadingShown() {
         every { selectLanguageViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Loading)
+            MutableStateFlow(SelectLanguageUiState.Loading)
 
         composeTestRule.setContent {
             AppContent {
@@ -63,7 +62,7 @@ internal class SelectLanguageScreenTest {
     @Test
     fun testErrorShown() {
         every { selectLanguageViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Error("en"))
+            MutableStateFlow(SelectLanguageUiState.Error(selectedLanguageTag = "en"))
 
         composeTestRule.setContent {
             AppContent {
@@ -92,7 +91,7 @@ internal class SelectLanguageScreenTest {
                 ),
             )
         every { selectLanguageViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Empty)
+            MutableStateFlow(SelectLanguageUiState.Initial)
 
         composeTestRule.setContent {
             AppContent {
@@ -113,7 +112,7 @@ internal class SelectLanguageScreenTest {
         every { mockGoToRequestPermission() } just Runs
 
         every { selectLanguageViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Success(SelectLanguageUiState("en")))
+            MutableStateFlow(SelectLanguageUiState.Success(selectedLanguageTag = "en"))
 
         composeTestRule.setContent {
             AppContent {

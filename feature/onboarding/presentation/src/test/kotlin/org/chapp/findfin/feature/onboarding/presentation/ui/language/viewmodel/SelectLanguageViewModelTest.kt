@@ -2,7 +2,6 @@ package org.chapp.findfin.feature.onboarding.presentation.ui.language.viewmodel
 
 import app.cash.turbine.test
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeInstanceOf
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -11,7 +10,6 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.core.design.ui.foundation.ScreenState
 import org.chapp.findfin.core.design.ui.foundation.text.UiText
 import org.chapp.findfin.core.locale.AppLocaleManager
 import org.chapp.findfin.feature.onboarding.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
@@ -104,12 +102,12 @@ class SelectLanguageViewModelTest {
             viewModel.setLanguage("en")
 
             viewModel.uiState.test {
-                awaitItem() shouldBe ScreenState.Empty
-                awaitItem() shouldBe ScreenState.Loading
-                awaitItem() shouldBe ScreenState.Success(SelectLanguageUiState("en"))
+                awaitItem() shouldBe SelectLanguageUiState.Initial
+                awaitItem() shouldBe SelectLanguageUiState.Loading
+                awaitItem() shouldBe SelectLanguageUiState.Success(selectedLanguageTag = "en")
             }
 
-            coVerify { fetchAllLocatorsWithLanguage("en") }
+            coVerify { fetchAllLocatorsWithLanguage(languageTag = "en") }
         }
 
     @Test
@@ -126,10 +124,9 @@ class SelectLanguageViewModelTest {
             viewModel.setLanguage("en")
 
             viewModel.uiState.test {
-                awaitItem() shouldBe ScreenState.Empty
-                awaitItem() shouldBe ScreenState.Loading
-                awaitItem().shouldBeInstanceOf<ScreenState.Error<SelectLanguageUiState, String>>()
-                    .error shouldBe "en"
+                awaitItem() shouldBe SelectLanguageUiState.Initial
+                awaitItem() shouldBe SelectLanguageUiState.Loading
+                awaitItem() shouldBe SelectLanguageUiState.Error(selectedLanguageTag = "en")
             }
 
             coVerify { fetchAllLocatorsWithLanguage("en") }
