@@ -21,9 +21,9 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
-import org.chapp.findfin.core.design.ui.foundation.ScreenStateView
 import org.chapp.findfin.core.design.ui.foundation.modifier.contentDescription
 import org.chapp.findfin.feature.onboarding.presentation.R
+import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.viewmodel.SelectLanguageViewModel
 
 @Composable
@@ -76,9 +76,16 @@ private fun SelectLanguageScreenStateView(
     selectLanguageViewModel: SelectLanguageViewModel = hiltViewModel(),
     onFinishSelectLanguage: () -> Unit,
 ) {
-    ScreenStateView(
-        state = selectLanguageViewModel.uiState.collectAsStateWithLifecycle(),
-        loading = {
+    val state by selectLanguageViewModel.uiState.collectAsStateWithLifecycle()
+    when (val value = state) {
+        SelectLanguageUiState.Initial -> {
+            SelectLanguageContent(
+                availableLanguages = selectLanguageViewModel.availableLanguages,
+                onLanguageSelect = selectLanguageViewModel::setLanguage,
+            )
+        }
+
+        SelectLanguageUiState.Loading -> {
             val loadingContentDescription =
                 stringResource(id = R.string.onboarding_content_description_loading)
 
@@ -89,22 +96,18 @@ private fun SelectLanguageScreenStateView(
                         .fillMaxSize()
                         .wrapContentSize(Alignment.Center),
             )
-        },
-        empty = {
-            SelectLanguageContent(
-                availableLanguages = selectLanguageViewModel.availableLanguages,
-                onLanguageSelect = selectLanguageViewModel::setLanguage,
-            )
-        },
-        error = { data ->
+        }
+
+        is SelectLanguageUiState.Error -> {
             SelectLanguageError {
-                selectLanguageViewModel.setLanguage(data)
+                selectLanguageViewModel.setLanguage(value.selectedLanguageTag)
             }
-        },
-        success = {
+        }
+
+        is SelectLanguageUiState.Success -> {
             LaunchedEffect(Unit) {
                 onFinishSelectLanguage()
             }
-        },
-    )
+        }
+    }
 }

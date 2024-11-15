@@ -3,10 +3,9 @@ package org.chapp.findfin.feature.onboarding.presentation.ui.language.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.chapp.findfin.core.design.ui.foundation.ScreenState
-import org.chapp.findfin.core.design.ui.foundation.mutableScreenStateFlowOf
 import org.chapp.findfin.core.locale.AppLocaleManager
 import org.chapp.findfin.feature.onboarding.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
@@ -21,7 +20,7 @@ internal class SelectLanguageViewModel @Inject constructor(
     private val appLocaleManager: AppLocaleManager,
     private val fetchAllLocatorsWithLanguage: FetchAllBankLocationsWithLanguageUseCase,
 ) : ViewModel() {
-    private val _uiState = mutableScreenStateFlowOf<SelectLanguageUiState, String>(ScreenState.Empty)
+    private val _uiState = MutableStateFlow<SelectLanguageUiState>(SelectLanguageUiState.Initial)
     val uiState = _uiState.asStateFlow()
 
     private val selectLanguageUiModelMapper = SelectLanguageUiModelMapper()
@@ -32,16 +31,11 @@ internal class SelectLanguageViewModel @Inject constructor(
     fun setLanguage(language: String) {
         appLocaleManager.setLocale(language)
         viewModelScope.launch {
-            _uiState.emit(ScreenState.Loading)
-
+            _uiState.emit(SelectLanguageUiState.Loading)
             if (fetchAllLocatorsWithLanguage(language)) {
-                _uiState.emit(
-                    ScreenState.Success<SelectLanguageUiState, Nothing>(
-                        SelectLanguageUiState(language),
-                    ),
-                )
+                _uiState.emit(SelectLanguageUiState.Success(language))
             } else {
-                _uiState.emit(ScreenState.Error<Nothing, String>(language))
+                _uiState.emit(SelectLanguageUiState.Error(language))
             }
         }
     }
