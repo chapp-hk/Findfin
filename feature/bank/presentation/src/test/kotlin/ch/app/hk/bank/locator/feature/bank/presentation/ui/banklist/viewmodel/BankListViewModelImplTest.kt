@@ -5,7 +5,6 @@ import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.core.design.ui.foundation.ScreenState
 import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
 import org.chapp.findfin.feature.bank.presentation.ui.banklist.viewmodel.BankListViewModelImpl
 import org.chapp.findfin.testing.extension.MainDispatcherExtension
@@ -26,8 +25,8 @@ class BankListViewModelImplTest {
             val viewModel = createBankListViewModel()
 
             viewModel.screenState.test {
-                awaitItem() shouldBe ScreenState.Loading
-                awaitItem() shouldBe ScreenState.Success(listOf("Bank 1", "Bank 2", "Bank 3"))
+                awaitItem() shouldBe emptyList()
+                awaitItem() shouldBe listOf("Bank 1", "Bank 2", "Bank 3")
                 cancelAndIgnoreRemainingEvents()
             }
         }

@@ -1,7 +1,7 @@
 package org.chapp.findfin.feature.bank.presentation.ui.banklist.viewmodel
 
-import org.chapp.findfin.core.design.ui.foundation.ScreenStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 internal interface BankListViewModel {
-    val screenState: ScreenStateFlow<List<String>, Nothing>
+    val screenState: StateFlow<List<String>>
 }
