@@ -4,10 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
-import org.chapp.findfin.core.design.ui.foundation.ScreenState
-import org.chapp.findfin.core.design.ui.foundation.ScreenStateFlow
 import org.chapp.findfin.feature.auth.data.repo.user.repository.UserRepository
 import org.chapp.findfin.feature.home.presentation.ui.user.state.UserUiState
 import javax.inject.Inject
@@ -16,17 +15,18 @@ import javax.inject.Inject
 internal class UserViewModelImpl @Inject constructor(
     private val userRepository: UserRepository,
 ) : UserViewModel, ViewModel() {
-    override val uiState: ScreenStateFlow<UserUiState, Nothing> =
-        flow<ScreenState<UserUiState, Nothing>> {
+    override val uiState: StateFlow<UserUiState> =
+        flow {
+            emit(UserUiState.Loading)
             val currentUser = userRepository.getCurrentUser()
             if (currentUser == null) {
-                emit(ScreenState.Success(UserUiState.Guest))
+                emit(UserUiState.Guest)
             } else {
-                emit(ScreenState.Success(UserUiState.Authorized(currentUser)))
+                emit(UserUiState.Authorized(currentUser))
             }
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000L),
-            initialValue = ScreenState.Loading,
+            initialValue = UserUiState.Loading,
         )
 }
