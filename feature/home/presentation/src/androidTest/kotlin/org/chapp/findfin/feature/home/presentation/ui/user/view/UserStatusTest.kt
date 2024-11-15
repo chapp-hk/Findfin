@@ -10,7 +10,6 @@ import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.chapp.findfin.core.design.ui.foundation.AppContent
-import org.chapp.findfin.core.design.ui.foundation.ScreenState
 import org.chapp.findfin.feature.auth.data.repo.user.model.UserModel
 import org.chapp.findfin.feature.home.presentation.R
 import org.chapp.findfin.feature.home.presentation.ui.user.state.UserUiState
@@ -38,8 +37,7 @@ class UserStatusTest {
 
     @Test
     fun testLoadingDisplayed() {
-        every { userViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Loading)
+        every { userViewModel.uiState } returns MutableStateFlow(UserUiState.Loading)
 
         composeTestRule.setContent {
             AppContent {
@@ -54,8 +52,7 @@ class UserStatusTest {
 
     @Test
     fun testGuestDisplayed() {
-        every { userViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Success(UserUiState.Guest))
+        every { userViewModel.uiState } returns MutableStateFlow(UserUiState.Guest)
 
         composeTestRule.setContent {
             AppContent {
@@ -72,8 +69,7 @@ class UserStatusTest {
     fun testAuthorizedDisplayed() {
         val mockUser = mockk<UserModel>(relaxed = true)
 
-        every { userViewModel.uiState } returns
-            MutableStateFlow(ScreenState.Success(UserUiState.Authorized(mockUser)))
+        every { userViewModel.uiState } returns MutableStateFlow(UserUiState.Authorized(mockUser))
 
         composeTestRule.setContent {
             AppContent {

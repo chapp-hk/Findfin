@@ -5,7 +5,6 @@ import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.core.design.ui.foundation.ScreenState
 import org.chapp.findfin.feature.auth.data.repo.user.model.UserModel
 import org.chapp.findfin.feature.auth.data.repo.user.repository.UserRepository
 import org.chapp.findfin.feature.home.presentation.ui.user.state.UserUiState
@@ -39,8 +38,8 @@ internal class UserViewModelImplTest {
         val userViewModel = createUserViewModel()
 
         userViewModel.uiState.test {
-            awaitItem() shouldBe ScreenState.Loading
-            awaitItem() shouldBe ScreenState.Success(expectedResult)
+            awaitItem() shouldBe UserUiState.Loading
+            awaitItem() shouldBe expectedResult
             cancelAndIgnoreRemainingEvents()
         }
     }

@@ -1,8 +1,8 @@
 package org.chapp.findfin.feature.home.presentation.ui.user.viewmodel
 
-import org.chapp.findfin.core.design.ui.foundation.ScreenStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import org.chapp.findfin.feature.home.presentation.ui.user.state.UserUiState
 
 internal interface UserViewModel {
-    val uiState: ScreenStateFlow<UserUiState, Nothing>
+    val uiState: StateFlow<UserUiState>
 }
