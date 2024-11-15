@@ -10,9 +10,8 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.chapp.findfin.core.design.ui.foundation.AppContent
-import org.chapp.findfin.core.design.ui.foundation.ScreenState
-import org.chapp.findfin.core.design.ui.foundation.mutableScreenStateFlowOf
 import org.chapp.findfin.feature.bank.presentation.R
 import org.chapp.findfin.feature.bank.presentation.ui.banklist.view.BankListScreen
 import org.chapp.findfin.feature.bank.presentation.ui.banklist.viewmodel.BankListViewModelImpl
@@ -40,8 +39,7 @@ internal class BankListScreenTest {
 
     @Test
     fun testBankListScreenShouldShowTitle() {
-        every { bankListViewModel.screenState } returns
-            mutableScreenStateFlowOf(ScreenState.Success(emptyList()))
+        every { bankListViewModel.screenState } returns MutableStateFlow(emptyList())
 
         composeTestRule.setContent {
             AppContent {
@@ -56,8 +54,7 @@ internal class BankListScreenTest {
 
     @Test
     fun testBankListScreenShouldShowBankList() {
-        every { bankListViewModel.screenState } returns
-            mutableScreenStateFlowOf(ScreenState.Success(listOf("Bank 1", "Bank 2")))
+        every { bankListViewModel.screenState } returns MutableStateFlow(listOf("Bank 1", "Bank 2"))
 
         composeTestRule.setContent {
             AppContent {

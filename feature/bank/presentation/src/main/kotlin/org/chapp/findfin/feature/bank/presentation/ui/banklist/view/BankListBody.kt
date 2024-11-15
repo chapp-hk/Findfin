@@ -13,12 +13,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import org.chapp.findfin.core.design.ui.foundation.ScreenStateView
 import org.chapp.findfin.core.design.ui.foundation.modifier.contentDescription
 import org.chapp.findfin.feature.bank.presentation.R
 import org.chapp.findfin.feature.bank.presentation.ui.banklist.viewmodel.BankListViewModel
@@ -29,14 +29,10 @@ internal fun BankListBody(
     modifier: Modifier = Modifier,
     viewModel: BankListViewModel = hiltViewModel<BankListViewModelImpl>(),
 ) {
-    ScreenStateView(
-        state = viewModel.screenState.collectAsStateWithLifecycle(),
-        success = { data ->
-            BankListLazyColumn(
-                modifier = modifier,
-                data = data,
-            )
-        },
+    val uiState by viewModel.screenState.collectAsStateWithLifecycle()
+    BankListLazyColumn(
+        modifier = modifier,
+        data = uiState,
     )
 }
 
