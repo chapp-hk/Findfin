@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.setting.ui
+package org.chapp.findfin.feature.setting.presentation.ui
 
 import android.content.BroadcastReceiver
 import android.content.Context
