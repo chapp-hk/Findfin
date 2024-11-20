@@ -3,8 +3,8 @@ package org.chapp.findfin.feature.setting.presentation.ui
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
-import androidx.core.app.LocaleManagerCompat
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 
 class LanguageChangedBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(
@@ -12,8 +12,8 @@ class LanguageChangedBroadcastReceiver : BroadcastReceiver() {
         intent: Intent,
     ) {
         if (intent.action == Intent.ACTION_LOCALE_CHANGED) {
-            val tags = LocaleManagerCompat.getApplicationLocales(context).toLanguageTags()
-            Toast.makeText(context, "Language changed: $tags", Toast.LENGTH_SHORT).show()
+            val workRequest = OneTimeWorkRequestBuilder<ChangeLanguageWorker>().build()
+            WorkManager.getInstance(context).enqueue(workRequest)
         }
     }
 }
