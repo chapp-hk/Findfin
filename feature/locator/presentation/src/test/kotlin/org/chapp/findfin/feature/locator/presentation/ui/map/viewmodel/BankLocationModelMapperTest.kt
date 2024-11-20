@@ -30,8 +30,8 @@ class BankLocationModelMapperTest {
         // MapMarker extends a class which is hidden from map module
         // so just assert the string representation of the object
         "$result" shouldBe "MapMarker(itemPosition=" +
-            "Position(latitude=40.7128, longitude=-74.006)," +
-            "itemTitle=New York, NY," +
+            "Position(latitude=40.7128, longitude=-74.006), " +
+            "itemTitle=New York, NY, " +
             "itemSnippet=, itemZIndex=0.0)"
     }
 }
