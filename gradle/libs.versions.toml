@@ -1,17 +1,17 @@
 [versions]
 activity-compose = "1.9.3"
-agp = "8.7.2"
+agp = "8.7.3"
 androidx-navigation = "2.8.4"
 appcompat = "1.7.0"
 core-ktx = "1.15.0"
-hilt = "2.52"
+hilt = "2.53"
 kermit = "2.0.5"
 kotlin = "2.1.0"
 kotlinPoet = "2.0.0"
 kotlinxCoroutines = "1.9.0"
 ktlint = "1.1.1"
-ktor = "3.0.1"
-mapsCompose = "6.2.1"
+ktor = "3.0.2"
+mapsCompose = "6.4.0"
 mapStruct = "1.6.3"
 material = "1.12.0"
 mockk = "1.13.13"
@@ -51,7 +51,7 @@ dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", vers
 dagger-hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 #firebase
-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "33.6.0" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version = "33.7.0" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
 play-services-base = { module = "com.google.android.gms:play-services-base", version = "18.5.0" }
 play-services-tasks = { module = "com.google.android.gms:play-services-tasks", version = "18.2.0" }
@@ -83,9 +83,9 @@ ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serializatio
 #turbine
 turbine = { module = "app.cash.turbine:turbine", version = "1.2.0" }
 #konsist
-konsist = { module = "com.lemonappdev:konsist", version = "0.17.0" }
+konsist = { module = "com.lemonappdev:konsist", version = "0.17.3" }
 #lottie
-android-lottie-compose = { module = "com.airbnb.android:lottie-compose", version = "6.6.0" }
+android-lottie-compose = { module = "com.airbnb.android:lottie-compose", version = "6.6.1" }
 #kermit
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kermit-test = { module = "co.touchlab:kermit-test", version.ref = "kermit" }
@@ -111,7 +111,7 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.52" }
+dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.53" }
 ksp = { id = "com.google.devtools.ksp", version = "2.1.0-1.0.29" }
 google-gms-services = { id = "com.google.gms.google-services", version = "4.4.2" }
 google-secrets = { id  = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version = "2.0.1" }
