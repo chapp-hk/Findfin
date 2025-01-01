@@ -1,16 +1,18 @@
 package org.chapp.findfin.feature.setting.presentation.ui
 
 import android.content.Context
-import android.util.Log
+import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 
-class ChangeLanguageWorker(
-    context: Context,
-    workerParams: WorkerParameters,
+@HiltWorker
+class ChangeLanguageWorker @AssistedInject constructor(
+    @Assisted context: Context,
+    @Assisted workerParams: WorkerParameters,
 ) : CoroutineWorker(context, workerParams) {
     override suspend fun doWork(): Result {
-        Log.d("ChangeLanguageWorker", "doWork: ")
         return Result.success()
     }
 }
