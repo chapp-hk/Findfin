@@ -117,17 +117,17 @@ google-gms-services = { id = "com.google.gms.google-services", version = "4.4.2"
 google-secrets = { id  = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version = "2.0.1" }
 
 #convention plugins
-app-ktlint = { id = "app.plugin.ktlint", version = "unspecified" }
-app-detekt = { id = "app.plugin.detekt", version = "unspecified" }
-app-jacoco = { id = "app.plugin.jacoco", version = "unspecified" }
-app-jvm = { id = "app.plugin.jvm", version = "unspecified" }
-app-android-common = { id = "app.plugin.android.common", version = "unspecified" }
-app-compose = { id = "app.plugin.compose", version = "unspecified" }
-app-hilt-android = { id = "app.plugin.hilt.android", version = "unspecified" }
-app-hilt-android-test = { id = "app.plugin.hilt.android.test", version = "unspecified" }
-app-hilt-jvm = { id = "app.plugin.hilt.jvm", version = "unspecified" }
-app-room-android = { id = "app.plugin.room.android", version = "unspecified" }
-app-mapstruct = { id = "app.plugin.mapstruct", version = "unspecified" }
+app-ktlint = { id = "app.plugin.ktlint" }
+app-detekt = { id = "app.plugin.detekt" }
+app-jacoco = { id = "app.plugin.jacoco" }
+app-jvm = { id = "app.plugin.jvm" }
+app-android-common = { id = "app.plugin.android.common" }
+app-compose = { id = "app.plugin.compose" }
+app-hilt-android = { id = "app.plugin.hilt.android" }
+app-hilt-android-test = { id = "app.plugin.hilt.android.test" }
+app-hilt-jvm = { id = "app.plugin.hilt.jvm" }
+app-room-android = { id = "app.plugin.room.android" }
+app-mapstruct = { id = "app.plugin.mapstruct" }
 
 [bundles]
 
