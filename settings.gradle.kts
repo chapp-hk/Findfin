@@ -49,7 +49,6 @@ include(":feature:bank:data:repo")
 include(":feature:bank:presentation")
 
 // feature onboarding modules
-include(":feature:onboarding:domain")
 include(":feature:onboarding:presentation")
 
 // feature home modules
@@ -64,6 +63,7 @@ include(":feature:locator:presentation")
 // feature setting modules
 include(":feature:setting:data:local-preferences")
 include(":feature:setting:data:repo")
+include(":feature:setting:domain")
 include(":feature:setting:presentation")
 
 // library modules

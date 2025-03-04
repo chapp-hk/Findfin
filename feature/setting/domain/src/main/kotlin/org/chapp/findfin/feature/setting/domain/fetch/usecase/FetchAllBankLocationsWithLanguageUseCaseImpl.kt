@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.onboarding.domain.fetch.usecase
+package org.chapp.findfin.feature.setting.domain.fetch.usecase
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

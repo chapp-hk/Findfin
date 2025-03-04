@@ -12,12 +12,12 @@ import io.mockk.verify
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.core.design.ui.foundation.text.UiText
 import org.chapp.findfin.core.locale.AppLocaleManager
-import org.chapp.findfin.feature.onboarding.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import org.chapp.findfin.feature.onboarding.presentation.R
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
 import org.chapp.findfin.feature.setting.data.repo.language.model.Language
 import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
+import org.chapp.findfin.feature.setting.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import org.chapp.findfin.testing.extension.MainDispatcherExtension
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

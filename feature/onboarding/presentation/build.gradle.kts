@@ -31,7 +31,7 @@ dependencies {
     implementation(projects.core.locale)
     implementation(projects.core.preferences.storage)
     implementation(projects.feature.bank.data.localDatabase)
-    implementation(projects.feature.onboarding.domain)
+    implementation(projects.feature.setting.domain)
     implementation(projects.feature.setting.data.repo)
 
     implementation(libs.androidx.compose.ui)
