@@ -2,15 +2,14 @@ package org.chapp.findfin.feature.bank.data.local.database.location.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "locator",
-    primaryKeys = [
-        "latitude",
-        "longitude",
-    ],
 )
 internal data class BankLocationEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     @ColumnInfo(name = "type")
     val type: String,
     @ColumnInfo(name = "district")
