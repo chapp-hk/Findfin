@@ -77,6 +77,7 @@ class BankLocationLocalDataSourceImplTest {
                 listOf(
                     BankLocationEntity(
                         type = "bank",
+                        language = "en",
                         district = "mock district",
                         bankName = "mock bank name",
                         typeName = "mock type name",
@@ -108,6 +109,7 @@ class BankLocationLocalDataSourceImplTest {
                 listOf(
                     BankLocationLocal(
                         type = "bank",
+                        language = "en",
                         district = "mock district",
                         bankName = "mock bank name",
                         typeName = "mock type name",
@@ -184,6 +186,7 @@ class BankLocationLocalDataSourceImplTest {
                 listOf(
                     BankLocationEntity(
                         type = "bank",
+                        language = "en",
                         district = "mock district",
                         bankName = "mock bank name",
                         typeName = "mock type name",
@@ -202,6 +205,7 @@ class BankLocationLocalDataSourceImplTest {
                 listOf(
                     BankLocationLocal(
                         type = "bank",
+                        language = "en",
                         district = "mock district",
                         bankName = "mock bank name",
                         typeName = "mock type name",

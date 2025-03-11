@@ -23,6 +23,7 @@ class BankLocationDaoTest {
                 listOf(
                     BankLocationEntity(
                         type = "ATM",
+                        language = "en",
                         district = "Central and Western",
                         bankName = "Bank of China",
                         typeName = "ATM",
@@ -33,6 +34,7 @@ class BankLocationDaoTest {
                     ),
                     BankLocationEntity(
                         type = "ATM",
+                        language = "en",
                         district = "Central and Western",
                         bankName = "HSBC",
                         typeName = "ATM",
@@ -60,6 +62,7 @@ class BankLocationDaoTest {
                 listOf(
                     BankLocationEntity(
                         type = "ATM",
+                        language = "en",
                         district = "Central and Western",
                         bankName = "Bank of China",
                         typeName = "ATM",
@@ -70,6 +73,7 @@ class BankLocationDaoTest {
                     ),
                     BankLocationEntity(
                         type = "ATM",
+                        language = "en",
                         district = "Central and Western",
                         bankName = "HSBC",
                         typeName = "ATM",
@@ -80,6 +84,7 @@ class BankLocationDaoTest {
                     ),
                     BankLocationEntity(
                         type = "ATM",
+                        language = "en",
                         district = "Central and Western",
                         bankName = "Bank of China",
                         typeName = "ATM",
@@ -107,6 +112,7 @@ class BankLocationDaoTest {
                 listOf(
                     BankLocationEntity(
                         type = "ATM",
+                        language = "en",
                         district = "Central and Western",
                         bankName = "Bank of China",
                         typeName = "ATM",
@@ -117,6 +123,7 @@ class BankLocationDaoTest {
                     ),
                     BankLocationEntity(
                         type = "ATM",
+                        language = "en",
                         district = "Central and Western",
                         bankName = "HSBC",
                         typeName = "ATM",
@@ -133,6 +140,7 @@ class BankLocationDaoTest {
                 listOf(
                     BankLocationEntity(
                         type = "ATM",
+                        language = "en",
                         district = "Central and Western",
                         bankName = "Bank of China",
                         typeName = "ATM",
@@ -143,6 +151,7 @@ class BankLocationDaoTest {
                     ),
                     BankLocationEntity(
                         type = "ATM",
+                        language = "en",
                         district = "Central and Western",
                         bankName = "Bank of China",
                         typeName = "ATM",

@@ -10,6 +10,8 @@ import androidx.room.PrimaryKey
 internal data class BankLocationEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
+    @ColumnInfo(name = "language")
+    val language: String,
     @ColumnInfo(name = "type")
     val type: String,
     @ColumnInfo(name = "district")

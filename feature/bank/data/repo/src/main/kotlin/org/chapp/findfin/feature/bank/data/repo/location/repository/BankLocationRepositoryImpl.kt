@@ -45,7 +45,13 @@ internal class BankLocationRepositoryImpl @Inject constructor(
             is LocationResult.Success -> {
                 remoteResult
                     .data
-                    .map { mapper.convertToLocal(locatorPath, it) }
+                    .map {
+                        mapper.convertToLocal(
+                            language = localeTag,
+                            type = locatorPath,
+                            locator = it,
+                        )
+                    }
                     .also { bankLocationLocalDataSource.insertAll(it) }
                     .let { list ->
                         if (list.size < pageSize) {

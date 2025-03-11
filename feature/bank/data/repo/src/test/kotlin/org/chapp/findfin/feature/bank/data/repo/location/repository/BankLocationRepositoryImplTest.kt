@@ -235,6 +235,7 @@ class BankLocationRepositoryImplTest {
             val mockLocalData =
                 listOf(
                     BankLocationLocal(
+                        language = "en",
                         type = "BRANCH",
                         district = "Kowloon",
                         bankName = "Bank A",
