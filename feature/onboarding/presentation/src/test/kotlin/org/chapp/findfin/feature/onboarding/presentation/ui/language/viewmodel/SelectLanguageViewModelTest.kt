@@ -96,7 +96,7 @@ class SelectLanguageViewModelTest {
     fun testUiStateSuccess() =
         runTest {
             every { appLocaleManager.setLocale(any()) } just Runs
-            coEvery { fetchAllLocatorsWithLanguage(any()) } returns true
+            coEvery { fetchAllLocatorsWithLanguage() } returns true
 
             val viewModel = createViewModel()
             viewModel.setLanguage("en")
@@ -107,7 +107,7 @@ class SelectLanguageViewModelTest {
                 awaitItem() shouldBe SelectLanguageUiState.Success(selectedLanguageTag = "en")
             }
 
-            coVerify { fetchAllLocatorsWithLanguage(languageTag = "en") }
+            coVerify { fetchAllLocatorsWithLanguage() }
         }
 
     @Test
@@ -118,7 +118,7 @@ class SelectLanguageViewModelTest {
     fun testUiStateError() =
         runTest {
             every { appLocaleManager.setLocale(any()) } just Runs
-            coEvery { fetchAllLocatorsWithLanguage(any()) } returns false
+            coEvery { fetchAllLocatorsWithLanguage() } returns false
 
             val viewModel = createViewModel()
             viewModel.setLanguage("en")
@@ -129,7 +129,7 @@ class SelectLanguageViewModelTest {
                 awaitItem() shouldBe SelectLanguageUiState.Error(selectedLanguageTag = "en")
             }
 
-            coVerify { fetchAllLocatorsWithLanguage("en") }
+            coVerify { fetchAllLocatorsWithLanguage() }
         }
 
     private fun createViewModel() =
