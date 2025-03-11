@@ -7,6 +7,7 @@ plugins {
 dependencies {
     implementation(projects.core.threading)
     implementation(projects.feature.bank.data.repo)
+    implementation(projects.feature.setting.data.repo)
     implementation(libs.kotlinx.coroutines.core)
 
     testImplementation(libs.junit.jupiter)
