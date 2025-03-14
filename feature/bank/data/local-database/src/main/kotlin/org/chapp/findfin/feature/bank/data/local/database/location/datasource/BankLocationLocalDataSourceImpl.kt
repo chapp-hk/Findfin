@@ -34,6 +34,7 @@ internal class BankLocationLocalDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getBanksWithinBound(
+        language: String,
         minLat: Double,
         maxLat: Double,
         minLon: Double,
@@ -42,6 +43,7 @@ internal class BankLocationLocalDataSourceImpl @Inject constructor(
         return withContext(ioDispatcher) {
             runCatching {
                 bankLocationDao.getLocatorsWithinBound(
+                    language = language,
                     minLat = minLat,
                     maxLat = maxLat,
                     minLon = minLon,

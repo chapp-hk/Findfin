@@ -6,6 +6,7 @@ interface BankLocationLocalDataSource {
     suspend fun insertAll(locators: List<BankLocationLocal>)
 
     suspend fun getBanksWithinBound(
+        language: String,
         minLat: Double,
         maxLat: Double,
         minLon: Double,

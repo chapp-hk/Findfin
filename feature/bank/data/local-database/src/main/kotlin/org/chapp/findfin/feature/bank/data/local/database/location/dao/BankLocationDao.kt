@@ -14,11 +14,14 @@ internal interface BankLocationDao {
     @Query(
         """
         SELECT * FROM locator
-        WHERE latitude BETWEEN :minLat AND :maxLat
-        AND longitude BETWEEN :minLon AND :maxLon
+        WHERE
+            language = :language
+            AND latitude BETWEEN :minLat AND :maxLat
+            AND longitude BETWEEN :minLon AND :maxLon
     """,
     )
     suspend fun getLocatorsWithinBound(
+        language: String,
         minLat: Double,
         maxLat: Double,
         minLon: Double,

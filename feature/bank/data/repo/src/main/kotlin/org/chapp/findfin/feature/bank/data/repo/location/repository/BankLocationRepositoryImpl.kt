@@ -64,8 +64,12 @@ internal class BankLocationRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getLocationsWithinBound(bound: BankLocationBound): List<BankLocationModel> {
+    override suspend fun getLocationsWithinBound(
+        language: String,
+        bound: BankLocationBound,
+    ): List<BankLocationModel> {
         return bankLocationLocalDataSource.getBanksWithinBound(
+            language = language,
             minLat = bound.minLat,
             maxLat = bound.maxLat,
             minLon = bound.minLong,

@@ -20,7 +20,7 @@ internal class GetNearByServicesUseCaseImpl @Inject constructor(
     private val locationRepository: LocationRepository,
     private val bankLocationRepository: BankLocationRepository,
 ) : GetNearByServicesUseCase {
-    override suspend fun invoke(): NearByResult {
+    override suspend fun invoke(language: String): NearByResult {
         return withContext(defaultDispatcher) {
             when (val locationResult = locationRepository.getCurrentLocation()) {
                 LocationResult.UnknownError -> NearByResult.UnknownError
@@ -33,7 +33,11 @@ internal class GetNearByServicesUseCaseImpl @Inject constructor(
                             longitude = locationResult.lon,
                         )
 
-                    val list = bankLocationRepository.getLocationsWithinBound(boundingBox)
+                    val list =
+                        bankLocationRepository.getLocationsWithinBound(
+                            language = language,
+                            bound = boundingBox,
+                        )
 
                     NearByResult.Location(list.map(mapper::clone))
                 }
