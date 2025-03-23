@@ -35,7 +35,6 @@ include(":core:network")
 include(":core:preferences:storage")
 include(":core:preferences:ui-foundation")
 include(":core:threading")
-include(":core:work-manager")
 
 // feature auth modules
 include(":feature:auth:data:remote-firebase")
