@@ -200,6 +200,7 @@ class BankLocationRepositoryImplTest {
             val mockBound = BankLocationBound(1.0, 1.0, 1.0, 1.0)
             coEvery {
                 bankLocationLocalDataSource.getBanksWithinBound(
+                    language = any(),
                     minLat = any(),
                     maxLat = any(),
                     minLon = any(),
@@ -207,7 +208,7 @@ class BankLocationRepositoryImplTest {
                 )
             } returns listOf(mockk(relaxed = true))
 
-            val result = locatorRepositoryImpl.getLocationsWithinBound(mockBound)
+            val result = locatorRepositoryImpl.getLocationsWithinBound("en", mockBound)
 
             result.shouldBeInstanceOf<List<BankLocationModel>>()
         }

@@ -20,4 +20,12 @@ class BankLocationExtKtTest {
         "en".toApiLang() shouldBe "en"
         "".toApiLang() shouldBe "en"
     }
+
+    @Test
+    fun `test toLocalLanguage`() {
+        "zh".toLocalLanguage() shouldBe "zh"
+        "en".toLocalLanguage() shouldBe "en"
+        "jp".toLocalLanguage() shouldBe "en"
+        "fr".toLocalLanguage() shouldBe "en"
+    }
 }

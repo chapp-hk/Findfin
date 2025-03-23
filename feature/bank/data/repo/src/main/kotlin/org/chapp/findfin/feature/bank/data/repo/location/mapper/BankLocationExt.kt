@@ -16,3 +16,12 @@ internal fun String.toApiLang(): String {
         else -> "en"
     }
 }
+
+internal fun String.toLocalLanguage(): String {
+    val availableLanguages = listOf("en", "zh")
+    return if (availableLanguages.contains(this)) {
+        this
+    } else {
+        "en"
+    }
+}
