@@ -72,7 +72,13 @@ class BankLocationLocalDataSourceImplTest {
     fun testGetBanksWithinBoundSuccess() =
         runTest(testDispatcher) {
             coEvery {
-                bankLocationDao.getLocatorsWithinBound(any(), any(), any(), any())
+                bankLocationDao.getLocatorsWithinBound(
+                    language = any(),
+                    minLat = any(),
+                    maxLat = any(),
+                    minLon = any(),
+                    maxLon = any(),
+                )
             } returns
                 listOf(
                     BankLocationEntity(
@@ -90,6 +96,7 @@ class BankLocationLocalDataSourceImplTest {
 
             val result =
                 locatorLocalDataSourceImpl.getBanksWithinBound(
+                    language = "en",
                     minLat = 0.0,
                     maxLat = 0.0,
                     minLon = 0.0,
@@ -98,6 +105,7 @@ class BankLocationLocalDataSourceImplTest {
 
             coVerify {
                 bankLocationDao.getLocatorsWithinBound(
+                    language = "en",
                     minLat = 0.0,
                     maxLat = 0.0,
                     minLon = 0.0,
@@ -129,11 +137,18 @@ class BankLocationLocalDataSourceImplTest {
     fun testGetBanksWithinBoundErrorHandling() =
         runTest(testDispatcher) {
             coEvery {
-                bankLocationDao.getLocatorsWithinBound(any(), any(), any(), any())
+                bankLocationDao.getLocatorsWithinBound(
+                    language = any(),
+                    minLat = any(),
+                    maxLat = any(),
+                    minLon = any(),
+                    maxLon = any(),
+                )
             } throws Exception("Test exception")
 
             val result =
                 locatorLocalDataSourceImpl.getBanksWithinBound(
+                    language = "en",
                     minLat = 0.0,
                     maxLat = 0.0,
                     minLon = 0.0,
@@ -141,7 +156,13 @@ class BankLocationLocalDataSourceImplTest {
                 )
 
             coVerify {
-                bankLocationDao.getLocatorsWithinBound(any(), any(), any(), any())
+                bankLocationDao.getLocatorsWithinBound(
+                    language = "en",
+                    minLat = 0.0,
+                    maxLat = 0.0,
+                    minLon = 0.0,
+                    maxLon = 0.0,
+                )
             }
 
             result shouldBe emptyList()

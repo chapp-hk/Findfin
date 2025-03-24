@@ -15,7 +15,7 @@ class BankLocationDaoTest {
     private val testDispatcher = StandardTestDispatcher()
 
     @Test
-    fun testInsertAll_withNoDuplicate() {
+    fun testInsertAll_withNoDuplicateId() {
         runTest(testDispatcher) {
             val database = Room.inMemoryDatabaseBuilder(context, BankDatabase::class.java).build()
 
@@ -54,13 +54,14 @@ class BankLocationDaoTest {
     }
 
     @Test
-    fun testInsertAll_withDuplicate() {
+    fun testInsertAll_withDuplicateId() {
         runTest(testDispatcher) {
             val database = Room.inMemoryDatabaseBuilder(context, BankDatabase::class.java).build()
 
             val list =
                 listOf(
                     BankLocationEntity(
+                        id = 1,
                         type = "ATM",
                         language = "en",
                         district = "Central and Western",
@@ -72,6 +73,7 @@ class BankLocationDaoTest {
                         longitude = 114.22859313885354,
                     ),
                     BankLocationEntity(
+                        id = 2,
                         type = "ATM",
                         language = "en",
                         district = "Central and Western",
@@ -83,12 +85,13 @@ class BankLocationDaoTest {
                         longitude = 114.24806027679244,
                     ),
                     BankLocationEntity(
+                        id = 1,
                         type = "ATM",
                         language = "en",
                         district = "Central and Western",
-                        bankName = "Bank of China",
+                        bankName = "Bank of East Asia",
                         typeName = "ATM",
-                        address = "1 Garden Road, Central, Hong Kong",
+                        address = "10 Garden Road, Central, Hong Kong",
                         serviceHours = "24 hours",
                         latitude = 22.294630813707222,
                         longitude = 114.22859313885354,
@@ -97,31 +100,22 @@ class BankLocationDaoTest {
 
             database.bankLocationDao.insertAll(list)
 
-            database.query("SELECT * FROM locator", null).use {
-                it.count shouldBe 2
-            }
-        }
-    }
-
-    @Test
-    fun testInsertAll_replaceExisting() {
-        runTest(testDispatcher) {
-            val database = Room.inMemoryDatabaseBuilder(context, BankDatabase::class.java).build()
-
-            val firstList =
+            database.bankLocationDao.getAll() shouldBe
                 listOf(
                     BankLocationEntity(
+                        id = 1,
                         type = "ATM",
                         language = "en",
                         district = "Central and Western",
-                        bankName = "Bank of China",
+                        bankName = "Bank of East Asia",
                         typeName = "ATM",
-                        address = "1 Garden Road, Central, Hong Kong",
+                        address = "10 Garden Road, Central, Hong Kong",
                         serviceHours = "24 hours",
                         latitude = 22.294630813707222,
                         longitude = 114.22859313885354,
                     ),
                     BankLocationEntity(
+                        id = 2,
                         type = "ATM",
                         language = "en",
                         district = "Central and Western",
@@ -133,40 +127,6 @@ class BankLocationDaoTest {
                         longitude = 114.24806027679244,
                     ),
                 )
-
-            database.bankLocationDao.insertAll(firstList)
-
-            val secondList =
-                listOf(
-                    BankLocationEntity(
-                        type = "ATM",
-                        language = "en",
-                        district = "Central and Western",
-                        bankName = "Bank of China",
-                        typeName = "ATM",
-                        address = "1 Garden Road, Central, Hong Kong",
-                        serviceHours = "24 hours",
-                        latitude = 22.294630813707222,
-                        longitude = 114.22859313885354,
-                    ),
-                    BankLocationEntity(
-                        type = "ATM",
-                        language = "en",
-                        district = "Central and Western",
-                        bankName = "Bank of China",
-                        typeName = "ATM",
-                        address = "1 Garden Road, Central, Hong Kong",
-                        serviceHours = "24 hours",
-                        latitude = 22.294630813707123,
-                        longitude = 114.22859313885455,
-                    ),
-                )
-
-            database.bankLocationDao.insertAll(secondList)
-
-            database.query("SELECT * FROM locator", null).use {
-                it.count shouldBe 3
-            }
         }
     }
 
@@ -185,49 +145,12 @@ class BankLocationDaoTest {
             database
                 .bankLocationDao
                 .getLocatorsWithinBound(
+                    language = "en",
                     minLat = 22.294630813707222,
                     maxLat = 22.312641530083468,
                     minLon = 114.22859313885354,
                     maxLon = 114.24806027679244,
-                ).size shouldBe 30
-        }
-    }
-
-    @Test
-    fun testGetAllDistinctBanks() {
-        runTest(testDispatcher) {
-            val database =
-                Room
-                    .databaseBuilder(
-                        context,
-                        BankDatabase::class.java,
-                        "locator_db.db",
-                    ).createFromAsset("locator_db.db")
-                    .build()
-
-            database.bankLocationDao.getDistinctBanks() shouldBe
-                listOf(
-                    "The Bank of East Asia Limited",
-                    "Fubon Bank (Hong Kong) Limited",
-                    "CMB Wing Lung Bank Limited",
-                    "Hang Seng Bank Limited",
-                    "The Hongkong and Shanghai Banking Corporation Limited",
-                    "Shanghai Commercial Bank Limited",
-                    "Citibank (Hong Kong) Limited",
-                    "China Construction Bank (Asia) Corporation Limited",
-                    "Bank of Communications Co., Ltd.",
-                    "Bank of China (Hong Kong) Limited",
-                    "Public Bank (Hong Kong) Limited",
-                    "OCBC Bank (Hong Kong) Limited",
-                    "Industrial and Commercial Bank of China (Asia) Limited",
-                    "Chong Hing Bank Limited",
-                    "China CITIC Bank International Limited",
-                    "Standard Chartered Bank (Hong Kong) Limited",
-                    "Chiyu Banking Corporation Ltd.",
-                    "Dah Sing Bank, Limited",
-                    "DBS Bank (Hong Kong) Limited",
-                    "Nanyang Commercial Bank, Limited",
-                )
+                ).size shouldBe 40
         }
     }
 
@@ -243,7 +166,7 @@ class BankLocationDaoTest {
                     ).createFromAsset("locator_db.db")
                     .build()
 
-            database.bankLocationDao.getAll().size shouldBe 2139
+            database.bankLocationDao.getAll().size shouldBe 6194
         }
     }
 }
