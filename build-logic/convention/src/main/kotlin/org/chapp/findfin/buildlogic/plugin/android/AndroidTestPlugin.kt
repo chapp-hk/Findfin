@@ -1,8 +1,10 @@
 package org.chapp.findfin.buildlogic.plugin.android
 
 import com.android.build.api.variant.AndroidComponentsExtension
+import org.chapp.findfin.buildlogic.util.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
 
 class AndroidTestPlugin : Plugin<Project> {
     override fun apply(project: Project) {
@@ -41,6 +43,10 @@ class AndroidTestPlugin : Plugin<Project> {
                 }
 
                 unitTests.isReturnDefaultValues = true
+            }
+
+            project.dependencies {
+                "testRuntimeOnly"(project.libs.findLibrary("junit-platform-launcher").get())
             }
         }
     }
