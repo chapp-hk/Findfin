@@ -32,7 +32,7 @@ class GetNearByServicesUseCaseImplTest {
             coEvery { locationRepository.getCurrentLocation() } returns
                 LocationResult.UnknownError
 
-            val result = getNearByServiceUseCase()
+            val result = getNearByServiceUseCase(language = "en")
 
             result shouldBe NearByResult.UnknownError
         }
@@ -44,10 +44,14 @@ class GetNearByServicesUseCaseImplTest {
 
             coEvery { locationRepository.getCurrentLocation() } returns
                 mockLocation
-            coEvery { bankLocationRepository.getLocationsWithinBound(any()) } returns
-                listOf(mockk(relaxed = true))
+            coEvery {
+                bankLocationRepository.getLocationsWithinBound(
+                    language = any(),
+                    bound = any(),
+                )
+            } returns listOf(mockk(relaxed = true))
 
-            val result = getNearByServiceUseCase()
+            val result = getNearByServiceUseCase(language = "en")
 
             result
                 .shouldBeInstanceOf<NearByResult.Location>()

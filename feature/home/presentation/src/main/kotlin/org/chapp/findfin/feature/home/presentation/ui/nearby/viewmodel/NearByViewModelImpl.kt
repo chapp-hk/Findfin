@@ -7,6 +7,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.chapp.findfin.core.locale.AppLocaleManager
 import org.chapp.findfin.feature.home.domain.nearby.model.NearByResult
 import org.chapp.findfin.feature.home.domain.nearby.usecase.GetNearByServicesUseCase
 import org.chapp.findfin.feature.home.presentation.ui.nearby.model.NearByItemUiModel
@@ -15,6 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class NearByViewModelImpl @Inject constructor(
+    private val appLocaleManager: AppLocaleManager,
     private val getNearByBanks: GetNearByServicesUseCase,
 ) : NearByViewModel, ViewModel() {
     private var currentJob: Job? = null
@@ -25,7 +27,8 @@ internal class NearByViewModelImpl @Inject constructor(
         currentJob?.cancel()
         currentJob =
             viewModelScope.launch {
-                when (val result = getNearByBanks()) {
+                val language = appLocaleManager.getCurrentLocale()?.language.orEmpty()
+                when (val result = getNearByBanks(language = language)) {
                     is NearByResult.UnknownError ->
                         _uiState.emit(NearByUiState.Error)
 

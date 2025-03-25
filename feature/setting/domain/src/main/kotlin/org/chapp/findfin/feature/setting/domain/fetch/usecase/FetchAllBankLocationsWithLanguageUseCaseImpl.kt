@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.onboarding.domain.fetch.usecase
+package org.chapp.findfin.feature.setting.domain.fetch.usecase
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -6,6 +6,7 @@ import org.chapp.findfin.core.threading.DispatcherDefault
 import org.chapp.findfin.feature.bank.data.repo.location.mapper.BankLocationFetchResult
 import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationType
 import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
+import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
 
@@ -13,12 +14,15 @@ import javax.inject.Inject
 class FetchAllBankLocationsWithLanguageUseCaseImpl @Inject constructor(
     @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
     private val bankLocationRepository: BankLocationRepository,
+    private val languageRepository: LanguageRepository,
 ) : FetchAllBankLocationsWithLanguageUseCase {
-    override suspend operator fun invoke(languageTag: String): Boolean {
+    override suspend operator fun invoke(): Boolean {
         return withContext(defaultDispatcher) {
-            val isFetchBranchSuccess = getBankLocations(languageTag, BankLocationType.BRANCH)
-            val isFetchAtmSuccess = getBankLocations(languageTag, BankLocationType.ATM)
-            isFetchBranchSuccess && isFetchAtmSuccess
+            languageRepository.getAvailableLanguages().filterNot { it.isDefault }.map { language ->
+                val isFetchBranchSuccess = getBankLocations(language.tag, BankLocationType.BRANCH)
+                val isFetchAtmSuccess = getBankLocations(language.tag, BankLocationType.ATM)
+                isFetchBranchSuccess && isFetchAtmSuccess
+            }.all { it }
         }
     }
 
@@ -36,7 +40,7 @@ class FetchAllBankLocationsWithLanguageUseCaseImpl @Inject constructor(
                     page = page,
                     pageSize = 1000,
                 )
-            page++
+            page += 1
 
             if (result is BankLocationFetchResult.Error) {
                 return false

@@ -15,6 +15,7 @@ class BankLocationMapperTest {
         val locator =
             BankLocationLocal(
                 type = "some type",
+                language = "en",
                 district = "somewhere",
                 bankName = "mock bank",
                 typeName = "mock type",
@@ -27,6 +28,7 @@ class BankLocationMapperTest {
         bankLocationMapper.clone(locator) shouldBe
             BankLocationEntity(
                 type = "some type",
+                language = "en",
                 district = "somewhere",
                 bankName = "mock bank",
                 typeName = "mock type",

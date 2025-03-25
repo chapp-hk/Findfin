@@ -12,12 +12,12 @@ import io.mockk.verify
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.core.design.ui.foundation.text.UiText
 import org.chapp.findfin.core.locale.AppLocaleManager
-import org.chapp.findfin.feature.onboarding.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import org.chapp.findfin.feature.onboarding.presentation.R
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
 import org.chapp.findfin.feature.setting.data.repo.language.model.Language
 import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
+import org.chapp.findfin.feature.setting.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import org.chapp.findfin.testing.extension.MainDispatcherExtension
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -96,7 +96,7 @@ class SelectLanguageViewModelTest {
     fun testUiStateSuccess() =
         runTest {
             every { appLocaleManager.setLocale(any()) } just Runs
-            coEvery { fetchAllLocatorsWithLanguage(any()) } returns true
+            coEvery { fetchAllLocatorsWithLanguage() } returns true
 
             val viewModel = createViewModel()
             viewModel.setLanguage("en")
@@ -107,7 +107,7 @@ class SelectLanguageViewModelTest {
                 awaitItem() shouldBe SelectLanguageUiState.Success(selectedLanguageTag = "en")
             }
 
-            coVerify { fetchAllLocatorsWithLanguage(languageTag = "en") }
+            coVerify { fetchAllLocatorsWithLanguage() }
         }
 
     @Test
@@ -118,7 +118,7 @@ class SelectLanguageViewModelTest {
     fun testUiStateError() =
         runTest {
             every { appLocaleManager.setLocale(any()) } just Runs
-            coEvery { fetchAllLocatorsWithLanguage(any()) } returns false
+            coEvery { fetchAllLocatorsWithLanguage() } returns false
 
             val viewModel = createViewModel()
             viewModel.setLanguage("en")
@@ -129,7 +129,7 @@ class SelectLanguageViewModelTest {
                 awaitItem() shouldBe SelectLanguageUiState.Error(selectedLanguageTag = "en")
             }
 
-            coVerify { fetchAllLocatorsWithLanguage("en") }
+            coVerify { fetchAllLocatorsWithLanguage() }
         }
 
     private fun createViewModel() =

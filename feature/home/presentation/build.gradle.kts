@@ -30,6 +30,7 @@ dependencies {
     implementation(projects.core.imageloader)
     implementation(projects.core.location)
     implementation(projects.core.navigation)
+    implementation(projects.core.locale)
     implementation(projects.feature.home.domain)
     implementation(projects.feature.auth.data.repo)
     implementation(projects.feature.auth.data.remoteFirebase)

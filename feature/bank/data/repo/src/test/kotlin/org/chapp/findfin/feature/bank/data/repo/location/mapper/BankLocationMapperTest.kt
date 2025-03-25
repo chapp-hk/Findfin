@@ -30,10 +30,12 @@ class BankLocationMapperTest {
             )
 
         bankLocationMapper.convertToLocal(
+            language = "en",
             type = input,
             locator = bankLocationResponse,
         ) shouldBe
             BankLocationLocal(
+                language = "en",
                 type = input.name,
                 district = "mock district",
                 bankName = "mock bank name",

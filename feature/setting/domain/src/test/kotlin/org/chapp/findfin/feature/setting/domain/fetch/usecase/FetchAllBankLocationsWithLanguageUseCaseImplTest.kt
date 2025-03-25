@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.onboarding.domain.fetch.usecase
+package org.chapp.findfin.feature.setting.domain.fetch.usecase
 
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
@@ -8,6 +8,8 @@ import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.feature.bank.data.repo.location.mapper.BankLocationFetchResult
 import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationType
 import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
+import org.chapp.findfin.feature.setting.data.repo.language.model.Language
+import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.params.ParameterizedTest
@@ -21,11 +23,13 @@ import java.util.stream.Stream
 class FetchAllBankLocationsWithLanguageUseCaseImplTest {
     private val testDispatcher = StandardTestDispatcher()
     private val bankLocationRepository = mockk<BankLocationRepository>()
+    private val languageRepository = mockk<LanguageRepository>()
 
     private val fetchAllLocatorsWithLanguage =
         FetchAllBankLocationsWithLanguageUseCaseImpl(
             defaultDispatcher = testDispatcher,
             bankLocationRepository = bankLocationRepository,
+            languageRepository = languageRepository,
         )
 
     @ParameterizedTest(
@@ -39,6 +43,15 @@ class FetchAllBankLocationsWithLanguageUseCaseImplTest {
         atmMockedResult: BankLocationFetchResult,
         expectedResult: Boolean,
     ) = runTest(testDispatcher) {
+        coEvery {
+            languageRepository.getAvailableLanguages()
+        } returns
+            listOf(
+                Language(isDefault = true, tag = "", name = "System Default"),
+                Language(isDefault = false, tag = "en", name = "English"),
+                Language(isDefault = false, tag = "zh", name = "Chinese"),
+            )
+
         coEvery {
             bankLocationRepository.fetchLocations(
                 type = any(),
@@ -66,7 +79,7 @@ class FetchAllBankLocationsWithLanguageUseCaseImplTest {
             )
         } returns atmMockedResult
 
-        fetchAllLocatorsWithLanguage(languageTag = "en") shouldBe expectedResult
+        fetchAllLocatorsWithLanguage() shouldBe expectedResult
     }
 
     private class FetchArgumentsProvider : ArgumentsProvider {

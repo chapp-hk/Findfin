@@ -32,6 +32,7 @@ dependencies {
     implementation(projects.core.preferences.uiFoundation)
     implementation(projects.feature.setting.data.repo)
     implementation(projects.feature.setting.data.localPreferences)
+    implementation(projects.feature.setting.domain)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.hilt.navigation.compose)

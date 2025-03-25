@@ -6,14 +6,22 @@ import org.chapp.findfin.feature.bank.data.repo.location.local.model.BankLocatio
 import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationModel
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
+import org.mapstruct.Mappings
 
 @Mapper
 interface BankLocationMapper {
-    @Mapping(
-        source = "type",
-        target = "type",
+    @Mappings(
+        Mapping(
+            source = "type",
+            target = "type",
+        ),
+        Mapping(
+            source = "language",
+            target = "language",
+        ),
     )
     fun convertToLocal(
+        language: String,
         type: LocationPath,
         locator: BankLocationResponse,
     ): BankLocationLocal

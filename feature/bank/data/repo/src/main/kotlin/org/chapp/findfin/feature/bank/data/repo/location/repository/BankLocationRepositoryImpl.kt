@@ -6,6 +6,7 @@ import org.chapp.findfin.feature.bank.data.repo.location.local.datasource.BankLo
 import org.chapp.findfin.feature.bank.data.repo.location.mapper.BankLocationFetchResult
 import org.chapp.findfin.feature.bank.data.repo.location.mapper.BankLocationMapper
 import org.chapp.findfin.feature.bank.data.repo.location.mapper.toApiLang
+import org.chapp.findfin.feature.bank.data.repo.location.mapper.toLocalLanguage
 import org.chapp.findfin.feature.bank.data.repo.location.mapper.toRemoteLocationPath
 import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationBound
 import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationModel
@@ -45,7 +46,13 @@ internal class BankLocationRepositoryImpl @Inject constructor(
             is LocationResult.Success -> {
                 remoteResult
                     .data
-                    .map { mapper.convertToLocal(locatorPath, it) }
+                    .map {
+                        mapper.convertToLocal(
+                            language = localeTag,
+                            type = locatorPath,
+                            locator = it,
+                        )
+                    }
                     .also { bankLocationLocalDataSource.insertAll(it) }
                     .let { list ->
                         if (list.size < pageSize) {
@@ -58,8 +65,12 @@ internal class BankLocationRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getLocationsWithinBound(bound: BankLocationBound): List<BankLocationModel> {
+    override suspend fun getLocationsWithinBound(
+        language: String,
+        bound: BankLocationBound,
+    ): List<BankLocationModel> {
         return bankLocationLocalDataSource.getBanksWithinBound(
+            language = language.toLocalLanguage(),
             minLat = bound.minLat,
             maxLat = bound.maxLat,
             minLon = bound.minLong,

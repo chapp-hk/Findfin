@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.chapp.findfin.core.locale.AppLocaleManager
-import org.chapp.findfin.feature.onboarding.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModelMapper
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
 import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
+import org.chapp.findfin.feature.setting.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,7 +32,7 @@ internal class SelectLanguageViewModel @Inject constructor(
         appLocaleManager.setLocale(language)
         viewModelScope.launch {
             _uiState.emit(SelectLanguageUiState.Loading)
-            if (fetchAllLocatorsWithLanguage(language)) {
+            if (fetchAllLocatorsWithLanguage()) {
                 _uiState.emit(SelectLanguageUiState.Success(language))
             } else {
                 _uiState.emit(SelectLanguageUiState.Error(language))
