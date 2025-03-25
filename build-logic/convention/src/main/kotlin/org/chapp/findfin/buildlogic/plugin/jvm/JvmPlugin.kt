@@ -1,10 +1,12 @@
 package org.chapp.findfin.buildlogic.plugin.jvm
 
+import org.chapp.findfin.buildlogic.util.libs
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.tasks.testing.Test
+import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -30,6 +32,10 @@ class JvmPlugin : Plugin<Project> {
             test.testLogging {
                 it.events("passed", "skipped", "failed")
             }
+        }
+
+        project.dependencies {
+            "testRuntimeOnly"(project.libs.findLibrary("junit-platform-launcher").get())
         }
     }
 }
