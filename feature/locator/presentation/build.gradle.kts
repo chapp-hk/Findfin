@@ -18,10 +18,14 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.design.uiFoundation)
+
     implementation(projects.core.location.provider.api)
     implementation(projects.core.navigation)
     implementation(projects.core.map)
     implementation(projects.feature.bank.data.repo)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.material)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 
