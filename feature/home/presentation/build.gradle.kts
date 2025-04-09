@@ -30,6 +30,7 @@ dependencies {
     implementation(projects.core.imageloader)
     implementation(projects.core.location.provider.api)
     implementation(projects.core.location.provider.impl)
+    implementation(projects.core.location.uiFoundation)
     implementation(projects.core.navigation)
     implementation(projects.core.locale)
     implementation(projects.feature.home.domain)

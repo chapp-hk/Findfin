@@ -6,31 +6,32 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
+import org.chapp.findfin.core.location.provider.api.LocationProvider
+import org.chapp.findfin.core.location.provider.api.LocationProviderResult
+import org.chapp.findfin.core.location.provider.api.Position
 import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
 import org.chapp.findfin.feature.home.domain.nearby.model.NearByResult
-import org.chapp.findfin.feature.locator.data.repo.model.LocationResult
-import org.chapp.findfin.feature.locator.data.repo.repo.LocationRepository
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("GetNearByServicesUseCaseImpl unit tests")
 class GetNearByServicesUseCaseImplTest {
     private val testDispatcher = StandardTestDispatcher()
-    private val locationRepository = mockk<LocationRepository>()
+    private val locationProvider = mockk<LocationProvider>()
     private val bankLocationRepository = mockk<BankLocationRepository>()
 
     private val getNearByServiceUseCase =
         GetNearByServicesUseCaseImpl(
             defaultDispatcher = testDispatcher,
-            locationRepository = locationRepository,
+            locationRepository = locationProvider,
             bankLocationRepository = bankLocationRepository,
         )
 
     @Test
     fun `invoke should return UnknownError when LocationResult is UnknownError`() =
         runTest(testDispatcher) {
-            coEvery { locationRepository.getCurrentLocation() } returns
-                LocationResult.UnknownError
+            coEvery { locationProvider.getCurrentLocation() } returns
+                LocationProviderResult.Error
 
             val result = getNearByServiceUseCase(language = "en")
 
@@ -40,9 +41,9 @@ class GetNearByServicesUseCaseImplTest {
     @Test
     fun `invoke should return Location when LocationResult is Location`() =
         runTest(testDispatcher) {
-            val mockLocation = LocationResult.Location(1.0, 1.0)
+            val mockLocation = LocationProviderResult.Success(Position(1.0, 1.0))
 
-            coEvery { locationRepository.getCurrentLocation() } returns
+            coEvery { locationProvider.getCurrentLocation() } returns
                 mockLocation
             coEvery {
                 bankLocationRepository.getLocationsWithinBound(

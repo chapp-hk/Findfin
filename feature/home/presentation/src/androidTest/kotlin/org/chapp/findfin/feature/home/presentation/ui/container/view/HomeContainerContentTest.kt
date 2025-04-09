@@ -13,9 +13,9 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.chapp.findfin.core.location.setting.helper.LocalSettingHelper
-import org.chapp.findfin.core.location.setting.helper.SettingHelper
-import org.chapp.findfin.core.location.setting.state.LocationSettingStatus
+import org.chapp.findfin.core.location.ui.foundation.setting.helper.LocalSettingHelper
+import org.chapp.findfin.core.location.ui.foundation.setting.helper.SettingHelper
+import org.chapp.findfin.core.location.ui.foundation.setting.state.LocationSettingStatus
 import org.chapp.findfin.feature.home.presentation.R
 import org.chapp.findfin.feature.home.presentation.ui.nearby.model.NearByItemUiModel
 import org.chapp.findfin.feature.home.presentation.ui.nearby.model.NearByUiState
