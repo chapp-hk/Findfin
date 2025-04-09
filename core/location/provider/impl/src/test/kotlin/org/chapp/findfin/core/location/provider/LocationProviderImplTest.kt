@@ -11,6 +11,7 @@ import io.mockk.verify
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.core.location.provider.api.LocationProviderResult
+import org.chapp.findfin.core.location.provider.api.Position
 import org.chapp.findfin.core.location.provider.impl.LocationProviderImpl
 import org.chapp.findfin.testing.google.play.services.task.mockTaskResult
 import org.junit.jupiter.api.DisplayName
@@ -25,7 +26,11 @@ class LocationProviderImplTest {
     @Test
     fun `getCurrentLocation returns expected location`() {
         runTest(StandardTestDispatcher()) {
-            val expectedLocation = mockk<Location>()
+            val expectedLocation =
+                mockk<Location> {
+                    every { latitude } returns 123.0
+                    every { longitude } returns 456.0
+                }
 
             every {
                 fusedLocationProviderClient.getCurrentLocation(
@@ -35,7 +40,7 @@ class LocationProviderImplTest {
             } returns mockTaskResult(expectedLocation)
 
             locationProvider.getCurrentLocation() shouldBe
-                LocationProviderResult.Success(expectedLocation)
+                LocationProviderResult.Success(Position(123.0, 456.0))
 
             verify {
                 fusedLocationProviderClient.getCurrentLocation(
