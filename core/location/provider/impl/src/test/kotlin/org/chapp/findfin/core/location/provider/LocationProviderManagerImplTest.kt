@@ -1,6 +1,5 @@
 package org.chapp.findfin.core.location.provider
 
-import android.location.Location
 import com.google.android.gms.location.CurrentLocationRequest
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.tasks.CancellationToken
@@ -10,24 +9,25 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.core.location.provider.api.LocationProviderResult
-import org.chapp.findfin.core.location.provider.api.Position
-import org.chapp.findfin.core.location.provider.impl.LocationProviderImpl
+import org.chapp.findfin.core.location.provider.api.Location
+import org.chapp.findfin.core.location.provider.api.LocationResult
+import org.chapp.findfin.core.location.provider.impl.LocationProviderManagerImpl
 import org.chapp.findfin.testing.google.play.services.task.mockTaskResult
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import android.location.Location as AndroidLocation
 
 @DisplayName("LocationProviderImpl unit tests")
-class LocationProviderImplTest {
+class LocationProviderManagerImplTest {
     private val fusedLocationProviderClient = mockk<FusedLocationProviderClient>()
 
-    private val locationProvider = LocationProviderImpl(fusedLocationProviderClient)
+    private val locationProvider = LocationProviderManagerImpl(fusedLocationProviderClient)
 
     @Test
     fun `getCurrentLocation returns expected location`() {
         runTest(StandardTestDispatcher()) {
             val expectedLocation =
-                mockk<Location> {
+                mockk<AndroidLocation> {
                     every { latitude } returns 123.0
                     every { longitude } returns 456.0
                 }
@@ -40,7 +40,7 @@ class LocationProviderImplTest {
             } returns mockTaskResult(expectedLocation)
 
             locationProvider.getCurrentLocation() shouldBe
-                LocationProviderResult.Success(Position(123.0, 456.0))
+                LocationResult.Success(Location(123.0, 456.0))
 
             verify {
                 fusedLocationProviderClient.getCurrentLocation(
@@ -62,7 +62,7 @@ class LocationProviderImplTest {
             } returns mockTaskResult(null)
 
             locationProvider.getCurrentLocation() shouldBe
-                LocationProviderResult.LocationUnavailable
+                LocationResult.LocationUnavailable
         }
     }
 
@@ -78,7 +78,7 @@ class LocationProviderImplTest {
 
             val result = locationProvider.getCurrentLocation()
 
-            result shouldBe LocationProviderResult.Error
+            result shouldBe LocationResult.Error
         }
     }
 }

@@ -2,8 +2,8 @@ package org.chapp.findfin.feature.home.domain.nearby.usecase
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import org.chapp.findfin.core.location.provider.api.LocationProvider
-import org.chapp.findfin.core.location.provider.api.LocationProviderResult
+import org.chapp.findfin.core.location.provider.api.LocationProviderManager
+import org.chapp.findfin.core.location.provider.api.LocationResult
 import org.chapp.findfin.core.threading.DispatcherDefault
 import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationBound
 import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
@@ -17,22 +17,22 @@ import kotlin.math.cos
 @HiltWrapBindModule
 internal class GetNearByServicesUseCaseImpl @Inject constructor(
     @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
-    private val locationRepository: LocationProvider,
+    private val locationProviderManager: LocationProviderManager,
     private val bankLocationRepository: BankLocationRepository,
 ) : GetNearByServicesUseCase {
     override suspend fun invoke(language: String): NearByResult {
         return withContext(defaultDispatcher) {
-            when (val locationResult = locationRepository.getCurrentLocation()) {
-                LocationProviderResult.Error,
-                LocationProviderResult.LocationUnavailable,
+            when (val locationResult = locationProviderManager.getCurrentLocation()) {
+                LocationResult.Error,
+                LocationResult.LocationUnavailable,
                 -> NearByResult.UnknownError
-                is LocationProviderResult.Success -> {
+                is LocationResult.Success -> {
                     val mapper = Mappers.getMapper(ServiceMapper::class.java)
 
                     val boundingBox =
                         calculateBoundingBox(
-                            latitude = locationResult.position.latitude,
-                            longitude = locationResult.position.longitude,
+                            latitude = locationResult.location.latitude,
+                            longitude = locationResult.location.longitude,
                         )
 
                     val list =
