@@ -2,13 +2,13 @@ package org.chapp.findfin.feature.home.domain.nearby.usecase
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import org.chapp.findfin.core.location.provider.api.LocationProvider
+import org.chapp.findfin.core.location.provider.api.LocationProviderResult
 import org.chapp.findfin.core.threading.DispatcherDefault
 import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationBound
 import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
 import org.chapp.findfin.feature.home.domain.nearby.mapper.ServiceMapper
 import org.chapp.findfin.feature.home.domain.nearby.model.NearByResult
-import org.chapp.findfin.feature.locator.data.repo.model.LocationResult
-import org.chapp.findfin.feature.locator.data.repo.repo.LocationRepository
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject
@@ -17,20 +17,22 @@ import kotlin.math.cos
 @HiltWrapBindModule
 internal class GetNearByServicesUseCaseImpl @Inject constructor(
     @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
-    private val locationRepository: LocationRepository,
+    private val locationRepository: LocationProvider,
     private val bankLocationRepository: BankLocationRepository,
 ) : GetNearByServicesUseCase {
     override suspend fun invoke(language: String): NearByResult {
         return withContext(defaultDispatcher) {
             when (val locationResult = locationRepository.getCurrentLocation()) {
-                LocationResult.UnknownError -> NearByResult.UnknownError
-                is LocationResult.Location -> {
+                LocationProviderResult.Error,
+                LocationProviderResult.LocationUnavailable,
+                -> NearByResult.UnknownError
+                is LocationProviderResult.Success -> {
                     val mapper = Mappers.getMapper(ServiceMapper::class.java)
 
                     val boundingBox =
                         calculateBoundingBox(
-                            latitude = locationResult.lat,
-                            longitude = locationResult.lon,
+                            latitude = locationResult.position.latitude,
+                            longitude = locationResult.position.longitude,
                         )
 
                     val list =

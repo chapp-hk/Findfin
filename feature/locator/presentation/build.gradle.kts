@@ -18,7 +18,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.location)
+    implementation(projects.core.location.provider.api)
     implementation(projects.core.navigation)
     implementation(projects.core.map)
     implementation(projects.feature.bank.data.repo)
