@@ -6,8 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "org.chapp.findfin.core.locale"
-    resourcePrefix = "locale_"
+    namespace = "org.chapp.findfin.core.locale.impl"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
@@ -16,11 +15,11 @@ android {
 
 dependencies {
     implementation(libs.androidx.appcompat)
+    implementation(projects.core.locale.api)
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.mockk)
     testImplementation(libs.kotest.assertions.core)
 
     androidTestImplementation(libs.androidx.test.runner)
-    androidTestImplementation(libs.kotest.assertions.core)
 }

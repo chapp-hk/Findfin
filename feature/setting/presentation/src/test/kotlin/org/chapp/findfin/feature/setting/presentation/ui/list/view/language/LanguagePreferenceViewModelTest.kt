@@ -7,7 +7,7 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import org.chapp.findfin.core.design.ui.foundation.text.UiText
-import org.chapp.findfin.core.locale.AppLocaleManager
+import org.chapp.findfin.core.locale.api.AppLocaleManager
 import org.chapp.findfin.feature.setting.data.repo.language.model.Language
 import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
 import org.chapp.findfin.feature.setting.presentation.R
@@ -25,7 +25,7 @@ class LanguagePreferenceViewModelTest {
                     Language(isDefault = false, name = "Chinese", tag = "zh"),
                 )
         }
-    private val appLocaleManager = mockk<AppLocaleManager>()
+    private val appLocaleManager = mockk<org.chapp.findfin.core.locale.api.AppLocaleManager>()
     private val viewModel =
         LanguagePreferenceViewModel(
             languageRepository = languageRepository,

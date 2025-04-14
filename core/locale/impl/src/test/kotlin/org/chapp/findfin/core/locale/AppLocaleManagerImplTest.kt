@@ -8,6 +8,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockkStatic
 import io.mockk.verify
+import org.chapp.findfin.core.locale.impl.AppLocaleManagerImpl
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.util.Locale

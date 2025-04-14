@@ -3,7 +3,7 @@ package org.chapp.findfin.feature.setting.presentation.ui.list.view.language
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.chapp.findfin.core.design.ui.foundation.text.UiText
-import org.chapp.findfin.core.locale.AppLocaleManager
+import org.chapp.findfin.core.locale.api.AppLocaleManager
 import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
 import org.chapp.findfin.feature.setting.presentation.R
 import java.util.Locale
@@ -12,7 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class LanguagePreferenceViewModel @Inject constructor(
     languageRepository: LanguageRepository,
-    private val appLocaleManager: AppLocaleManager,
+    private val appLocaleManager: org.chapp.findfin.core.locale.api.AppLocaleManager,
 ) : ViewModel() {
     private val languageMapper = LanguageMapper()
 

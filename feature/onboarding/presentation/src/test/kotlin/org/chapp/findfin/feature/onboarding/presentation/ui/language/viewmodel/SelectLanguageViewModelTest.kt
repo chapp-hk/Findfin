@@ -11,7 +11,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.core.design.ui.foundation.text.UiText
-import org.chapp.findfin.core.locale.AppLocaleManager
+import org.chapp.findfin.core.locale.api.AppLocaleManager
 import org.chapp.findfin.feature.onboarding.presentation.R
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
@@ -28,7 +28,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 @DisplayName("SelectLanguageViewModel unit tests")
 class SelectLanguageViewModelTest {
     private val languageRepository = mockk<LanguageRepository>()
-    private val appLocaleManager = mockk<AppLocaleManager>()
+    private val appLocaleManager = mockk<org.chapp.findfin.core.locale.api.AppLocaleManager>()
     private val fetchAllLocatorsWithLanguage =
         mockk<FetchAllBankLocationsWithLanguageUseCase>(relaxed = true)
 

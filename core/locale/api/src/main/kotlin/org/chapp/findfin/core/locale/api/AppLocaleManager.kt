@@ -1,4 +1,4 @@
-package org.chapp.findfin.core.locale
+package org.chapp.findfin.core.locale.api
 
 import java.util.Locale
 

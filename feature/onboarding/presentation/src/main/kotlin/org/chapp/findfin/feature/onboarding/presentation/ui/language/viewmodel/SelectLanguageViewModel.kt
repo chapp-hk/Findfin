@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.chapp.findfin.core.locale.AppLocaleManager
+import org.chapp.findfin.core.locale.api.AppLocaleManager
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModelMapper
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class SelectLanguageViewModel @Inject constructor(
     languageRepository: LanguageRepository,
-    private val appLocaleManager: AppLocaleManager,
+    private val appLocaleManager: org.chapp.findfin.core.locale.api.AppLocaleManager,
     private val fetchAllLocatorsWithLanguage: FetchAllBankLocationsWithLanguageUseCase,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<SelectLanguageUiState>(SelectLanguageUiState.Initial)

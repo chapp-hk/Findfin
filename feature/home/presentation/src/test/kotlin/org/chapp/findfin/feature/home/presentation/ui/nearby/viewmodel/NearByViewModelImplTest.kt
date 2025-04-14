@@ -7,7 +7,7 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.core.locale.AppLocaleManager
+import org.chapp.findfin.core.locale.api.AppLocaleManager
 import org.chapp.findfin.feature.home.domain.nearby.model.NearByResult
 import org.chapp.findfin.feature.home.domain.nearby.model.Service
 import org.chapp.findfin.feature.home.domain.nearby.usecase.GetNearByServicesUseCase
@@ -19,7 +19,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MainDispatcherExtension::class)
 class NearByViewModelImplTest {
-    private val appLocaleManager = mockk<AppLocaleManager>()
+    private val appLocaleManager = mockk<org.chapp.findfin.core.locale.api.AppLocaleManager>()
     private val getNearByServicesUseCase = mockk<GetNearByServicesUseCase>()
 
     @BeforeEach
