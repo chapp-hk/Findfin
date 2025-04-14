@@ -1,32 +1,77 @@
-# Core Location Module
+# Module: `:core:location:provider:impl`
 
-This module is responsible for providing location-related functionalities in the application.
+The `:core:location:provider:impl` module provides the implementation of the location provider functionality using platform-specific APIs. It works in conjunction with the `:core:location:provider:api` module to deliver location data to the application.
 
-## Key Components
+## Features
 
-1. **LocationHelper**: This is an interface defined in the `LocationHelper.kt` file. It declares a method `getSingleCurrentLocation()` which returns a `LocationResult`.
+- **Location Retrieval**: Implements the `LocationProviderManager` interface to fetch the current location of the device.
+- **Platform-Specific Implementation**: Uses the `FusedLocationProviderClient` from Google Play Services to access location data.
+- **Error Handling**: Handles scenarios where location data is unavailable or an error occurs during retrieval.
 
-2. **LocationHelperImpl**: This is the implementation of the `LocationHelper` interface. It is defined in the `LocationHelperImpl.kt` file. It uses various utilities and providers to get the current location.
+## Components
 
-3. **LocationResult**: This is a sealed interface defined in the `LocationResult.kt` file. It represents the result of a location request and can be one of the following:
-    - `Location`: Represents a successful location result with latitude and longitude.
-    - `PermissionNotGranted`: Represents a failure due to lack of location permission.
-    - `GpsNotSupported`: Represents a failure due to the device not supporting GPS.
-    - `GpsIsOff`: Represents a failure due to GPS being turned off.
-    - `UnknownError`: Represents an unknown failure.
+### 1. `LocationProviderManagerImpl`
+The implementation of the `LocationProviderManager` interface that retrieves the current location using the `FusedLocationProviderClient`.
+
+#### Key Features:
+- Requires location permissions (`ACCESS_FINE_LOCATION` or `ACCESS_COARSE_LOCATION`).
+- Returns a `LocationResult` indicating success, error, or unavailability.
+
+```kotlin
+internal class LocationProviderManagerImpl(
+    private val fusedLocationProviderClient: FusedLocationProviderClient,
+) : LocationProviderManager {
+    @RequiresPermission(
+        anyOf = [
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+        ],
+    )
+    override suspend fun getCurrentLocation(): LocationResult {
+        // Implementation details
+    }
+}
+```
 
 ## Usage
 
-To use this module, you need to inject an instance of `LocationHelper` and call the `getSingleCurrentLocation()` method. This method is a suspend function and should be called from a coroutine. It returns a `LocationResult` which can be used to handle the result of the location request.
+This module is designed to be used in conjunction with the `:core:location:provider:api` module. The `LocationProviderManagerImpl` is provided via dependency injection.
 
-## Testing
+### Example Integration
 
-Unit tests for this module should be written using JUnit 5 and MockK. The tests should cover all possible `LocationResult` outcomes.
+1. Add the dependency to your `build.gradle.kts` file:
+
+```kotlin
+dependencies {
+    implementation(project(":core:location:provider:impl"))
+    implementation(project(":core:location:provider:api"))
+    implementation("com.google.android.gms:play-services-location:<version>")
+}
+```
+
+2. Inject the `LocationProviderManager` in your application or use case:
+
+```kotlin
+class ExampleUseCase @Inject constructor(
+    private val locationProviderManager: LocationProviderManager,
+) {
+    suspend fun fetchLocation() {
+        val result = locationProviderManager.getCurrentLocation()
+        // Handle the LocationResult
+    }
+}
+```
 
 ## Dependencies
 
-This module depends on several utilities and providers for checking permissions, GPS availability, and getting the current location. These dependencies should be provided via dependency injection.
+- `:core:location:provider:api`: Provides the abstractions for location management.
+- Google Play Services (`com.google.android.gms:play-services-location`): Used for accessing location data.
 
-## Note
+## Permissions
 
-Please ensure that the necessary permissions for accessing location are declared in the application's manifest file and are granted by the user at runtime.
+Ensure that the following permissions are declared in your `AndroidManifest.xml`:
+
+```xml
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+```

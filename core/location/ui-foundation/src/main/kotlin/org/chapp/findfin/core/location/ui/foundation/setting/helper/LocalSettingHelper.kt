@@ -8,7 +8,7 @@ import org.chapp.findfin.core.location.ui.foundation.setting.state.LocationSetti
  * A static composition local to provide a [SettingHelper] instance.
  * This is used to access location settings within a composable hierarchy.
  */
-val LocalSettingHelper =
+internal val LocalSettingHelper =
     staticCompositionLocalOf<SettingHelper> { error("SettingHelper is not provided") }
 
 /**
