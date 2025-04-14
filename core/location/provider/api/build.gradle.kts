@@ -3,8 +3,7 @@ plugins {
     alias(libs.plugins.app.jvm)
 }
 
-// dependencies {
-//    implementation(libs.kotlinx.coroutines.core)
-//    testImplementation(libs.junit.jupiter)
-//    testImplementation(libs.kotest.assertions.core)
-// }
+dependencies {
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.kotest.assertions.core)
+}
