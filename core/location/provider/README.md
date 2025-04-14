@@ -20,7 +20,7 @@ dependencies {
 }
 ```
 
-For more details, refer to the [README](../api/README.md) of the `:core:location:provider:api` module.
+For more details, refer to the [README](./api/README.md) of the `:core:location:provider:api` module.
 
 ---
 
@@ -42,7 +42,7 @@ dependencies {
 }
 ```
 
-For more details, refer to the [README](../impl/README.md) of the `:core:location:provider:impl` module.
+For more details, refer to the [README](./impl/README.md) of the `:core:location:provider:impl` module.
 
 ---
 
