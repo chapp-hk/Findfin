@@ -32,7 +32,6 @@ dependencies {
     implementation(projects.core.location.provider.impl)
     implementation(projects.core.location.uiFoundation)
     implementation(projects.core.navigation)
-    implementation(projects.core.locale.api)
     implementation(projects.feature.home.domain)
     implementation(projects.feature.auth.data.repo)
     implementation(projects.feature.auth.data.remoteFirebase)
