@@ -1,0 +1,45 @@
+package org.chapp.findfin.core.location.ui.foundation
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalContext
+import org.chapp.findfin.core.location.ui.foundation.setting.helper.LocalSettingHelper
+import org.chapp.findfin.core.location.ui.foundation.setting.helper.SettingHelperImpl
+import org.chapp.findfin.core.location.ui.foundation.setting.state.LocationSettingState
+import org.chapp.findfin.core.location.ui.foundation.setting.state.rememberLocationSettingState
+
+/**
+ * A composable function that checks the location settings and provides content based on the result.
+ *
+ * @param onResult A callback function that is invoked with the current [LocationSettingState].
+ * @param content A composable function that takes the current [LocationSettingState] and provides the UI content.
+ *
+ * Example usage:
+ * ```
+ * LocationSettingCheckContent(
+ *     onResult = { state ->
+ *         // Handle the location setting state
+ *     }
+ * ) { locationSettingState ->
+ *     // Provide the UI content based on the location setting state
+ * }
+ * ```
+ */
+@Composable
+fun LocationSettingCheckContent(
+    onResult: (LocationSettingState) -> Unit,
+    content: @Composable (LocationSettingState) -> Unit,
+) {
+    CompositionLocalProvider(
+        value = LocalSettingHelper providesDefault SettingHelperImpl(context = LocalContext.current),
+    ) {
+        val locationSettingState =
+            rememberLocationSettingState(
+                settingHelper = LocalSettingHelper.current,
+            ) { state ->
+                onResult(state)
+            }
+
+        content(locationSettingState)
+    }
+}

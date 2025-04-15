@@ -28,7 +28,9 @@ android {
 dependencies {
     implementation(projects.core.design.uiFoundation)
     implementation(projects.core.imageloader)
-    implementation(projects.core.location)
+    implementation(projects.core.location.provider.api)
+    implementation(projects.core.location.provider.impl)
+    implementation(projects.core.location.uiFoundation)
     implementation(projects.core.navigation)
     implementation(projects.core.locale)
     implementation(projects.feature.home.domain)
@@ -38,7 +40,6 @@ dependencies {
     implementation(projects.feature.bank.data.localDatabase)
     implementation(projects.feature.bank.presentation)
     implementation(projects.feature.locator.presentation)
-    implementation(projects.feature.locator.data.remoteLocation)
     implementation(projects.feature.setting.presentation)
 
     implementation(libs.androidx.compose.ui)

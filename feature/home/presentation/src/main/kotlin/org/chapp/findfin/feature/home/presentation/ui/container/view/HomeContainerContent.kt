@@ -12,9 +12,9 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
-import org.chapp.findfin.core.location.LocationSettingCheckContent
-import org.chapp.findfin.core.location.launcher.rememberLauncherForAppSetting
-import org.chapp.findfin.core.location.setting.state.LocationSettingStatus
+import org.chapp.findfin.core.location.ui.foundation.LocationSettingCheckContent
+import org.chapp.findfin.core.location.ui.foundation.launcher.rememberLauncherForAppSetting
+import org.chapp.findfin.core.location.ui.foundation.setting.state.LocationSettingStatus
 import org.chapp.findfin.feature.home.presentation.ui.container.model.HomeItem
 import org.chapp.findfin.feature.home.presentation.ui.nearby.model.NearByUiState
 import org.chapp.findfin.feature.home.presentation.ui.nearby.viewmodel.NearByViewModel
@@ -66,6 +66,7 @@ internal fun HomeContainerContent(
                                     val isPermanentlyDenied = isUserDeniedPermission && !permission.shouldShowRationale
                                     HomeItem.LocationPermissionDenied(isPermanentlyDenied = isPermanentlyDenied)
                                 }
+
                                 PermissionStatus.Granted -> HomeItem.NearByLoading
                             }
                         }

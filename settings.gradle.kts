@@ -26,7 +26,9 @@ include(":core:design:theme")
 include(":core:design:ui-foundation")
 include(":core:imageloader")
 include(":core:locale")
-include(":core:location")
+include(":core:location:provider:api")
+include(":core:location:provider:impl")
+include(":core:location:ui-foundation")
 include(":core:logging:api")
 include(":core:logging:startup")
 include(":core:map")
@@ -55,8 +57,6 @@ include(":feature:home:domain")
 include(":feature:home:presentation")
 
 // feature locator modules
-include(":feature:locator:data:remote-location")
-include(":feature:locator:data:repo")
 include(":feature:locator:presentation")
 
 // feature setting modules
