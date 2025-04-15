@@ -24,8 +24,8 @@ class AndroidCommonPlugin : Plugin<Project> {
     }
 
     private fun configureVersion(extension: CommonExtension<*, *, *, *, *, *>) {
-        extension.compileSdk = 35
-        extension.buildToolsVersion = "35.0.0"
+        extension.compileSdk = 36
+        extension.buildToolsVersion = "36.0.0"
 
         extension.defaultConfig {
             minSdk = 24
