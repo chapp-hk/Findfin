@@ -1,8 +1,8 @@
 package org.chapp.findfin.feature.onboarding.presentation.ui.language.model
 
 import org.chapp.findfin.core.design.ui.foundation.text.UiText
+import org.chapp.findfin.core.locale.api.Language
 import org.chapp.findfin.feature.onboarding.presentation.R
-import org.chapp.findfin.feature.setting.data.repo.language.model.Language
 
 internal class SelectLanguageUiModelMapper {
     fun map(language: Language): SelectLanguageUiModel {
@@ -11,9 +11,9 @@ internal class SelectLanguageUiModelMapper {
                 if (language.isDefault) {
                     UiText.ResourceString(resId = R.string.onboarding_select_language_default)
                 } else {
-                    UiText.ActualString(value = language.name)
+                    UiText.ActualString(value = language.displayName)
                 },
-            tag = language.tag,
+            tag = language.localeTag,
         )
     }
 }
