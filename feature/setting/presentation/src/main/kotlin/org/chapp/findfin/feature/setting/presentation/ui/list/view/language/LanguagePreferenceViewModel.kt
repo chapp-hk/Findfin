@@ -24,7 +24,7 @@ internal class LanguagePreferenceViewModel @Inject constructor(
         return if (locale == null) {
             UiText.ResourceString(R.string.setting_theme_summary_system)
         } else {
-            UiText.ActualString(Locale(locale).let { it.getDisplayLanguage(it) })
+            UiText.ActualString(Locale.forLanguageTag(locale).let { it.getDisplayLanguage(it) })
         }
     }
 
