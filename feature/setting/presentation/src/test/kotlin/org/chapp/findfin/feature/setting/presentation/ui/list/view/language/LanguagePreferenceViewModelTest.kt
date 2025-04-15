@@ -7,29 +7,26 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import org.chapp.findfin.core.design.ui.foundation.text.UiText
-import org.chapp.findfin.core.locale.api.AppLocaleManager
-import org.chapp.findfin.feature.setting.data.repo.language.model.Language
-import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
+import org.chapp.findfin.core.locale.api.Language
+import org.chapp.findfin.core.locale.api.LocaleProviderManager
+import org.chapp.findfin.core.locale.api.LocaleResult
 import org.chapp.findfin.feature.setting.presentation.R
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import java.util.Locale
 
 @DisplayName("LanguagePreferenceViewModel unit tests")
 class LanguagePreferenceViewModelTest {
-    private val languageRepository =
-        mockk<LanguageRepository> {
+    private val localeProviderManager =
+        mockk<LocaleProviderManager> {
             every { getAvailableLanguages() } returns
                 listOf(
-                    Language(isDefault = false, name = "English", tag = "en"),
-                    Language(isDefault = false, name = "Chinese", tag = "zh"),
+                    Language(isDefault = false, displayName = "English", localeTag = "en"),
+                    Language(isDefault = false, displayName = "Chinese", localeTag = "zh"),
                 )
         }
-    private val appLocaleManager = mockk<org.chapp.findfin.core.locale.api.AppLocaleManager>()
     private val viewModel =
         LanguagePreferenceViewModel(
-            languageRepository = languageRepository,
-            appLocaleManager = appLocaleManager,
+            localeProviderManager = localeProviderManager,
         )
 
     @Test
@@ -50,73 +47,72 @@ class LanguagePreferenceViewModelTest {
                 ),
             )
 
-        verify { languageRepository.getAvailableLanguages() }
+        verify { localeProviderManager.getAvailableLanguages() }
     }
 
     @Test
-    fun `getCurrentLanguageName should return system language when locale is null`() {
+    fun `getCurrentLanguageName should return system language when locale result is Default`() {
         // Arrange
-        every { appLocaleManager.getCurrentLocale() } returns null
+        every { localeProviderManager.getCurrentLocale() } returns LocaleResult.Default
 
         // Act
         val result = viewModel.getCurrentLanguageName()
 
         // Assert
         result shouldBe UiText.ResourceString(R.string.setting_theme_summary_system)
-        verify { appLocaleManager.getCurrentLocale() }
+        verify { localeProviderManager.getCurrentLocale() }
     }
 
     @Test
-    fun `getCurrentLanguageName should return actual language name when locale is not null`() {
+    fun `getCurrentLanguageName should return actual language name when locale result is Custom`() {
         // Arrange
-        val locale = Locale("en")
-        every { appLocaleManager.getCurrentLocale() } returns locale
+        every { localeProviderManager.getCurrentLocale() } returns
+            LocaleResult.Custom(tag = "en", displayName = "English")
 
         // Act
         val result = viewModel.getCurrentLanguageName()
 
         // Assert
         result shouldBe UiText.ActualString("English")
-        verify { appLocaleManager.getCurrentLocale() }
+        verify { localeProviderManager.getCurrentLocale() }
     }
 
     @Test
-    fun `getCurrentLanguageTag should return empty string when locale is null`() {
+    fun `getCurrentLanguageName should return system language when locale result is Error`() {
         // Arrange
-        every { appLocaleManager.getCurrentLocale() } returns null
+        every { localeProviderManager.getCurrentLocale() } returns
+            LocaleResult.Error
 
         // Act
-        val result = viewModel.getCurrentLanguageTag()
+        val result = viewModel.getCurrentLanguageName()
 
         // Assert
-        result shouldBe ""
-        verify { appLocaleManager.getCurrentLocale() }
+        result shouldBe UiText.ResourceString(R.string.setting_theme_summary_system)
+        verify { localeProviderManager.getCurrentLocale() }
     }
 
     @Test
-    fun `getCurrentLanguageTag should return language tag when locale is not null`() {
+    fun `getCurrentLanguageTag should invoke locale provider manager get current locale tag`() {
         // Arrange
-        val locale = Locale("zh")
-        every { appLocaleManager.getCurrentLocale() } returns locale
+        every { localeProviderManager.getCurrentLocaleTag() } returns ""
 
         // Act
-        val result = viewModel.getCurrentLanguageTag()
+        viewModel.getCurrentLanguageTag()
 
         // Assert
-        result shouldBe "zh"
-        verify { appLocaleManager.getCurrentLocale() }
+        verify { localeProviderManager.getCurrentLocaleTag() }
     }
 
     @Test
     fun `setLanguage should set the locale`() {
         // Arrange
         val locale = "en"
-        every { appLocaleManager.setLocale(locale) } just Runs
+        every { localeProviderManager.setLocale(locale) } just Runs
 
         // Act
         viewModel.setLanguage(locale)
 
         // Assert
-        verify { appLocaleManager.setLocale(locale) }
+        verify { localeProviderManager.setLocale(locale) }
     }
 }
