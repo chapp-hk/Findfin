@@ -7,16 +7,16 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
-import org.chapp.findfin.feature.bank.data.repo.repository.BankLocationRepository
+import org.chapp.findfin.feature.bank.data.repo.repository.BankRepository
 import javax.inject.Inject
 
 @HiltViewModel
 internal class BankListViewModelImpl @Inject constructor(
-    private val bankLocationRepository: BankLocationRepository,
+    private val bankRepository: BankRepository,
 ) : ViewModel(), BankListViewModel {
     override val screenState: StateFlow<List<String>> =
         flow {
-            emit(bankLocationRepository.getAllBanks())
+            emit(bankRepository.getAllBanks())
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),

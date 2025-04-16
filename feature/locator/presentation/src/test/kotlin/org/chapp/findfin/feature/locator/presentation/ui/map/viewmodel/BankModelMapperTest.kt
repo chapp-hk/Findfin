@@ -1,17 +1,17 @@
 package org.chapp.findfin.feature.locator.presentation.ui.map.viewmodel
 
 import io.kotest.matchers.shouldBe
-import org.chapp.findfin.feature.bank.data.repo.model.BankLocationModel
+import org.chapp.findfin.feature.bank.data.repo.model.BankModel
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("BankLocationModelMapper unit tests")
-class BankLocationModelMapperTest {
+class BankModelMapperTest {
     @Test
     fun `toMapMarker should map BankLocationModel to MapMarker correctly`() {
         // Arrange
         val model =
-            BankLocationModel(
+            BankModel(
                 type = "type",
                 district = "district",
                 bankName = "bankName",

@@ -4,16 +4,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import org.chapp.findfin.feature.bank.data.local.database.model.BankLocationEntity
+import org.chapp.findfin.feature.bank.data.local.database.model.BankEntity
 
 @Dao
-internal interface BankLocationDao {
+internal interface BankDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(locators: List<BankLocationEntity>)
+    suspend fun insertAll(locators: List<BankEntity>)
 
     @Query(
         """
-        SELECT * FROM locator
+        SELECT * FROM bank
         WHERE
             language = :language
             AND latitude BETWEEN :minLat AND :maxLat
@@ -26,11 +26,11 @@ internal interface BankLocationDao {
         maxLat: Double,
         minLon: Double,
         maxLon: Double,
-    ): List<BankLocationEntity>
+    ): List<BankEntity>
 
-    @Query("SELECT DISTINCT bank_name FROM locator")
+    @Query("SELECT DISTINCT bank_name FROM bank")
     suspend fun getDistinctBanks(): List<String>
 
-    @Query("SELECT * FROM locator")
-    suspend fun getAll(): List<BankLocationEntity>
+    @Query("SELECT * FROM bank")
+    suspend fun getAll(): List<BankEntity>
 }

@@ -4,18 +4,18 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.core.threading.DispatcherDefault
-import org.chapp.findfin.feature.bank.data.repo.mapper.BankLocationFetchResult
-import org.chapp.findfin.feature.bank.data.repo.model.BankLocationType
-import org.chapp.findfin.feature.bank.data.repo.repository.BankLocationRepository
+import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
+import org.chapp.findfin.feature.bank.data.repo.model.BankType
+import org.chapp.findfin.feature.bank.data.repo.repository.BankRepository
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
 
 @HiltWrapBindModule
-class FetchAllBankLocationsWithLanguageUseCaseImpl @Inject constructor(
+class FetchAllBanksWithLanguageUseCaseImpl @Inject constructor(
     @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
-    private val bankLocationRepository: BankLocationRepository,
+    private val bankRepository: BankRepository,
     private val localeProviderManager: LocaleProviderManager,
-) : FetchAllBankLocationsWithLanguageUseCase {
+) : FetchAllBanksWithLanguageUseCase {
     override suspend operator fun invoke(): Boolean {
         return withContext(defaultDispatcher) {
             localeProviderManager
@@ -23,9 +23,9 @@ class FetchAllBankLocationsWithLanguageUseCaseImpl @Inject constructor(
                 .filterNot { it.isDefault }
                 .map { language ->
                     val isFetchBranchSuccess =
-                        getBankLocations(language.localeTag, BankLocationType.BRANCH)
+                        getBankLocations(language.localeTag, BankType.BRANCH)
                     val isFetchAtmSuccess =
-                        getBankLocations(language.localeTag, BankLocationType.ATM)
+                        getBankLocations(language.localeTag, BankType.ATM)
                     isFetchBranchSuccess && isFetchAtmSuccess
                 }.all { it }
         }
@@ -33,13 +33,13 @@ class FetchAllBankLocationsWithLanguageUseCaseImpl @Inject constructor(
 
     private suspend fun getBankLocations(
         languageTag: String,
-        type: BankLocationType,
+        type: BankType,
     ): Boolean {
         var page = 0
 
         do {
             val result =
-                bankLocationRepository.fetchLocations(
+                bankRepository.fetchBanks(
                     type = type,
                     localeTag = languageTag,
                     page = page,
@@ -47,10 +47,10 @@ class FetchAllBankLocationsWithLanguageUseCaseImpl @Inject constructor(
                 )
             page += 1
 
-            if (result is BankLocationFetchResult.Error) {
+            if (result is BankFetchResult.Error) {
                 return false
             }
-        } while (result is BankLocationFetchResult.HasNext)
+        } while (result is BankFetchResult.HasNext)
 
         return true
     }

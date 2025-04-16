@@ -1,12 +1,12 @@
 package org.chapp.findfin.feature.bank.data.repo.mapper
 
 import org.chapp.findfin.feature.bank.data.remote.network.api.LocationPath
-import org.chapp.findfin.feature.bank.data.repo.model.BankLocationType
+import org.chapp.findfin.feature.bank.data.repo.model.BankType
 
-internal fun BankLocationType.toRemoteLocationPath(): LocationPath {
+internal fun BankType.toRemoteLocationPath(): LocationPath {
     return when (this) {
-        BankLocationType.ATM -> LocationPath.ATM
-        BankLocationType.BRANCH -> LocationPath.BRANCH
+        BankType.ATM -> LocationPath.ATM
+        BankType.BRANCH -> LocationPath.BRANCH
     }
 }
 

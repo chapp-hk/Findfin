@@ -4,25 +4,25 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.chapp.findfin.core.logging.appLogger
 import org.chapp.findfin.core.threading.DispatcherIo
-import org.chapp.findfin.feature.bank.data.local.database.dao.BankLocationDao
-import org.chapp.findfin.feature.bank.data.local.database.model.BankLocationMapper
-import org.chapp.findfin.feature.bank.data.repo.local.datasource.BankLocationLocalDataSource
-import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocationLocal
+import org.chapp.findfin.feature.bank.data.local.database.dao.BankDao
+import org.chapp.findfin.feature.bank.data.local.database.model.BankDataMapper
+import org.chapp.findfin.feature.bank.data.repo.local.datasource.BankLocalDataSource
+import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocal
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject
 
 @HiltWrapBindModule
-internal class BankLocationLocalDataSourceImpl @Inject constructor(
+internal class BankLocalDataSourceImpl @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
-    private val bankLocationDao: BankLocationDao,
-) : BankLocationLocalDataSource {
-    private val bankLocationMapper = Mappers.getMapper(BankLocationMapper::class.java)
+    private val bankDao: BankDao,
+) : BankLocalDataSource {
+    private val bankDataMapper = Mappers.getMapper(BankDataMapper::class.java)
 
-    override suspend fun insertAll(locators: List<BankLocationLocal>) {
+    override suspend fun insertAll(locators: List<BankLocal>) {
         withContext(ioDispatcher) {
             runCatching {
-                bankLocationDao.insertAll(locators.map(bankLocationMapper::clone))
+                bankDao.insertAll(locators.map(bankDataMapper::clone))
             }.onFailure { error ->
                 appLogger.debug(
                     tag = javaClass.simpleName,
@@ -39,16 +39,16 @@ internal class BankLocationLocalDataSourceImpl @Inject constructor(
         maxLat: Double,
         minLon: Double,
         maxLon: Double,
-    ): List<BankLocationLocal> {
+    ): List<BankLocal> {
         return withContext(ioDispatcher) {
             runCatching {
-                bankLocationDao.getLocatorsWithinBound(
+                bankDao.getLocatorsWithinBound(
                     language = language,
                     minLat = minLat,
                     maxLat = maxLat,
                     minLon = minLon,
                     maxLon = maxLon,
-                ).map(bankLocationMapper::toLocalModel)
+                ).map(bankDataMapper::toLocalModel)
             }.getOrElse { error ->
                 appLogger.debug(
                     tag = javaClass.simpleName,
@@ -63,7 +63,7 @@ internal class BankLocationLocalDataSourceImpl @Inject constructor(
     override suspend fun getAllBanks(): List<String> {
         return withContext(ioDispatcher) {
             runCatching {
-                bankLocationDao.getDistinctBanks()
+                bankDao.getDistinctBanks()
             }.getOrElse { error ->
                 appLogger.debug(
                     tag = javaClass.simpleName,
@@ -75,12 +75,12 @@ internal class BankLocationLocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getAll(): List<BankLocationLocal> {
+    override suspend fun getAll(): List<BankLocal> {
         return withContext(ioDispatcher) {
             runCatching {
-                bankLocationDao
+                bankDao
                     .getAll()
-                    .map(bankLocationMapper::toLocalModel)
+                    .map(bankDataMapper::toLocalModel)
             }.getOrElse { error ->
                 appLogger.debug(
                     tag = javaClass.simpleName,

@@ -16,7 +16,7 @@ import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.feature.onboarding.presentation.R
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
-import org.chapp.findfin.feature.setting.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
+import org.chapp.findfin.feature.setting.domain.fetch.usecase.FetchAllBanksWithLanguageUseCase
 import org.chapp.findfin.testing.extension.MainDispatcherExtension
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -28,7 +28,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class SelectLanguageViewModelTest {
     private val localeProviderManager = mockk<LocaleProviderManager>()
     private val fetchAllLocatorsWithLanguage =
-        mockk<FetchAllBankLocationsWithLanguageUseCase>(relaxed = true)
+        mockk<FetchAllBanksWithLanguageUseCase>(relaxed = true)
 
     @BeforeEach
     fun setUp() {

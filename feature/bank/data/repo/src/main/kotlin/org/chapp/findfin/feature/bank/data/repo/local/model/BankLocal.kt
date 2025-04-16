@@ -1,6 +1,6 @@
 package org.chapp.findfin.feature.bank.data.repo.local.model
 
-data class BankLocationLocal(
+data class BankLocal(
     val language: String,
     val type: String,
     val district: String,

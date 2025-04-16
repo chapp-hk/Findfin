@@ -2,14 +2,14 @@ package org.chapp.findfin.feature.bank.data.repo.mapper
 
 import org.chapp.findfin.feature.bank.data.remote.network.api.LocationPath
 import org.chapp.findfin.feature.bank.data.remote.network.model.BankLocationResponse
-import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocationLocal
-import org.chapp.findfin.feature.bank.data.repo.model.BankLocationModel
+import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocal
+import org.chapp.findfin.feature.bank.data.repo.model.BankModel
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import org.mapstruct.Mappings
 
 @Mapper
-interface BankLocationMapper {
+interface BankDataMapper {
     @Mappings(
         Mapping(
             source = "type",
@@ -24,7 +24,7 @@ interface BankLocationMapper {
         language: String,
         type: LocationPath,
         locator: BankLocationResponse,
-    ): BankLocationLocal
+    ): BankLocal
 
-    fun convertToDataModel(locator: BankLocationLocal): BankLocationModel
+    fun convertToDataModel(locator: BankLocal): BankModel
 }

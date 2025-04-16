@@ -5,11 +5,11 @@ import androidx.test.platform.app.InstrumentationRegistry
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.feature.bank.data.local.database.model.BankLocationEntity
+import org.chapp.findfin.feature.bank.data.local.database.model.BankEntity
 import org.chapp.findfin.feature.bank.data.local.room.BankDatabase
 import org.junit.Test
 
-class BankLocationDaoTest {
+class BankDaoTest {
     private val context = InstrumentationRegistry.getInstrumentation().context
 
     private val testDispatcher = StandardTestDispatcher()
@@ -21,7 +21,7 @@ class BankLocationDaoTest {
 
             val list =
                 listOf(
-                    BankLocationEntity(
+                    BankEntity(
                         type = "ATM",
                         language = "en",
                         district = "Central and Western",
@@ -32,7 +32,7 @@ class BankLocationDaoTest {
                         latitude = 22.294630813707222,
                         longitude = 114.22859313885354,
                     ),
-                    BankLocationEntity(
+                    BankEntity(
                         type = "ATM",
                         language = "en",
                         district = "Central and Western",
@@ -45,7 +45,7 @@ class BankLocationDaoTest {
                     ),
                 )
 
-            database.bankLocationDao.insertAll(list)
+            database.bankDao.insertAll(list)
 
             database.query("SELECT * FROM locator", null).use {
                 it.count shouldBe 2
@@ -60,7 +60,7 @@ class BankLocationDaoTest {
 
             val list =
                 listOf(
-                    BankLocationEntity(
+                    BankEntity(
                         id = 1,
                         type = "ATM",
                         language = "en",
@@ -72,7 +72,7 @@ class BankLocationDaoTest {
                         latitude = 22.294630813707222,
                         longitude = 114.22859313885354,
                     ),
-                    BankLocationEntity(
+                    BankEntity(
                         id = 2,
                         type = "ATM",
                         language = "en",
@@ -84,7 +84,7 @@ class BankLocationDaoTest {
                         latitude = 22.312641530083468,
                         longitude = 114.24806027679244,
                     ),
-                    BankLocationEntity(
+                    BankEntity(
                         id = 1,
                         type = "ATM",
                         language = "en",
@@ -98,11 +98,11 @@ class BankLocationDaoTest {
                     ),
                 )
 
-            database.bankLocationDao.insertAll(list)
+            database.bankDao.insertAll(list)
 
-            database.bankLocationDao.getAll() shouldBe
+            database.bankDao.getAll() shouldBe
                 listOf(
-                    BankLocationEntity(
+                    BankEntity(
                         id = 1,
                         type = "ATM",
                         language = "en",
@@ -114,7 +114,7 @@ class BankLocationDaoTest {
                         latitude = 22.294630813707222,
                         longitude = 114.22859313885354,
                     ),
-                    BankLocationEntity(
+                    BankEntity(
                         id = 2,
                         type = "ATM",
                         language = "en",
@@ -143,7 +143,7 @@ class BankLocationDaoTest {
                     .build()
 
             database
-                .bankLocationDao
+                .bankDao
                 .getLocatorsWithinBound(
                     language = "en",
                     minLat = 22.294630813707222,
@@ -166,7 +166,7 @@ class BankLocationDaoTest {
                     ).createFromAsset("locator_db.db")
                     .build()
 
-            database.bankLocationDao.getAll().size shouldBe 6194
+            database.bankDao.getAll().size shouldBe 6194
         }
     }
 }

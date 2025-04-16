@@ -11,7 +11,7 @@ import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.core.location.provider.api.Location
 import org.chapp.findfin.core.location.provider.api.LocationProviderManager
 import org.chapp.findfin.core.location.provider.api.LocationResult
-import org.chapp.findfin.feature.bank.data.repo.repository.BankLocationRepository
+import org.chapp.findfin.feature.bank.data.repo.repository.BankRepository
 import org.chapp.findfin.feature.home.domain.nearby.model.NearByResult
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -22,14 +22,14 @@ class GetNearByServicesUseCaseImplTest {
     private val testDispatcher = StandardTestDispatcher()
     private val localeProviderManager = mockk<LocaleProviderManager>()
     private val locationProviderManager = mockk<LocationProviderManager>()
-    private val bankLocationRepository = mockk<BankLocationRepository>()
+    private val bankRepository = mockk<BankRepository>()
 
     private val getNearByServiceUseCase =
         GetNearByServicesUseCaseImpl(
             defaultDispatcher = testDispatcher,
             localeProviderManager = localeProviderManager,
             locationProviderManager = locationProviderManager,
-            bankLocationRepository = bankLocationRepository,
+            bankRepository = bankRepository,
         )
 
     @BeforeEach
@@ -56,7 +56,7 @@ class GetNearByServicesUseCaseImplTest {
             coEvery { locationProviderManager.getCurrentLocation() } returns
                 mockLocation
             coEvery {
-                bankLocationRepository.getLocationsWithinBound(
+                bankRepository.getBanksWithinBound(
                     language = any(),
                     bound = any(),
                 )

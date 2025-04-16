@@ -2,32 +2,32 @@ package org.chapp.findfin.feature.bank.data.repo.repository
 
 import org.chapp.findfin.feature.bank.data.remote.network.datasource.BankLocationRemoteDataSource
 import org.chapp.findfin.feature.bank.data.remote.network.model.LocationResult
-import org.chapp.findfin.feature.bank.data.repo.local.datasource.BankLocationLocalDataSource
-import org.chapp.findfin.feature.bank.data.repo.mapper.BankLocationFetchResult
-import org.chapp.findfin.feature.bank.data.repo.mapper.BankLocationMapper
+import org.chapp.findfin.feature.bank.data.repo.local.datasource.BankLocalDataSource
+import org.chapp.findfin.feature.bank.data.repo.mapper.BankDataMapper
+import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
 import org.chapp.findfin.feature.bank.data.repo.mapper.toApiLang
 import org.chapp.findfin.feature.bank.data.repo.mapper.toLocalLanguage
 import org.chapp.findfin.feature.bank.data.repo.mapper.toRemoteLocationPath
 import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
-import org.chapp.findfin.feature.bank.data.repo.model.BankLocationModel
-import org.chapp.findfin.feature.bank.data.repo.model.BankLocationType
+import org.chapp.findfin.feature.bank.data.repo.model.BankModel
+import org.chapp.findfin.feature.bank.data.repo.model.BankType
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject
 
 @HiltWrapBindModule
-internal class BankLocationRepositoryImpl @Inject constructor(
-    private val bankLocationLocalDataSource: BankLocationLocalDataSource,
+internal class BankRepositoryImpl @Inject constructor(
+    private val bankLocalDataSource: BankLocalDataSource,
     private val bankLocationRemoteDataSource: BankLocationRemoteDataSource,
-) : BankLocationRepository {
-    private val mapper = Mappers.getMapper(BankLocationMapper::class.java)
+) : BankRepository {
+    private val mapper = Mappers.getMapper(BankDataMapper::class.java)
 
-    override suspend fun fetchLocations(
-        type: BankLocationType,
+    override suspend fun fetchBanks(
+        type: BankType,
         localeTag: String,
         page: Int,
         pageSize: Int,
-    ): BankLocationFetchResult {
+    ): BankFetchResult {
         val locatorPath = type.toRemoteLocationPath()
 
         val remoteResult =
@@ -40,7 +40,7 @@ internal class BankLocationRepositoryImpl @Inject constructor(
 
         return when (remoteResult) {
             LocationResult.Error -> {
-                BankLocationFetchResult.Error
+                BankFetchResult.Error
             }
 
             is LocationResult.Success -> {
@@ -53,23 +53,23 @@ internal class BankLocationRepositoryImpl @Inject constructor(
                             locator = it,
                         )
                     }
-                    .also { bankLocationLocalDataSource.insertAll(it) }
+                    .also { bankLocalDataSource.insertAll(it) }
                     .let { list ->
                         if (list.size < pageSize) {
-                            BankLocationFetchResult.End
+                            BankFetchResult.End
                         } else {
-                            BankLocationFetchResult.HasNext
+                            BankFetchResult.HasNext
                         }
                     }
             }
         }
     }
 
-    override suspend fun getLocationsWithinBound(
+    override suspend fun getBanksWithinBound(
         language: String,
         bound: BankLocationBound,
-    ): List<BankLocationModel> {
-        return bankLocationLocalDataSource.getBanksWithinBound(
+    ): List<BankModel> {
+        return bankLocalDataSource.getBanksWithinBound(
             language = language.toLocalLanguage(),
             minLat = bound.minLat,
             maxLat = bound.maxLat,
@@ -79,11 +79,11 @@ internal class BankLocationRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAllBanks(): List<String> {
-        return bankLocationLocalDataSource.getAllBanks()
+        return bankLocalDataSource.getAllBanks()
     }
 
-    override suspend fun getAll(): List<BankLocationModel> {
-        return bankLocationLocalDataSource
+    override suspend fun getAll(): List<BankModel> {
+        return bankLocalDataSource
             .getAll()
             .map(mapper::convertToDataModel)
     }

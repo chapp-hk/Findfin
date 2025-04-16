@@ -12,30 +12,30 @@ import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.feature.bank.data.remote.network.api.LocationPath
 import org.chapp.findfin.feature.bank.data.remote.network.datasource.BankLocationRemoteDataSource
 import org.chapp.findfin.feature.bank.data.remote.network.model.LocationResult
-import org.chapp.findfin.feature.bank.data.repo.local.datasource.BankLocationLocalDataSource
-import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocationLocal
-import org.chapp.findfin.feature.bank.data.repo.mapper.BankLocationFetchResult
+import org.chapp.findfin.feature.bank.data.repo.local.datasource.BankLocalDataSource
+import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocal
+import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
 import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
-import org.chapp.findfin.feature.bank.data.repo.model.BankLocationModel
-import org.chapp.findfin.feature.bank.data.repo.model.BankLocationType
+import org.chapp.findfin.feature.bank.data.repo.model.BankModel
+import org.chapp.findfin.feature.bank.data.repo.model.BankType
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("BankLocationRepositoryImpl unit tests")
-class BankLocationRepositoryImplTest {
-    private val bankLocationLocalDataSource = mockk<BankLocationLocalDataSource>()
+class BankRepositoryImplTest {
+    private val bankLocalDataSource = mockk<BankLocalDataSource>()
     private val bankLocationRemoteDataSource = mockk<BankLocationRemoteDataSource>()
 
     private val locatorRepositoryImpl =
-        BankLocationRepositoryImpl(
-            bankLocationLocalDataSource = bankLocationLocalDataSource,
+        BankRepositoryImpl(
+            bankLocalDataSource = bankLocalDataSource,
             bankLocationRemoteDataSource = bankLocationRemoteDataSource,
         )
 
     @BeforeEach
     fun setUp() {
-        coEvery { bankLocationLocalDataSource.insertAll(any()) } just Runs
+        coEvery { bankLocalDataSource.insertAll(any()) } just Runs
     }
 
     @Test
@@ -54,8 +54,8 @@ class BankLocationRepositoryImplTest {
                 )
             } returns LocationResult.Error
 
-            locatorRepositoryImpl.fetchLocations(
-                type = BankLocationType.ATM,
+            locatorRepositoryImpl.fetchBanks(
+                type = BankType.ATM,
                 localeTag = "en",
                 page = 2,
                 pageSize = 1000,
@@ -76,7 +76,7 @@ class BankLocationRepositoryImplTest {
         "When bankLocationRemoteDataSource.getLocations() returns LocatorResult.Error, " +
             "fetchLocations() should return LocationResult.Error",
     )
-    fun testFetchLocationsError() =
+    fun testFetchBanksError() =
         runTest(StandardTestDispatcher()) {
             coEvery {
                 bankLocationRemoteDataSource.getLocations(
@@ -88,14 +88,14 @@ class BankLocationRepositoryImplTest {
             } returns LocationResult.Error
 
             val result =
-                locatorRepositoryImpl.fetchLocations(
-                    type = BankLocationType.ATM,
+                locatorRepositoryImpl.fetchBanks(
+                    type = BankType.ATM,
                     localeTag = "en",
                     page = 2,
                     pageSize = 1000,
                 )
 
-            result shouldBe BankLocationFetchResult.Error
+            result shouldBe BankFetchResult.Error
         }
 
     @Test
@@ -103,7 +103,7 @@ class BankLocationRepositoryImplTest {
         "When bankLocationRemoteDataSource.getLocations() returns list with size equals pageSize, " +
             "then fetchLocations() should return LocationResult.HasNext",
     )
-    fun testFetchLocationsResultListEqualsPageSize() =
+    fun testFetchBanksResultListEqualsPageSize() =
         runTest(StandardTestDispatcher()) {
             val pageSize = 1000
 
@@ -120,14 +120,14 @@ class BankLocationRepositoryImplTest {
                 )
 
             val result =
-                locatorRepositoryImpl.fetchLocations(
-                    type = BankLocationType.ATM,
+                locatorRepositoryImpl.fetchBanks(
+                    type = BankType.ATM,
                     localeTag = "en",
                     page = 2,
                     pageSize = pageSize,
                 )
 
-            result shouldBe BankLocationFetchResult.HasNext
+            result shouldBe BankFetchResult.HasNext
         }
 
     @Test
@@ -135,7 +135,7 @@ class BankLocationRepositoryImplTest {
         "When bankLocationRemoteDataSource.getLocations() returns list with size larger than pageSize, " +
             "then fetchLocations() should return LocationResult.HasNext",
     )
-    fun testFetchLocationsResultListLargerThanPageSize() =
+    fun testFetchBanksResultListLargerThanPageSize() =
         runTest(StandardTestDispatcher()) {
             val pageSize = 1000
 
@@ -152,14 +152,14 @@ class BankLocationRepositoryImplTest {
                 )
 
             val result =
-                locatorRepositoryImpl.fetchLocations(
-                    type = BankLocationType.ATM,
+                locatorRepositoryImpl.fetchBanks(
+                    type = BankType.ATM,
                     localeTag = "en",
                     page = 2,
                     pageSize = pageSize,
                 )
 
-            result shouldBe BankLocationFetchResult.HasNext
+            result shouldBe BankFetchResult.HasNext
         }
 
     @Test
@@ -167,7 +167,7 @@ class BankLocationRepositoryImplTest {
         "When bankLocationRemoteDataSource.getLocations() returns list with size smaller than pageSize, " +
             "then fetchLocations() should return LocationResult.End",
     )
-    fun testFetchLocationsEnd() =
+    fun testFetchBanksEnd() =
         runTest(StandardTestDispatcher()) {
             val pageSize = 1000
 
@@ -184,14 +184,14 @@ class BankLocationRepositoryImplTest {
                 )
 
             val result =
-                locatorRepositoryImpl.fetchLocations(
-                    type = BankLocationType.ATM,
+                locatorRepositoryImpl.fetchBanks(
+                    type = BankType.ATM,
                     localeTag = "en",
                     page = 2,
                     pageSize = pageSize,
                 )
 
-            result shouldBe BankLocationFetchResult.End
+            result shouldBe BankFetchResult.End
         }
 
     @Test
@@ -199,7 +199,7 @@ class BankLocationRepositoryImplTest {
         runTest(StandardTestDispatcher()) {
             val mockBound = BankLocationBound(1.0, 1.0, 1.0, 1.0)
             coEvery {
-                bankLocationLocalDataSource.getBanksWithinBound(
+                bankLocalDataSource.getBanksWithinBound(
                     language = any(),
                     minLat = any(),
                     maxLat = any(),
@@ -208,9 +208,9 @@ class BankLocationRepositoryImplTest {
                 )
             } returns listOf(mockk(relaxed = true))
 
-            val result = locatorRepositoryImpl.getLocationsWithinBound("en", mockBound)
+            val result = locatorRepositoryImpl.getBanksWithinBound("en", mockBound)
 
-            result.shouldBeInstanceOf<List<BankLocationModel>>()
+            result.shouldBeInstanceOf<List<BankModel>>()
         }
     }
 
@@ -220,11 +220,11 @@ class BankLocationRepositoryImplTest {
         runTest(StandardTestDispatcher()) {
             val expectedBanks = listOf("Bank A", "Bank B", "Bank C")
 
-            coEvery { bankLocationLocalDataSource.getAllBanks() } returns expectedBanks
+            coEvery { bankLocalDataSource.getAllBanks() } returns expectedBanks
 
             val result = locatorRepositoryImpl.getAllBanks()
 
-            coVerify { bankLocationLocalDataSource.getAllBanks() }
+            coVerify { bankLocalDataSource.getAllBanks() }
 
             result shouldBe expectedBanks
         }
@@ -235,7 +235,7 @@ class BankLocationRepositoryImplTest {
         runTest(StandardTestDispatcher()) {
             val mockLocalData =
                 listOf(
-                    BankLocationLocal(
+                    BankLocal(
                         language = "en",
                         type = "BRANCH",
                         district = "Kowloon",
@@ -248,15 +248,15 @@ class BankLocationRepositoryImplTest {
                     ),
                 )
 
-            coEvery { bankLocationLocalDataSource.getAll() } returns mockLocalData
+            coEvery { bankLocalDataSource.getAll() } returns mockLocalData
 
             val result = locatorRepositoryImpl.getAll()
 
-            coVerify { bankLocationLocalDataSource.getAll() }
+            coVerify { bankLocalDataSource.getAll() }
 
             result shouldBe
                 listOf(
-                    BankLocationModel(
+                    BankModel(
                         type = "BRANCH",
                         district = "Kowloon",
                         bankName = "Bank A",

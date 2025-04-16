@@ -2,10 +2,10 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e3e8c3c62259d438e0011d1cbbe0463c",
+    "identityHash": "087666ef01b7fab07a32193a5c94a0f2",
     "entities": [
       {
-        "tableName": "locator",
+        "tableName": "bank",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `language` TEXT NOT NULL, `type` TEXT NOT NULL, `district` TEXT NOT NULL, `bank_name` TEXT NOT NULL, `type_name` TEXT NOT NULL, `address` TEXT NOT NULL, `service_hours` TEXT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL)",
         "fields": [
           {
@@ -79,7 +79,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e3e8c3c62259d438e0011d1cbbe0463c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '087666ef01b7fab07a32193a5c94a0f2')"
     ]
   }
 }

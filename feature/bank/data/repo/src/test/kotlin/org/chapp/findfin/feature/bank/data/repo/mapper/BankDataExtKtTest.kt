@@ -2,16 +2,16 @@ package org.chapp.findfin.feature.bank.data.repo.mapper
 
 import io.kotest.matchers.shouldBe
 import org.chapp.findfin.feature.bank.data.remote.network.api.LocationPath
-import org.chapp.findfin.feature.bank.data.repo.model.BankLocationType
+import org.chapp.findfin.feature.bank.data.repo.model.BankType
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("BankLocationExt unit tests")
-class BankLocationExtKtTest {
+class BankDataExtKtTest {
     @Test
     fun `test toRemoteLocatorPath`() {
-        BankLocationType.ATM.toRemoteLocationPath() shouldBe LocationPath.ATM
-        BankLocationType.BRANCH.toRemoteLocationPath() shouldBe LocationPath.BRANCH
+        BankType.ATM.toRemoteLocationPath() shouldBe LocationPath.ATM
+        BankType.BRANCH.toRemoteLocationPath() shouldBe LocationPath.BRANCH
     }
 
     @Test

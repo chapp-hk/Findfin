@@ -2,8 +2,8 @@ package org.chapp.findfin.feature.bank.data.local.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import org.chapp.findfin.feature.bank.data.local.database.dao.BankLocationDao
-import org.chapp.findfin.feature.bank.data.local.database.model.BankLocationEntity
+import org.chapp.findfin.feature.bank.data.local.database.dao.BankDao
+import org.chapp.findfin.feature.bank.data.local.database.model.BankEntity
 import org.chapp.library.hiltwrap.annotation.HiltWrapRoomDao
 import org.chapp.library.hiltwrap.annotation.HiltWrapRoomModule
 
@@ -11,13 +11,13 @@ import org.chapp.library.hiltwrap.annotation.HiltWrapRoomModule
     version = 1,
     exportSchema = true,
     entities = [
-        BankLocationEntity::class,
+        BankEntity::class,
     ],
 )
 @HiltWrapRoomModule(
-    databaseName = "locator.db",
+    databaseName = "bank.db",
 )
 internal abstract class BankDatabase : RoomDatabase() {
     @HiltWrapRoomDao
-    abstract val bankLocationDao: BankLocationDao
+    abstract val bankDao: BankDao
 }

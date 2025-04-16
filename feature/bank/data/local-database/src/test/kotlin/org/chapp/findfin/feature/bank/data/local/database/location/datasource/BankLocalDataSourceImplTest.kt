@@ -9,22 +9,22 @@ import io.mockk.mockk
 import io.mockk.slot
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.feature.bank.data.local.database.dao.BankLocationDao
-import org.chapp.findfin.feature.bank.data.local.database.datasource.BankLocationLocalDataSourceImpl
-import org.chapp.findfin.feature.bank.data.local.database.model.BankLocationEntity
-import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocationLocal
+import org.chapp.findfin.feature.bank.data.local.database.dao.BankDao
+import org.chapp.findfin.feature.bank.data.local.database.datasource.BankLocalDataSourceImpl
+import org.chapp.findfin.feature.bank.data.local.database.model.BankEntity
+import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocal
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("LocatorLocalDataSourceImpl unit tests")
-class BankLocationLocalDataSourceImplTest {
+class BankLocalDataSourceImplTest {
     private val testDispatcher = StandardTestDispatcher()
-    private val bankLocationDao = mockk<BankLocationDao>()
+    private val bankDao = mockk<BankDao>()
 
     private val locatorLocalDataSourceImpl =
-        BankLocationLocalDataSourceImpl(
+        BankLocalDataSourceImpl(
             ioDispatcher = testDispatcher,
-            bankLocationDao = bankLocationDao,
+            bankDao = bankDao,
         )
 
     @Test
@@ -34,16 +34,16 @@ class BankLocationLocalDataSourceImplTest {
     )
     fun testInsertAll() =
         runTest(testDispatcher) {
-            val bankLocationEntityListSlot = slot<List<BankLocationEntity>>()
+            val bankEntityListSlot = slot<List<BankEntity>>()
 
             coEvery {
-                bankLocationDao.insertAll(capture(bankLocationEntityListSlot))
+                bankDao.insertAll(capture(bankEntityListSlot))
             } just Runs
 
             locatorLocalDataSourceImpl.insertAll(listOf(mockk(relaxed = true)))
 
             coVerify {
-                bankLocationDao.insertAll(bankLocationEntityListSlot.captured)
+                bankDao.insertAll(bankEntityListSlot.captured)
             }
         }
 
@@ -55,13 +55,13 @@ class BankLocationLocalDataSourceImplTest {
     fun testInsertAllErrorHandling() =
         runTest(testDispatcher) {
             coEvery {
-                bankLocationDao.insertAll(any())
+                bankDao.insertAll(any())
             } throws Exception("Test exception")
 
             locatorLocalDataSourceImpl.insertAll(listOf(mockk(relaxed = true)))
 
             coVerify {
-                bankLocationDao.insertAll(any())
+                bankDao.insertAll(any())
             }
         }
 
@@ -73,7 +73,7 @@ class BankLocationLocalDataSourceImplTest {
     fun testGetBanksWithinBoundSuccess() =
         runTest(testDispatcher) {
             coEvery {
-                bankLocationDao.getLocatorsWithinBound(
+                bankDao.getLocatorsWithinBound(
                     language = any(),
                     minLat = any(),
                     maxLat = any(),
@@ -82,7 +82,7 @@ class BankLocationLocalDataSourceImplTest {
                 )
             } returns
                 listOf(
-                    BankLocationEntity(
+                    BankEntity(
                         type = "bank",
                         language = "en",
                         district = "mock district",
@@ -105,7 +105,7 @@ class BankLocationLocalDataSourceImplTest {
                 )
 
             coVerify {
-                bankLocationDao.getLocatorsWithinBound(
+                bankDao.getLocatorsWithinBound(
                     language = "en",
                     minLat = 0.0,
                     maxLat = 0.0,
@@ -116,7 +116,7 @@ class BankLocationLocalDataSourceImplTest {
 
             result shouldBe
                 listOf(
-                    BankLocationLocal(
+                    BankLocal(
                         type = "bank",
                         language = "en",
                         district = "mock district",
@@ -138,7 +138,7 @@ class BankLocationLocalDataSourceImplTest {
     fun testGetBanksWithinBoundErrorHandling() =
         runTest(testDispatcher) {
             coEvery {
-                bankLocationDao.getLocatorsWithinBound(
+                bankDao.getLocatorsWithinBound(
                     language = any(),
                     minLat = any(),
                     maxLat = any(),
@@ -157,7 +157,7 @@ class BankLocationLocalDataSourceImplTest {
                 )
 
             coVerify {
-                bankLocationDao.getLocatorsWithinBound(
+                bankDao.getLocatorsWithinBound(
                     language = "en",
                     minLat = 0.0,
                     maxLat = 0.0,
@@ -175,11 +175,11 @@ class BankLocationLocalDataSourceImplTest {
         runTest(testDispatcher) {
             val expectedBanks = listOf("Bank A", "Bank B", "Bank C")
 
-            coEvery { bankLocationDao.getDistinctBanks() } returns expectedBanks
+            coEvery { bankDao.getDistinctBanks() } returns expectedBanks
 
             val result = locatorLocalDataSourceImpl.getAllBanks()
 
-            coVerify { bankLocationDao.getDistinctBanks() }
+            coVerify { bankDao.getDistinctBanks() }
 
             result shouldBe expectedBanks
         }
@@ -191,11 +191,11 @@ class BankLocationLocalDataSourceImplTest {
     )
     fun testGetAllBanksErrorHandling() =
         runTest(testDispatcher) {
-            coEvery { bankLocationDao.getDistinctBanks() } throws Exception("Test exception")
+            coEvery { bankDao.getDistinctBanks() } throws Exception("Test exception")
 
             val result = locatorLocalDataSourceImpl.getAllBanks()
 
-            coVerify { bankLocationDao.getDistinctBanks() }
+            coVerify { bankDao.getDistinctBanks() }
 
             result shouldBe emptyList()
         }
@@ -204,9 +204,9 @@ class BankLocationLocalDataSourceImplTest {
     @DisplayName("When invoke getAll() successfully, should return the list of LocatorLocal")
     fun testGetAllSuccess() =
         runTest(testDispatcher) {
-            coEvery { bankLocationDao.getAll() } returns
+            coEvery { bankDao.getAll() } returns
                 listOf(
-                    BankLocationEntity(
+                    BankEntity(
                         type = "bank",
                         language = "en",
                         district = "mock district",
@@ -221,11 +221,11 @@ class BankLocationLocalDataSourceImplTest {
 
             val result = locatorLocalDataSourceImpl.getAll()
 
-            coVerify { bankLocationDao.getAll() }
+            coVerify { bankDao.getAll() }
 
             result shouldBe
                 listOf(
-                    BankLocationLocal(
+                    BankLocal(
                         type = "bank",
                         language = "en",
                         district = "mock district",
@@ -246,11 +246,11 @@ class BankLocationLocalDataSourceImplTest {
     )
     fun testGetAllErrorHandling() =
         runTest(testDispatcher) {
-            coEvery { bankLocationDao.getAll() } throws Exception("Test exception")
+            coEvery { bankDao.getAll() } throws Exception("Test exception")
 
             val result = locatorLocalDataSourceImpl.getAll()
 
-            coVerify { bankLocationDao.getAll() }
+            coVerify { bankDao.getAll() }
 
             result shouldBe emptyList()
         }

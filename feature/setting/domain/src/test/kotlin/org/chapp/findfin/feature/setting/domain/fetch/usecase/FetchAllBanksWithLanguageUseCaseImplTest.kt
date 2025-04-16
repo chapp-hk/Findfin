@@ -7,9 +7,9 @@ import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.core.locale.api.Language
 import org.chapp.findfin.core.locale.api.LocaleProviderManager
-import org.chapp.findfin.feature.bank.data.repo.mapper.BankLocationFetchResult
-import org.chapp.findfin.feature.bank.data.repo.model.BankLocationType
-import org.chapp.findfin.feature.bank.data.repo.repository.BankLocationRepository
+import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
+import org.chapp.findfin.feature.bank.data.repo.model.BankType
+import org.chapp.findfin.feature.bank.data.repo.repository.BankRepository
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.params.ParameterizedTest
@@ -19,16 +19,16 @@ import org.junit.jupiter.params.provider.ArgumentsProvider
 import org.junit.jupiter.params.provider.ArgumentsSource
 import java.util.stream.Stream
 
-@DisplayName("FetchAllBankLocationsWithLanguageUseCaseImpl unit tests")
-class FetchAllBankLocationsWithLanguageUseCaseImplTest {
+@DisplayName("FetchAllBanksWithLanguageUseCaseImpl unit tests")
+class FetchAllBanksWithLanguageUseCaseImplTest {
     private val testDispatcher = StandardTestDispatcher()
-    private val bankLocationRepository = mockk<BankLocationRepository>()
+    private val bankRepository = mockk<BankRepository>()
     private val localeProviderManager = mockk<LocaleProviderManager>()
 
     private val fetchAllLocatorsWithLanguage =
-        FetchAllBankLocationsWithLanguageUseCaseImpl(
+        FetchAllBanksWithLanguageUseCaseImpl(
             defaultDispatcher = testDispatcher,
-            bankLocationRepository = bankLocationRepository,
+            bankRepository = bankRepository,
             localeProviderManager = localeProviderManager,
         )
 
@@ -39,8 +39,8 @@ class FetchAllBankLocationsWithLanguageUseCaseImplTest {
     )
     @ArgumentsSource(FetchArgumentsProvider::class)
     fun testInvokeResult(
-        branchMockedResult: BankLocationFetchResult,
-        atmMockedResult: BankLocationFetchResult,
+        branchMockedResult: BankFetchResult,
+        atmMockedResult: BankFetchResult,
         expectedResult: Boolean,
     ) = runTest(testDispatcher) {
         coEvery {
@@ -53,17 +53,17 @@ class FetchAllBankLocationsWithLanguageUseCaseImplTest {
             )
 
         coEvery {
-            bankLocationRepository.fetchLocations(
+            bankRepository.fetchBanks(
                 type = any(),
                 localeTag = any(),
                 page = 0,
                 pageSize = any(),
             )
-        } returns BankLocationFetchResult.HasNext
+        } returns BankFetchResult.HasNext
 
         coEvery {
-            bankLocationRepository.fetchLocations(
-                type = BankLocationType.BRANCH,
+            bankRepository.fetchBanks(
+                type = BankType.BRANCH,
                 localeTag = any(),
                 page = 1,
                 pageSize = any(),
@@ -71,8 +71,8 @@ class FetchAllBankLocationsWithLanguageUseCaseImplTest {
         } returns branchMockedResult
 
         coEvery {
-            bankLocationRepository.fetchLocations(
-                type = BankLocationType.ATM,
+            bankRepository.fetchBanks(
+                type = BankType.ATM,
                 localeTag = any(),
                 page = 1,
                 pageSize = any(),
@@ -86,23 +86,23 @@ class FetchAllBankLocationsWithLanguageUseCaseImplTest {
         override fun provideArguments(extensionContext: ExtensionContext): Stream<Arguments> =
             Stream.of(
                 arguments(
-                    BankLocationFetchResult.Error,
-                    BankLocationFetchResult.Error,
+                    BankFetchResult.Error,
+                    BankFetchResult.Error,
                     false,
                 ),
                 arguments(
-                    BankLocationFetchResult.End,
-                    BankLocationFetchResult.Error,
+                    BankFetchResult.End,
+                    BankFetchResult.Error,
                     false,
                 ),
                 arguments(
-                    BankLocationFetchResult.Error,
-                    BankLocationFetchResult.End,
+                    BankFetchResult.Error,
+                    BankFetchResult.End,
                     false,
                 ),
                 arguments(
-                    BankLocationFetchResult.End,
-                    BankLocationFetchResult.End,
+                    BankFetchResult.End,
+                    BankFetchResult.End,
                     true,
                 ),
             )

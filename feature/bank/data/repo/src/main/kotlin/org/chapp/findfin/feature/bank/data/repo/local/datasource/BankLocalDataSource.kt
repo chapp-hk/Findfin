@@ -1,9 +1,9 @@
 package org.chapp.findfin.feature.bank.data.repo.local.datasource
 
-import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocationLocal
+import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocal
 
-interface BankLocationLocalDataSource {
-    suspend fun insertAll(locators: List<BankLocationLocal>)
+interface BankLocalDataSource {
+    suspend fun insertAll(locators: List<BankLocal>)
 
     suspend fun getBanksWithinBound(
         language: String,
@@ -11,9 +11,9 @@ interface BankLocationLocalDataSource {
         maxLat: Double,
         minLon: Double,
         maxLon: Double,
-    ): List<BankLocationLocal>
+    ): List<BankLocal>
 
     suspend fun getAllBanks(): List<String>
 
-    suspend fun getAll(): List<BankLocationLocal>
+    suspend fun getAll(): List<BankLocal>
 }
