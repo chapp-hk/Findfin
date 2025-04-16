@@ -1,9 +1,9 @@
-package org.chapp.findfin.feature.bank.data.repo.location.mapper
+package org.chapp.findfin.feature.bank.data.repo.mapper
 
 import org.chapp.findfin.feature.bank.data.remote.network.api.LocationPath
 import org.chapp.findfin.feature.bank.data.remote.network.model.BankLocationResponse
-import org.chapp.findfin.feature.bank.data.repo.location.local.model.BankLocationLocal
-import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationModel
+import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocationLocal
+import org.chapp.findfin.feature.bank.data.repo.model.BankLocationModel
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import org.mapstruct.Mappings

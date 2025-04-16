@@ -7,8 +7,8 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.core.map.MapMarker
-import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationModel
-import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
+import org.chapp.findfin.feature.bank.data.repo.model.BankLocationModel
+import org.chapp.findfin.feature.bank.data.repo.repository.BankLocationRepository
 import org.chapp.findfin.testing.extension.MainDispatcherExtension
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

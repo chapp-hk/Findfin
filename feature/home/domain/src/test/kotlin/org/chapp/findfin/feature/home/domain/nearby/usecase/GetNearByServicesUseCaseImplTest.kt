@@ -11,7 +11,7 @@ import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.core.location.provider.api.Location
 import org.chapp.findfin.core.location.provider.api.LocationProviderManager
 import org.chapp.findfin.core.location.provider.api.LocationResult
-import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
+import org.chapp.findfin.feature.bank.data.repo.repository.BankLocationRepository
 import org.chapp.findfin.feature.home.domain.nearby.model.NearByResult
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

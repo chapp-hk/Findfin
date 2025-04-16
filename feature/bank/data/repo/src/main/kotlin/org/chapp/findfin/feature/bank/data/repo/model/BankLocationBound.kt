@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.bank.data.repo.location.model
+package org.chapp.findfin.feature.bank.data.repo.model
 
 data class BankLocationBound(
     val minLat: Double,

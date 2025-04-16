@@ -6,8 +6,8 @@ import org.chapp.findfin.core.logging.appLogger
 import org.chapp.findfin.core.threading.DispatcherIo
 import org.chapp.findfin.feature.bank.data.local.database.location.dao.BankLocationDao
 import org.chapp.findfin.feature.bank.data.local.database.location.model.BankLocationMapper
-import org.chapp.findfin.feature.bank.data.repo.location.local.datasource.BankLocationLocalDataSource
-import org.chapp.findfin.feature.bank.data.repo.location.local.model.BankLocationLocal
+import org.chapp.findfin.feature.bank.data.repo.local.datasource.BankLocationLocalDataSource
+import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocationLocal
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject

@@ -1,7 +1,6 @@
-package org.chapp.findfin.feature.bank.data.repo.location.local.model
+package org.chapp.findfin.feature.bank.data.repo.model
 
-data class BankLocationLocal(
-    val language: String,
+data class BankLocationModel(
     val type: String,
     val district: String,
     val bankName: String,

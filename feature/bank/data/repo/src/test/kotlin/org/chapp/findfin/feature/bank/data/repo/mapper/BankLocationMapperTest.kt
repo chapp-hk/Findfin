@@ -1,9 +1,9 @@
-package org.chapp.findfin.feature.bank.data.repo.location.mapper
+package org.chapp.findfin.feature.bank.data.repo.mapper
 
 import io.kotest.matchers.shouldBe
 import org.chapp.findfin.feature.bank.data.remote.network.api.LocationPath
 import org.chapp.findfin.feature.bank.data.remote.network.model.BankLocationResponse
-import org.chapp.findfin.feature.bank.data.repo.location.local.model.BankLocationLocal
+import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocationLocal
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource

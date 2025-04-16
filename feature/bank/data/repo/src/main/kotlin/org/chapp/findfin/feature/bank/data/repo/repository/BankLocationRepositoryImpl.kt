@@ -1,16 +1,16 @@
-package org.chapp.findfin.feature.bank.data.repo.location.repository
+package org.chapp.findfin.feature.bank.data.repo.repository
 
 import org.chapp.findfin.feature.bank.data.remote.network.datasource.BankLocationRemoteDataSource
 import org.chapp.findfin.feature.bank.data.remote.network.model.LocationResult
-import org.chapp.findfin.feature.bank.data.repo.location.local.datasource.BankLocationLocalDataSource
-import org.chapp.findfin.feature.bank.data.repo.location.mapper.BankLocationFetchResult
-import org.chapp.findfin.feature.bank.data.repo.location.mapper.BankLocationMapper
-import org.chapp.findfin.feature.bank.data.repo.location.mapper.toApiLang
-import org.chapp.findfin.feature.bank.data.repo.location.mapper.toLocalLanguage
-import org.chapp.findfin.feature.bank.data.repo.location.mapper.toRemoteLocationPath
-import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationBound
-import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationModel
-import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationType
+import org.chapp.findfin.feature.bank.data.repo.local.datasource.BankLocationLocalDataSource
+import org.chapp.findfin.feature.bank.data.repo.mapper.BankLocationFetchResult
+import org.chapp.findfin.feature.bank.data.repo.mapper.BankLocationMapper
+import org.chapp.findfin.feature.bank.data.repo.mapper.toApiLang
+import org.chapp.findfin.feature.bank.data.repo.mapper.toLocalLanguage
+import org.chapp.findfin.feature.bank.data.repo.mapper.toRemoteLocationPath
+import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
+import org.chapp.findfin.feature.bank.data.repo.model.BankLocationModel
+import org.chapp.findfin.feature.bank.data.repo.model.BankLocationType
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject

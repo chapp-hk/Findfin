@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.bank.data.repo.location.repository
+package org.chapp.findfin.feature.bank.data.repo.repository
 
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -12,12 +12,12 @@ import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.feature.bank.data.remote.network.api.LocationPath
 import org.chapp.findfin.feature.bank.data.remote.network.datasource.BankLocationRemoteDataSource
 import org.chapp.findfin.feature.bank.data.remote.network.model.LocationResult
-import org.chapp.findfin.feature.bank.data.repo.location.local.datasource.BankLocationLocalDataSource
-import org.chapp.findfin.feature.bank.data.repo.location.local.model.BankLocationLocal
-import org.chapp.findfin.feature.bank.data.repo.location.mapper.BankLocationFetchResult
-import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationBound
-import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationModel
-import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationType
+import org.chapp.findfin.feature.bank.data.repo.local.datasource.BankLocationLocalDataSource
+import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocationLocal
+import org.chapp.findfin.feature.bank.data.repo.mapper.BankLocationFetchResult
+import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
+import org.chapp.findfin.feature.bank.data.repo.model.BankLocationModel
+import org.chapp.findfin.feature.bank.data.repo.model.BankLocationType
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

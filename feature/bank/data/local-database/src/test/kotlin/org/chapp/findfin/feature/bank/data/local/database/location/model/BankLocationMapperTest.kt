@@ -1,7 +1,7 @@
 package org.chapp.findfin.feature.bank.data.local.database.location.model
 
 import io.kotest.matchers.shouldBe
-import org.chapp.findfin.feature.bank.data.repo.location.local.model.BankLocationLocal
+import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocationLocal
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.mapstruct.factory.Mappers

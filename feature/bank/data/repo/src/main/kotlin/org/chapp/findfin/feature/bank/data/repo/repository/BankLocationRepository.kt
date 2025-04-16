@@ -1,9 +1,9 @@
-package org.chapp.findfin.feature.bank.data.repo.location.repository
+package org.chapp.findfin.feature.bank.data.repo.repository
 
-import org.chapp.findfin.feature.bank.data.repo.location.mapper.BankLocationFetchResult
-import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationBound
-import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationModel
-import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationType
+import org.chapp.findfin.feature.bank.data.repo.mapper.BankLocationFetchResult
+import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
+import org.chapp.findfin.feature.bank.data.repo.model.BankLocationModel
+import org.chapp.findfin.feature.bank.data.repo.model.BankLocationType
 
 interface BankLocationRepository {
     suspend fun fetchLocations(

@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.bank.data.repo.location.mapper
+package org.chapp.findfin.feature.bank.data.repo.mapper
 
 sealed interface BankLocationFetchResult {
     data object HasNext : BankLocationFetchResult

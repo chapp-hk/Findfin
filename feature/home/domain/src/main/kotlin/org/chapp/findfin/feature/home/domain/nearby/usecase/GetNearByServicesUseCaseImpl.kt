@@ -6,8 +6,8 @@ import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.core.location.provider.api.LocationProviderManager
 import org.chapp.findfin.core.location.provider.api.LocationResult
 import org.chapp.findfin.core.threading.DispatcherDefault
-import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationBound
-import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
+import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
+import org.chapp.findfin.feature.bank.data.repo.repository.BankLocationRepository
 import org.chapp.findfin.feature.home.domain.nearby.mapper.ServiceMapper
 import org.chapp.findfin.feature.home.domain.nearby.model.NearByResult
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule

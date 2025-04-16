@@ -5,7 +5,7 @@ import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
+import org.chapp.findfin.feature.bank.data.repo.repository.BankLocationRepository
 import org.chapp.findfin.feature.bank.presentation.ui.banklist.viewmodel.BankListViewModelImpl
 import org.chapp.findfin.testing.extension.MainDispatcherExtension
 import org.junit.jupiter.api.DisplayName

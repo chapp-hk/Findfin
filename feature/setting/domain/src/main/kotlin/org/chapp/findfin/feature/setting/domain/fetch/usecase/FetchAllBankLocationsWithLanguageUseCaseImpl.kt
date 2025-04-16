@@ -4,9 +4,9 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.core.threading.DispatcherDefault
-import org.chapp.findfin.feature.bank.data.repo.location.mapper.BankLocationFetchResult
-import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationType
-import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
+import org.chapp.findfin.feature.bank.data.repo.mapper.BankLocationFetchResult
+import org.chapp.findfin.feature.bank.data.repo.model.BankLocationType
+import org.chapp.findfin.feature.bank.data.repo.repository.BankLocationRepository
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
 
