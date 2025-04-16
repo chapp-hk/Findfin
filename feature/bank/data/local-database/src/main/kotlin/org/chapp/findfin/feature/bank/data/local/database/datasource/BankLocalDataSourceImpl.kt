@@ -42,7 +42,7 @@ internal class BankLocalDataSourceImpl @Inject constructor(
     ): List<BankLocal> {
         return withContext(ioDispatcher) {
             runCatching {
-                bankDao.getLocatorsWithinBound(
+                bankDao.getBanksWithinBound(
                     language = language,
                     minLat = minLat,
                     maxLat = maxLat,

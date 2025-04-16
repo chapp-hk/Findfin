@@ -16,7 +16,7 @@ import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocal
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("LocatorLocalDataSourceImpl unit tests")
+@DisplayName("BankLocalDataSourceImpl unit tests")
 class BankLocalDataSourceImplTest {
     private val testDispatcher = StandardTestDispatcher()
     private val bankDao = mockk<BankDao>()
@@ -30,7 +30,7 @@ class BankLocalDataSourceImplTest {
     @Test
     @DisplayName(
         "When invoke insertAll() with list of BankLocal, " +
-            "should convert to list of LocatorEntity and invoke LocatorDao.insertAll()",
+            "should convert to list of LocatorEntity and invoke BankDao.insertAll()",
     )
     fun testInsertAll() =
         runTest(testDispatcher) {
@@ -49,7 +49,7 @@ class BankLocalDataSourceImplTest {
 
     @Test
     @DisplayName(
-        "When invoke insertAll() and LocatorDao.insertAll() throws an exception, " +
+        "When invoke insertAll() and BankDao.insertAll() throws an exception, " +
             "should catch the exception and not propagate it",
     )
     fun testInsertAllErrorHandling() =
@@ -73,7 +73,7 @@ class BankLocalDataSourceImplTest {
     fun testGetBanksWithinBoundSuccess() =
         runTest(testDispatcher) {
             coEvery {
-                bankDao.getLocatorsWithinBound(
+                bankDao.getBanksWithinBound(
                     language = any(),
                     minLat = any(),
                     maxLat = any(),
@@ -105,7 +105,7 @@ class BankLocalDataSourceImplTest {
                 )
 
             coVerify {
-                bankDao.getLocatorsWithinBound(
+                bankDao.getBanksWithinBound(
                     language = "en",
                     minLat = 0.0,
                     maxLat = 0.0,
@@ -132,13 +132,13 @@ class BankLocalDataSourceImplTest {
 
     @Test
     @DisplayName(
-        "When invoke getLocatorsWithinBound() and LocatorDao.getLocatorsWithinBound() throws an exception, " +
+        "When invoke getLocatorsWithinBound() and BankDao.getBanksWithinBound() throws an exception, " +
             "should catch the exception and return an empty list",
     )
     fun testGetBanksWithinBoundErrorHandling() =
         runTest(testDispatcher) {
             coEvery {
-                bankDao.getLocatorsWithinBound(
+                bankDao.getBanksWithinBound(
                     language = any(),
                     minLat = any(),
                     maxLat = any(),
@@ -157,7 +157,7 @@ class BankLocalDataSourceImplTest {
                 )
 
             coVerify {
-                bankDao.getLocatorsWithinBound(
+                bankDao.getBanksWithinBound(
                     language = "en",
                     minLat = 0.0,
                     maxLat = 0.0,
@@ -186,7 +186,7 @@ class BankLocalDataSourceImplTest {
 
     @Test
     @DisplayName(
-        "When invoke getAllBanks() and LocatorDao.getDistinctBanks() throws an exception, " +
+        "When invoke getAllBanks() and BankDao.getDistinctBanks() throws an exception, " +
             "should catch the exception and return an empty list",
     )
     fun testGetAllBanksErrorHandling() =
@@ -241,7 +241,7 @@ class BankLocalDataSourceImplTest {
 
     @Test
     @DisplayName(
-        "When invoke getAll() and LocatorDao.getAll() throws an exception, " +
+        "When invoke getAll() and BankDao.getAll() throws an exception, " +
             "should catch the exception and return an empty list",
     )
     fun testGetAllErrorHandling() =

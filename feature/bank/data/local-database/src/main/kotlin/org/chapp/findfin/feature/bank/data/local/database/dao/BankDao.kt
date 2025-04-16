@@ -20,7 +20,7 @@ internal interface BankDao {
             AND longitude BETWEEN :minLon AND :maxLon
     """,
     )
-    suspend fun getLocatorsWithinBound(
+    suspend fun getBanksWithinBound(
         language: String,
         minLat: Double,
         maxLat: Double,

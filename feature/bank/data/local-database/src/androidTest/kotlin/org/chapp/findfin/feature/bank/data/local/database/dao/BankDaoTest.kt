@@ -131,7 +131,7 @@ class BankDaoTest {
     }
 
     @Test
-    fun testGetLocatorsWithinBound() {
+    fun testGetBanksWithinBound() {
         runTest(testDispatcher) {
             val database =
                 Room
@@ -144,7 +144,7 @@ class BankDaoTest {
 
             database
                 .bankDao
-                .getLocatorsWithinBound(
+                .getBanksWithinBound(
                     language = "en",
                     minLat = 22.294630813707222,
                     maxLat = 22.312641530083468,
