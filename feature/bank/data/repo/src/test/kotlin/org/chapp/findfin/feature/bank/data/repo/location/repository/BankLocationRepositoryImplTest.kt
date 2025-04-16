@@ -9,9 +9,9 @@ import io.mockk.just
 import io.mockk.mockk
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.feature.bank.data.remote.location.api.LocationPath
-import org.chapp.findfin.feature.bank.data.remote.location.datasource.BankLocationRemoteDataSource
-import org.chapp.findfin.feature.bank.data.remote.location.model.LocationResult
+import org.chapp.findfin.feature.bank.data.remote.network.api.LocationPath
+import org.chapp.findfin.feature.bank.data.remote.network.datasource.BankLocationRemoteDataSource
+import org.chapp.findfin.feature.bank.data.remote.network.model.LocationResult
 import org.chapp.findfin.feature.bank.data.repo.location.local.datasource.BankLocationLocalDataSource
 import org.chapp.findfin.feature.bank.data.repo.location.local.model.BankLocationLocal
 import org.chapp.findfin.feature.bank.data.repo.location.mapper.BankLocationFetchResult

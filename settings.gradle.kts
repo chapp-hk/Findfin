@@ -46,7 +46,7 @@ include(":feature:auth:presentation")
 
 // feature bank modules
 include(":feature:bank:data:local-database")
-include(":feature:bank:data:remote")
+include(":feature:bank:data:remote-network")
 include(":feature:bank:data:repo")
 include(":feature:bank:presentation")
 
