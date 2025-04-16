@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.bank.data.local.database.location.model
+package org.chapp.findfin.feature.bank.data.local.database.model
 
 import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocationLocal
 import org.mapstruct.Mapper

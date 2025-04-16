@@ -1,9 +1,9 @@
-package org.chapp.findfin.feature.bank.data.local.database.room
+package org.chapp.findfin.feature.bank.data.local.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import org.chapp.findfin.feature.bank.data.local.database.location.dao.BankLocationDao
-import org.chapp.findfin.feature.bank.data.local.database.location.model.BankLocationEntity
+import org.chapp.findfin.feature.bank.data.local.database.dao.BankLocationDao
+import org.chapp.findfin.feature.bank.data.local.database.model.BankLocationEntity
 import org.chapp.library.hiltwrap.annotation.HiltWrapRoomDao
 import org.chapp.library.hiltwrap.annotation.HiltWrapRoomModule
 

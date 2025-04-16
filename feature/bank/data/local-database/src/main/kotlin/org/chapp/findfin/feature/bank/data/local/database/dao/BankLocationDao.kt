@@ -1,10 +1,10 @@
-package org.chapp.findfin.feature.bank.data.local.database.location.dao
+package org.chapp.findfin.feature.bank.data.local.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import org.chapp.findfin.feature.bank.data.local.database.location.model.BankLocationEntity
+import org.chapp.findfin.feature.bank.data.local.database.model.BankLocationEntity
 
 @Dao
 internal interface BankLocationDao {

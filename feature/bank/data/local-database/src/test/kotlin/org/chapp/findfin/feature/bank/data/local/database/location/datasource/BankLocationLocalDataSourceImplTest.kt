@@ -9,8 +9,9 @@ import io.mockk.mockk
 import io.mockk.slot
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.feature.bank.data.local.database.location.dao.BankLocationDao
-import org.chapp.findfin.feature.bank.data.local.database.location.model.BankLocationEntity
+import org.chapp.findfin.feature.bank.data.local.database.dao.BankLocationDao
+import org.chapp.findfin.feature.bank.data.local.database.datasource.BankLocationLocalDataSourceImpl
+import org.chapp.findfin.feature.bank.data.local.database.model.BankLocationEntity
 import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocationLocal
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

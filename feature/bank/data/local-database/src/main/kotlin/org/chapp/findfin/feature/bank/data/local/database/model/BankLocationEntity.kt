@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.bank.data.local.database.location.model
+package org.chapp.findfin.feature.bank.data.local.database.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

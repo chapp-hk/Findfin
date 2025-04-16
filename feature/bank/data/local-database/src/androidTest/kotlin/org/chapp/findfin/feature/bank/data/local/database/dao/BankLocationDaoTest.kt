@@ -1,12 +1,12 @@
-package org.chapp.findfin.feature.bank.data.local.database.location.dao
+package org.chapp.findfin.feature.bank.data.local.database.dao
 
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.feature.bank.data.local.database.location.model.BankLocationEntity
-import org.chapp.findfin.feature.bank.data.local.database.room.BankDatabase
+import org.chapp.findfin.feature.bank.data.local.database.model.BankLocationEntity
+import org.chapp.findfin.feature.bank.data.local.room.BankDatabase
 import org.junit.Test
 
 class BankLocationDaoTest {
