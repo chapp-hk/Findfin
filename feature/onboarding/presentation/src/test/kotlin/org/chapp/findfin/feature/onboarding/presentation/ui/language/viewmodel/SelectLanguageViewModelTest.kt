@@ -41,13 +41,13 @@ class SelectLanguageViewModelTest {
                 ),
                 Language(
                     isDefault = false,
-                    displayName = "",
-                    localeTag = "",
+                    displayName = "English",
+                    localeTag = "en",
                 ),
                 Language(
                     isDefault = false,
-                    displayName = "",
-                    localeTag = "",
+                    displayName = "Chinese",
+                    localeTag = "zh",
                 ),
             )
     }
