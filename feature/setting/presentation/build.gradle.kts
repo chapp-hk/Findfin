@@ -50,4 +50,6 @@ dependencies {
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    // todo: investigate to remove this dependency
+    androidTestImplementation(projects.core.locale.impl)
 }
