@@ -47,6 +47,9 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
 
+    // wiring impl modules here
+    implementation(projects.core.locale.impl)
+
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.mockk)

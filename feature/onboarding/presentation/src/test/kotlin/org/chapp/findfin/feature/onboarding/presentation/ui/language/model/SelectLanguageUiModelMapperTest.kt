@@ -2,8 +2,8 @@ package org.chapp.findfin.feature.onboarding.presentation.ui.language.model
 
 import io.kotest.matchers.shouldBe
 import org.chapp.findfin.core.design.ui.foundation.text.UiText
+import org.chapp.findfin.core.locale.api.Language
 import org.chapp.findfin.feature.onboarding.presentation.R
-import org.chapp.findfin.feature.setting.data.repo.language.model.Language
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -16,8 +16,8 @@ class SelectLanguageUiModelMapperTest {
         val language =
             Language(
                 isDefault = true,
-                name = "",
-                tag = "",
+                displayName = "",
+                localeTag = "",
             )
 
         selectLanguageUiModelMapper.map(language) shouldBe
@@ -32,8 +32,8 @@ class SelectLanguageUiModelMapperTest {
         val language =
             Language(
                 isDefault = false,
-                name = "English",
-                tag = "en",
+                displayName = "English",
+                localeTag = "en",
             )
 
         selectLanguageUiModelMapper.map(language) shouldBe

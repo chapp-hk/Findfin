@@ -11,12 +11,11 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.core.design.ui.foundation.text.UiText
-import org.chapp.findfin.core.locale.AppLocaleManager
+import org.chapp.findfin.core.locale.api.Language
+import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.feature.onboarding.presentation.R
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
-import org.chapp.findfin.feature.setting.data.repo.language.model.Language
-import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
 import org.chapp.findfin.feature.setting.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import org.chapp.findfin.testing.extension.MainDispatcherExtension
 import org.junit.jupiter.api.BeforeEach
@@ -27,29 +26,28 @@ import org.junit.jupiter.api.extension.ExtendWith
 @ExtendWith(MainDispatcherExtension::class)
 @DisplayName("SelectLanguageViewModel unit tests")
 class SelectLanguageViewModelTest {
-    private val languageRepository = mockk<LanguageRepository>()
-    private val appLocaleManager = mockk<AppLocaleManager>()
+    private val localeProviderManager = mockk<LocaleProviderManager>()
     private val fetchAllLocatorsWithLanguage =
         mockk<FetchAllBankLocationsWithLanguageUseCase>(relaxed = true)
 
     @BeforeEach
     fun setUp() {
-        every { languageRepository.getAvailableLanguages() } returns
+        every { localeProviderManager.getAvailableLanguages() } returns
             listOf(
                 Language(
                     isDefault = true,
-                    name = "",
-                    tag = "",
+                    displayName = "",
+                    localeTag = "",
                 ),
                 Language(
                     isDefault = false,
-                    name = "English",
-                    tag = "en",
+                    displayName = "English",
+                    localeTag = "en",
                 ),
                 Language(
                     isDefault = false,
-                    name = "Chinese",
-                    tag = "zh",
+                    displayName = "Chinese",
+                    localeTag = "zh",
                 ),
             )
     }
@@ -81,11 +79,11 @@ class SelectLanguageViewModelTest {
         "When setLanguage, should invoke appLocaleRepository.setLocale() with input language value",
     )
     fun `test setLanguage should invoke appLocaleRepository setLocale`() {
-        every { appLocaleManager.setLocale(any()) } just Runs
+        every { localeProviderManager.setLocale(any()) } just Runs
 
         createViewModel().setLanguage("en")
 
-        verify { appLocaleManager.setLocale("en") }
+        verify { localeProviderManager.setLocale("en") }
     }
 
     @Test
@@ -95,7 +93,7 @@ class SelectLanguageViewModelTest {
     )
     fun testUiStateSuccess() =
         runTest {
-            every { appLocaleManager.setLocale(any()) } just Runs
+            every { localeProviderManager.setLocale(any()) } just Runs
             coEvery { fetchAllLocatorsWithLanguage() } returns true
 
             val viewModel = createViewModel()
@@ -117,7 +115,7 @@ class SelectLanguageViewModelTest {
     )
     fun testUiStateError() =
         runTest {
-            every { appLocaleManager.setLocale(any()) } just Runs
+            every { localeProviderManager.setLocale(any()) } just Runs
             coEvery { fetchAllLocatorsWithLanguage() } returns false
 
             val viewModel = createViewModel()
@@ -134,8 +132,7 @@ class SelectLanguageViewModelTest {
 
     private fun createViewModel() =
         SelectLanguageViewModel(
-            languageRepository = languageRepository,
-            appLocaleManager = appLocaleManager,
+            localeProviderManager = localeProviderManager,
             fetchAllLocatorsWithLanguage = fetchAllLocatorsWithLanguage,
         )
 }

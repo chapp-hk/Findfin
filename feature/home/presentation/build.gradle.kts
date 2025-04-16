@@ -32,7 +32,6 @@ dependencies {
     implementation(projects.core.location.provider.impl)
     implementation(projects.core.location.uiFoundation)
     implementation(projects.core.navigation)
-    implementation(projects.core.locale)
     implementation(projects.feature.home.domain)
     implementation(projects.feature.auth.data.repo)
     implementation(projects.feature.auth.data.remoteFirebase)
@@ -62,4 +61,6 @@ dependencies {
     androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    // todo: investigate to remove this dependency
+    androidTestImplementation(projects.core.locale.impl)
 }

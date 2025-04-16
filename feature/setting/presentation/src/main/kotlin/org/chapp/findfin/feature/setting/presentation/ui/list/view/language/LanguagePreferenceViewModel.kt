@@ -3,36 +3,39 @@ package org.chapp.findfin.feature.setting.presentation.ui.list.view.language
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.chapp.findfin.core.design.ui.foundation.text.UiText
-import org.chapp.findfin.core.locale.AppLocaleManager
-import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
+import org.chapp.findfin.core.locale.api.LocaleProviderManager
+import org.chapp.findfin.core.locale.api.LocaleResult
 import org.chapp.findfin.feature.setting.presentation.R
-import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
 internal class LanguagePreferenceViewModel @Inject constructor(
-    languageRepository: LanguageRepository,
-    private val appLocaleManager: AppLocaleManager,
+    private val localeProviderManager: LocaleProviderManager,
 ) : ViewModel() {
     private val languageMapper = LanguageMapper()
 
     val availableLanguages: List<LanguagePreferenceItem> =
-        languageRepository.getAvailableLanguages().map(languageMapper::map)
+        localeProviderManager.getAvailableLanguages().map(languageMapper::map)
 
     fun getCurrentLanguageName(): UiText {
-        val locale = appLocaleManager.getCurrentLocale()?.language
-        return if (locale == null) {
-            UiText.ResourceString(R.string.setting_theme_summary_system)
-        } else {
-            UiText.ActualString(Locale.forLanguageTag(locale).let { it.getDisplayLanguage(it) })
+        return when (val localeResult = localeProviderManager.getCurrentLocale()) {
+            is LocaleResult.Custom -> {
+                UiText.ActualString(localeResult.displayName)
+            }
+
+            is LocaleResult.Default,
+            is LocaleResult.Error,
+            -> {
+                UiText.ResourceString(R.string.setting_theme_summary_system)
+            }
         }
     }
 
     fun getCurrentLanguageTag(): String {
-        return appLocaleManager.getCurrentLocale()?.language.orEmpty()
+        return localeProviderManager.getCurrentLocaleTag()
     }
 
     fun setLanguage(locale: String) {
-        appLocaleManager.setLocale(locale)
+        localeProviderManager.setLocale(locale)
     }
 }

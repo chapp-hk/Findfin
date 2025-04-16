@@ -28,11 +28,10 @@ android {
 
 dependencies {
     implementation(projects.core.design.uiFoundation)
-    implementation(projects.core.locale)
+    implementation(projects.core.locale.api)
     implementation(projects.core.preferences.storage)
     implementation(projects.feature.bank.data.localDatabase)
     implementation(projects.feature.setting.domain)
-    implementation(projects.feature.setting.data.repo)
 
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material)
@@ -55,4 +54,6 @@ dependencies {
     androidTestImplementation(libs.kotest.assertions.core)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    // todo: investigate to remove this dependency
+    androidTestImplementation(projects.core.locale.impl)
 }

@@ -5,11 +5,11 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
+import org.chapp.findfin.core.locale.api.Language
+import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.feature.bank.data.repo.location.mapper.BankLocationFetchResult
 import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationType
 import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
-import org.chapp.findfin.feature.setting.data.repo.language.model.Language
-import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.params.ParameterizedTest
@@ -23,13 +23,13 @@ import java.util.stream.Stream
 class FetchAllBankLocationsWithLanguageUseCaseImplTest {
     private val testDispatcher = StandardTestDispatcher()
     private val bankLocationRepository = mockk<BankLocationRepository>()
-    private val languageRepository = mockk<LanguageRepository>()
+    private val localeProviderManager = mockk<LocaleProviderManager>()
 
     private val fetchAllLocatorsWithLanguage =
         FetchAllBankLocationsWithLanguageUseCaseImpl(
             defaultDispatcher = testDispatcher,
             bankLocationRepository = bankLocationRepository,
-            languageRepository = languageRepository,
+            localeProviderManager = localeProviderManager,
         )
 
     @ParameterizedTest(
@@ -44,12 +44,12 @@ class FetchAllBankLocationsWithLanguageUseCaseImplTest {
         expectedResult: Boolean,
     ) = runTest(testDispatcher) {
         coEvery {
-            languageRepository.getAvailableLanguages()
+            localeProviderManager.getAvailableLanguages()
         } returns
             listOf(
-                Language(isDefault = true, tag = "", name = "System Default"),
-                Language(isDefault = false, tag = "en", name = "English"),
-                Language(isDefault = false, tag = "zh", name = "Chinese"),
+                Language(isDefault = true, localeTag = "", displayName = "System Default"),
+                Language(isDefault = false, localeTag = "en", displayName = "English"),
+                Language(isDefault = false, localeTag = "zh", displayName = "Chinese"),
             )
 
         coEvery {

@@ -6,18 +6,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.chapp.findfin.core.locale.AppLocaleManager
+import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModelMapper
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
-import org.chapp.findfin.feature.setting.data.repo.language.repository.LanguageRepository
 import org.chapp.findfin.feature.setting.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 internal class SelectLanguageViewModel @Inject constructor(
-    languageRepository: LanguageRepository,
-    private val appLocaleManager: AppLocaleManager,
+    private val localeProviderManager: LocaleProviderManager,
     private val fetchAllLocatorsWithLanguage: FetchAllBankLocationsWithLanguageUseCase,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<SelectLanguageUiState>(SelectLanguageUiState.Initial)
@@ -26,10 +24,10 @@ internal class SelectLanguageViewModel @Inject constructor(
     private val selectLanguageUiModelMapper = SelectLanguageUiModelMapper()
 
     val availableLanguages: List<SelectLanguageUiModel> =
-        languageRepository.getAvailableLanguages().map(selectLanguageUiModelMapper::map)
+        localeProviderManager.getAvailableLanguages().map(selectLanguageUiModelMapper::map)
 
     fun setLanguage(language: String) {
-        appLocaleManager.setLocale(language)
+        localeProviderManager.setLocale(language)
         viewModelScope.launch {
             _uiState.emit(SelectLanguageUiState.Loading)
             if (fetchAllLocatorsWithLanguage()) {

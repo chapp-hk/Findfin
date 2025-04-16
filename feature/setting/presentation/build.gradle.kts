@@ -27,7 +27,7 @@ android {
 
 dependencies {
     implementation(projects.core.design.uiFoundation)
-    implementation(projects.core.locale)
+    implementation(projects.core.locale.api)
     implementation(projects.core.navigation)
     implementation(projects.core.preferences.uiFoundation)
     implementation(projects.feature.setting.data.repo)
@@ -50,4 +50,6 @@ dependencies {
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    // todo: investigate to remove this dependency
+    androidTestImplementation(projects.core.locale.impl)
 }
