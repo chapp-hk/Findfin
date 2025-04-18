@@ -8,9 +8,9 @@ import io.mockk.mockk
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.feature.bank.data.remote.network.api.BankApi
-import org.chapp.findfin.feature.bank.data.remote.network.api.TypePath
 import org.chapp.findfin.feature.bank.data.remote.network.model.BankResponse
-import org.chapp.findfin.feature.bank.data.remote.network.model.BankResult
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemoteResult
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.TypePath
 import org.chapp.findfin.testing.util.readResourceAsJson
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -44,7 +44,7 @@ class BankRemoteDataSourceImplTest {
                 )
 
             result
-                .shouldBeInstanceOf<BankResult.Success>()
+                .shouldBeInstanceOf<BankRemoteResult.Success>()
                 .data.size shouldBe 5
         }
 
@@ -65,7 +65,7 @@ class BankRemoteDataSourceImplTest {
                     offset = 40,
                 )
 
-            result shouldBe BankResult.Error
+            result shouldBe BankRemoteResult.Error
         }
 
     @Test
@@ -85,7 +85,7 @@ class BankRemoteDataSourceImplTest {
                     offset = 60,
                 )
 
-            result shouldBe BankResult.Success(emptyList())
+            result shouldBe BankRemoteResult.Success(emptyList())
         }
 
     @Test
@@ -105,7 +105,7 @@ class BankRemoteDataSourceImplTest {
                     offset = 60,
                 )
 
-            result shouldBe BankResult.Error
+            result shouldBe BankRemoteResult.Error
         }
 
     @Test
@@ -126,7 +126,7 @@ class BankRemoteDataSourceImplTest {
                 )
 
             result
-                .shouldBeInstanceOf<BankResult.Success>()
+                .shouldBeInstanceOf<BankRemoteResult.Success>()
                 .data shouldBe
                 listOf(
                     BankResponse(
@@ -168,7 +168,7 @@ class BankRemoteDataSourceImplTest {
                 )
 
             result
-                .shouldBeInstanceOf<BankResult.Success>()
+                .shouldBeInstanceOf<BankRemoteResult.Success>()
                 .data.size shouldBe 5
         }
 

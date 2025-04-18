@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.bank.data.repo.local.model
+package org.chapp.findfin.feature.bank.data.repo.datasource.local.model
 
 data class BankLocal(
     val language: String,

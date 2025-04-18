@@ -1,6 +1,6 @@
 package org.chapp.findfin.feature.bank.data.repo.mapper
 
-import org.chapp.findfin.feature.bank.data.remote.network.api.TypePath
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.TypePath
 import org.chapp.findfin.feature.bank.data.repo.model.BankType
 
 internal fun BankType.toRemoteLocationPath(): TypePath {

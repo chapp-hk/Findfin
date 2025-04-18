@@ -1,8 +1,8 @@
 package org.chapp.findfin.feature.bank.data.repo.repository
 
-import org.chapp.findfin.feature.bank.data.remote.network.datasource.BankRemoteDataSource
-import org.chapp.findfin.feature.bank.data.remote.network.model.BankResult
-import org.chapp.findfin.feature.bank.data.repo.local.datasource.BankLocalDataSource
+import org.chapp.findfin.feature.bank.data.repo.datasource.local.datasource.BankLocalDataSource
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.datasource.BankRemoteDataSource
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemoteResult
 import org.chapp.findfin.feature.bank.data.repo.mapper.BankDataMapper
 import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
 import org.chapp.findfin.feature.bank.data.repo.mapper.toApiLang
@@ -39,11 +39,11 @@ internal class BankRepositoryImpl @Inject constructor(
             )
 
         return when (remoteResult) {
-            BankResult.Error -> {
+            BankRemoteResult.Error -> {
                 BankFetchResult.Error
             }
 
-            is BankResult.Success -> {
+            is BankRemoteResult.Success -> {
                 remoteResult
                     .data
                     .map {

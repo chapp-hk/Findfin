@@ -9,6 +9,7 @@ dependencies {
     implementation(projects.core.network)
     implementation(projects.core.threading)
     implementation(projects.core.logging.api)
+    implementation(projects.feature.bank.data.repo)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.serialization.kotlinx.json)

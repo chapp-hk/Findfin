@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.bank.data.remote.network.api
+package org.chapp.findfin.feature.bank.data.repo.datasource.remote.model
 
 internal const val PATH_ATM = "banks-atm-locator"
 internal const val PATH_BRANCH = "banks-branch-locator"

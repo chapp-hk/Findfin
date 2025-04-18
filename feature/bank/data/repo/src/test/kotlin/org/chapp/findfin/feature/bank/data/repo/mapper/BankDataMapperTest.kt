@@ -3,7 +3,7 @@ package org.chapp.findfin.feature.bank.data.repo.mapper
 import io.kotest.matchers.shouldBe
 import org.chapp.findfin.feature.bank.data.remote.network.api.TypePath
 import org.chapp.findfin.feature.bank.data.remote.network.model.BankResponse
-import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocal
+import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankLocal
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource

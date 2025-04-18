@@ -1,8 +1,8 @@
 package org.chapp.findfin.feature.bank.data.repo.mapper
 
-import org.chapp.findfin.feature.bank.data.remote.network.api.TypePath
-import org.chapp.findfin.feature.bank.data.remote.network.model.BankResponse
-import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocal
+import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankLocal
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemote
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.TypePath
 import org.chapp.findfin.feature.bank.data.repo.model.BankModel
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
@@ -23,8 +23,8 @@ interface BankDataMapper {
     fun convertToLocal(
         language: String,
         type: TypePath,
-        locator: BankResponse,
+        locator: BankRemote,
     ): BankLocal
 
-    fun convertToDataModel(locator: BankLocal): BankModel
+    fun convertToDataModel(local: BankLocal): BankModel
 }

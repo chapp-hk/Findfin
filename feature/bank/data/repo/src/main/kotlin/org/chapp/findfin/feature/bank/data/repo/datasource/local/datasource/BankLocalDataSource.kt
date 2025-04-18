@@ -1,6 +1,6 @@
-package org.chapp.findfin.feature.bank.data.repo.local.datasource
+package org.chapp.findfin.feature.bank.data.repo.datasource.local.datasource
 
-import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocal
+import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankLocal
 
 interface BankLocalDataSource {
     suspend fun insertAll(locators: List<BankLocal>)

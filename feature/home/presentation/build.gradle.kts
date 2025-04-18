@@ -37,6 +37,7 @@ dependencies {
     implementation(projects.feature.auth.data.remoteFirebase)
     implementation(projects.feature.auth.presentation)
     implementation(projects.feature.bank.data.localDatabase)
+    implementation(projects.feature.bank.data.remoteNetwork)
     implementation(projects.feature.bank.presentation)
     implementation(projects.feature.locator.presentation)
     implementation(projects.feature.setting.presentation)

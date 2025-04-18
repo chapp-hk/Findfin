@@ -5,9 +5,10 @@ import kotlinx.coroutines.withContext
 import org.chapp.findfin.core.logging.appLogger
 import org.chapp.findfin.core.threading.DispatcherIo
 import org.chapp.findfin.feature.bank.data.remote.network.api.BankApi
-import org.chapp.findfin.feature.bank.data.remote.network.api.TypePath
 import org.chapp.findfin.feature.bank.data.remote.network.model.BankApiError
-import org.chapp.findfin.feature.bank.data.remote.network.model.BankResult
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.datasource.BankRemoteDataSource
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemoteResult
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.TypePath
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ internal class BankRemoteDataSourceImpl @Inject constructor(
         language: String,
         pageSize: Int,
         offset: Int,
-    ): BankResult {
+    ): BankRemoteResult {
         return withContext(ioDispatcher) {
             runCatching {
                 val response =
@@ -46,14 +47,14 @@ internal class BankRemoteDataSourceImpl @Inject constructor(
                     )
                 }
 
-                BankResult.Success(response.result!!.records)
+                BankRemoteResult.Success(response.result!!.records)
             }.getOrElse { error ->
                 appLogger.debug(
                     tag = javaClass.simpleName,
                     message = "getLocators() failed",
                     throwable = error,
                 )
-                BankResult.Error
+                BankRemoteResult.Error
             }
         }
     }

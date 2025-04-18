@@ -6,8 +6,6 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.feature.bank.data.remoteNetwork)
-
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.mockk)

@@ -12,7 +12,7 @@ import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.feature.bank.data.local.database.dao.BankDao
 import org.chapp.findfin.feature.bank.data.local.database.datasource.BankLocalDataSourceImpl
 import org.chapp.findfin.feature.bank.data.local.database.model.BankEntity
-import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocal
+import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankLocal
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

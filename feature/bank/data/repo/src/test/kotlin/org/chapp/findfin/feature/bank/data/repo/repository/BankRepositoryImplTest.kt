@@ -12,8 +12,8 @@ import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.feature.bank.data.remote.network.api.TypePath
 import org.chapp.findfin.feature.bank.data.remote.network.datasource.BankRemoteDataSource
 import org.chapp.findfin.feature.bank.data.remote.network.model.BankResult
-import org.chapp.findfin.feature.bank.data.repo.local.datasource.BankLocalDataSource
-import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocal
+import org.chapp.findfin.feature.bank.data.repo.datasource.local.datasource.BankLocalDataSource
+import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankLocal
 import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
 import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
 import org.chapp.findfin.feature.bank.data.repo.model.BankModel
