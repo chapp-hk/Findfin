@@ -9,9 +9,9 @@ import io.mockk.just
 import io.mockk.mockk
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.feature.bank.data.remote.network.api.LocationPath
-import org.chapp.findfin.feature.bank.data.remote.network.datasource.BankLocationRemoteDataSource
-import org.chapp.findfin.feature.bank.data.remote.network.model.LocationResult
+import org.chapp.findfin.feature.bank.data.remote.network.api.TypePath
+import org.chapp.findfin.feature.bank.data.remote.network.datasource.BankRemoteDataSource
+import org.chapp.findfin.feature.bank.data.remote.network.model.BankResult
 import org.chapp.findfin.feature.bank.data.repo.local.datasource.BankLocalDataSource
 import org.chapp.findfin.feature.bank.data.repo.local.model.BankLocal
 import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
@@ -22,15 +22,15 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("BankLocationRepositoryImpl unit tests")
+@DisplayName("BankRepositoryImpl unit tests")
 class BankRepositoryImplTest {
     private val bankLocalDataSource = mockk<BankLocalDataSource>()
-    private val bankLocationRemoteDataSource = mockk<BankLocationRemoteDataSource>()
+    private val bankRemoteDataSource = mockk<BankRemoteDataSource>()
 
     private val locatorRepositoryImpl =
         BankRepositoryImpl(
             bankLocalDataSource = bankLocalDataSource,
-            bankLocationRemoteDataSource = bankLocationRemoteDataSource,
+            bankRemoteDataSource = bankRemoteDataSource,
         )
 
     @BeforeEach
@@ -46,13 +46,13 @@ class BankRepositoryImplTest {
     fun testOffsetValue() =
         runTest(StandardTestDispatcher()) {
             coEvery {
-                bankLocationRemoteDataSource.getLocations(
+                bankRemoteDataSource.getLocations(
                     path = any(),
                     language = any(),
                     pageSize = any(),
                     offset = any(),
                 )
-            } returns LocationResult.Error
+            } returns BankResult.Error
 
             locatorRepositoryImpl.fetchBanks(
                 type = BankType.ATM,
@@ -62,8 +62,8 @@ class BankRepositoryImplTest {
             )
 
             coVerify {
-                bankLocationRemoteDataSource.getLocations(
-                    path = LocationPath.ATM,
+                bankRemoteDataSource.getLocations(
+                    path = TypePath.ATM,
                     language = "en",
                     pageSize = 1000,
                     offset = 2000,
@@ -79,13 +79,13 @@ class BankRepositoryImplTest {
     fun testFetchBanksError() =
         runTest(StandardTestDispatcher()) {
             coEvery {
-                bankLocationRemoteDataSource.getLocations(
+                bankRemoteDataSource.getLocations(
                     path = any(),
                     language = any(),
                     pageSize = any(),
                     offset = any(),
                 )
-            } returns LocationResult.Error
+            } returns BankResult.Error
 
             val result =
                 locatorRepositoryImpl.fetchBanks(
@@ -108,14 +108,14 @@ class BankRepositoryImplTest {
             val pageSize = 1000
 
             coEvery {
-                bankLocationRemoteDataSource.getLocations(
+                bankRemoteDataSource.getLocations(
                     path = any(),
                     language = any(),
                     pageSize = any(),
                     offset = any(),
                 )
             } returns
-                LocationResult.Success(
+                BankResult.Success(
                     (1..pageSize).map { mockk(relaxed = true) },
                 )
 
@@ -140,14 +140,14 @@ class BankRepositoryImplTest {
             val pageSize = 1000
 
             coEvery {
-                bankLocationRemoteDataSource.getLocations(
+                bankRemoteDataSource.getLocations(
                     path = any(),
                     language = any(),
                     pageSize = any(),
                     offset = any(),
                 )
             } returns
-                LocationResult.Success(
+                BankResult.Success(
                     (1..pageSize + 1).map { mockk(relaxed = true) },
                 )
 
@@ -172,14 +172,14 @@ class BankRepositoryImplTest {
             val pageSize = 1000
 
             coEvery {
-                bankLocationRemoteDataSource.getLocations(
+                bankRemoteDataSource.getLocations(
                     path = any(),
                     language = any(),
                     pageSize = any(),
                     offset = any(),
                 )
             } returns
-                LocationResult.Success(
+                BankResult.Success(
                     (1..pageSize - 10).map { mockk(relaxed = true) },
                 )
 

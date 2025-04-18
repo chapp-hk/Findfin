@@ -1,7 +1,7 @@
 package org.chapp.findfin.feature.bank.data.repo.repository
 
-import org.chapp.findfin.feature.bank.data.remote.network.datasource.BankLocationRemoteDataSource
-import org.chapp.findfin.feature.bank.data.remote.network.model.LocationResult
+import org.chapp.findfin.feature.bank.data.remote.network.datasource.BankRemoteDataSource
+import org.chapp.findfin.feature.bank.data.remote.network.model.BankResult
 import org.chapp.findfin.feature.bank.data.repo.local.datasource.BankLocalDataSource
 import org.chapp.findfin.feature.bank.data.repo.mapper.BankDataMapper
 import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltWrapBindModule
 internal class BankRepositoryImpl @Inject constructor(
     private val bankLocalDataSource: BankLocalDataSource,
-    private val bankLocationRemoteDataSource: BankLocationRemoteDataSource,
+    private val bankRemoteDataSource: BankRemoteDataSource,
 ) : BankRepository {
     private val mapper = Mappers.getMapper(BankDataMapper::class.java)
 
@@ -31,7 +31,7 @@ internal class BankRepositoryImpl @Inject constructor(
         val locatorPath = type.toRemoteLocationPath()
 
         val remoteResult =
-            bankLocationRemoteDataSource.getLocations(
+            bankRemoteDataSource.getLocations(
                 path = locatorPath,
                 language = localeTag.toApiLang(),
                 pageSize = pageSize,
@@ -39,11 +39,11 @@ internal class BankRepositoryImpl @Inject constructor(
             )
 
         return when (remoteResult) {
-            LocationResult.Error -> {
+            BankResult.Error -> {
                 BankFetchResult.Error
             }
 
-            is LocationResult.Success -> {
+            is BankResult.Success -> {
                 remoteResult
                     .data
                     .map {

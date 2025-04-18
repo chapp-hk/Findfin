@@ -23,11 +23,11 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("BankLocationApiImpl unit tests")
-class BankLocationApiImplTest {
+class BankApiImplTest {
     private val mockBaseUrl = "http://localhost"
 
     private lateinit var mockEngine: MockEngine
-    private lateinit var bankApi: BankLocationApiImpl
+    private lateinit var bankApi: BankApiImpl
     private val httpClientFactory = mockk<HttpClientFactory>()
 
     @BeforeEach
@@ -48,7 +48,7 @@ class BankLocationApiImplTest {
                 baseUrl = mockBaseUrl,
             )
 
-        bankApi = BankLocationApiImpl(httpClientFactory = httpClientFactory)
+        bankApi = BankApiImpl(httpClientFactory = httpClientFactory)
     }
 
     @AfterEach

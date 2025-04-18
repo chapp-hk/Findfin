@@ -5,21 +5,21 @@ import io.ktor.client.plugins.resources.get
 import io.ktor.resources.Resource
 import kotlinx.serialization.Serializable
 import org.chapp.findfin.core.network.HttpClientFactory
-import org.chapp.findfin.feature.bank.data.remote.network.model.BankLocationResponse
+import org.chapp.findfin.feature.bank.data.remote.network.model.BankResponse
 import org.chapp.findfin.feature.bank.data.remote.network.model.Response
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
 
 @HiltWrapBindModule
-internal class BankLocationApiImpl @Inject constructor(
+internal class BankApiImpl @Inject constructor(
     private val httpClientFactory: HttpClientFactory,
-) : BankLocationApi {
+) : BankApi {
     override suspend fun getLocations(
         path: String,
         lang: String,
         pageSize: Int,
         offset: Int,
-    ): Response<BankLocationResponse> {
+    ): Response<BankResponse> {
         return httpClientFactory
             .create("https://api.hkma.gov.hk")
             .provide()
