@@ -5,7 +5,7 @@ import kotlinx.coroutines.withContext
 import org.chapp.findfin.core.logging.appLogger
 import org.chapp.findfin.core.threading.DispatcherIo
 import org.chapp.findfin.feature.bank.data.local.database.dao.BankDao
-import org.chapp.findfin.feature.bank.data.local.database.model.BankDataMapper
+import org.chapp.findfin.feature.bank.data.local.database.mapper.BankLocalMapper
 import org.chapp.findfin.feature.bank.data.repo.datasource.local.datasource.BankLocalDataSource
 import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankLocal
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
@@ -17,12 +17,12 @@ internal class BankLocalDataSourceImpl @Inject constructor(
     @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val bankDao: BankDao,
 ) : BankLocalDataSource {
-    private val bankDataMapper = Mappers.getMapper(BankDataMapper::class.java)
+    private val bankLocalMapper = Mappers.getMapper(BankLocalMapper::class.java)
 
     override suspend fun insertAll(locators: List<BankLocal>) {
         withContext(ioDispatcher) {
             runCatching {
-                bankDao.insertAll(locators.map(bankDataMapper::clone))
+                bankDao.insertAll(locators.map(bankLocalMapper::toDatabaseEntity))
             }.onFailure { error ->
                 appLogger.debug(
                     tag = javaClass.simpleName,
@@ -48,7 +48,7 @@ internal class BankLocalDataSourceImpl @Inject constructor(
                     maxLat = maxLat,
                     minLon = minLon,
                     maxLon = maxLon,
-                ).map(bankDataMapper::toLocalModel)
+                ).map(bankLocalMapper::toLocalModel)
             }.getOrElse { error ->
                 appLogger.debug(
                     tag = javaClass.simpleName,
@@ -80,7 +80,7 @@ internal class BankLocalDataSourceImpl @Inject constructor(
             runCatching {
                 bankDao
                     .getAll()
-                    .map(bankDataMapper::toLocalModel)
+                    .map(bankLocalMapper::toLocalModel)
             }.getOrElse { error ->
                 appLogger.debug(
                     tag = javaClass.simpleName,
