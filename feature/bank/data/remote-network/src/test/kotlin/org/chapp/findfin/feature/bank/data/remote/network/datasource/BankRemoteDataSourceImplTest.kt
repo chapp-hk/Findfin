@@ -8,7 +8,7 @@ import io.mockk.mockk
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.feature.bank.data.remote.network.api.BankApi
-import org.chapp.findfin.feature.bank.data.remote.network.model.BankResponse
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemote
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemoteResult
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.TypePath
 import org.chapp.findfin.testing.util.readResourceAsJson
@@ -129,7 +129,7 @@ class BankRemoteDataSourceImplTest {
                 .shouldBeInstanceOf<BankRemoteResult.Success>()
                 .data shouldBe
                 listOf(
-                    BankResponse(
+                    BankRemote(
                         district = "",
                         bankName = "The Bank of East Asia Limited",
                         typeName = "Yuen Long i-Teller",
@@ -138,7 +138,7 @@ class BankRemoteDataSourceImplTest {
                         latitude = 22.444588,
                         longitude = 114.029541,
                     ),
-                    BankResponse(
+                    BankRemote(
                         district = "YuenLong",
                         bankName = "The Bank of East Asia Limited",
                         typeName = "Yuen Long SupremeGold Centre",

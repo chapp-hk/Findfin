@@ -5,6 +5,7 @@ import kotlinx.coroutines.withContext
 import org.chapp.findfin.core.logging.appLogger
 import org.chapp.findfin.core.threading.DispatcherIo
 import org.chapp.findfin.feature.bank.data.remote.network.api.BankApi
+import org.chapp.findfin.feature.bank.data.remote.network.mapper.toBankRemote
 import org.chapp.findfin.feature.bank.data.remote.network.model.BankApiError
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.datasource.BankRemoteDataSource
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemoteResult
@@ -47,7 +48,7 @@ internal class BankRemoteDataSourceImpl @Inject constructor(
                     )
                 }
 
-                BankRemoteResult.Success(response.result!!.records)
+                BankRemoteResult.Success(response.result!!.records.map { it.toBankRemote() })
             }.getOrElse { error ->
                 appLogger.debug(
                     tag = javaClass.simpleName,
