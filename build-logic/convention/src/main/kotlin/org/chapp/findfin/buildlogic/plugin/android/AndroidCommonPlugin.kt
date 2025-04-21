@@ -2,9 +2,11 @@ package org.chapp.findfin.buildlogic.plugin.android
 
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.variant.AndroidComponentsExtension
+import org.chapp.findfin.buildlogic.util.libs
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -18,6 +20,10 @@ class AndroidCommonPlugin : Plugin<Project> {
                 configureVersion(extension = extension)
                 configureBuiltTypes(extension = extension)
             }
+
+        project.dependencies {
+            "coreLibraryDesugaring"(project.libs.findLibrary("android.desugar").get())
+        }
 
         AndroidTestPlugin().apply(project)
         configKotlin(project = project)
@@ -35,6 +41,7 @@ class AndroidCommonPlugin : Plugin<Project> {
         extension.compileOptions {
             sourceCompatibility = JavaVersion.VERSION_17
             targetCompatibility = JavaVersion.VERSION_17
+            isCoreLibraryDesugaringEnabled = true
         }
     }
 

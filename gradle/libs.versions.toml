@@ -19,6 +19,7 @@ jacoco = "0.8.13"
 room = "2.7.0"
 
 [libraries]
+android-desugar = { module = "com.android.tools:desugar_jdk_libs", version = "2.1.5" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version = "0.37.2" }
 androidx-annotation = { module = "androidx.annotation:annotation", version = "1.9.1" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
