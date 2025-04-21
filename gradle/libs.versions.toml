@@ -4,14 +4,14 @@ agp = "8.9.1"
 androidx-navigation = "2.8.9"
 appcompat = "1.7.0"
 core-ktx = "1.16.0"
-hilt = "2.56.1"
+hilt = "2.56.2"
 kermit = "2.0.5"
 kotlin = "2.1.20"
 kotlinPoet = "2.1.0"
 kotlinxCoroutines = "1.10.2"
 ktlint = "1.1.1"
 ktor = "3.1.2"
-mapsCompose = "6.5.2"
+mapsCompose = "6.5.3"
 mapStruct = "1.6.3"
 material = "1.12.0"
 mockk = "1.13.17"
@@ -19,6 +19,7 @@ jacoco = "0.8.13"
 room = "2.7.0"
 
 [libraries]
+android-desugar = { module = "com.android.tools:desugar_jdk_libs", version = "2.1.5" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version = "0.37.2" }
 androidx-annotation = { module = "androidx.annotation:annotation", version = "1.9.1" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -54,8 +55,8 @@ dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compi
 #firebase
 firebase-bom = { module = "com.google.firebase:firebase-bom", version = "33.12.0" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
-play-services-base = { module = "com.google.android.gms:play-services-base", version = "18.6.0" }
-play-services-tasks = { module = "com.google.android.gms:play-services-tasks", version = "18.2.1" }
+play-services-base = { module = "com.google.android.gms:play-services-base", version = "18.7.0" }
+play-services-tasks = { module = "com.google.android.gms:play-services-tasks", version = "18.3.0" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version = "21.3.0" }
 #google maps
 maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
@@ -112,7 +113,7 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.56.1" }
+dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.56.2" }
 ksp = { id = "com.google.devtools.ksp", version = "2.1.20-2.0.0" }
 google-gms-services = { id = "com.google.gms.google-services", version = "4.4.2" }
 google-secrets = { id  = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version = "2.0.1" }
