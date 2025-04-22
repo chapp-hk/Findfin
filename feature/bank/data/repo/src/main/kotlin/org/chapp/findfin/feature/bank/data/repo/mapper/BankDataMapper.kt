@@ -23,7 +23,7 @@ interface BankDataMapper {
     fun convertToLocal(
         language: String,
         type: TypePath,
-        locator: BankRemote,
+        bankRemote: BankRemote,
     ): BankLocal
 
     fun convertToDataModel(local: BankLocal): BankModel

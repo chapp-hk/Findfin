@@ -1,5 +1,6 @@
 package org.chapp.findfin.feature.bank.data.repo.repository
 
+import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.feature.bank.data.repo.datasource.local.datasource.BankLocalDataSource
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.datasource.BankRemoteDataSource
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemoteResult
@@ -17,6 +18,7 @@ import javax.inject.Inject
 
 @HiltWrapBindModule
 internal class BankRepositoryImpl @Inject constructor(
+    private val localeProviderManager: LocaleProviderManager,
     private val bankLocalDataSource: BankLocalDataSource,
     private val bankRemoteDataSource: BankRemoteDataSource,
 ) : BankRepository {
@@ -50,7 +52,7 @@ internal class BankRepositoryImpl @Inject constructor(
                         mapper.convertToLocal(
                             language = localeTag,
                             type = locatorPath,
-                            locator = it,
+                            bankRemote = it,
                         )
                     }
                     .also { bankLocalDataSource.insertAll(it) }
@@ -65,12 +67,9 @@ internal class BankRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getBanksWithinBound(
-        language: String,
-        bound: BankLocationBound,
-    ): List<BankModel> {
+    override suspend fun getBanksWithinBound(bound: BankLocationBound): List<BankModel> {
         return bankLocalDataSource.getBanksWithinBound(
-            language = language.toLocalLanguage(),
+            language = localeProviderManager.getCurrentLocaleTag().toLocalLanguage(),
             minLat = bound.minLat,
             maxLat = bound.maxLat,
             minLon = bound.minLong,

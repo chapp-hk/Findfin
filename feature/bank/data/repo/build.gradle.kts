@@ -6,6 +6,7 @@ plugins {
 }
 
 dependencies {
+    implementation(projects.core.locale.api)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.mockk)

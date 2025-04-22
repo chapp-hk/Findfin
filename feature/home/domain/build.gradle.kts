@@ -7,7 +7,7 @@ plugins {
 
 dependencies {
     implementation(projects.core.threading)
-    implementation(projects.core.locale.api)
+    // implementation(projects.core.locale.api)
     implementation(projects.core.location.provider.api)
     implementation(projects.core.logging.api)
     implementation(projects.feature.bank.data.repo)

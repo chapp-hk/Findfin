@@ -13,10 +13,7 @@ interface BankRepository {
         pageSize: Int,
     ): BankFetchResult
 
-    suspend fun getBanksWithinBound(
-        language: String,
-        bound: BankLocationBound,
-    ): List<BankModel>
+    suspend fun getBanksWithinBound(bound: BankLocationBound): List<BankModel>
 
     suspend fun getAllBanks(): List<String>
 

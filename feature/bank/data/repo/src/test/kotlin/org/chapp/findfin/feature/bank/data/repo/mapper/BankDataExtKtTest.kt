@@ -1,7 +1,7 @@
 package org.chapp.findfin.feature.bank.data.repo.mapper
 
 import io.kotest.matchers.shouldBe
-import org.chapp.findfin.feature.bank.data.remote.network.api.TypePath
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.TypePath
 import org.chapp.findfin.feature.bank.data.repo.model.BankType
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

@@ -1,9 +1,9 @@
 package org.chapp.findfin.feature.bank.data.repo.mapper
 
 import io.kotest.matchers.shouldBe
-import org.chapp.findfin.feature.bank.data.remote.network.api.TypePath
-import org.chapp.findfin.feature.bank.data.remote.network.model.BankResponse
 import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankLocal
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemote
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.TypePath
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
@@ -19,7 +19,7 @@ class BankDataMapperTest {
     @EnumSource(TypePath::class)
     fun testConvertToLocal(input: TypePath) {
         val bankResponse =
-            BankResponse(
+            BankRemote(
                 district = "mock district",
                 bankName = "mock bank name",
                 typeName = "bank",
@@ -32,7 +32,7 @@ class BankDataMapperTest {
         bankDataMapper.convertToLocal(
             language = "en",
             type = input,
-            locator = bankResponse,
+            bankRemote = bankResponse,
         ) shouldBe
             BankLocal(
                 language = "en",

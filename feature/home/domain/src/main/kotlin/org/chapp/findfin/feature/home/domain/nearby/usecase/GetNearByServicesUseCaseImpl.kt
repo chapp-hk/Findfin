@@ -2,7 +2,6 @@ package org.chapp.findfin.feature.home.domain.nearby.usecase
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.core.location.provider.api.LocationProviderManager
 import org.chapp.findfin.core.location.provider.api.LocationResult
 import org.chapp.findfin.core.threading.DispatcherDefault
@@ -18,7 +17,6 @@ import kotlin.math.cos
 @HiltWrapBindModule
 internal class GetNearByServicesUseCaseImpl @Inject constructor(
     @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
-    private val localeProviderManager: LocaleProviderManager,
     private val locationProviderManager: LocationProviderManager,
     private val bankRepository: BankRepository,
 ) : GetNearByServicesUseCase {
@@ -39,10 +37,7 @@ internal class GetNearByServicesUseCaseImpl @Inject constructor(
                         )
 
                     val list =
-                        bankRepository.getBanksWithinBound(
-                            language = localeProviderManager.getCurrentLocaleTag(),
-                            bound = boundingBox,
-                        )
+                        bankRepository.getBanksWithinBound(bound = boundingBox)
 
                     NearByResult.Location(list.map(mapper::clone))
                 }
