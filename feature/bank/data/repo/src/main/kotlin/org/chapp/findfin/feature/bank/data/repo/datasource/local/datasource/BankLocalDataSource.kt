@@ -13,7 +13,7 @@ interface BankLocalDataSource {
         maxLon: Double,
     ): List<BankLocal>
 
-    suspend fun getAllBanks(): List<String>
+    suspend fun getAllBanks(language: String): List<String>
 
     suspend fun getAll(): List<BankLocal>
 }

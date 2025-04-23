@@ -175,11 +175,11 @@ class BankLocalDataSourceImplTest {
         runTest(testDispatcher) {
             val expectedBanks = listOf("Bank A", "Bank B", "Bank C")
 
-            coEvery { bankDao.getDistinctBanks() } returns expectedBanks
+            coEvery { bankDao.getDistinctBankNames(language = any()) } returns expectedBanks
 
-            val result = locatorLocalDataSourceImpl.getAllBanks()
+            val result = locatorLocalDataSourceImpl.getAllBanks(language = "en")
 
-            coVerify { bankDao.getDistinctBanks() }
+            coVerify { bankDao.getDistinctBankNames(language = "en") }
 
             result shouldBe expectedBanks
         }
@@ -191,11 +191,11 @@ class BankLocalDataSourceImplTest {
     )
     fun testGetAllBanksErrorHandling() =
         runTest(testDispatcher) {
-            coEvery { bankDao.getDistinctBanks() } throws Exception("Test exception")
+            coEvery { bankDao.getDistinctBankNames(language = any()) } throws Exception("Test exception")
 
-            val result = locatorLocalDataSourceImpl.getAllBanks()
+            val result = locatorLocalDataSourceImpl.getAllBanks(language = "zh")
 
-            coVerify { bankDao.getDistinctBanks() }
+            coVerify { bankDao.getDistinctBankNames(language = "zh") }
 
             result shouldBe emptyList()
         }

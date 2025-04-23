@@ -60,10 +60,10 @@ internal class BankLocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getAllBanks(): List<String> {
+    override suspend fun getAllBanks(language: String): List<String> {
         return withContext(ioDispatcher) {
             runCatching {
-                bankDao.getDistinctBanks()
+                bankDao.getDistinctBankNames(language = language)
             }.getOrElse { error ->
                 appLogger.debug(
                     tag = javaClass.simpleName,

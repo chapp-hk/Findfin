@@ -78,7 +78,7 @@ internal class BankRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAllBanks(): List<String> {
-        return bankLocalDataSource.getAllBanks()
+        return bankLocalDataSource.getAllBanks(language = localeProviderManager.getCurrentLocaleTag())
     }
 
     override suspend fun getAll(): List<BankModel> {

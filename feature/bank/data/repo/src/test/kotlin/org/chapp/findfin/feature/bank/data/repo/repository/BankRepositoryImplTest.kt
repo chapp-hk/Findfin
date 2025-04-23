@@ -225,11 +225,11 @@ class BankRepositoryImplTest {
         runTest(StandardTestDispatcher()) {
             val expectedBanks = listOf("Bank A", "Bank B", "Bank C")
 
-            coEvery { bankLocalDataSource.getAllBanks() } returns expectedBanks
+            coEvery { bankLocalDataSource.getAllBanks(language = any()) } returns expectedBanks
 
             val result = bankRepositoryImpl.getAllBanks()
 
-            coVerify { bankLocalDataSource.getAllBanks() }
+            coVerify { bankLocalDataSource.getAllBanks(language = any()) }
 
             result shouldBe expectedBanks
         }

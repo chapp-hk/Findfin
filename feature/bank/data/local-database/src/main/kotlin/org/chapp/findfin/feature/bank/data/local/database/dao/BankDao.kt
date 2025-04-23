@@ -18,7 +18,7 @@ internal interface BankDao {
             language = :language
             AND latitude BETWEEN :minLat AND :maxLat
             AND longitude BETWEEN :minLon AND :maxLon
-    """,
+        """,
     )
     suspend fun getBanksWithinBound(
         language: String,
@@ -28,8 +28,11 @@ internal interface BankDao {
         maxLon: Double,
     ): List<BankEntity>
 
-    @Query("SELECT DISTINCT bank_name FROM bank")
-    suspend fun getDistinctBanks(): List<String>
+    @Query("SELECT DISTINCT bank_name FROM bank WHERE language = :language ORDER BY bank_name")
+    suspend fun getDistinctBankNames(language: String): List<String>
+
+    @Query("SELECT DISTINCT district FROM bank WHERE language = :language ORDER BY district")
+    suspend fun getDistricts(language: String): List<String>
 
     @Query("SELECT * FROM bank")
     suspend fun getAll(): List<BankEntity>
