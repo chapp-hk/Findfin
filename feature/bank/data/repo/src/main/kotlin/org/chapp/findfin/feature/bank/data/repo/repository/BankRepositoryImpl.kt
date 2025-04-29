@@ -4,16 +4,16 @@ import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.feature.bank.data.repo.datasource.local.datasource.BankLocalDataSource
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.datasource.BankRemoteDataSource
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemoteResult
-import org.chapp.findfin.feature.bank.data.repo.mapper.BankDataMapper
 import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
 import org.chapp.findfin.feature.bank.data.repo.mapper.toApiLang
+import org.chapp.findfin.feature.bank.data.repo.mapper.toBankLocal
+import org.chapp.findfin.feature.bank.data.repo.mapper.toBankModel
 import org.chapp.findfin.feature.bank.data.repo.mapper.toLocalLanguage
 import org.chapp.findfin.feature.bank.data.repo.mapper.toRemoteLocationPath
 import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
 import org.chapp.findfin.feature.bank.data.repo.model.BankModel
 import org.chapp.findfin.feature.bank.data.repo.model.BankType
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
-import org.mapstruct.factory.Mappers
 import javax.inject.Inject
 
 @HiltWrapBindModule
@@ -22,8 +22,6 @@ internal class BankRepositoryImpl @Inject constructor(
     private val bankLocalDataSource: BankLocalDataSource,
     private val bankRemoteDataSource: BankRemoteDataSource,
 ) : BankRepository {
-    private val mapper = Mappers.getMapper(BankDataMapper::class.java)
-
     override suspend fun fetchBanks(
         type: BankType,
         localeTag: String,
@@ -49,10 +47,9 @@ internal class BankRepositoryImpl @Inject constructor(
                 remoteResult
                     .data
                     .map {
-                        mapper.convertToLocal(
+                        it.toBankLocal(
                             language = localeTag,
                             type = locatorPath,
-                            bankRemote = it,
                         )
                     }
                     .also { bankLocalDataSource.insertAll(it) }
@@ -74,7 +71,9 @@ internal class BankRepositoryImpl @Inject constructor(
             maxLat = bound.maxLat,
             minLon = bound.minLong,
             maxLon = bound.maxLong,
-        ).map(mapper::convertToDataModel)
+        ).map {
+            it.toBankModel()
+        }
     }
 
     override suspend fun getAllBanks(): List<String> {
@@ -84,6 +83,8 @@ internal class BankRepositoryImpl @Inject constructor(
     override suspend fun getAll(): List<BankModel> {
         return bankLocalDataSource
             .getAll()
-            .map(mapper::convertToDataModel)
+            .map {
+                it.toBankModel()
+            }
     }
 }
