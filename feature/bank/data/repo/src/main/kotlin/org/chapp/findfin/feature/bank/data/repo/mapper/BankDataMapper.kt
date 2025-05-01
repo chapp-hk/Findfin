@@ -13,7 +13,7 @@ fun BankRemote.toBankLocal(
         language = language,
         type = type.name,
         district = this.district.formatDistrict(),
-        bankName = this.bankName,
+        bankName = this.bankName.formatBankName(),
         typeName = this.typeName,
         address = this.address,
         serviceHours = this.serviceHours,
@@ -22,7 +22,7 @@ fun BankRemote.toBankLocal(
     )
 }
 
-fun BankLocal.toBankModel(): BankModel  {
+fun BankLocal.toBankModel(): BankModel {
     return BankModel(
         type = this.type,
         district = this.district,
@@ -102,6 +102,12 @@ private fun String.formatDistrict(): String {
 
 private fun String.formatBankName(): String {
     return this
-        .replace(" ", "")
+        .replace(oldValue = "Limited", newValue = "")
+        .replace(oldValue = "  ", newValue = " ")
+        .replace(oldValue = ",", newValue = "")
+        .replace(oldValue = "( ", newValue = "(")
+        .replace(oldValue = " )", newValue = ")")
+        .replace(oldValue = "CMB WING LUNG BANK", newValue = "CMB Wing Lung Bank", ignoreCase = true)
+        .replace(oldValue = "有限公司", "")
         .trim()
 }
