@@ -15,6 +15,7 @@ import com.google.accompanist.permissions.shouldShowRationale
 import org.chapp.findfin.core.location.ui.foundation.LocationSettingCheckContent
 import org.chapp.findfin.core.location.ui.foundation.launcher.rememberLauncherForAppSetting
 import org.chapp.findfin.core.location.ui.foundation.setting.state.LocationSettingStatus
+import org.chapp.findfin.feature.home.presentation.navigation.HomeEvent
 import org.chapp.findfin.feature.home.presentation.ui.container.model.HomeItem
 import org.chapp.findfin.feature.home.presentation.ui.nearby.model.NearByUiState
 import org.chapp.findfin.feature.home.presentation.ui.nearby.viewmodel.NearByViewModel
@@ -25,7 +26,7 @@ import org.chapp.findfin.feature.home.presentation.ui.nearby.viewmodel.NearByVie
 @Composable
 internal fun HomeContainerContent(
     nearByViewModel: NearByViewModel = hiltViewModel<NearByViewModelImpl>(),
-    onSearch: (String) -> Unit,
+    homeEvent: HomeEvent,
 ) {
     val uiState by nearByViewModel.uiState.collectAsStateWithLifecycle()
     var isUserDeniedPermission by remember { mutableStateOf(false) }
@@ -80,7 +81,7 @@ internal fun HomeContainerContent(
 
         HomeContainerList(
             item = homeItem,
-            onSearch = onSearch,
+            homeEvent = homeEvent,
             onRequestEnableLocation = {
                 locationSettingState.launchEnableLocation()
             },

@@ -18,6 +18,7 @@ import org.chapp.findfin.core.design.ui.foundation.modifier.contentDescription
 import org.chapp.findfin.core.design.ui.foundation.search.AppSearchBar
 import org.chapp.findfin.core.design.ui.foundation.search.rememberAppSearchBarState
 import org.chapp.findfin.feature.home.presentation.R
+import org.chapp.findfin.feature.home.presentation.navigation.HomeEvent
 import org.chapp.findfin.feature.home.presentation.ui.container.model.HomeItem
 import org.chapp.findfin.feature.home.presentation.ui.finding.view.Finding
 import org.chapp.findfin.feature.home.presentation.ui.nearby.view.DeviceNoGpsResult
@@ -29,7 +30,7 @@ import org.chapp.findfin.feature.home.presentation.ui.nearby.view.ServiceItem
 @Composable
 internal fun HomeContainerList(
     item: HomeItem,
-    onSearch: (String) -> Unit,
+    homeEvent: HomeEvent,
     onRequestEnableLocation: () -> Unit,
     onRequestLocationPermission: () -> Unit,
 ) {
@@ -53,7 +54,7 @@ internal fun HomeContainerList(
                     AppSearchBar(
                         modifier = Modifier.contentDescription(description),
                         state = searchBarState,
-                        onSearch = onSearch,
+                        onSearch = homeEvent.onSearch,
                     )
                 }
 

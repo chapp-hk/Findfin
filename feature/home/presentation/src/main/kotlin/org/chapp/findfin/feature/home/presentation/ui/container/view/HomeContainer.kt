@@ -9,6 +9,6 @@ import org.chapp.findfin.feature.home.presentation.ui.user.view.UserStatus
 internal fun HomeContainer(homeEvent: HomeEvent) {
     Column {
         UserStatus(onRequestAuth = homeEvent.onRequestAuth)
-        HomeContainerContent(onSearch = homeEvent.onSearch)
+        HomeContainerContent(homeEvent = homeEvent)
     }
 }
