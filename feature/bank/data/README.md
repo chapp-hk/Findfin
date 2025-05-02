@@ -44,21 +44,6 @@ The data layer is split into three distinct modules to achieve the following ben
 - Combines data from local and remote sources.
 - Exposes a unified interface to the domain layer.
 
-## Usage
-
-### Dependency
-Include the module in your Gradle dependencies:
-```gradle
-implementation project(":feature:bank:data")
-```
-
-## Requirements
-
-- **Kotlin**
-- **Room** for local database operations
-- **Ktor** for network communication
-- **Hilt** for dependency injection
-
 ## License
 
 This module is part of the project and follows the project's licensing terms.
