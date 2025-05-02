@@ -8,7 +8,7 @@ This module serves as the parent module for the Bank feature's data layer. It is
 - **Centralized Dependency Management**: Provides a single entry point for managing dependencies across the data submodules.
 - **Integration with Domain Layer**: Acts as the bridge between the domain layer and the data sources.
 
-## Submodules
+## Modularization
 
 The data layer is split into three distinct modules to achieve the following benefits:
 
@@ -29,6 +29,8 @@ The data layer is split into three distinct modules to achieve the following ben
 
 5. **Team Collaboration**:
    Teams can work on different modules simultaneously without conflicts, improving productivity.
+
+## Submodules
 
 ### 1. `:feature:bank:data:local-database`
 - Manages local data storage using Room.
