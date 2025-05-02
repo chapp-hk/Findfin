@@ -30,11 +30,11 @@ class FindingTest {
             .assertIsDisplayed()
 
         composeTestRule
-            .onNodeWithText(getResourceString(R.string.home_label_find_your_bank))
+            .onNodeWithText(getResourceString(R.string.home_label_find_branches))
             .assertIsDisplayed()
 
         composeTestRule
-            .onNodeWithText(getResourceString(R.string.home_label_find_bank_or_atms))
+            .onNodeWithText(getResourceString(R.string.home_label_find_atms))
             .assertIsDisplayed()
     }
 
@@ -53,11 +53,11 @@ class FindingTest {
         }
 
         composeTestRule
-            .onNodeWithContentDescription(getResourceString(R.string.home_label_find_your_bank))
+            .onNodeWithContentDescription(getResourceString(R.string.home_label_find_branches))
             .performClick()
 
         composeTestRule
-            .onNodeWithContentDescription(getResourceString(R.string.home_label_find_bank_or_atms))
+            .onNodeWithContentDescription(getResourceString(R.string.home_label_find_atms))
             .performClick()
 
         verify(exactly = 1) { onFindYourBank() }
