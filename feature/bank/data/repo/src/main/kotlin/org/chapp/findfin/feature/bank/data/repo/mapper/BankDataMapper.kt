@@ -35,7 +35,7 @@ fun BankLocal.toBankModel(): BankModel {
     )
 }
 
-fun String.replaceMappings(mappings: Map<String, String>): String {
+private fun String.replaceMappings(mappings: Map<String, String>): String {
     val result = StringBuilder(this)
     mappings.forEach { (oldValue, newValue) ->
         var index = result.indexOf(oldValue, ignoreCase = true)
@@ -46,67 +46,3 @@ fun String.replaceMappings(mappings: Map<String, String>): String {
     }
     return result.toString().trim()
 }
-
-private val districtMappings =
-    mapOf(
-        "District" to "",
-        "Central and Western" to "Central & Western",
-        "CentralNWestern" to "Central & Western",
-        "Cheung Chau" to "Islands",
-        "Lamma Island" to "Islands",
-        "Lantau Island" to "Islands",
-        "Outlying Islands" to "Islands",
-        "Outlying Island" to "Islands",
-        "Peng Chau" to "Islands",
-        "KowloonCity" to "Kowloon City",
-        "KwaiTsing" to "Kwai Tsing",
-        "KwunTong" to "Kwun Tong",
-        "Northern" to "North",
-        "SaiKung" to "Sai Kung",
-        "ShaTin" to "Sha Tin",
-        "ShamShuiPo" to "Sham Shui Po",
-        "Shum Shui Po" to "Sham Shui Po",
-        "TaiPo" to "Tai Po",
-        "TsuenWan" to "Tsuen Wan",
-        "TuenMun" to "Tuen Mun",
-        "WanChai" to "Wan Chai",
-        "WongTaiSin" to "Wong Tai Sin",
-        "Yau Tsui Mong" to "Yau Tsim Mong",
-        "YauTsimMong" to "Yau Tsim Mong",
-        "YuenLong" to "Yuen Long",
-        "區" to "",
-        "南丫島" to "離島",
-        "坪洲" to "離島",
-        "大嶼山" to "離島",
-        "/kuiqing" to "",
-        "長洲" to "離島",
-        "中西" to "中西區",
-        "東" to "東區",
-        "南" to "南區",
-        "灣仔" to "灣仔區",
-        "九龍城" to "九龍城區",
-        "油尖旺" to "油尖旺區",
-        "深水埗" to "深水埗區",
-        "黃大仙" to "黃大仙區",
-        "觀塘" to "觀塘區",
-        "大埔" to "大埔區",
-        "元朗" to "元朗區",
-        "屯門" to "屯門區",
-        "北" to "北區",
-        "西貢" to "西貢區",
-        "沙田" to "沙田區",
-        "荃灣" to "荃灣區",
-        "葵青" to "葵青區",
-        "離島" to "離島區",
-    )
-
-private val bankNameMappings =
-    mapOf(
-        "Limited" to "",
-        "  " to " ",
-        "," to "",
-        "( " to "(",
-        " )" to ")",
-        "CMB WING LUNG BANK" to "CMB Wing Lung Bank",
-        "有限公司" to "",
-    )
