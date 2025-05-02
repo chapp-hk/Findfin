@@ -8,17 +8,17 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import org.chapp.findfin.core.map.MapMarker
-import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
+import org.chapp.findfin.feature.bank.data.repo.repository.BankRepository
 import javax.inject.Inject
 
 @HiltViewModel
 internal class MapViewModel @Inject constructor(
-    private val bankLocationRepository: BankLocationRepository,
+    private val bankRepository: BankRepository,
 ) : ViewModel() {
     val uiState: StateFlow<List<MapMarker>> =
         flow {
             val mapper = BankLocationModelMapper()
-            emit(bankLocationRepository.getAll().map(mapper::toMapMarker))
+            emit(bankRepository.getAll().map(mapper::toMapMarker))
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),

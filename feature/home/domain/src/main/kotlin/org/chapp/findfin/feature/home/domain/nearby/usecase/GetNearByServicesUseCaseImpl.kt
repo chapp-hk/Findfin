@@ -2,12 +2,11 @@ package org.chapp.findfin.feature.home.domain.nearby.usecase
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.core.location.provider.api.LocationProviderManager
 import org.chapp.findfin.core.location.provider.api.LocationResult
 import org.chapp.findfin.core.threading.DispatcherDefault
-import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationBound
-import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
+import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
+import org.chapp.findfin.feature.bank.data.repo.repository.BankRepository
 import org.chapp.findfin.feature.home.domain.nearby.mapper.ServiceMapper
 import org.chapp.findfin.feature.home.domain.nearby.model.NearByResult
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
@@ -18,9 +17,8 @@ import kotlin.math.cos
 @HiltWrapBindModule
 internal class GetNearByServicesUseCaseImpl @Inject constructor(
     @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
-    private val localeProviderManager: LocaleProviderManager,
     private val locationProviderManager: LocationProviderManager,
-    private val bankLocationRepository: BankLocationRepository,
+    private val bankRepository: BankRepository,
 ) : GetNearByServicesUseCase {
     override suspend fun invoke(): NearByResult {
         return withContext(defaultDispatcher) {
@@ -39,10 +37,7 @@ internal class GetNearByServicesUseCaseImpl @Inject constructor(
                         )
 
                     val list =
-                        bankLocationRepository.getLocationsWithinBound(
-                            language = localeProviderManager.getCurrentLocaleTag(),
-                            bound = boundingBox,
-                        )
+                        bankRepository.getBanksWithinBound(bound = boundingBox)
 
                     NearByResult.Location(list.map(mapper::clone))
                 }

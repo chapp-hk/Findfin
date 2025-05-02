@@ -1,0 +1,276 @@
+package org.chapp.findfin.feature.bank.data.repo.repository
+
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
+import io.mockk.Runs
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.runTest
+import org.chapp.findfin.core.locale.api.LocaleProviderManager
+import org.chapp.findfin.feature.bank.data.repo.datasource.local.datasource.BankLocalDataSource
+import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankLocal
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.datasource.BankRemoteDataSource
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemoteResult
+import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.TypePath
+import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
+import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
+import org.chapp.findfin.feature.bank.data.repo.model.BankModel
+import org.chapp.findfin.feature.bank.data.repo.model.BankType
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+
+@DisplayName("BankRepositoryImpl unit tests")
+class BankRepositoryImplTest {
+    private val localeProviderManager = mockk<LocaleProviderManager>()
+    private val bankLocalDataSource = mockk<BankLocalDataSource>()
+    private val bankRemoteDataSource = mockk<BankRemoteDataSource>()
+
+    private val bankRepositoryImpl =
+        BankRepositoryImpl(
+            localeProviderManager = localeProviderManager,
+            bankLocalDataSource = bankLocalDataSource,
+            bankRemoteDataSource = bankRemoteDataSource,
+        )
+
+    @BeforeEach
+    fun setUp() {
+        every { localeProviderManager.getCurrentLocaleTag() } returns "en"
+        coEvery { bankLocalDataSource.insertAll(any()) } just Runs
+    }
+
+    @Test
+    @DisplayName(
+        "bankLocationRemoteDataSource.getLocations() should invoke with correct offset value: " +
+            "page * pageSize",
+    )
+    fun testOffsetValue() =
+        runTest(StandardTestDispatcher()) {
+            coEvery {
+                bankRemoteDataSource.getLocations(
+                    path = any(),
+                    language = any(),
+                    pageSize = any(),
+                    offset = any(),
+                )
+            } returns BankRemoteResult.Error
+
+            bankRepositoryImpl.fetchBanks(
+                type = BankType.ATM,
+                localeTag = "en",
+                page = 2,
+                pageSize = 1000,
+            )
+
+            coVerify {
+                bankRemoteDataSource.getLocations(
+                    path = TypePath.ATM,
+                    language = "en",
+                    pageSize = 1000,
+                    offset = 2000,
+                )
+            }
+        }
+
+    @Test
+    @DisplayName(
+        "When bankLocationRemoteDataSource.getLocations() returns LocatorResult.Error, " +
+            "fetchLocations() should return LocationResult.Error",
+    )
+    fun testFetchBanksError() =
+        runTest(StandardTestDispatcher()) {
+            coEvery {
+                bankRemoteDataSource.getLocations(
+                    path = any(),
+                    language = any(),
+                    pageSize = any(),
+                    offset = any(),
+                )
+            } returns BankRemoteResult.Error
+
+            val result =
+                bankRepositoryImpl.fetchBanks(
+                    type = BankType.ATM,
+                    localeTag = "en",
+                    page = 2,
+                    pageSize = 1000,
+                )
+
+            result shouldBe BankFetchResult.Error
+        }
+
+    @Test
+    @DisplayName(
+        "When bankLocationRemoteDataSource.getLocations() returns list with size equals pageSize, " +
+            "then fetchLocations() should return LocationResult.HasNext",
+    )
+    fun testFetchBanksResultListEqualsPageSize() =
+        runTest(StandardTestDispatcher()) {
+            val pageSize = 1000
+
+            coEvery {
+                bankRemoteDataSource.getLocations(
+                    path = any(),
+                    language = any(),
+                    pageSize = any(),
+                    offset = any(),
+                )
+            } returns
+                BankRemoteResult.Success(
+                    (1..pageSize).map { mockk(relaxed = true) },
+                )
+
+            val result =
+                bankRepositoryImpl.fetchBanks(
+                    type = BankType.ATM,
+                    localeTag = "en",
+                    page = 2,
+                    pageSize = pageSize,
+                )
+
+            result shouldBe BankFetchResult.HasNext
+        }
+
+    @Test
+    @DisplayName(
+        "When bankLocationRemoteDataSource.getLocations() returns list with size larger than pageSize, " +
+            "then fetchLocations() should return LocationResult.HasNext",
+    )
+    fun testFetchBanksResultListLargerThanPageSize() =
+        runTest(StandardTestDispatcher()) {
+            val pageSize = 1000
+
+            coEvery {
+                bankRemoteDataSource.getLocations(
+                    path = any(),
+                    language = any(),
+                    pageSize = any(),
+                    offset = any(),
+                )
+            } returns
+                BankRemoteResult.Success(
+                    (1..pageSize + 1).map { mockk(relaxed = true) },
+                )
+
+            val result =
+                bankRepositoryImpl.fetchBanks(
+                    type = BankType.ATM,
+                    localeTag = "en",
+                    page = 2,
+                    pageSize = pageSize,
+                )
+
+            result shouldBe BankFetchResult.HasNext
+        }
+
+    @Test
+    @DisplayName(
+        "When bankLocationRemoteDataSource.getLocations() returns list with size smaller than pageSize, " +
+            "then fetchLocations() should return LocationResult.End",
+    )
+    fun testFetchBanksEnd() =
+        runTest(StandardTestDispatcher()) {
+            val pageSize = 1000
+
+            coEvery {
+                bankRemoteDataSource.getLocations(
+                    path = any(),
+                    language = any(),
+                    pageSize = any(),
+                    offset = any(),
+                )
+            } returns
+                BankRemoteResult.Success(
+                    (1..pageSize - 10).map { mockk(relaxed = true) },
+                )
+
+            val result =
+                bankRepositoryImpl.fetchBanks(
+                    type = BankType.ATM,
+                    localeTag = "en",
+                    page = 2,
+                    pageSize = pageSize,
+                )
+
+            result shouldBe BankFetchResult.End
+        }
+
+    @Test
+    fun `getLocationsWithinBound should return correct LocationModel list`() {
+        runTest(StandardTestDispatcher()) {
+            val mockBound = BankLocationBound(1.0, 1.0, 1.0, 1.0)
+            coEvery {
+                bankLocalDataSource.getBanksWithinBound(
+                    language = any(),
+                    minLat = any(),
+                    maxLat = any(),
+                    minLon = any(),
+                    maxLon = any(),
+                )
+            } returns listOf(mockk(relaxed = true))
+
+            val result = bankRepositoryImpl.getBanksWithinBound(bound = mockBound)
+
+            result.shouldBeInstanceOf<List<BankModel>>()
+        }
+    }
+
+    @Test
+    @DisplayName("When getAllBanks() is successful, should return the list of banks")
+    fun testGetAllBanksSuccess() =
+        runTest(StandardTestDispatcher()) {
+            val expectedBanks = listOf("Bank A", "Bank B", "Bank C")
+
+            coEvery { bankLocalDataSource.getAllBanks(language = any()) } returns expectedBanks
+
+            val result = bankRepositoryImpl.getAllBanks()
+
+            coVerify { bankLocalDataSource.getAllBanks(language = any()) }
+
+            result shouldBe expectedBanks
+        }
+
+    @Test
+    @DisplayName("When getAll() is successful, should return the list of BankLocationModel")
+    fun testGetAllSuccess() =
+        runTest(StandardTestDispatcher()) {
+            val mockLocalData =
+                listOf(
+                    BankLocal(
+                        language = "en",
+                        type = "BRANCH",
+                        district = "Kowloon",
+                        bankName = "Bank A",
+                        typeName = "Branch",
+                        address = "Some address",
+                        serviceHours = "9:00 - 17:00",
+                        latitude = 22.3193,
+                        longitude = 114.1694,
+                    ),
+                )
+
+            coEvery { bankLocalDataSource.getAll() } returns mockLocalData
+
+            val result = bankRepositoryImpl.getAll()
+
+            coVerify { bankLocalDataSource.getAll() }
+
+            result shouldBe
+                listOf(
+                    BankModel(
+                        type = "BRANCH",
+                        district = "Kowloon",
+                        bankName = "Bank A",
+                        typeName = "Branch",
+                        address = "Some address",
+                        serviceHours = "9:00 - 17:00",
+                        latitude = 22.3193,
+                        longitude = 114.1694,
+                    ),
+                )
+        }
+}

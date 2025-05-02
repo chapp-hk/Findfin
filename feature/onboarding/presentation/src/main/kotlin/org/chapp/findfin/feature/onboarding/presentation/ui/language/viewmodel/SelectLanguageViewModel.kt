@@ -10,13 +10,13 @@ import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModel
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.model.SelectLanguageUiModelMapper
 import org.chapp.findfin.feature.onboarding.presentation.ui.language.state.SelectLanguageUiState
-import org.chapp.findfin.feature.setting.domain.fetch.usecase.FetchAllBankLocationsWithLanguageUseCase
+import org.chapp.findfin.feature.setting.domain.fetch.usecase.FetchAllBanksWithLanguageUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 internal class SelectLanguageViewModel @Inject constructor(
     private val localeProviderManager: LocaleProviderManager,
-    private val fetchAllLocatorsWithLanguage: FetchAllBankLocationsWithLanguageUseCase,
+    private val fetchAllLocatorsWithLanguage: FetchAllBanksWithLanguageUseCase,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<SelectLanguageUiState>(SelectLanguageUiState.Initial)
     val uiState = _uiState.asStateFlow()

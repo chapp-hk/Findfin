@@ -7,8 +7,8 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.core.map.MapMarker
-import org.chapp.findfin.feature.bank.data.repo.location.model.BankLocationModel
-import org.chapp.findfin.feature.bank.data.repo.location.repository.BankLocationRepository
+import org.chapp.findfin.feature.bank.data.repo.model.BankModel
+import org.chapp.findfin.feature.bank.data.repo.repository.BankRepository
 import org.chapp.findfin.testing.extension.MainDispatcherExtension
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -17,14 +17,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 @ExtendWith(MainDispatcherExtension::class)
 @DisplayName("MapViewModel unit tests")
 class MapViewModelTest {
-    private val bankLocationRepository = mockk<BankLocationRepository>()
+    private val bankRepository = mockk<BankRepository>()
 
     @Test
     fun `uiState should emit empty list when repository returns empty list`() {
         runTest {
             // Arrange
-            coEvery { bankLocationRepository.getAll() } returns emptyList()
-            val viewModel = MapViewModel(bankLocationRepository)
+            coEvery { bankRepository.getAll() } returns emptyList()
+            val viewModel = MapViewModel(bankRepository)
 
             viewModel.uiState.test {
                 awaitItem() shouldBe emptyList()
@@ -37,9 +37,9 @@ class MapViewModelTest {
     fun `uiState should emit mapped list when repository returns data`() {
         runTest {
             // Arrange
-            val bankLocationModels =
+            val bankModels =
                 listOf(
-                    BankLocationModel(
+                    BankModel(
                         type = "type",
                         district = "district",
                         bankName = "bankName",
@@ -50,8 +50,8 @@ class MapViewModelTest {
                         longitude = -74.0060,
                     ),
                 )
-            coEvery { bankLocationRepository.getAll() } returns bankLocationModels
-            val viewModel = MapViewModel(bankLocationRepository)
+            coEvery { bankRepository.getAll() } returns bankModels
+            val viewModel = MapViewModel(bankRepository)
 
             viewModel.uiState.test {
                 awaitItem() shouldBe emptyList()
