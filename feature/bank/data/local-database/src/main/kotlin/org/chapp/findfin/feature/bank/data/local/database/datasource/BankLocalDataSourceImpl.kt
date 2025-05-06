@@ -136,8 +136,17 @@ internal class BankLocalDataSourceImpl @Inject constructor(
                 args.add(maxLon)
             }
 
-            val query = SimpleSQLiteQuery(queryBuilder.toString(), args.toTypedArray())
-            bankDao.getBanksWithQuery(query).map(bankLocalMapper::toLocalModel)
+            runCatching {
+                val query = SimpleSQLiteQuery(queryBuilder.toString(), args.toTypedArray())
+                bankDao.getBanksWithQuery(query).map(bankLocalMapper::toLocalModel)
+            }.getOrElse { error ->
+                appLogger.debug(
+                    tag = javaClass.simpleName,
+                    message = "getBanksWithParameters() failed",
+                    throwable = error,
+                )
+                emptyList()
+            }
         }
     }
 }
