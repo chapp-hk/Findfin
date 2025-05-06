@@ -4,6 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.RawQuery
+import androidx.sqlite.db.SupportSQLiteQuery
 import org.chapp.findfin.feature.bank.data.local.database.model.BankEntity
 
 @Dao
@@ -36,4 +38,7 @@ internal interface BankDao {
 
     @Query("SELECT * FROM bank")
     suspend fun getAll(): List<BankEntity>
+
+    @RawQuery
+    suspend fun getBanksWithQuery(query: SupportSQLiteQuery): List<BankEntity>
 }

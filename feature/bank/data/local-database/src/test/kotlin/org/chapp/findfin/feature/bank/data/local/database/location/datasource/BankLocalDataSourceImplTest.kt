@@ -1,5 +1,6 @@
 package org.chapp.findfin.feature.bank.data.local.database.location.datasource
 
+import androidx.sqlite.db.SupportSQLiteQuery
 import io.kotest.matchers.shouldBe
 import io.mockk.Runs
 import io.mockk.coEvery
@@ -15,6 +16,12 @@ import org.chapp.findfin.feature.bank.data.local.database.model.BankEntity
 import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankLocal
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtensionContext
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.ArgumentsProvider
+import org.junit.jupiter.params.provider.ArgumentsSource
+import java.util.stream.Stream
 
 @DisplayName("BankLocalDataSourceImpl unit tests")
 class BankLocalDataSourceImplTest {
@@ -254,4 +261,77 @@ class BankLocalDataSourceImplTest {
 
             result shouldBe emptyList()
         }
+
+    @ParameterizedTest
+    @ArgumentsSource(GetBanksQueryParametersArgumentProvider::class)
+    @DisplayName("Test getBanksWithParameters() with various inputs")
+    fun testGetBanksWithParameters(
+        language: String,
+        bankName: String?,
+        type: String?,
+        minLat: Double?,
+        maxLat: Double?,
+        minLon: Double?,
+        maxLon: Double?,
+        expectedSql: String,
+        expectedArgCount: Int,
+    ) = runTest(testDispatcher) {
+        val querySlot = slot<SupportSQLiteQuery>()
+        coEvery { bankDao.getBanksWithQuery(capture(querySlot)) } returns emptyList()
+
+        locatorLocalDataSourceImpl.getBanksWithParameters(
+            language = language,
+            bankName = bankName,
+            type = type,
+            minLat = minLat,
+            maxLat = maxLat,
+            minLon = minLon,
+            maxLon = maxLon,
+        )
+
+        querySlot.captured.sql shouldBe expectedSql
+        querySlot.captured.argCount shouldBe expectedArgCount
+        coVerify { bankDao.getBanksWithQuery(querySlot.captured) }
+    }
+
+    private class GetBanksQueryParametersArgumentProvider : ArgumentsProvider {
+        override fun provideArguments(context: ExtensionContext?): Stream<Arguments> =
+            Stream.of(
+                Arguments.of(
+                    "en", null, null, null, null, null, null,
+                    "SELECT * FROM bank WHERE 1=1 AND language = ?",
+                    1,
+                ),
+                Arguments.of(
+                    "en", "Bank A", null, null, null, null, null,
+                    "SELECT * FROM bank WHERE 1=1 AND language = ? AND bank_name = ?",
+                    2,
+                ),
+                Arguments.of(
+                    "en", null, "type1", null, null, null, null,
+                    "SELECT * FROM bank WHERE 1=1 AND language = ? AND type = ?",
+                    2,
+                ),
+                Arguments.of(
+                    "en", null, null, 10.0, 20.0, null, null,
+                    "SELECT * FROM bank WHERE 1=1 AND language = ? AND latitude BETWEEN ? AND ?",
+                    3,
+                ),
+                Arguments.of(
+                    "en", null, null, null, null, 30.0, 40.0,
+                    "SELECT * FROM bank WHERE 1=1 AND language = ? AND longitude BETWEEN ? AND ?",
+                    3,
+                ),
+                Arguments.of(
+                    "en", "Bank A", "type1", 10.0, 20.0, 30.0, 40.0,
+                    "SELECT * FROM bank WHERE 1=1 " +
+                        "AND language = ? " +
+                        "AND type = ? AND " +
+                        "bank_name = ? " +
+                        "AND latitude BETWEEN ? AND ? " +
+                        "AND longitude BETWEEN ? AND ?",
+                    7,
+                ),
+            )
+    }
 }

@@ -16,4 +16,14 @@ interface BankLocalDataSource {
     suspend fun getAllBanks(language: String): List<String>
 
     suspend fun getAll(): List<BankLocal>
+
+    suspend fun getBanksWithParameters(
+        language: String,
+        bankName: String?,
+        type: String?,
+        minLat: Double?,
+        maxLat: Double?,
+        minLon: Double?,
+        maxLon: Double?,
+    ): List<BankLocal>
 }
