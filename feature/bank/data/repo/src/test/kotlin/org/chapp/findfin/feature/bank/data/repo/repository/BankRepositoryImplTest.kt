@@ -17,6 +17,7 @@ import org.chapp.findfin.feature.bank.data.repo.datasource.remote.datasource.Ban
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemoteResult
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.TypePath
 import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
+import org.chapp.findfin.feature.bank.data.repo.mapper.toBankModel
 import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
 import org.chapp.findfin.feature.bank.data.repo.model.BankModel
 import org.chapp.findfin.feature.bank.data.repo.model.BankType
@@ -272,5 +273,147 @@ class BankRepositoryImplTest {
                         longitude = 114.1694,
                     ),
                 )
+        }
+
+    @Test
+    fun `getBanksByParameters should return empty list when data source returns empty`() =
+        runTest {
+            coEvery {
+                bankLocalDataSource.getBanksWithParameters(
+                    language = any(),
+                    bankName = any(),
+                    type = any(),
+                    minLat = any(),
+                    maxLat = any(),
+                    minLon = any(),
+                    maxLon = any(),
+                )
+            } returns emptyList()
+
+            val result = bankRepositoryImpl.getBanksByParameters(name = null, type = null, bound = null)
+
+            result shouldBe emptyList()
+            coVerify {
+                bankLocalDataSource.getBanksWithParameters(
+                    language = any(),
+                    bankName = null,
+                    type = null,
+                    minLat = null,
+                    maxLat = null,
+                    minLon = null,
+                    maxLon = null,
+                )
+            }
+        }
+
+    @Test
+    fun `getBanksByParameters should return list when data source returns non-empty list`() =
+        runTest {
+            val mockBankLocal = mockk<BankLocal>(relaxed = true)
+            coEvery {
+                bankLocalDataSource.getBanksWithParameters(
+                    language = any(),
+                    bankName = any(),
+                    type = any(),
+                    minLat = any(),
+                    maxLat = any(),
+                    minLon = any(),
+                    maxLon = any(),
+                )
+            } returns listOf(mockBankLocal)
+
+            val result =
+                bankRepositoryImpl.getBanksByParameters(
+                    "Bank A",
+                    BankType.ATM,
+                    BankLocationBound(minLat = 1.0, maxLat = 2.0, minLong = 3.0, maxLong = 4.0),
+                )
+
+            result shouldBe listOf(mockBankLocal.toBankModel())
+            coVerify {
+                bankLocalDataSource.getBanksWithParameters(
+                    language = any(),
+                    bankName = "Bank A",
+                    type = BankType.ATM.name,
+                    minLat = 1.0,
+                    maxLat = 2.0,
+                    minLon = 3.0,
+                    maxLon = 4.0,
+                )
+            }
+        }
+
+    @Test
+    fun `getBanksByParameters should handle null name and type but non-null bound`() =
+        runTest {
+            val mockBankLocal = mockk<BankLocal>(relaxed = true)
+            coEvery {
+                bankLocalDataSource.getBanksWithParameters(
+                    language = any(),
+                    bankName = any(),
+                    type = any(),
+                    minLat = any(),
+                    maxLat = any(),
+                    minLon = any(),
+                    maxLon = any(),
+                )
+            } returns listOf(mockBankLocal)
+
+            val result =
+                bankRepositoryImpl.getBanksByParameters(
+                    name = null,
+                    type = null,
+                    bound = BankLocationBound(1.0, 2.0, 3.0, 4.0),
+                )
+
+            result shouldBe listOf(mockBankLocal.toBankModel())
+            coVerify {
+                bankLocalDataSource.getBanksWithParameters(
+                    language = any(),
+                    bankName = null,
+                    type = null,
+                    minLat = 1.0,
+                    maxLat = 2.0,
+                    minLon = 3.0,
+                    maxLon = 4.0,
+                )
+            }
+        }
+
+    @Test
+    fun `getBanksByParameters should handle null bound but non-null name and type`() =
+        runTest {
+            val mockBankLocal = mockk<BankLocal>(relaxed = true)
+            coEvery {
+                bankLocalDataSource.getBanksWithParameters(
+                    language = any(),
+                    bankName = any(),
+                    type = any(),
+                    minLat = any(),
+                    maxLat = any(),
+                    minLon = any(),
+                    maxLon = any(),
+                )
+            } returns listOf(mockBankLocal)
+
+            val result =
+                bankRepositoryImpl.getBanksByParameters(
+                    name = "Bank A",
+                    type = BankType.BRANCH,
+                    bound = null,
+                )
+
+            result shouldBe listOf(mockBankLocal.toBankModel())
+            coVerify {
+                bankLocalDataSource.getBanksWithParameters(
+                    language = any(),
+                    bankName = "Bank A",
+                    type = BankType.BRANCH.name,
+                    minLat = null,
+                    maxLat = null,
+                    minLon = null,
+                    maxLon = null,
+                )
+            }
         }
 }
