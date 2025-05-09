@@ -13,9 +13,6 @@ interface BankRepository {
         pageSize: Int,
     ): BankFetchResult
 
-    @Deprecated("Use getBanksByParameters() instead")
-    suspend fun getBanksWithinBound(bound: BankLocationBound): List<BankModel>
-
     suspend fun getAllBanks(): List<String>
 
     @Deprecated("Use getBanksByParameters() instead")

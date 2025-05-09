@@ -46,7 +46,7 @@ class GetNearByServicesUseCaseImplTest {
             coEvery { locationProviderManager.getCurrentLocation() } returns
                 mockLocation
             coEvery {
-                bankRepository.getBanksWithinBound(bound = any())
+                bankRepository.getBanksByParameters(bound = any())
             } returns listOf(mockk(relaxed = true))
 
             val result = getNearByServiceUseCase()

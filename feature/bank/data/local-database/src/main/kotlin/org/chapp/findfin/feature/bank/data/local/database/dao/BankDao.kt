@@ -13,23 +13,6 @@ internal interface BankDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(locators: List<BankEntity>)
 
-    @Query(
-        """
-        SELECT * FROM bank
-        WHERE
-            language = :language
-            AND latitude BETWEEN :minLat AND :maxLat
-            AND longitude BETWEEN :minLon AND :maxLon
-        """,
-    )
-    suspend fun getBanksWithinBound(
-        language: String,
-        minLat: Double,
-        maxLat: Double,
-        minLon: Double,
-        maxLon: Double,
-    ): List<BankEntity>
-
     @Query("SELECT DISTINCT bank_name FROM bank WHERE language = :language ORDER BY bank_name")
     suspend fun getDistinctBankNames(language: String): List<String>
 

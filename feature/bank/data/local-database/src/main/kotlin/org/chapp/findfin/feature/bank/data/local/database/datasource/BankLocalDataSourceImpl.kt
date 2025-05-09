@@ -34,33 +34,6 @@ internal class BankLocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getBanksWithinBound(
-        language: String,
-        minLat: Double,
-        maxLat: Double,
-        minLon: Double,
-        maxLon: Double,
-    ): List<BankLocal> {
-        return withContext(ioDispatcher) {
-            runCatching {
-                bankDao.getBanksWithinBound(
-                    language = language,
-                    minLat = minLat,
-                    maxLat = maxLat,
-                    minLon = minLon,
-                    maxLon = maxLon,
-                ).map(bankLocalMapper::toLocalModel)
-            }.getOrElse { error ->
-                appLogger.debug(
-                    tag = javaClass.simpleName,
-                    message = "getLocatorsWithinBound() failed",
-                    throwable = error,
-                )
-                emptyList()
-            }
-        }
-    }
-
     override suspend fun getAllBanks(language: String): List<String> {
         return withContext(ioDispatcher) {
             runCatching {

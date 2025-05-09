@@ -64,19 +64,6 @@ internal class BankRepositoryImpl @Inject constructor(
         }
     }
 
-    @Deprecated("Use getBanksByParameters() instead")
-    override suspend fun getBanksWithinBound(bound: BankLocationBound): List<BankModel> {
-        return bankLocalDataSource.getBanksWithinBound(
-            language = localeProviderManager.getCurrentLocaleTag().toLocalLanguage(),
-            minLat = bound.minLat,
-            maxLat = bound.maxLat,
-            minLon = bound.minLong,
-            maxLon = bound.maxLong,
-        ).map {
-            it.toBankModel()
-        }
-    }
-
     override suspend fun getAllBanks(): List<String> {
         return bankLocalDataSource.getAllBanks(language = localeProviderManager.getCurrentLocaleTag())
     }

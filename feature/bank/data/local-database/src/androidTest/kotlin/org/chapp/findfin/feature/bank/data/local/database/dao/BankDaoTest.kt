@@ -131,23 +131,6 @@ class BankDaoTest {
     }
 
     @Test
-    fun testGetBanksWithinBound() {
-        runTest(testDispatcher) {
-            val database = createDatabaseFromAsset()
-
-            database
-                .bankDao
-                .getBanksWithinBound(
-                    language = "en",
-                    minLat = 22.294630813707222,
-                    maxLat = 22.312641530083468,
-                    minLon = 114.22859313885354,
-                    maxLon = 114.24806027679244,
-                ).size shouldBe 38
-        }
-    }
-
-    @Test
     fun testGetDistinctBankNames() {
         runTest(testDispatcher) {
             val database = createDatabaseFromAsset()

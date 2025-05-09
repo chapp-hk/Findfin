@@ -1,7 +1,6 @@
 package org.chapp.findfin.feature.bank.data.repo.repository
 
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeInstanceOf
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -199,26 +198,6 @@ class BankRepositoryImplTest {
 
             result shouldBe BankFetchResult.End
         }
-
-    @Test
-    fun `getLocationsWithinBound should return correct LocationModel list`() {
-        runTest(StandardTestDispatcher()) {
-            val mockBound = BankLocationBound(1.0, 1.0, 1.0, 1.0)
-            coEvery {
-                bankLocalDataSource.getBanksWithinBound(
-                    language = any(),
-                    minLat = any(),
-                    maxLat = any(),
-                    minLon = any(),
-                    maxLon = any(),
-                )
-            } returns listOf(mockk(relaxed = true))
-
-            val result = bankRepositoryImpl.getBanksWithinBound(bound = mockBound)
-
-            result.shouldBeInstanceOf<List<BankModel>>()
-        }
-    }
 
     @Test
     @DisplayName("When getAllBanks() is successful, should return the list of banks")
