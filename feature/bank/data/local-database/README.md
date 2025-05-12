@@ -22,10 +22,9 @@ Represents the data model for the `bank` table. Key fields include:
 ### 2. `BankDao`
 Defines the following database operations:
 - `insertAll`: Inserts or replaces a list of `BankEntity` records.
-- `getBanksWithinBound`: Retrieves banks within a specified geographical boundary.
 - `getDistinctBankNames`: Fetches distinct bank names for a given language.
 - `getDistricts`: Fetches distinct districts for a given language.
-- `getAll`: Retrieves all bank records.
+- `getBanksWithQuery`: Fetches banks based on a search query.
 
 ### 3. `BankDatabase`
 - Configures the Room database with the `BankEntity` table.
