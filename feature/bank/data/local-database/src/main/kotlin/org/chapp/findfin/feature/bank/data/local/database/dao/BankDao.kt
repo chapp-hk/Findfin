@@ -19,9 +19,6 @@ internal interface BankDao {
     @Query("SELECT DISTINCT district FROM bank WHERE language = :language ORDER BY district")
     suspend fun getDistricts(language: String): List<String>
 
-    @Query("SELECT * FROM bank")
-    suspend fun getAll(): List<BankEntity>
-
     @RawQuery
     suspend fun getBanksWithQuery(query: SupportSQLiteQuery): List<BankEntity>
 }

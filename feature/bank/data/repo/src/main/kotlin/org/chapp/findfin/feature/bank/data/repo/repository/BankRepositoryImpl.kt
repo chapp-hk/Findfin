@@ -68,15 +68,6 @@ internal class BankRepositoryImpl @Inject constructor(
         return bankLocalDataSource.getAllBanks(language = localeProviderManager.getCurrentLocaleTag())
     }
 
-    @Deprecated("Use getBanksByParameters() instead")
-    override suspend fun getAll(): List<BankModel> {
-        return bankLocalDataSource
-            .getAll()
-            .map {
-                it.toBankModel()
-            }
-    }
-
     override suspend fun getBanksByParameters(
         name: String?,
         type: BankType?,

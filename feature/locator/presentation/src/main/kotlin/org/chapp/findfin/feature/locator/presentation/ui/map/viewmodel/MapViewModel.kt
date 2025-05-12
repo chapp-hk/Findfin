@@ -18,7 +18,7 @@ internal class MapViewModel @Inject constructor(
     val uiState: StateFlow<List<MapMarker>> =
         flow {
             val mapper = BankLocationModelMapper()
-            emit(bankRepository.getAll().map(mapper::toMapMarker))
+            emit(bankRepository.getBanksByParameters().map(mapper::toMapMarker))
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),

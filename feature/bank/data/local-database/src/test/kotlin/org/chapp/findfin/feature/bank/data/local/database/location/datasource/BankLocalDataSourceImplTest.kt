@@ -13,7 +13,6 @@ import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.feature.bank.data.local.database.dao.BankDao
 import org.chapp.findfin.feature.bank.data.local.database.datasource.BankLocalDataSourceImpl
 import org.chapp.findfin.feature.bank.data.local.database.model.BankEntity
-import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankLocal
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtensionContext
@@ -99,61 +98,6 @@ class BankLocalDataSourceImplTest {
             val result = locatorLocalDataSourceImpl.getAllBanks(language = "zh")
 
             coVerify { bankDao.getDistinctBankNames(language = "zh") }
-
-            result shouldBe emptyList()
-        }
-
-    @Test
-    @DisplayName("When invoke getAll() successfully, should return the list of LocatorLocal")
-    fun testGetAllSuccess() =
-        runTest(testDispatcher) {
-            coEvery { bankDao.getAll() } returns
-                listOf(
-                    BankEntity(
-                        type = "bank",
-                        language = "en",
-                        district = "mock district",
-                        bankName = "mock bank name",
-                        typeName = "mock type name",
-                        address = "mock address",
-                        serviceHours = "mock service hours",
-                        latitude = 0.0,
-                        longitude = 0.0,
-                    ),
-                )
-
-            val result = locatorLocalDataSourceImpl.getAll()
-
-            coVerify { bankDao.getAll() }
-
-            result shouldBe
-                listOf(
-                    BankLocal(
-                        type = "bank",
-                        language = "en",
-                        district = "mock district",
-                        bankName = "mock bank name",
-                        typeName = "mock type name",
-                        address = "mock address",
-                        serviceHours = "mock service hours",
-                        latitude = 0.0,
-                        longitude = 0.0,
-                    ),
-                )
-        }
-
-    @Test
-    @DisplayName(
-        "When invoke getAll() and BankDao.getAll() throws an exception, " +
-            "should catch the exception and return an empty list",
-    )
-    fun testGetAllErrorHandling() =
-        runTest(testDispatcher) {
-            coEvery { bankDao.getAll() } throws Exception("Test exception")
-
-            val result = locatorLocalDataSourceImpl.getAll()
-
-            coVerify { bankDao.getAll() }
 
             result shouldBe emptyList()
         }

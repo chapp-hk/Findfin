@@ -18,7 +18,6 @@ import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.TypePath
 import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
 import org.chapp.findfin.feature.bank.data.repo.mapper.toBankModel
 import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
-import org.chapp.findfin.feature.bank.data.repo.model.BankModel
 import org.chapp.findfin.feature.bank.data.repo.model.BankType
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -212,46 +211,6 @@ class BankRepositoryImplTest {
             coVerify { bankLocalDataSource.getAllBanks(language = any()) }
 
             result shouldBe expectedBanks
-        }
-
-    @Test
-    @DisplayName("When getAll() is successful, should return the list of BankLocationModel")
-    fun testGetAllSuccess() =
-        runTest(StandardTestDispatcher()) {
-            val mockLocalData =
-                listOf(
-                    BankLocal(
-                        language = "en",
-                        type = "BRANCH",
-                        district = "Kowloon",
-                        bankName = "Bank A",
-                        typeName = "Branch",
-                        address = "Some address",
-                        serviceHours = "9:00 - 17:00",
-                        latitude = 22.3193,
-                        longitude = 114.1694,
-                    ),
-                )
-
-            coEvery { bankLocalDataSource.getAll() } returns mockLocalData
-
-            val result = bankRepositoryImpl.getAll()
-
-            coVerify { bankLocalDataSource.getAll() }
-
-            result shouldBe
-                listOf(
-                    BankModel(
-                        type = "BRANCH",
-                        district = "Kowloon",
-                        bankName = "Bank A",
-                        typeName = "Branch",
-                        address = "Some address",
-                        serviceHours = "9:00 - 17:00",
-                        latitude = 22.3193,
-                        longitude = 114.1694,
-                    ),
-                )
         }
 
     @Test

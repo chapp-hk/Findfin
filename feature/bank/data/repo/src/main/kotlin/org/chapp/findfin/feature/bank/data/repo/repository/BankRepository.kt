@@ -15,9 +15,6 @@ interface BankRepository {
 
     suspend fun getAllBanks(): List<String>
 
-    @Deprecated("Use getBanksByParameters() instead")
-    suspend fun getAll(): List<BankModel>
-
     suspend fun getBanksByParameters(
         name: String? = null,
         type: BankType? = null,

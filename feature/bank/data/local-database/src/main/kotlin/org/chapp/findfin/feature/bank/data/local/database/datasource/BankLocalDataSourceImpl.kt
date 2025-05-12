@@ -49,23 +49,6 @@ internal class BankLocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getAll(): List<BankLocal> {
-        return withContext(ioDispatcher) {
-            runCatching {
-                bankDao
-                    .getAll()
-                    .map(bankLocalMapper::toLocalModel)
-            }.getOrElse { error ->
-                appLogger.debug(
-                    tag = javaClass.simpleName,
-                    message = "getAll() failed",
-                    throwable = error,
-                )
-                emptyList()
-            }
-        }
-    }
-
     override suspend fun getBanksWithParameters(
         language: String,
         bankName: String?,
