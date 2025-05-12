@@ -1,5 +1,6 @@
 package org.chapp.findfin.buildlogic.plugin.hilt
 
+import com.android.build.api.dsl.CommonExtension
 import org.chapp.findfin.buildlogic.util.libs
 import com.android.build.api.variant.AndroidComponentsExtension
 import org.gradle.api.Plugin
@@ -12,7 +13,8 @@ class HiltAndroidTestPlugin : Plugin<Project> {
             extensions
                 .getByType(AndroidComponentsExtension::class.java)
                 .finalizeDsl { extension ->
-                    extension.defaultConfig {
+                    val ext = extension as CommonExtension<*, *, *, *, *, *>
+                    ext.defaultConfig {
                         testInstrumentationRunner = "org.chapp.findfin.testing.instrument.AppTestRunner"
                     }
                 }

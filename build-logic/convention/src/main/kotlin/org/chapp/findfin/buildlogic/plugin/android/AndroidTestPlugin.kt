@@ -1,5 +1,6 @@
 package org.chapp.findfin.buildlogic.plugin.android
 
+import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.variant.AndroidComponentsExtension
 import org.chapp.findfin.buildlogic.util.libs
 import org.gradle.api.Plugin
@@ -12,18 +13,19 @@ class AndroidTestPlugin : Plugin<Project> {
 
         @Suppress("UnstableApiUsage")
         androidComponents.finalizeDsl { extension ->
-            extension.defaultConfig {
+            val ext = extension as CommonExtension<*, *, *, *, *, *>
+            ext.defaultConfig {
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
             }
 
-            extension.buildTypes {
+            ext.buildTypes {
                 getByName("debug") {
                     it.enableUnitTestCoverage = true
                     it.enableAndroidTestCoverage = true
                 }
             }
 
-            extension.testOptions {
+            ext.testOptions {
                 managedDevices {
                     localDevices.create("pixel8api34") {
                         // Use device profiles you typically see in Android Studio.
