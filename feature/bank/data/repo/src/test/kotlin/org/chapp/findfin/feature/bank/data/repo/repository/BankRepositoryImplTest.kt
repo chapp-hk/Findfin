@@ -12,6 +12,7 @@ import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.feature.bank.data.repo.datasource.local.datasource.BankLocalDataSource
 import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankLocal
+import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankQueryParameters
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.datasource.BankRemoteDataSource
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemoteResult
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.TypePath
@@ -216,24 +217,9 @@ class BankRepositoryImplTest {
     @Test
     fun `getBanksByParameters should return empty list when data source returns empty`() =
         runTest {
-            coEvery {
-                bankLocalDataSource.getBanksWithParameters(
-                    language = any(),
-                    bankName = any(),
-                    type = any(),
-                    minLat = any(),
-                    maxLat = any(),
-                    minLon = any(),
-                    maxLon = any(),
-                )
-            } returns emptyList()
-
-            val result = bankRepositoryImpl.getBanksByParameters(name = null, type = null, bound = null)
-
-            result shouldBe emptyList()
-            coVerify {
-                bankLocalDataSource.getBanksWithParameters(
-                    language = any(),
+            val expectedParams =
+                BankQueryParameters(
+                    language = "en",
                     bankName = null,
                     type = null,
                     minLat = null,
@@ -241,23 +227,35 @@ class BankRepositoryImplTest {
                     minLon = null,
                     maxLon = null,
                 )
-            }
+
+            coEvery {
+                bankLocalDataSource.getBanksWithParameters(params = any())
+            } returns emptyList()
+
+            val result =
+                bankRepositoryImpl.getBanksByParameters(name = null, type = null, bound = null)
+
+            result shouldBe emptyList()
+            coVerify { bankLocalDataSource.getBanksWithParameters(params = expectedParams) }
         }
 
     @Test
     fun `getBanksByParameters should return list when data source returns non-empty list`() =
         runTest {
             val mockBankLocal = mockk<BankLocal>(relaxed = true)
-            coEvery {
-                bankLocalDataSource.getBanksWithParameters(
-                    language = any(),
-                    bankName = any(),
-                    type = any(),
-                    minLat = any(),
-                    maxLat = any(),
-                    minLon = any(),
-                    maxLon = any(),
+            val expectedParams =
+                BankQueryParameters(
+                    language = "en",
+                    bankName = "Bank A",
+                    type = BankType.ATM.name,
+                    minLat = 1.0,
+                    maxLat = 2.0,
+                    minLon = 3.0,
+                    maxLon = 4.0,
                 )
+
+            coEvery {
+                bankLocalDataSource.getBanksWithParameters(params = any())
             } returns listOf(mockBankLocal)
 
             val result =
@@ -268,33 +266,26 @@ class BankRepositoryImplTest {
                 )
 
             result shouldBe listOf(mockBankLocal.toBankModel())
-            coVerify {
-                bankLocalDataSource.getBanksWithParameters(
-                    language = any(),
-                    bankName = "Bank A",
-                    type = BankType.ATM.name,
-                    minLat = 1.0,
-                    maxLat = 2.0,
-                    minLon = 3.0,
-                    maxLon = 4.0,
-                )
-            }
+            coVerify { bankLocalDataSource.getBanksWithParameters(params = expectedParams) }
         }
 
     @Test
     fun `getBanksByParameters should handle null name and type but non-null bound`() =
         runTest {
             val mockBankLocal = mockk<BankLocal>(relaxed = true)
-            coEvery {
-                bankLocalDataSource.getBanksWithParameters(
-                    language = any(),
-                    bankName = any(),
-                    type = any(),
-                    minLat = any(),
-                    maxLat = any(),
-                    minLon = any(),
-                    maxLon = any(),
+            val expectedParams =
+                BankQueryParameters(
+                    language = "en",
+                    bankName = null,
+                    type = null,
+                    minLat = 1.0,
+                    maxLat = 2.0,
+                    minLon = 3.0,
+                    maxLon = 4.0,
                 )
+
+            coEvery {
+                bankLocalDataSource.getBanksWithParameters(params = any())
             } returns listOf(mockBankLocal)
 
             val result =
@@ -305,33 +296,26 @@ class BankRepositoryImplTest {
                 )
 
             result shouldBe listOf(mockBankLocal.toBankModel())
-            coVerify {
-                bankLocalDataSource.getBanksWithParameters(
-                    language = any(),
-                    bankName = null,
-                    type = null,
-                    minLat = 1.0,
-                    maxLat = 2.0,
-                    minLon = 3.0,
-                    maxLon = 4.0,
-                )
-            }
+            coVerify { bankLocalDataSource.getBanksWithParameters(params = expectedParams) }
         }
 
     @Test
     fun `getBanksByParameters should handle null bound but non-null name and type`() =
         runTest {
             val mockBankLocal = mockk<BankLocal>(relaxed = true)
-            coEvery {
-                bankLocalDataSource.getBanksWithParameters(
-                    language = any(),
-                    bankName = any(),
-                    type = any(),
-                    minLat = any(),
-                    maxLat = any(),
-                    minLon = any(),
-                    maxLon = any(),
+            val expectedParams =
+                BankQueryParameters(
+                    language = "en",
+                    bankName = "Bank A",
+                    type = BankType.BRANCH.name,
+                    minLat = null,
+                    maxLat = null,
+                    minLon = null,
+                    maxLon = null,
                 )
+
+            coEvery {
+                bankLocalDataSource.getBanksWithParameters(params = any())
             } returns listOf(mockBankLocal)
 
             val result =
@@ -342,16 +326,6 @@ class BankRepositoryImplTest {
                 )
 
             result shouldBe listOf(mockBankLocal.toBankModel())
-            coVerify {
-                bankLocalDataSource.getBanksWithParameters(
-                    language = any(),
-                    bankName = "Bank A",
-                    type = BankType.BRANCH.name,
-                    minLat = null,
-                    maxLat = null,
-                    minLon = null,
-                    maxLon = null,
-                )
-            }
+            coVerify { bankLocalDataSource.getBanksWithParameters(params = expectedParams) }
         }
 }

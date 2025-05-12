@@ -2,6 +2,7 @@ package org.chapp.findfin.feature.bank.data.repo.repository
 
 import org.chapp.findfin.core.locale.api.LocaleProviderManager
 import org.chapp.findfin.feature.bank.data.repo.datasource.local.datasource.BankLocalDataSource
+import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankQueryParameters
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.datasource.BankRemoteDataSource
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemoteResult
 import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
@@ -73,16 +74,17 @@ internal class BankRepositoryImpl @Inject constructor(
         type: BankType?,
         bound: BankLocationBound?,
     ): List<BankModel> {
-        return bankLocalDataSource.getBanksWithParameters(
-            language = localeProviderManager.getCurrentLocaleTag().toLocalLanguage(),
-            bankName = name,
-            type = type?.name,
-            minLat = bound?.minLat,
-            maxLat = bound?.maxLat,
-            minLon = bound?.minLong,
-            maxLon = bound?.maxLong,
-        ).map {
-            it.toBankModel()
-        }
+        val params =
+            BankQueryParameters(
+                language = localeProviderManager.getCurrentLocaleTag().toLocalLanguage(),
+                bankName = name,
+                type = type?.name,
+                minLat = bound?.minLat,
+                maxLat = bound?.maxLat,
+                minLon = bound?.minLong,
+                maxLon = bound?.maxLong,
+            )
+
+        return bankLocalDataSource.getBanksWithParameters(params).map { it.toBankModel() }
     }
 }

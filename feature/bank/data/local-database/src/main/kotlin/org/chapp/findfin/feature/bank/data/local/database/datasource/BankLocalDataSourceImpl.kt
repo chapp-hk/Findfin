@@ -9,6 +9,7 @@ import org.chapp.findfin.feature.bank.data.local.database.dao.BankDao
 import org.chapp.findfin.feature.bank.data.local.database.mapper.BankLocalMapper
 import org.chapp.findfin.feature.bank.data.repo.datasource.local.datasource.BankLocalDataSource
 import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankLocal
+import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankQueryParameters
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject
@@ -49,15 +50,7 @@ internal class BankLocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getBanksWithParameters(
-        language: String,
-        bankName: String?,
-        type: String?,
-        minLat: Double?,
-        maxLat: Double?,
-        minLon: Double?,
-        maxLon: Double?,
-    ): List<BankLocal> {
+    override suspend fun getBanksWithParameters(params: BankQueryParameters): List<BankLocal> {
         return withContext(ioDispatcher) {
             /**
              * The WHERE 1=1 in the query serves as a placeholder to simplify the dynamic
@@ -70,26 +63,25 @@ internal class BankLocalDataSourceImpl @Inject constructor(
             val args = mutableListOf<Any>()
 
             queryBuilder.append(" AND language = ?")
-            args.add(language)
+            args.add(params.language)
 
-            type?.let {
+            params.type?.let {
                 queryBuilder.append(" AND type = ?")
                 args.add(it)
             }
-            bankName?.let {
+            params.bankName?.let {
                 queryBuilder.append(" AND bank_name = ?")
                 args.add(it)
             }
-            if (minLat != null && maxLat != null) {
+            if (params.minLat != null && params.maxLat != null) {
                 queryBuilder.append(" AND latitude BETWEEN ? AND ?")
-                args.add(minLat)
-                args.add(maxLat)
+                args.add(params.minLat!!)
+                args.add(params.maxLat!!)
             }
-
-            if (minLon != null && maxLon != null) {
+            if (params.minLon != null && params.maxLon != null) {
                 queryBuilder.append(" AND longitude BETWEEN ? AND ?")
-                args.add(minLon)
-                args.add(maxLon)
+                args.add(params.minLon!!)
+                args.add(params.maxLon!!)
             }
 
             runCatching {

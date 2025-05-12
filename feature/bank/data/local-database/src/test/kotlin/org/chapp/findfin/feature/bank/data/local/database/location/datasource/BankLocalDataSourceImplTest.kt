@@ -13,6 +13,7 @@ import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.feature.bank.data.local.database.dao.BankDao
 import org.chapp.findfin.feature.bank.data.local.database.datasource.BankLocalDataSourceImpl
 import org.chapp.findfin.feature.bank.data.local.database.model.BankEntity
+import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankQueryParameters
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtensionContext
@@ -106,28 +107,14 @@ class BankLocalDataSourceImplTest {
     @ArgumentsSource(GetBanksQueryParametersArgumentProvider::class)
     @DisplayName("Test getBanksWithParameters() with various inputs")
     fun testGetBanksWithParameters(
-        language: String,
-        bankName: String?,
-        type: String?,
-        minLat: Double?,
-        maxLat: Double?,
-        minLon: Double?,
-        maxLon: Double?,
+        params: BankQueryParameters,
         expectedSql: String,
         expectedArgCount: Int,
     ) = runTest(testDispatcher) {
         val querySlot = slot<SupportSQLiteQuery>()
         coEvery { bankDao.getBanksWithQuery(capture(querySlot)) } returns emptyList()
 
-        locatorLocalDataSourceImpl.getBanksWithParameters(
-            language = language,
-            bankName = bankName,
-            type = type,
-            minLat = minLat,
-            maxLat = maxLat,
-            minLon = minLon,
-            maxLon = maxLon,
-        )
+        locatorLocalDataSourceImpl.getBanksWithParameters(params)
 
         querySlot.captured.sql shouldBe expectedSql
         querySlot.captured.argCount shouldBe expectedArgCount
@@ -138,32 +125,54 @@ class BankLocalDataSourceImplTest {
         override fun provideArguments(context: ExtensionContext?): Stream<Arguments> =
             Stream.of(
                 Arguments.of(
-                    "en", null, null, null, null, null, null,
+                    BankQueryParameters(language = "en"),
                     "SELECT * FROM bank WHERE 1=1 AND language = ?",
                     1,
                 ),
                 Arguments.of(
-                    "en", "Bank A", null, null, null, null, null,
+                    BankQueryParameters(
+                        language = "en",
+                        bankName = "Bank A",
+                    ),
                     "SELECT * FROM bank WHERE 1=1 AND language = ? AND bank_name = ?",
                     2,
                 ),
                 Arguments.of(
-                    "en", null, "type1", null, null, null, null,
+                    BankQueryParameters(
+                        language = "en",
+                        type = "type1",
+                    ),
                     "SELECT * FROM bank WHERE 1=1 AND language = ? AND type = ?",
                     2,
                 ),
                 Arguments.of(
-                    "en", null, null, 10.0, 20.0, null, null,
+                    BankQueryParameters(
+                        language = "en",
+                        minLat = 10.0,
+                        maxLat = 20.0,
+                    ),
                     "SELECT * FROM bank WHERE 1=1 AND language = ? AND latitude BETWEEN ? AND ?",
                     3,
                 ),
                 Arguments.of(
-                    "en", null, null, null, null, 30.0, 40.0,
+                    BankQueryParameters(
+                        language = "en",
+                        minLon = 30.0,
+                        maxLon = 40.0,
+                    ),
                     "SELECT * FROM bank WHERE 1=1 AND language = ? AND longitude BETWEEN ? AND ?",
                     3,
                 ),
                 Arguments.of(
-                    "en", "Bank A", "type1", 10.0, 20.0, 30.0, 40.0,
+                    BankQueryParameters(
+                        language = "en",
+                        bankName = "Bank A",
+                        type = "type1",
+                        minLat = 10.0,
+                        maxLat = 20.0,
+                        minLon = 30.0,
+                        maxLon = 40.0,
+                    ),
                     "SELECT * FROM bank WHERE 1=1 " +
                         "AND language = ? " +
                         "AND type = ? AND " +
