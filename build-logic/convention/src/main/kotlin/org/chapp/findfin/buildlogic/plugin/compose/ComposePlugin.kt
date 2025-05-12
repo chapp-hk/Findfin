@@ -1,5 +1,6 @@
 package org.chapp.findfin.buildlogic.plugin.compose
 
+import com.android.build.api.dsl.CommonExtension
 import org.chapp.findfin.buildlogic.util.libs
 import com.android.build.api.variant.AndroidComponentsExtension
 import org.gradle.api.Plugin
@@ -13,10 +14,11 @@ class ComposePlugin : Plugin<Project> {
     override fun apply(project: Project) {
         val androidComponents = project.extensions.getByType(AndroidComponentsExtension::class.java)
         androidComponents.finalizeDsl { extension ->
+            val ext = extension as CommonExtension<*, *, *, *, *, *>
             with(project) {
                 pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
 
-                extension.buildFeatures {
+                ext.buildFeatures {
                     compose = true
                 }
 

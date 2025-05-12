@@ -17,8 +17,9 @@ class AndroidCommonPlugin : Plugin<Project> {
             .extensions
             .getByType(AndroidComponentsExtension::class.java)
             .finalizeDsl { extension ->
-                configureVersion(extension = extension)
-                configureBuiltTypes(extension = extension)
+                val ext = extension as CommonExtension<*, *, *, *, *, *>
+                configureVersion(extension = ext)
+                configureBuiltTypes(extension = ext)
             }
 
         project.dependencies {
