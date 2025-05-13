@@ -5,7 +5,7 @@ import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemo
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.TypePath
 import org.chapp.findfin.feature.bank.data.repo.model.BankModel
 
-fun BankRemote.toBankLocal(
+internal fun BankRemote.toBankLocal(
     language: String,
     type: TypePath,
 ): BankLocal {
@@ -22,7 +22,7 @@ fun BankRemote.toBankLocal(
     )
 }
 
-fun BankLocal.toBankModel(): BankModel {
+internal fun BankLocal.toBankModel(): BankModel {
     return BankModel(
         type = this.type,
         district = this.district,

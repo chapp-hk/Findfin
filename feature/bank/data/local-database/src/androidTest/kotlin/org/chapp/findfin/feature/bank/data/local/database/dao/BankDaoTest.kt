@@ -100,50 +100,9 @@ class BankDaoTest {
 
             database.bankDao.insertAll(list)
 
-            database.bankDao.getAll() shouldBe
-                listOf(
-                    BankEntity(
-                        id = 1,
-                        type = "ATM",
-                        language = "en",
-                        district = "Central and Western",
-                        bankName = "Bank of East Asia",
-                        typeName = "ATM",
-                        address = "10 Garden Road, Central, Hong Kong",
-                        serviceHours = "24 hours",
-                        latitude = 22.294630813707222,
-                        longitude = 114.22859313885354,
-                    ),
-                    BankEntity(
-                        id = 2,
-                        type = "ATM",
-                        language = "en",
-                        district = "Central and Western",
-                        bankName = "HSBC",
-                        typeName = "ATM",
-                        address = "1 Queen's Road Central, Hong Kong",
-                        serviceHours = "24 hours",
-                        latitude = 22.312641530083468,
-                        longitude = 114.24806027679244,
-                    ),
-                )
-        }
-    }
-
-    @Test
-    fun testGetBanksWithinBound() {
-        runTest(testDispatcher) {
-            val database = createDatabaseFromAsset()
-
-            database
-                .bankDao
-                .getBanksWithinBound(
-                    language = "en",
-                    minLat = 22.294630813707222,
-                    maxLat = 22.312641530083468,
-                    minLon = 114.22859313885354,
-                    maxLon = 114.24806027679244,
-                ).size shouldBe 38
+            database.query("SELECT * FROM bank", null).use {
+                it.count shouldBe 2
+            }
         }
     }
 
@@ -250,15 +209,6 @@ class BankDaoTest {
                     "離島區",
                     "黃大仙區",
                 )
-        }
-    }
-
-    @Test
-    fun testGetAll() {
-        runTest(testDispatcher) {
-            val database = createDatabaseFromAsset()
-
-            database.bankDao.getAll().size shouldBe 6190
         }
     }
 

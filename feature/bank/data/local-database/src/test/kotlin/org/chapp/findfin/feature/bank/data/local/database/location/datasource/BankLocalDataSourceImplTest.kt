@@ -1,5 +1,6 @@
 package org.chapp.findfin.feature.bank.data.local.database.location.datasource
 
+import androidx.sqlite.db.SupportSQLiteQuery
 import io.kotest.matchers.shouldBe
 import io.mockk.Runs
 import io.mockk.coEvery
@@ -12,9 +13,15 @@ import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.feature.bank.data.local.database.dao.BankDao
 import org.chapp.findfin.feature.bank.data.local.database.datasource.BankLocalDataSourceImpl
 import org.chapp.findfin.feature.bank.data.local.database.model.BankEntity
-import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankLocal
+import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankQueryParameters
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtensionContext
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.ArgumentsProvider
+import org.junit.jupiter.params.provider.ArgumentsSource
+import java.util.stream.Stream
 
 @DisplayName("BankLocalDataSourceImpl unit tests")
 class BankLocalDataSourceImplTest {
@@ -66,110 +73,6 @@ class BankLocalDataSourceImplTest {
         }
 
     @Test
-    @DisplayName(
-        "When invoke getLocatorsWithinBound() successfully, " +
-            "should return the list of LocatorLocal",
-    )
-    fun testGetBanksWithinBoundSuccess() =
-        runTest(testDispatcher) {
-            coEvery {
-                bankDao.getBanksWithinBound(
-                    language = any(),
-                    minLat = any(),
-                    maxLat = any(),
-                    minLon = any(),
-                    maxLon = any(),
-                )
-            } returns
-                listOf(
-                    BankEntity(
-                        type = "bank",
-                        language = "en",
-                        district = "mock district",
-                        bankName = "mock bank name",
-                        typeName = "mock type name",
-                        address = "mock address",
-                        serviceHours = "mock service hours",
-                        latitude = 0.0,
-                        longitude = 0.0,
-                    ),
-                )
-
-            val result =
-                locatorLocalDataSourceImpl.getBanksWithinBound(
-                    language = "en",
-                    minLat = 0.0,
-                    maxLat = 0.0,
-                    minLon = 0.0,
-                    maxLon = 0.0,
-                )
-
-            coVerify {
-                bankDao.getBanksWithinBound(
-                    language = "en",
-                    minLat = 0.0,
-                    maxLat = 0.0,
-                    minLon = 0.0,
-                    maxLon = 0.0,
-                )
-            }
-
-            result shouldBe
-                listOf(
-                    BankLocal(
-                        type = "bank",
-                        language = "en",
-                        district = "mock district",
-                        bankName = "mock bank name",
-                        typeName = "mock type name",
-                        address = "mock address",
-                        serviceHours = "mock service hours",
-                        latitude = 0.0,
-                        longitude = 0.0,
-                    ),
-                )
-        }
-
-    @Test
-    @DisplayName(
-        "When invoke getLocatorsWithinBound() and BankDao.getBanksWithinBound() throws an exception, " +
-            "should catch the exception and return an empty list",
-    )
-    fun testGetBanksWithinBoundErrorHandling() =
-        runTest(testDispatcher) {
-            coEvery {
-                bankDao.getBanksWithinBound(
-                    language = any(),
-                    minLat = any(),
-                    maxLat = any(),
-                    minLon = any(),
-                    maxLon = any(),
-                )
-            } throws Exception("Test exception")
-
-            val result =
-                locatorLocalDataSourceImpl.getBanksWithinBound(
-                    language = "en",
-                    minLat = 0.0,
-                    maxLat = 0.0,
-                    minLon = 0.0,
-                    maxLon = 0.0,
-                )
-
-            coVerify {
-                bankDao.getBanksWithinBound(
-                    language = "en",
-                    minLat = 0.0,
-                    maxLat = 0.0,
-                    minLon = 0.0,
-                    maxLon = 0.0,
-                )
-            }
-
-            result shouldBe emptyList()
-        }
-
-    @Test
     @DisplayName("When invoke getAllBanks() successfully, should return the list of banks")
     fun testGetAllBanksSuccess() =
         runTest(testDispatcher) {
@@ -200,58 +103,84 @@ class BankLocalDataSourceImplTest {
             result shouldBe emptyList()
         }
 
-    @Test
-    @DisplayName("When invoke getAll() successfully, should return the list of LocatorLocal")
-    fun testGetAllSuccess() =
-        runTest(testDispatcher) {
-            coEvery { bankDao.getAll() } returns
-                listOf(
-                    BankEntity(
-                        type = "bank",
+    @ParameterizedTest
+    @ArgumentsSource(GetBanksQueryParametersArgumentProvider::class)
+    @DisplayName("Test getBanksWithParameters() with various inputs")
+    fun testGetBanksWithParameters(
+        params: BankQueryParameters,
+        expectedSql: String,
+        expectedArgCount: Int,
+    ) = runTest(testDispatcher) {
+        val querySlot = slot<SupportSQLiteQuery>()
+        coEvery { bankDao.getBanksWithQuery(capture(querySlot)) } returns emptyList()
+
+        locatorLocalDataSourceImpl.getBanksWithParameters(params)
+
+        querySlot.captured.sql shouldBe expectedSql
+        querySlot.captured.argCount shouldBe expectedArgCount
+        coVerify { bankDao.getBanksWithQuery(querySlot.captured) }
+    }
+
+    private class GetBanksQueryParametersArgumentProvider : ArgumentsProvider {
+        override fun provideArguments(context: ExtensionContext?): Stream<Arguments> =
+            Stream.of(
+                Arguments.of(
+                    BankQueryParameters(language = "en"),
+                    "SELECT * FROM bank WHERE 1=1 AND language = ?",
+                    1,
+                ),
+                Arguments.of(
+                    BankQueryParameters(
                         language = "en",
-                        district = "mock district",
-                        bankName = "mock bank name",
-                        typeName = "mock type name",
-                        address = "mock address",
-                        serviceHours = "mock service hours",
-                        latitude = 0.0,
-                        longitude = 0.0,
+                        bankName = "Bank A",
                     ),
-                )
-
-            val result = locatorLocalDataSourceImpl.getAll()
-
-            coVerify { bankDao.getAll() }
-
-            result shouldBe
-                listOf(
-                    BankLocal(
-                        type = "bank",
+                    "SELECT * FROM bank WHERE 1=1 AND language = ? AND bank_name = ?",
+                    2,
+                ),
+                Arguments.of(
+                    BankQueryParameters(
                         language = "en",
-                        district = "mock district",
-                        bankName = "mock bank name",
-                        typeName = "mock type name",
-                        address = "mock address",
-                        serviceHours = "mock service hours",
-                        latitude = 0.0,
-                        longitude = 0.0,
+                        type = "type1",
                     ),
-                )
-        }
-
-    @Test
-    @DisplayName(
-        "When invoke getAll() and BankDao.getAll() throws an exception, " +
-            "should catch the exception and return an empty list",
-    )
-    fun testGetAllErrorHandling() =
-        runTest(testDispatcher) {
-            coEvery { bankDao.getAll() } throws Exception("Test exception")
-
-            val result = locatorLocalDataSourceImpl.getAll()
-
-            coVerify { bankDao.getAll() }
-
-            result shouldBe emptyList()
-        }
+                    "SELECT * FROM bank WHERE 1=1 AND language = ? AND type = ?",
+                    2,
+                ),
+                Arguments.of(
+                    BankQueryParameters(
+                        language = "en",
+                        minLat = 10.0,
+                        maxLat = 20.0,
+                    ),
+                    "SELECT * FROM bank WHERE 1=1 AND language = ? AND latitude BETWEEN ? AND ?",
+                    3,
+                ),
+                Arguments.of(
+                    BankQueryParameters(
+                        language = "en",
+                        minLon = 30.0,
+                        maxLon = 40.0,
+                    ),
+                    "SELECT * FROM bank WHERE 1=1 AND language = ? AND longitude BETWEEN ? AND ?",
+                    3,
+                ),
+                Arguments.of(
+                    BankQueryParameters(
+                        language = "en",
+                        bankName = "Bank A",
+                        type = "type1",
+                        minLat = 10.0,
+                        maxLat = 20.0,
+                        minLon = 30.0,
+                        maxLon = 40.0,
+                    ),
+                    "SELECT * FROM bank WHERE 1=1 " +
+                        "AND language = ? " +
+                        "AND type = ? AND " +
+                        "bank_name = ? " +
+                        "AND latitude BETWEEN ? AND ? " +
+                        "AND longitude BETWEEN ? AND ?",
+                    7,
+                ),
+            )
+    }
 }

@@ -37,7 +37,7 @@ internal class GetNearByServicesUseCaseImpl @Inject constructor(
                         )
 
                     val list =
-                        bankRepository.getBanksWithinBound(bound = boundingBox)
+                        bankRepository.getBanksByParameters(bound = boundingBox)
 
                     NearByResult.Location(list.map(mapper::clone))
                 }

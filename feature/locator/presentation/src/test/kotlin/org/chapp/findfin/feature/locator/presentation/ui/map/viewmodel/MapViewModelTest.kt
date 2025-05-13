@@ -23,7 +23,7 @@ class MapViewModelTest {
     fun `uiState should emit empty list when repository returns empty list`() {
         runTest {
             // Arrange
-            coEvery { bankRepository.getAll() } returns emptyList()
+            coEvery { bankRepository.getBanksByParameters() } returns emptyList()
             val viewModel = MapViewModel(bankRepository)
 
             viewModel.uiState.test {
@@ -50,7 +50,7 @@ class MapViewModelTest {
                         longitude = -74.0060,
                     ),
                 )
-            coEvery { bankRepository.getAll() } returns bankModels
+            coEvery { bankRepository.getBanksByParameters() } returns bankModels
             val viewModel = MapViewModel(bankRepository)
 
             viewModel.uiState.test {
