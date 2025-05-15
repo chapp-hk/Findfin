@@ -79,10 +79,10 @@ internal class BankRepositoryImpl @Inject constructor(
                 language = localeProviderManager.getCurrentLocaleTag().toLocalLanguage(),
                 bankName = name,
                 type = type?.name,
-                minLat = bound?.minLat,
-                maxLat = bound?.maxLat,
-                minLon = bound?.minLong,
-                maxLon = bound?.maxLong,
+                minLatitude = bound?.minLatitude,
+                maxLatitude = bound?.maxLatitude,
+                minLongitude = bound?.minLongitude,
+                maxLongitude = bound?.maxLongitude,
             )
 
         return bankLocalDataSource.getBanksWithParameters(params).map { it.toBankModel() }

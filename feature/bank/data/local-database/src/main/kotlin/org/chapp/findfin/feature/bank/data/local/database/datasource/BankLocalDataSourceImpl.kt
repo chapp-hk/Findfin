@@ -75,19 +75,19 @@ internal class BankLocalDataSourceImpl @Inject constructor(
             }
             if (
                 !listOf(
-                    params.minLat,
-                    params.maxLat,
-                    params.minLon,
-                    params.maxLon,
+                    params.minLatitude,
+                    params.maxLatitude,
+                    params.minLongitude,
+                    params.maxLongitude,
                 ).contains(null)
             ) {
                 queryBuilder.append(" AND latitude BETWEEN ? AND ?")
-                args.add(params.minLat!!)
-                args.add(params.maxLat!!)
+                args.add(params.minLatitude!!)
+                args.add(params.maxLatitude!!)
 
                 queryBuilder.append(" AND longitude BETWEEN ? AND ?")
-                args.add(params.minLon!!)
-                args.add(params.maxLon!!)
+                args.add(params.minLongitude!!)
+                args.add(params.maxLongitude!!)
             }
 
             runCatching {

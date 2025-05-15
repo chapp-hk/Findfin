@@ -222,10 +222,10 @@ class BankRepositoryImplTest {
                     language = "en",
                     bankName = null,
                     type = null,
-                    minLat = null,
-                    maxLat = null,
-                    minLon = null,
-                    maxLon = null,
+                    minLatitude = null,
+                    maxLatitude = null,
+                    minLongitude = null,
+                    maxLongitude = null,
                 )
 
             coEvery {
@@ -248,10 +248,10 @@ class BankRepositoryImplTest {
                     language = "en",
                     bankName = "Bank A",
                     type = BankType.ATM.name,
-                    minLat = 1.0,
-                    maxLat = 2.0,
-                    minLon = 3.0,
-                    maxLon = 4.0,
+                    minLatitude = 1.0,
+                    maxLatitude = 2.0,
+                    minLongitude = 3.0,
+                    maxLongitude = 4.0,
                 )
 
             coEvery {
@@ -262,7 +262,7 @@ class BankRepositoryImplTest {
                 bankRepositoryImpl.getBanksByParameters(
                     "Bank A",
                     BankType.ATM,
-                    BankLocationBound(minLat = 1.0, maxLat = 2.0, minLong = 3.0, maxLong = 4.0),
+                    BankLocationBound(minLatitude = 1.0, maxLatitude = 2.0, minLongitude = 3.0, maxLongitude = 4.0),
                 )
 
             result shouldBe listOf(mockBankLocal.toBankModel())
@@ -278,10 +278,10 @@ class BankRepositoryImplTest {
                     language = "en",
                     bankName = null,
                     type = null,
-                    minLat = 1.0,
-                    maxLat = 2.0,
-                    minLon = 3.0,
-                    maxLon = 4.0,
+                    minLatitude = 1.0,
+                    maxLatitude = 2.0,
+                    minLongitude = 3.0,
+                    maxLongitude = 4.0,
                 )
 
             coEvery {
@@ -308,10 +308,10 @@ class BankRepositoryImplTest {
                     language = "en",
                     bankName = "Bank A",
                     type = BankType.BRANCH.name,
-                    minLat = null,
-                    maxLat = null,
-                    minLon = null,
-                    maxLon = null,
+                    minLatitude = null,
+                    maxLatitude = null,
+                    minLongitude = null,
+                    maxLongitude = null,
                 )
 
             coEvery {
