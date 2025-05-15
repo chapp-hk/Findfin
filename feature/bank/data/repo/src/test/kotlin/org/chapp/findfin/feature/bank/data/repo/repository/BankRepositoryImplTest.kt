@@ -16,8 +16,8 @@ import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankQuery
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.datasource.BankRemoteDataSource
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemoteResult
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.TypePath
-import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
 import org.chapp.findfin.feature.bank.data.repo.mapper.toBankModel
+import org.chapp.findfin.feature.bank.data.repo.model.BankFetchResult
 import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
 import org.chapp.findfin.feature.bank.data.repo.model.BankType
 import org.junit.jupiter.api.BeforeEach

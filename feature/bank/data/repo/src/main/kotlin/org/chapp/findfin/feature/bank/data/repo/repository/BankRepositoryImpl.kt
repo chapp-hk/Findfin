@@ -5,12 +5,12 @@ import org.chapp.findfin.feature.bank.data.repo.datasource.local.datasource.Bank
 import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankQueryParameters
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.datasource.BankRemoteDataSource
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemoteResult
-import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
 import org.chapp.findfin.feature.bank.data.repo.mapper.toApiLang
 import org.chapp.findfin.feature.bank.data.repo.mapper.toBankLocal
 import org.chapp.findfin.feature.bank.data.repo.mapper.toBankModel
 import org.chapp.findfin.feature.bank.data.repo.mapper.toLocalLanguage
 import org.chapp.findfin.feature.bank.data.repo.mapper.toRemoteLocationPath
+import org.chapp.findfin.feature.bank.data.repo.model.BankFetchResult
 import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
 import org.chapp.findfin.feature.bank.data.repo.model.BankModel
 import org.chapp.findfin.feature.bank.data.repo.model.BankType
