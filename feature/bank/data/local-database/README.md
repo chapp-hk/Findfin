@@ -50,10 +50,10 @@ bankDao.insertAll(listOf(bankEntity1, bankEntity2))
 // Query banks within bounds
 val banks = bankDao.getBanksWithinBound(
     language = "en",
-    minLat = 10.0,
-    maxLat = 20.0,
-    minLon = 30.0,
-    maxLon = 40.0
+    minLatitude = 10.0,
+    maxLatitude = 20.0,
+    minLongitude = 30.0,
+    maxLongitude = 40.0
 )
 ```
 

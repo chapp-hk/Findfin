@@ -1,6 +1,6 @@
 package org.chapp.findfin.feature.bank.data.repo.repository
 
-import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
+import org.chapp.findfin.feature.bank.data.repo.model.BankFetchResult
 import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
 import org.chapp.findfin.feature.bank.data.repo.model.BankModel
 import org.chapp.findfin.feature.bank.data.repo.model.BankType

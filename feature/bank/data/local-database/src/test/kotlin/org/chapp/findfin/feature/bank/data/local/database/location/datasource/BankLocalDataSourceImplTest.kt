@@ -130,48 +130,44 @@ class BankLocalDataSourceImplTest {
                     1,
                 ),
                 Arguments.of(
-                    BankQueryParameters(
-                        language = "en",
-                        bankName = "Bank A",
-                    ),
+                    BankQueryParameters(language = "en", bankName = "Bank A"),
                     "SELECT * FROM bank WHERE 1=1 AND language = ? AND bank_name = ?",
                     2,
                 ),
                 Arguments.of(
-                    BankQueryParameters(
-                        language = "en",
-                        type = "type1",
-                    ),
+                    BankQueryParameters(language = "en", type = "type1"),
                     "SELECT * FROM bank WHERE 1=1 AND language = ? AND type = ?",
                     2,
                 ),
                 Arguments.of(
-                    BankQueryParameters(
-                        language = "en",
-                        minLat = 10.0,
-                        maxLat = 20.0,
-                    ),
-                    "SELECT * FROM bank WHERE 1=1 AND language = ? AND latitude BETWEEN ? AND ?",
-                    3,
+                    BankQueryParameters(language = "en", minLatitude = 10.0),
+                    "SELECT * FROM bank WHERE 1=1 AND language = ?",
+                    1,
+                ),
+                Arguments.of(
+                    BankQueryParameters(language = "en", minLatitude = 10.0, maxLatitude = 20.0),
+                    "SELECT * FROM bank WHERE 1=1 AND language = ?",
+                    1,
                 ),
                 Arguments.of(
                     BankQueryParameters(
                         language = "en",
-                        minLon = 30.0,
-                        maxLon = 40.0,
+                        minLatitude = 10.0,
+                        maxLatitude = 20.0,
+                        minLongitude = 30.0,
                     ),
-                    "SELECT * FROM bank WHERE 1=1 AND language = ? AND longitude BETWEEN ? AND ?",
-                    3,
+                    "SELECT * FROM bank WHERE 1=1 AND language = ?",
+                    1,
                 ),
                 Arguments.of(
                     BankQueryParameters(
                         language = "en",
                         bankName = "Bank A",
                         type = "type1",
-                        minLat = 10.0,
-                        maxLat = 20.0,
-                        minLon = 30.0,
-                        maxLon = 40.0,
+                        minLatitude = 10.0,
+                        maxLatitude = 20.0,
+                        minLongitude = 30.0,
+                        maxLongitude = 40.0,
                     ),
                     "SELECT * FROM bank WHERE 1=1 " +
                         "AND language = ? " +

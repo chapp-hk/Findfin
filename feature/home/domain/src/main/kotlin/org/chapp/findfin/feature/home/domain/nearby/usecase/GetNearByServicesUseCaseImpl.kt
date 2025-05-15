@@ -70,10 +70,10 @@ internal class GetNearByServicesUseCaseImpl @Inject constructor(
         val lonChange = BOUND_RADIUS / (KILOMETERS_PER_DEGREE * cos(Math.toRadians(latitude)))
 
         return BankLocationBound(
-            minLat = latitude - latChange,
-            maxLat = latitude + latChange,
-            minLong = longitude - lonChange,
-            maxLong = longitude + lonChange,
+            minLatitude = latitude - latChange,
+            maxLatitude = latitude + latChange,
+            minLongitude = longitude - lonChange,
+            maxLongitude = longitude + lonChange,
         )
     }
 

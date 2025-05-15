@@ -7,7 +7,7 @@ import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.core.locale.api.Language
 import org.chapp.findfin.core.locale.api.LocaleProviderManager
-import org.chapp.findfin.feature.bank.data.repo.mapper.BankFetchResult
+import org.chapp.findfin.feature.bank.data.repo.model.BankFetchResult
 import org.chapp.findfin.feature.bank.data.repo.model.BankType
 import org.chapp.findfin.feature.bank.data.repo.repository.BankRepository
 import org.junit.jupiter.api.DisplayName
