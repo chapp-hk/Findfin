@@ -81,3 +81,6 @@ include(":testing:google-play-services-tasks")
 include(":testing:instrument")
 include(":testing:network")
 include(":testing:util")
+
+// microbenchmark modules
+include(":microbenchmark")
