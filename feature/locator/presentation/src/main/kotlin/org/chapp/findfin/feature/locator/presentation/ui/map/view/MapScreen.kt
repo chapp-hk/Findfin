@@ -7,7 +7,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.chapp.findfin.core.map.AppMap
 import org.chapp.findfin.core.map.Position
-import org.chapp.findfin.core.map.rememberAppMapCameraState
 import org.chapp.findfin.feature.locator.presentation.ui.map.viewmodel.MapViewModel
 
 @Composable
@@ -15,17 +14,17 @@ internal fun MapScreen(
     modifier: Modifier = Modifier,
     mapViewModel: MapViewModel = hiltViewModel(),
 ) {
-    val mapCameraState =
-        rememberAppMapCameraState(
-            initPosition = Position(latitude = 22.3193, longitude = 114.1694),
-            initZoom = 10f,
-        )
-
     val mapMarkers by mapViewModel.uiState.collectAsStateWithLifecycle()
 
     AppMap(
         modifier = modifier,
-        cameraState = mapCameraState,
+        initPosition = Position(latitude = 22.3193, longitude = 114.1694),
+        initZoom = 10f,
         markers = mapMarkers,
+        onBoundsChange = { bounds ->
+            bounds?.let {
+                mapViewModel.getBanksWithinBound(it)
+            }
+        },
     )
 }
