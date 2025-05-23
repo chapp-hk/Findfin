@@ -22,20 +22,20 @@ import com.google.maps.android.compose.rememberCameraPositionState
  *
  * @param modifier The [Modifier] to be applied to the map.
  * @param isMyLocationEnabled Whether to enable the user's current location layer.
+ * @param markers The list of [MapMarker]s to display on the map.
  * @param initPosition The initial camera position as a [Position].
  * @param initZoom The initial zoom level for the camera.
- * @param markers The list of [MapMarker]s to display on the map.
  * @param onBoundsChange Callback invoked with the current [PositionBounds]
  * when the camera becomes idle or the map is loaded.
  */
 @OptIn(MapsComposeExperimentalApi::class, ExperimentalPermissionsApi::class)
 @Composable
 fun AppMap(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     isMyLocationEnabled: Boolean = false,
+    markers: List<MapMarker> = listOf(),
     initPosition: Position,
     initZoom: Float,
-    markers: List<MapMarker> = listOf(),
     onBoundsChange: (PositionBounds?) -> Unit,
 ) {
     val permissionState = rememberPermissionState(android.Manifest.permission.ACCESS_FINE_LOCATION)
