@@ -17,6 +17,7 @@ import org.chapp.findfin.core.location.ui.foundation.setting.helper.LocalSetting
 import org.chapp.findfin.core.location.ui.foundation.setting.helper.SettingHelper
 import org.chapp.findfin.core.location.ui.foundation.setting.state.LocationSettingStatus
 import org.chapp.findfin.feature.home.presentation.R
+import org.chapp.findfin.feature.home.presentation.navigation.HomeEvent
 import org.chapp.findfin.feature.home.presentation.ui.nearby.model.NearByItemUiModel
 import org.chapp.findfin.feature.home.presentation.ui.nearby.model.NearByUiState
 import org.chapp.findfin.feature.home.presentation.ui.nearby.viewmodel.NearByViewModel
@@ -45,7 +46,11 @@ internal class HomeContainerContentTest {
         // Start the HomeContainerContent composable
         composeTestRule.setContent {
             HomeContainerContent(
-                onSearch = onSearch,
+                homeEvent =
+                    HomeEvent(
+                        onRequestAuth = {},
+                        onSearch = onSearch,
+                    ),
             )
         }
 
@@ -69,7 +74,11 @@ internal class HomeContainerContentTest {
         composeTestRule.setContent {
             CompositionLocalProvider(LocalSettingHelper provides settingHelper) {
                 HomeContainerContent(
-                    onSearch = {},
+                    homeEvent =
+                        HomeEvent(
+                            onRequestAuth = {},
+                            onSearch = {},
+                        ),
                 )
             }
         }
@@ -91,7 +100,11 @@ internal class HomeContainerContentTest {
             CompositionLocalProvider(LocalSettingHelper provides settingHelper) {
                 HomeContainerContent(
                     nearByViewModel = nearByViewModel,
-                    onSearch = {},
+                    homeEvent =
+                        HomeEvent(
+                            onRequestAuth = {},
+                            onSearch = {},
+                        ),
                 )
             }
         }
@@ -113,7 +126,11 @@ internal class HomeContainerContentTest {
             CompositionLocalProvider(LocalSettingHelper provides settingHelper) {
                 HomeContainerContent(
                     nearByViewModel = nearByViewModel,
-                    onSearch = {},
+                    homeEvent =
+                        HomeEvent(
+                            onRequestAuth = {},
+                            onSearch = {},
+                        ),
                 )
             }
         }
@@ -133,7 +150,11 @@ internal class HomeContainerContentTest {
         composeTestRule.setContent {
             HomeContainerContent(
                 nearByViewModel = nearByViewModel,
-                onSearch = {},
+                homeEvent =
+                    HomeEvent(
+                        onRequestAuth = {},
+                        onSearch = {},
+                    ),
             )
         }
 
@@ -153,7 +174,11 @@ internal class HomeContainerContentTest {
         composeTestRule.setContent {
             HomeContainerContent(
                 nearByViewModel = nearByViewModel,
-                onSearch = {},
+                homeEvent =
+                    HomeEvent(
+                        onRequestAuth = {},
+                        onSearch = {},
+                    ),
             )
         }
 

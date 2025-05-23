@@ -51,17 +51,17 @@ internal fun Finding(
         ) {
             ButtonWithImageAndTitle(
                 modifier = Modifier.weight(1f),
-                imageResourceId = R.drawable.home_img_find_bank,
-                titleResourceId = R.string.home_label_find_your_bank,
-                contentDescription = stringResource(id = R.string.home_label_find_your_bank),
+                imageResourceId = R.drawable.home_img_find_branch,
+                titleResourceId = R.string.home_label_find_branches,
+                contentDescription = stringResource(id = R.string.home_label_find_branches),
                 onClick = onFindYourBank,
             )
 
             ButtonWithImageAndTitle(
                 modifier = Modifier.weight(1f),
                 imageResourceId = R.drawable.home_img_find_atm,
-                titleResourceId = R.string.home_label_find_bank_or_atms,
-                contentDescription = stringResource(id = R.string.home_label_find_bank_or_atms),
+                titleResourceId = R.string.home_label_find_atms,
+                contentDescription = stringResource(id = R.string.home_label_find_atms),
                 onClick = onFindBankOrAtms,
             )
         }

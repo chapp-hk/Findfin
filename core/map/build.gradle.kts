@@ -17,6 +17,14 @@ android {
     buildFeatures {
         buildConfig = true
     }
+
+    packaging {
+        resources.excludes +=
+            setOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+            )
+    }
 }
 
 dependencies {
@@ -27,9 +35,11 @@ dependencies {
     implementation(libs.accompanist.permissions)
 
     androidTestImplementation(libs.kotest.assertions.core)
+    androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    androidTestImplementation(projects.core.design.uiFoundation)
 }
 
 secrets {

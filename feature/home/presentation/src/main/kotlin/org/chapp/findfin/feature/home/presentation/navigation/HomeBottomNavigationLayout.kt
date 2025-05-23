@@ -32,11 +32,14 @@ fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
     ) {
         composable<HomeBottomTabDestination> {
             HomeContainer(
-                onRequestAuth = onRequestAuth,
-                onSearch = { searchKeyword ->
-                    val destination = MapBottomTabDestination(searchKeyword = searchKeyword)
-                    bottomNavController.navigateToBottomTab(destination)
-                },
+                homeEvent =
+                    HomeEvent(
+                        onRequestAuth = onRequestAuth,
+                        onSearch = { searchKeyword ->
+                            val destination = MapBottomTabDestination(searchKeyword = searchKeyword)
+                            bottomNavController.navigateToBottomTab(destination)
+                        },
+                    ),
             )
         }
 

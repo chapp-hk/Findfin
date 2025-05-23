@@ -1,6 +1,7 @@
 package org.chapp.findfin.core.map
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -17,25 +18,27 @@ import com.google.maps.android.compose.clustering.Clustering
 import com.google.maps.android.compose.rememberCameraPositionState
 
 /**
- * Composable function that displays a Google Map with clustering support.
+ * Displays a Google Map with optional clustering and camera state management.
  *
- * @param modifier Modifier to be applied to the map.
- * @param isMyLocationEnabled Boolean flag to enable or disable the My Location layer.
- * @param cameraState State object that holds the camera position and zoom level.
- * @param markers List of markers to be displayed on the map.
- * @param onMapLoaded Callback function to be invoked when the map is loaded.
+ * @param modifier The [Modifier] to be applied to the map.
+ * @param isMyLocationEnabled Whether to enable the user's current location layer.
+ * @param markers The list of [MapMarker]s to display on the map.
+ * @param initPosition The initial camera position as a [Position].
+ * @param initZoom The initial zoom level for the camera.
+ * @param onBoundsChange Callback invoked with the current [PositionBounds]
+ * when the camera becomes idle or the map is loaded.
  */
 @OptIn(MapsComposeExperimentalApi::class, ExperimentalPermissionsApi::class)
 @Composable
 fun AppMap(
     modifier: Modifier = Modifier,
     isMyLocationEnabled: Boolean = false,
-    cameraState: AppMapCameraState = rememberAppMapCameraState(),
     markers: List<MapMarker> = listOf(),
-    onMapLoaded: () -> Unit = {},
+    initPosition: Position,
+    initZoom: Float,
+    onBoundsChange: (PositionBounds?) -> Unit,
 ) {
     val permissionState = rememberPermissionState(android.Manifest.permission.ACCESS_FINE_LOCATION)
-
     val properties by remember {
         derivedStateOf {
             MapProperties(
@@ -48,16 +51,38 @@ fun AppMap(
         rememberCameraPositionState {
             position =
                 CameraPosition.fromLatLngZoom(
-                    LatLng(cameraState.position.latitude, cameraState.position.longitude),
-                    cameraState.zoom,
+                    LatLng(initPosition.latitude, initPosition.longitude),
+                    initZoom,
                 )
         }
+
+    LaunchedEffect(cameraPositionState.isMoving) {
+        if (!cameraPositionState.isMoving) {
+            cameraPositionState.projection?.visibleRegion?.latLngBounds?.let {
+                val bounds =
+                    PositionBounds(
+                        southwest = Position(it.southwest.latitude, it.southwest.longitude),
+                        northeast = Position(it.northeast.latitude, it.northeast.longitude),
+                    )
+                onBoundsChange(bounds)
+            }
+        }
+    }
 
     GoogleMap(
         modifier = modifier,
         cameraPositionState = cameraPositionState,
         properties = properties,
-        onMapLoaded = onMapLoaded,
+        onMapLoaded = {
+            cameraPositionState.projection?.visibleRegion?.latLngBounds?.let {
+                val bounds =
+                    PositionBounds(
+                        southwest = Position(it.southwest.latitude, it.southwest.longitude),
+                        northeast = Position(it.northeast.latitude, it.northeast.longitude),
+                    )
+                onBoundsChange(bounds)
+            }
+        },
     ) {
         Clustering(items = markers)
     }

@@ -7,6 +7,8 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.core.map.MapMarker
+import org.chapp.findfin.core.map.Position
+import org.chapp.findfin.core.map.PositionBounds
 import org.chapp.findfin.feature.bank.data.repo.model.BankModel
 import org.chapp.findfin.feature.bank.data.repo.repository.BankRepository
 import org.chapp.findfin.testing.extension.MainDispatcherExtension
@@ -19,44 +21,28 @@ import org.junit.jupiter.api.extension.ExtendWith
 class MapViewModelTest {
     private val bankRepository = mockk<BankRepository>()
 
-    @Test
-    fun `uiState should emit empty list when repository returns empty list`() {
-        runTest {
-            // Arrange
-            coEvery { bankRepository.getBanksByParameters() } returns emptyList()
-            val viewModel = MapViewModel(bankRepository)
-
-            viewModel.uiState.test {
-                awaitItem() shouldBe emptyList()
-                cancelAndConsumeRemainingEvents() shouldBe emptyList()
-            }
-        }
-    }
+    private val mapViewModel = MapViewModel(bankRepository = bankRepository)
 
     @Test
-    fun `uiState should emit mapped list when repository returns data`() {
+    fun `getBanksWithinBound emits mapped markers`() {
         runTest {
-            // Arrange
-            val bankModels =
-                listOf(
-                    BankModel(
-                        type = "type",
-                        district = "district",
-                        bankName = "bankName",
-                        typeName = "typeName",
-                        address = "New York, NY",
-                        serviceHours = "serviceHours",
-                        latitude = 40.7128,
-                        longitude = -74.0060,
-                    ),
+            coEvery { bankRepository.getBanksByParameters(bound = any()) } returns
+                listOf(mockk<BankModel>(relaxed = true))
+
+            val bound =
+                PositionBounds(
+                    northeast = Position(latitude = 1.0, longitude = 2.0),
+                    southwest = Position(latitude = 0.0, longitude = 1.0),
                 )
-            coEvery { bankRepository.getBanksByParameters() } returns bankModels
-            val viewModel = MapViewModel(bankRepository)
+            mapViewModel.getBanksWithinBound(bound)
 
-            viewModel.uiState.test {
+            mapViewModel.uiState.test {
                 awaitItem() shouldBe emptyList()
-                awaitItem().shouldBeInstanceOf<List<MapMarker>>().size shouldBe 1
-                cancelAndConsumeRemainingEvents()
+                awaitItem().let {
+                    it.shouldBeInstanceOf<List<MapMarker>>()
+                    it.size shouldBe 1
+                }
+                ensureAllEventsConsumed()
             }
         }
     }
