@@ -1,6 +1,11 @@
 package org.chapp.findfin.feature.home.presentation.navigation
 
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -22,6 +27,7 @@ import org.chapp.findfin.feature.setting.presentation.navigation.graph.SettingDe
 @Composable
 fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
     val bottomNavController = rememberNavController()
+    val topPadding = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
 
     BottomNavigationLayout(
         navController = bottomNavController,
@@ -32,6 +38,7 @@ fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
     ) {
         composable<HomeBottomTabDestination> {
             HomeContainer(
+                modifier = Modifier.padding(top = topPadding),
                 homeEvent =
                     HomeEvent(
                         onRequestAuth = onRequestAuth,
@@ -44,15 +51,15 @@ fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
         }
 
         composable<BankBottomTabDestination> {
-            BankDestination()
+            BankDestination(Modifier.padding(top = topPadding))
         }
 
         composable<MapBottomTabDestination> {
-            MapDestination()
+            MapDestination(modifier = Modifier)
         }
 
         composable<SettingBottomTabDestination> {
-            SettingDestination()
+            SettingDestination(modifier = Modifier.padding(top = topPadding))
         }
     }
 }

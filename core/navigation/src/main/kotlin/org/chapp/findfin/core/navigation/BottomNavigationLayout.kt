@@ -2,9 +2,8 @@ package org.chapp.findfin.core.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -52,8 +51,8 @@ fun BottomNavigationLayout(
         },
     ) { innerPadding ->
         BottomNavigationContent(
+            modifier = Modifier.consumeWindowInsets(innerPadding),
             navController = navController,
-            paddingValues = innerPadding,
             bottomTabItems = bottomTabItems,
             navGraphBuilder = navGraphBuilder,
         )
@@ -121,22 +120,22 @@ private fun RowScope.BottomNavigationItemComponent(
 /**
  * Composable function that sets up the content for the bottom navigation.
  *
+ * @param modifier The modifier to be applied to the layout.
  * @param navController The navigation controller for managing navigation.
- * @param paddingValues The padding values to be applied to the content.
  * @param bottomTabItems The list of bottom navigation tabs.
  * @param navGraphBuilder The builder for the navigation graph.
  */
 @Composable
 private fun BottomNavigationContent(
+    modifier: Modifier,
     navController: NavHostController,
-    paddingValues: PaddingValues,
     bottomTabItems: List<BottomNavigationTab>,
     navGraphBuilder: NavGraphBuilder.() -> Unit,
 ) {
     NavHost(
+        modifier = modifier,
         navController = navController,
         startDestination = bottomTabItems.first(),
-        modifier = Modifier.padding(paddingValues),
         builder = navGraphBuilder,
     )
 }

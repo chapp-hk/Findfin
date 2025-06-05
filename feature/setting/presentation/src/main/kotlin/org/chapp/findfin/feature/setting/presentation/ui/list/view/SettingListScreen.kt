@@ -15,8 +15,9 @@ import org.chapp.findfin.feature.setting.presentation.ui.list.view.theme.ThemePr
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SettingListScreen() {
+internal fun SettingListScreen(modifier: Modifier = Modifier) {
     Scaffold(
+        modifier = modifier,
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text(text = stringResource(id = R.string.setting_tab_setting)) },
