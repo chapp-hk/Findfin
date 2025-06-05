@@ -1,6 +1,7 @@
 package org.chapp.findfin.feature.locator.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.chapp.findfin.core.navigation.BottomNavigationTab
@@ -11,8 +12,8 @@ import org.chapp.findfin.feature.locator.presentation.ui.map.view.MapScreen
  * Composable function that displays the map screen.
  */
 @Composable
-fun MapDestination() {
-    MapScreen()
+fun MapDestination(modifier: Modifier = Modifier) {
+    MapScreen(modifier = modifier)
 }
 
 /**

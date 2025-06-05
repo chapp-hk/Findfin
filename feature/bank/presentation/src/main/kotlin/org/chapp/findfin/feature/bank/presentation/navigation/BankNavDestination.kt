@@ -1,6 +1,7 @@
 package org.chapp.findfin.feature.bank.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.chapp.findfin.core.navigation.BottomNavigationTab
@@ -12,8 +13,8 @@ import org.chapp.findfin.feature.bank.presentation.ui.banklist.view.BankListScre
  * This function displays the bank list screen.
  */
 @Composable
-fun BankDestination() {
-    BankListScreen()
+fun BankDestination(modifier: Modifier = Modifier) {
+    BankListScreen(modifier = modifier)
 }
 
 /**

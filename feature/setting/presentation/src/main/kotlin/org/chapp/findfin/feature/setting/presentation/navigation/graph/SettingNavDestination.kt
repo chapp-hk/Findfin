@@ -1,6 +1,7 @@
 package org.chapp.findfin.feature.setting.presentation.navigation.graph
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.chapp.findfin.core.navigation.BottomNavigationTab
@@ -12,8 +13,8 @@ import org.chapp.findfin.feature.setting.presentation.ui.list.view.SettingListSc
  * This function displays the setting list screen.
  */
 @Composable
-fun SettingDestination() {
-    SettingListScreen()
+fun SettingDestination(modifier: Modifier = Modifier) {
+    SettingListScreen(modifier = modifier)
 }
 
 /**
