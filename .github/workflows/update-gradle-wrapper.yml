@@ -13,8 +13,6 @@ jobs:
 
       - name: Update Gradle Wrapper
         uses: gradle-update/update-gradle-wrapper-action@v2
-        # Skip in forks
-        if: github.repository == 'chapp-hk/HK-Bank-Locator'
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          target-branch: develop
+          repo-token: ${{ secrets.GRADLE_UPDATE_PAT }}
+          labels: gradle-update, dependencies
