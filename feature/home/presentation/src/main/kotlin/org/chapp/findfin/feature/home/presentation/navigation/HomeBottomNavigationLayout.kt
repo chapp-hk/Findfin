@@ -46,6 +46,9 @@ fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
                             val destination = MapBottomTabDestination(searchKeyword = searchKeyword)
                             bottomNavController.navigateToBottomTab(destination)
                         },
+                        navigateToMap = {
+                            bottomNavController.navigateToBottomTab(MapBottomTabDestination())
+                        },
                     ),
             )
         }
