@@ -14,6 +14,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.ArgumentsProvider
 import org.junit.jupiter.params.provider.ArgumentsSource
+import org.junit.jupiter.params.support.ParameterDeclarations
 import java.util.stream.Stream
 
 @DisplayName("RegisterRepositoryImpl unit tests")
@@ -46,7 +47,10 @@ class RegisterRepositoryImplTest {
     }
 
     private class EmailPasswordRegisterProvider : ArgumentsProvider {
-        override fun provideArguments(context: ExtensionContext): Stream<Arguments> =
+        override fun provideArguments(
+            parameterDeclarations: ParameterDeclarations,
+            context: ExtensionContext,
+        ): Stream<Arguments> =
             Stream.of(
                 Arguments.arguments(
                     RegisterResponse.Success,

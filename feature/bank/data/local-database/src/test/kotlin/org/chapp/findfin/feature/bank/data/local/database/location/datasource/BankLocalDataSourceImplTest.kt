@@ -135,7 +135,7 @@ class BankLocalDataSourceImplTest {
     private class GetBanksQueryParametersArgumentProvider : ArgumentsProvider {
         override fun provideArguments(
             parameterDeclarations: ParameterDeclarations,
-            context: ExtensionContext?,
+            context: ExtensionContext,
         ): Stream<Arguments> =
             Stream.of(
                 Arguments.of(
