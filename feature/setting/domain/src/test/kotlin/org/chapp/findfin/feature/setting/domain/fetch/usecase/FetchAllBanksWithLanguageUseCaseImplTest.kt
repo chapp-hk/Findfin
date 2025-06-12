@@ -17,6 +17,7 @@ import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.ArgumentsProvider
 import org.junit.jupiter.params.provider.ArgumentsSource
+import org.junit.jupiter.params.support.ParameterDeclarations
 import java.util.stream.Stream
 
 @DisplayName("FetchAllBanksWithLanguageUseCaseImpl unit tests")
@@ -83,7 +84,10 @@ class FetchAllBanksWithLanguageUseCaseImplTest {
     }
 
     private class FetchArgumentsProvider : ArgumentsProvider {
-        override fun provideArguments(extensionContext: ExtensionContext): Stream<Arguments> =
+        override fun provideArguments(
+            parameterDeclarations: ParameterDeclarations,
+            extensionContext: ExtensionContext,
+        ): Stream<Arguments> =
             Stream.of(
                 arguments(
                     BankFetchResult.Error,
