@@ -64,17 +64,12 @@ class JacocoRootCoveragePlugin : Plugin<Project> {
         instrumentTestType: InstrumentTestType,
         gradleManagedDeviceName: String,
     ) {
-        val uppercaseBuildVariant = buildVariant.uppercaseFirstChar()
-
         dependsOn(
-            "test${uppercaseBuildVariant}UnitTest",
-            when (instrumentTestType) {
-                InstrumentTestType.CONNECTED_DEVICE ->
-                    "connected${uppercaseBuildVariant}AndroidTest"
-
-                InstrumentTestType.GRADLE_MANAGED_DEVICE ->
-                    "${gradleManagedDeviceName}${uppercaseBuildVariant}AndroidTest"
-            },
+            project.getAndroidJacocoTaskDependencies(
+                buildVariant = buildVariant,
+                instrumentTestType = instrumentTestType,
+                gradleManagedDeviceName = gradleManagedDeviceName
+            )
         )
 
         configReports()
@@ -119,8 +114,37 @@ class JacocoRootCoveragePlugin : Plugin<Project> {
         }
     }
 
+    private fun Project.getAndroidJacocoTaskDependencies(
+        buildVariant: String,
+        instrumentTestType: InstrumentTestType,
+        gradleManagedDeviceName: String,
+    ): Array<String> {
+        val uppercaseBuildVariant = buildVariant.uppercaseFirstChar()
+
+        val unitTestPath = "test${uppercaseBuildVariant}UnitTest"
+        val androidTestPath =
+            if (hasAndroidTest()) {
+                when (instrumentTestType) {
+                    InstrumentTestType.CONNECTED_DEVICE ->
+                        "connected${uppercaseBuildVariant}AndroidTest"
+
+                    InstrumentTestType.GRADLE_MANAGED_DEVICE ->
+                        "${gradleManagedDeviceName}${uppercaseBuildVariant}AndroidTest"
+                }
+            } else {
+                null
+            }
+
+        return listOfNotNull(unitTestPath, androidTestPath).toTypedArray()
+    }
+
     private fun Project.getSourceDirectories(): String {
         return "${layout.projectDirectory.asFile.path}/src/main/kotlin"
+    }
+
+    private fun Project.hasAndroidTest(): Boolean {
+        val androidTestDir = file("${layout.projectDirectory.asFile.path}/src/androidTest")
+        return androidTestDir.exists() && androidTestDir.isDirectory
     }
 
     companion object {
