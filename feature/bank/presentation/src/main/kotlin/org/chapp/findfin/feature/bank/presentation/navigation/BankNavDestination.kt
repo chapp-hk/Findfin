@@ -2,7 +2,6 @@ package org.chapp.findfin.feature.bank.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.chapp.findfin.core.navigation.BottomNavigationTab
 import org.chapp.findfin.feature.bank.presentation.R
@@ -26,10 +25,7 @@ fun BankDestination(modifier: Modifier = Modifier) {
  */
 @Serializable
 class BankBottomTabDestination(
-    @SerialName("route")
     override val route: String = "home-bottom-bank",
-    @SerialName("iconDrawableResource")
     override val iconDrawableResource: Int = R.drawable.bank_ic_list,
-    @SerialName("textStringResource")
     override val textStringResource: Int = R.string.bank_title_bank_list,
 ) : BottomNavigationTab

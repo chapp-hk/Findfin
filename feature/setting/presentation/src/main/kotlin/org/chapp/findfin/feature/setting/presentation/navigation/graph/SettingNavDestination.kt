@@ -2,7 +2,6 @@ package org.chapp.findfin.feature.setting.presentation.navigation.graph
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.chapp.findfin.core.navigation.BottomNavigationTab
 import org.chapp.findfin.feature.setting.presentation.R
@@ -26,10 +25,7 @@ fun SettingDestination(modifier: Modifier = Modifier) {
  */
 @Serializable
 class SettingBottomTabDestination(
-    @SerialName("route")
     override val route: String = "home-bottom-setting",
-    @SerialName("iconDrawableResource")
     override val iconDrawableResource: Int = R.drawable.setting_ic_setting,
-    @SerialName("textStringResource")
     override val textStringResource: Int = R.string.setting_tab_setting,
 ) : BottomNavigationTab
