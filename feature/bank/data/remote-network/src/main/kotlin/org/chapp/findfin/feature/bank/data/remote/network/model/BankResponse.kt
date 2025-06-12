@@ -8,7 +8,6 @@ import kotlinx.serialization.json.JsonNames
 @OptIn(ExperimentalSerializationApi::class)
 @Serializable
 data class BankResponse(
-    @SerialName("district")
     val district: String = "",
     @SerialName("bank_name")
     val bankName: String = "",
@@ -17,12 +16,9 @@ data class BankResponse(
         "type_of_machine",
     )
     val typeName: String = "",
-    @SerialName("address")
     val address: String = "",
     @SerialName("service_hours")
     val serviceHours: String = "",
-    @SerialName("latitude")
     val latitude: Double = 0.0,
-    @SerialName("longitude")
     val longitude: Double = 0.0,
 )

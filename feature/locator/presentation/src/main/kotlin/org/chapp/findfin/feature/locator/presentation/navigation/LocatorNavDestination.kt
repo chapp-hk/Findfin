@@ -2,7 +2,6 @@ package org.chapp.findfin.feature.locator.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.chapp.findfin.core.navigation.BottomNavigationTab
 import org.chapp.findfin.feature.locator.presentation.R
@@ -21,12 +20,8 @@ fun MapDestination(modifier: Modifier = Modifier) {
  */
 @Serializable
 class MapBottomTabDestination(
-    @SerialName("route")
     override val route: String = "home-bottom-map",
-    @SerialName("iconDrawableResource")
     override val iconDrawableResource: Int = R.drawable.locator_ic_map,
-    @SerialName("textStringResource")
     override val textStringResource: Int = R.string.locator_tab_map,
-    @SerialName("searchKeyword")
     val searchKeyword: String? = null,
 ) : BottomNavigationTab

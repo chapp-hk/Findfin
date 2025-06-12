@@ -12,7 +12,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.testing.TestNavHostController
 import androidx.navigation.toRoute
 import io.kotest.matchers.types.shouldBeInstanceOf
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.chapp.findfin.core.navigation.test.R
 import org.junit.Before
@@ -27,21 +26,15 @@ class BottomNavigationLayoutTest {
 
     @Serializable
     private class HomeTab(
-        @SerialName("route")
         override val route: String = "test-bottom-home",
-        @SerialName("iconDrawableResource")
         override val iconDrawableResource: Int = R.drawable.navigation_test_ic_home,
-        @SerialName("textStringResource")
         override val textStringResource: Int = R.string.navigation_test_home,
     ) : BottomNavigationTab
 
     @Serializable
     private class SettingTab(
-        @SerialName("route")
         override val route: String = "test-bottom-setting",
-        @SerialName("iconDrawableResource")
         override val iconDrawableResource: Int = R.drawable.navigation_test_ic_setting,
-        @SerialName("textStringResource")
         override val textStringResource: Int = R.string.navigation_test_setting,
     ) : BottomNavigationTab
 

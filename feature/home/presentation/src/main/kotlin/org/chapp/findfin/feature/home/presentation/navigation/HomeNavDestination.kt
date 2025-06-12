@@ -1,6 +1,5 @@
 package org.chapp.findfin.feature.home.presentation.navigation
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.chapp.findfin.core.navigation.BottomNavigationTab
 import org.chapp.findfin.feature.home.presentation.R
@@ -26,10 +25,7 @@ object HomeDestination
  */
 @Serializable
 class HomeBottomTabDestination(
-    @SerialName("route")
     override val route: String = "home-bottom-home",
-    @SerialName("iconDrawableResource")
     override val iconDrawableResource: Int = R.drawable.home_ic_home,
-    @SerialName("textStringResource")
     override val textStringResource: Int = R.string.home_tab_home,
 ) : BottomNavigationTab

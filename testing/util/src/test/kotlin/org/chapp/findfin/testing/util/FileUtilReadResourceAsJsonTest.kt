@@ -12,13 +12,10 @@ class FileUtilReadResourceAsJsonTest {
     fun `test readResourceAsJson with all valid fields`() {
         @Serializable
         data class TestData(
-            @SerialName("name")
             val name: String,
-            @SerialName("module")
             val module: String,
             @SerialName("package_name")
             val packageName: String,
-            @SerialName("version")
             val version: Int,
         )
 
@@ -35,13 +32,10 @@ class FileUtilReadResourceAsJsonTest {
     fun `test readResourceAsJson with missing field in json string`() {
         @Serializable
         data class TestData(
-            @SerialName("name")
             val name: String,
-            @SerialName("module")
             val module: String?,
             @SerialName("package_name")
             val packageName: String,
-            @SerialName("version")
             val version: Int,
         )
 
@@ -58,13 +52,10 @@ class FileUtilReadResourceAsJsonTest {
     fun `test readResourceAsJson with extra field in json string, should ignore the extra field`() {
         @Serializable
         data class TestData(
-            @SerialName("name")
             val name: String,
-            @SerialName("module")
             val module: String,
             @SerialName("package_name")
             val packageName: String,
-            @SerialName("version")
             val version: Int,
         )
 
