@@ -44,10 +44,11 @@ fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
                         onRequestAuth = onRequestAuth,
                         onSearch = { searchKeyword ->
                             val destination = MapBottomTabDestination(searchKeyword = searchKeyword)
-                            bottomNavController.navigateToBottomTab(destination)
+                            bottomNavController.navigateToBottomTab(tab = destination)
                         },
-                        navigateToMap = {
-                            bottomNavController.navigateToBottomTab(MapBottomTabDestination())
+                        navigateToMap = { searchType ->
+                            val destination = MapBottomTabDestination(searchType = searchType)
+                            bottomNavController.navigateToBottomTab(tab = destination)
                         },
                     ),
             )
@@ -77,7 +78,7 @@ private fun NavHostController.navigateToBottomTab(tab: BottomNavigationTab) {
         // reselecting the same item
         launchSingleTop = true
         // Restore state when reselecting a previously selected item
-        restoreState = true
+        restoreState = tab !is MapBottomTabDestination
     }
 }
 

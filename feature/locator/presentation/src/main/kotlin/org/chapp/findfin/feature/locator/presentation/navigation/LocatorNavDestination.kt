@@ -24,4 +24,10 @@ class MapBottomTabDestination(
     override val iconDrawableResource: Int = R.drawable.locator_ic_map,
     override val textStringResource: Int = R.string.locator_tab_map,
     val searchKeyword: String? = null,
+    val searchType: MapSearchType? = null,
 ) : BottomNavigationTab
+
+enum class MapSearchType {
+    BRANCH,
+    ATM,
+}

@@ -25,12 +25,13 @@ import org.chapp.findfin.core.design.ui.foundation.AppContent
 import org.chapp.findfin.core.design.ui.foundation.modifier.contentDescription
 import org.chapp.findfin.core.imageloader.ImageView
 import org.chapp.findfin.feature.home.presentation.R
+import org.chapp.findfin.feature.locator.presentation.navigation.MapSearchType
 
 @Composable
 internal fun Finding(
     modifier: Modifier = Modifier,
-    onFindYourBank: () -> Unit = {},
-    onFindBankOrAtms: () -> Unit = {},
+    onFindYourBank: (MapSearchType) -> Unit = {},
+    onFindBankOrAtms: (MapSearchType) -> Unit = {},
 ) {
     Column(
         modifier = modifier.padding(horizontal = 16.dp),
@@ -54,7 +55,7 @@ internal fun Finding(
                 imageResourceId = R.drawable.home_img_find_branch,
                 titleResourceId = R.string.home_label_find_branches,
                 contentDescription = stringResource(id = R.string.home_label_find_branches),
-                onClick = onFindYourBank,
+                onClick = { onFindYourBank(MapSearchType.BRANCH) },
             )
 
             ButtonWithImageAndTitle(
@@ -62,7 +63,7 @@ internal fun Finding(
                 imageResourceId = R.drawable.home_img_find_atm,
                 titleResourceId = R.string.home_label_find_atms,
                 contentDescription = stringResource(id = R.string.home_label_find_atms),
-                onClick = onFindBankOrAtms,
+                onClick = { onFindBankOrAtms(MapSearchType.ATM) },
             )
         }
     }
