@@ -1,5 +1,6 @@
 package org.chapp.findfin.feature.locator.presentation.ui.map.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -19,9 +20,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 @ExtendWith(MainDispatcherExtension::class)
 @DisplayName("MapViewModel unit tests")
 class MapViewModelTest {
+    private val savedStateHandle = SavedStateHandle()
     private val bankRepository = mockk<BankRepository>()
 
-    private val mapViewModel = MapViewModel(bankRepository = bankRepository)
+    private val mapViewModel =
+        MapViewModel(
+            savedStateHandle = savedStateHandle,
+            bankRepository = bankRepository,
+        )
 
     @Test
     fun `getBanksWithinBound emits mapped markers`() {

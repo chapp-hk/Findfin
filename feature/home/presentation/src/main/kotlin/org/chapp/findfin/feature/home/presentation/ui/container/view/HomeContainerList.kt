@@ -64,8 +64,8 @@ internal fun HomeContainerList(
 
                     Finding(
                         modifier = Modifier.contentDescription(description),
-                        onFindYourBank = {},
-                        onFindBankOrAtms = {},
+                        onFindYourBank = homeEvent.navigateToMap,
+                        onFindBankOrAtms = homeEvent.navigateToMap,
                     )
                 }
 
