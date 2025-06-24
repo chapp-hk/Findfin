@@ -9,6 +9,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.chapp.findfin.core.design.ui.foundation.AppContent
 import org.chapp.findfin.feature.home.presentation.R
+import org.chapp.findfin.feature.locator.presentation.navigation.MapSearchType
 import org.chapp.findfin.testing.instrument.getResourceString
 import org.junit.Rule
 import org.junit.Test
@@ -40,8 +41,8 @@ class FindingTest {
 
     @Test
     fun finding_composable_performs_clicks() {
-        val onFindYourBank = mockk<() -> Unit>(relaxed = true)
-        val onFindBankOrAtms = mockk<() -> Unit>(relaxed = true)
+        val onFindYourBank = mockk<(MapSearchType) -> Unit>(relaxed = true)
+        val onFindBankOrAtms = mockk<(MapSearchType) -> Unit>(relaxed = true)
 
         composeTestRule.setContent {
             AppContent {
@@ -60,7 +61,7 @@ class FindingTest {
             .onNodeWithContentDescription(getResourceString(R.string.home_label_find_atms))
             .performClick()
 
-        verify(exactly = 1) { onFindYourBank() }
-        verify(exactly = 1) { onFindBankOrAtms() }
+        verify(exactly = 1) { onFindYourBank(MapSearchType.BRANCH) }
+        verify(exactly = 1) { onFindBankOrAtms(MapSearchType.ATM) }
     }
 }

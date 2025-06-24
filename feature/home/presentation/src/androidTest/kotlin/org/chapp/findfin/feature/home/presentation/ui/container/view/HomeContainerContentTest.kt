@@ -50,6 +50,7 @@ internal class HomeContainerContentTest {
                     HomeEvent(
                         onRequestAuth = {},
                         onSearch = onSearch,
+                        navigateToMap = {},
                     ),
             )
         }
@@ -78,6 +79,7 @@ internal class HomeContainerContentTest {
                         HomeEvent(
                             onRequestAuth = {},
                             onSearch = {},
+                            navigateToMap = {},
                         ),
                 )
             }
@@ -104,6 +106,7 @@ internal class HomeContainerContentTest {
                         HomeEvent(
                             onRequestAuth = {},
                             onSearch = {},
+                            navigateToMap = {},
                         ),
                 )
             }
@@ -130,6 +133,7 @@ internal class HomeContainerContentTest {
                         HomeEvent(
                             onRequestAuth = {},
                             onSearch = {},
+                            navigateToMap = {},
                         ),
                 )
             }
@@ -154,6 +158,7 @@ internal class HomeContainerContentTest {
                     HomeEvent(
                         onRequestAuth = {},
                         onSearch = {},
+                        navigateToMap = {},
                     ),
             )
         }
@@ -178,6 +183,7 @@ internal class HomeContainerContentTest {
                     HomeEvent(
                         onRequestAuth = {},
                         onSearch = {},
+                        navigateToMap = {},
                     ),
             )
         }
