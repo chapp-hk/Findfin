@@ -2,6 +2,7 @@ package org.chapp.findfin.feature.home.presentation.navigation
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.runtime.Composable
@@ -28,6 +29,7 @@ import org.chapp.findfin.feature.setting.presentation.navigation.graph.SettingDe
 fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
     val bottomNavController = rememberNavController()
     val topPadding = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
+    val bottomPadding = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
     BottomNavigationLayout(
         navController = bottomNavController,
@@ -38,7 +40,7 @@ fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
     ) {
         composable<HomeBottomTabDestination> {
             HomeContainer(
-                modifier = Modifier.padding(top = topPadding),
+                modifier = Modifier.padding(top = topPadding, bottom = bottomPadding),
                 homeEvent =
                     HomeEvent(
                         onRequestAuth = onRequestAuth,
@@ -55,15 +57,19 @@ fun HomeBottomNavigationLayout(onRequestAuth: () -> Unit) {
         }
 
         composable<BankBottomTabDestination> {
-            BankDestination(Modifier.padding(top = topPadding))
+            BankDestination(
+                modifier = Modifier.padding(top = topPadding, bottom = bottomPadding),
+            )
         }
 
         composable<MapBottomTabDestination> {
-            MapDestination(modifier = Modifier)
+            MapDestination(modifier = Modifier.padding(bottom = bottomPadding))
         }
 
         composable<SettingBottomTabDestination> {
-            SettingDestination(modifier = Modifier.padding(top = topPadding))
+            SettingDestination(
+                modifier = Modifier.padding(top = topPadding, bottom = bottomPadding),
+            )
         }
     }
 }
