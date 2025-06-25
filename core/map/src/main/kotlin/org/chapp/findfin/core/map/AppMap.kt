@@ -38,7 +38,7 @@ fun AppMap(
     markers: List<MapMarker> = listOf(),
     initPosition: Position,
     initZoom: Float,
-    onBoundsChange: (PositionBounds?) -> Unit,
+    onBoundsChange: (PositionBounds) -> Unit,
 ) {
     val permissionState = rememberPermissionState(android.Manifest.permission.ACCESS_FINE_LOCATION)
     val properties by remember {
@@ -67,14 +67,14 @@ fun AppMap(
 
     LaunchedEffect(cameraPositionState.isMoving) {
         if (!cameraPositionState.isMoving) {
-            cameraPositionState.projection?.visibleRegion?.latLngBounds?.let {
-                val bounds =
+            cameraPositionState.projection?.visibleRegion?.latLngBounds
+                ?.let {
                     PositionBounds(
                         southwest = Position(it.southwest.latitude, it.southwest.longitude),
                         northeast = Position(it.northeast.latitude, it.northeast.longitude),
                     )
-                onBoundsChange(bounds)
-            }
+                }
+                ?.run(onBoundsChange)
         }
     }
 
@@ -84,14 +84,14 @@ fun AppMap(
         properties = properties,
         mapColorScheme = mapColorScheme,
         onMapLoaded = {
-            cameraPositionState.projection?.visibleRegion?.latLngBounds?.let {
-                val bounds =
+            cameraPositionState.projection?.visibleRegion?.latLngBounds
+                ?.let {
                     PositionBounds(
                         southwest = Position(it.southwest.latitude, it.southwest.longitude),
                         northeast = Position(it.northeast.latitude, it.northeast.longitude),
                     )
-                onBoundsChange(bounds)
-            }
+                }
+                ?.run(onBoundsChange)
         },
     ) {
         Clustering(items = markers)

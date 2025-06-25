@@ -22,9 +22,7 @@ internal fun MapScreen(
         initZoom = 10f,
         markers = mapMarkers,
         onBoundsChange = { bounds ->
-            bounds?.let {
-                mapViewModel.getBanksWithinBound(it)
-            }
+            mapViewModel.getBanksWithinBound(bounds)
         },
     )
 }
