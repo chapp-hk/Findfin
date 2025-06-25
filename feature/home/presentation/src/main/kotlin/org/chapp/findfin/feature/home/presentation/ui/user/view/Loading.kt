@@ -25,14 +25,14 @@ internal fun Loading(modifier: Modifier = Modifier) {
             modifier
                 .contentDescription(stringResource(id = R.string.home_content_description_loading))
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(horizontal = 16.dp, vertical = 8.dp),
     ) {
-        CirclePlaceHolder(size = 50.dp)
+        CirclePlaceHolder(size = 40.dp)
 
         VerticalDivider(
             modifier =
                 Modifier
-                    .height(50.dp),
+                    .height(40.dp),
             thickness = 8.dp,
             color = Color.Transparent,
         )
@@ -43,7 +43,7 @@ internal fun Loading(modifier: Modifier = Modifier) {
                     .align(Alignment.CenterVertically),
             cornerRadius = 10.dp,
             width = 200.dp,
-            height = 30.dp,
+            height = 20.dp,
         )
     }
 }

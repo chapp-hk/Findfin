@@ -1,5 +1,6 @@
 package org.chapp.findfin.core.map
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -11,6 +12,7 @@ import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.ComposeMapColorScheme
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapsComposeExperimentalApi
@@ -36,7 +38,7 @@ fun AppMap(
     markers: List<MapMarker> = listOf(),
     initPosition: Position,
     initZoom: Float,
-    onBoundsChange: (PositionBounds?) -> Unit,
+    onBoundsChange: (PositionBounds) -> Unit,
 ) {
     val permissionState = rememberPermissionState(android.Manifest.permission.ACCESS_FINE_LOCATION)
     val properties by remember {
@@ -56,16 +58,23 @@ fun AppMap(
                 )
         }
 
+    val mapColorScheme =
+        if (isSystemInDarkTheme()) {
+            ComposeMapColorScheme.DARK
+        } else {
+            ComposeMapColorScheme.LIGHT
+        }
+
     LaunchedEffect(cameraPositionState.isMoving) {
         if (!cameraPositionState.isMoving) {
-            cameraPositionState.projection?.visibleRegion?.latLngBounds?.let {
-                val bounds =
+            cameraPositionState.projection?.visibleRegion?.latLngBounds
+                ?.let {
                     PositionBounds(
                         southwest = Position(it.southwest.latitude, it.southwest.longitude),
                         northeast = Position(it.northeast.latitude, it.northeast.longitude),
                     )
-                onBoundsChange(bounds)
-            }
+                }
+                ?.run(onBoundsChange)
         }
     }
 
@@ -73,15 +82,16 @@ fun AppMap(
         modifier = modifier,
         cameraPositionState = cameraPositionState,
         properties = properties,
+        mapColorScheme = mapColorScheme,
         onMapLoaded = {
-            cameraPositionState.projection?.visibleRegion?.latLngBounds?.let {
-                val bounds =
+            cameraPositionState.projection?.visibleRegion?.latLngBounds
+                ?.let {
                     PositionBounds(
                         southwest = Position(it.southwest.latitude, it.southwest.longitude),
                         northeast = Position(it.northeast.latitude, it.northeast.longitude),
                     )
-                onBoundsChange(bounds)
-            }
+                }
+                ?.run(onBoundsChange)
         },
     ) {
         Clustering(items = markers)
