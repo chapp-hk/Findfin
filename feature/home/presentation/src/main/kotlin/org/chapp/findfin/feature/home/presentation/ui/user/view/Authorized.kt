@@ -29,11 +29,11 @@ internal fun Authorized(
     user: UserModel,
 ) {
     Row(
-        modifier = modifier.padding(16.dp).fillMaxWidth(),
+        modifier = modifier.padding(horizontal = 16.dp, vertical = 8.dp).fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
-            modifier = Modifier.size(50.dp),
+            modifier = Modifier.size(40.dp),
             imageVector = Icons.Rounded.AccountCircle,
             colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onSurface),
             contentDescription = stringResource(id = R.string.home_content_description_avatar),

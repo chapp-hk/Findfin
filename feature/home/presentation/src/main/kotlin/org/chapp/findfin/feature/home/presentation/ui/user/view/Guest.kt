@@ -32,11 +32,11 @@ internal fun Guest(
             modifier
                 .clickable { onRequestAuth() }
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
-            modifier = Modifier.size(50.dp),
+            modifier = Modifier.size(40.dp),
             imageVector = Icons.Rounded.AccountCircle,
             colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onSurface),
             contentDescription = stringResource(id = R.string.home_content_description_avatar),
