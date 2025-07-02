@@ -114,7 +114,7 @@ kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.56.2" }
-ksp = { id = "com.google.devtools.ksp", version = "2.1.21-2.0.2" }
+ksp = { id = "com.google.devtools.ksp", version = "2.2.0-2.0.2" }
 google-gms-services = { id = "com.google.gms.google-services", version = "4.4.3" }
 google-secrets = { id  = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version = "2.0.1" }
 
