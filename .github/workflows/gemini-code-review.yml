@@ -17,9 +17,8 @@ jobs:
         id: gemini_review
         uses: google-gemini/gemini-cli-action@main
         with:
-          command: review
-        env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          command: review
 
       - name: Add PR comment with Gemini review result
         uses: actions/github-script@v7
