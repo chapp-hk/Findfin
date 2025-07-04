@@ -15,7 +15,7 @@ jobs:
 
       - name: Run Gemini CLI Action for Code Review
         id: gemini_review
-        uses: google-gemini/gemini-cli-action@v1
+        uses: google-gemini/gemini-cli-action@main
         with:
           command: review
         env:
