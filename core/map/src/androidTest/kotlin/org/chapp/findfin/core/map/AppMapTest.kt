@@ -19,7 +19,7 @@ class AppMapTest {
         val mockOnBoundsChange = mockk<((PositionBounds?) -> Unit)>()
 
         composeTestRule.setContent {
-            AppMap(
+            AppMap<Any>(
                 modifier = Modifier.contentDescription("app_map"),
                 initPosition = Position(37.7749, -122.4194),
                 initZoom = 10f,

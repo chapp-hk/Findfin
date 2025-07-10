@@ -4,36 +4,42 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterItem
 
 /**
- * Data class representing a marker on the map that can be clustered.
+ * Represents a marker to be displayed on a map.
  *
- * @property itemPosition The position of the marker.
- * @property itemTitle The title of the marker.
- * @property itemSnippet The snippet text of the marker.
- * @property itemZIndex The z-index of the marker.
+ * This data class holds all the necessary information to define a map marker,
+ * including its geographical position, title, and an optional type parameter
+ * to categorize or associate additional data with the marker.
+ *
+ * @param T The type of the data associated with this marker. This can be used to
+ *          store custom information or to differentiate marker types (e.g., bank, ATM, etc.).
+ * @property markerPosition The geographical coordinates ([Position]) of the marker on the map.
+ * @property markerTitle The text to be displayed as the primary label for the marker,
+ *                 often shown when the marker is tapped or hovered over.
+ * @property type An optional payload of type [T] that can carry additional domain-specific
+ *                information related to this marker.
  */
-data class MapMarker(
-    private val itemPosition: Position,
-    private val itemTitle: String,
-    private val itemSnippet: String,
-    private val itemZIndex: Float,
-) : ClusterItem {
-    /**
-     * Returns the position of the marker as a [LatLng] object.
-     */
-    override fun getPosition(): LatLng = LatLng(itemPosition.latitude, itemPosition.longitude)
+data class MapMarker<T>(
+    val markerPosition: Position,
+    val markerTitle: String,
+    val type: T,
+)
 
-    /**
-     * Returns the title of the marker.
-     */
-    override fun getTitle(): String = itemTitle
+/**
+ * Converts a [MapMarker] to a [ClusterItem] for use in clustering on Google Maps.
+ *
+ * This function creates an anonymous implementation of the [ClusterItem] interface,
+ * allowing the marker to be used in clustering algorithms provided by the Google Maps Android API.
+ *
+ * @return A [ClusterItem] representation of this [MapMarker].
+ */
+internal fun <T> MapMarker<T>.toClusterItem(): ClusterItem {
+    return object : ClusterItem {
+        override fun getPosition(): LatLng = LatLng(markerPosition.latitude, markerPosition.longitude)
 
-    /**
-     * Returns the snippet text of the marker.
-     */
-    override fun getSnippet(): String = itemSnippet
+        override fun getTitle(): String? = markerTitle
 
-    /**
-     * Returns the z-index of the marker.
-     */
-    override fun getZIndex(): Float = itemZIndex
+        override fun getSnippet(): String? = null
+
+        override fun getZIndex(): Float? = null
+    }
 }
