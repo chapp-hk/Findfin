@@ -12,8 +12,10 @@ import kotlinx.coroutines.launch
 import org.chapp.findfin.core.map.MapMarker
 import org.chapp.findfin.core.map.PositionBounds
 import org.chapp.findfin.feature.bank.data.repo.model.BankLocationBound
+import org.chapp.findfin.feature.bank.data.repo.model.BankType
 import org.chapp.findfin.feature.bank.data.repo.repository.BankRepository
 import org.chapp.findfin.feature.locator.presentation.navigation.MapBottomTabDestination
+import org.chapp.findfin.feature.locator.presentation.ui.map.model.BankModelMapper
 import org.chapp.findfin.feature.locator.presentation.ui.map.model.toBankType
 import javax.inject.Inject
 
@@ -25,14 +27,14 @@ internal class MapViewModel @Inject constructor(
     private var job: Job? = null
     private val mapRouteData = savedStateHandle.toRoute<MapBottomTabDestination>()
 
-    private val _uiState = MutableStateFlow<List<MapMarker>>(listOf())
+    private val _uiState = MutableStateFlow<List<MapMarker<BankType>>>(listOf())
     val uiState = _uiState.asStateFlow()
 
     fun getBanksWithinBound(bound: PositionBounds) {
         job?.cancel()
         job =
             viewModelScope.launch {
-                val mapper = BankLocationModelMapper()
+                val mapper = BankModelMapper()
                 val banks =
                     bankRepository.getBanksByParameters(
                         type = mapRouteData.searchType.toBankType(),
