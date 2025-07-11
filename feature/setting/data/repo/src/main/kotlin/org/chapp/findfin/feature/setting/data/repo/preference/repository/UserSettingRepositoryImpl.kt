@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltWrapBindModule
 internal class UserSettingRepositoryImpl @Inject constructor(
-    @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
+    @param:DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val userSettingLocalDataSource: UserSettingLocalDataSource,
 ) : UserSettingRepository {
     override suspend fun setLanguagePreference(language: String) {

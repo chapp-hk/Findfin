@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltWrapBindModule
 internal class LoginService @Inject constructor(
-    @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
+    @param:DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val firebaseAuth: FirebaseAuth,
 ) : LoginRemoteDataSource {
     override suspend fun emailPasswordLogin(
