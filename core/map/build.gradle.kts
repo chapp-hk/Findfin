@@ -34,6 +34,9 @@ dependencies {
     implementation(libs.maps.compose.utils)
     implementation(libs.accompanist.permissions)
 
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.kotest.assertions.core)
+
     androidTestImplementation(libs.kotest.assertions.core)
     androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.androidx.test.runner)

@@ -32,10 +32,10 @@ import com.google.maps.android.compose.rememberCameraPositionState
  */
 @OptIn(MapsComposeExperimentalApi::class, ExperimentalPermissionsApi::class)
 @Composable
-fun AppMap(
+fun <T> AppMap(
     modifier: Modifier = Modifier,
     isMyLocationEnabled: Boolean = false,
-    markers: List<MapMarker> = listOf(),
+    markers: List<MapMarker<T>> = listOf(),
     initPosition: Position,
     initZoom: Float,
     onBoundsChange: (PositionBounds) -> Unit,
@@ -94,6 +94,8 @@ fun AppMap(
                 ?.run(onBoundsChange)
         },
     ) {
-        Clustering(items = markers)
+        Clustering(
+            items = markers.map { it.toClusterItem() },
+        )
     }
 }
