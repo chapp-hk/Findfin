@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.setting.data.repo.preferece.local.datasource
+package org.chapp.findfin.feature.setting.data.repo.preference.local.datasource
 
 import kotlinx.coroutines.flow.Flow
 

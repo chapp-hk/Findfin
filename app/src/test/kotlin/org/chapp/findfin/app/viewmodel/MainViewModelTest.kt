@@ -7,8 +7,8 @@ import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.feature.setting.data.repo.preferece.model.Theme
-import org.chapp.findfin.feature.setting.data.repo.preferece.repository.UserSettingRepository
+import org.chapp.findfin.feature.setting.data.repo.preference.model.Theme
+import org.chapp.findfin.feature.setting.data.repo.preference.repository.UserSettingRepository
 import org.chapp.findfin.testing.extension.MainDispatcherExtension
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

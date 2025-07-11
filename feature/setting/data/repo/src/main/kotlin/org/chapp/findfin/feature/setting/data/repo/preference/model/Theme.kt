@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.setting.data.repo.preferece.model
+package org.chapp.findfin.feature.setting.data.repo.preference.model
 
 /**
  * Enum class representing different themes available in the application.

@@ -1,4 +1,4 @@
-package org.chapp.findfin.feature.setting.data.repo.preferece.repository
+package org.chapp.findfin.feature.setting.data.repo.preference.repository
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.chapp.findfin.core.threading.DispatcherIo
-import org.chapp.findfin.feature.setting.data.repo.preferece.local.datasource.UserSettingLocalDataSource
-import org.chapp.findfin.feature.setting.data.repo.preferece.model.Theme
+import org.chapp.findfin.feature.setting.data.repo.preference.local.datasource.UserSettingLocalDataSource
+import org.chapp.findfin.feature.setting.data.repo.preference.model.Theme
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
 

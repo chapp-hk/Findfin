@@ -1,7 +1,7 @@
-package org.chapp.findfin.feature.setting.data.repo.preferece.repository
+package org.chapp.findfin.feature.setting.data.repo.preference.repository
 
 import kotlinx.coroutines.flow.Flow
-import org.chapp.findfin.feature.setting.data.repo.preferece.model.Theme
+import org.chapp.findfin.feature.setting.data.repo.preference.model.Theme
 
 /**
  * Repository interface for managing user settings.

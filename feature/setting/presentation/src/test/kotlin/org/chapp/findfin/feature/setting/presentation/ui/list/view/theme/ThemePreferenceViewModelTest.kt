@@ -11,8 +11,8 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.feature.setting.data.repo.preferece.model.Theme
-import org.chapp.findfin.feature.setting.data.repo.preferece.repository.UserSettingRepository
+import org.chapp.findfin.feature.setting.data.repo.preference.model.Theme
+import org.chapp.findfin.feature.setting.data.repo.preference.repository.UserSettingRepository
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

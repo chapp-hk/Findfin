@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import org.chapp.findfin.feature.setting.data.repo.preferece.model.Theme
-import org.chapp.findfin.feature.setting.data.repo.preferece.repository.UserSettingRepository
+import org.chapp.findfin.feature.setting.data.repo.preference.model.Theme
+import org.chapp.findfin.feature.setting.data.repo.preference.repository.UserSettingRepository
 import javax.inject.Inject
 
 @HiltViewModel

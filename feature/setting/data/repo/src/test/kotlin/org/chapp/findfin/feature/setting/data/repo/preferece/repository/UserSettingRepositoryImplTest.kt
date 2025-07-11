@@ -8,8 +8,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.feature.setting.data.repo.preferece.local.datasource.UserSettingLocalDataSource
-import org.chapp.findfin.feature.setting.data.repo.preferece.model.Theme
+import org.chapp.findfin.feature.setting.data.repo.preference.local.datasource.UserSettingLocalDataSource
+import org.chapp.findfin.feature.setting.data.repo.preference.model.Theme
+import org.chapp.findfin.feature.setting.data.repo.preference.repository.UserSettingRepositoryImpl
 import org.junit.jupiter.api.Test
 
 class UserSettingRepositoryImplTest {
