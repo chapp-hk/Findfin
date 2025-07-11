@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltWrapBindModule
 internal class BankRemoteDataSourceImpl @Inject constructor(
-    @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
+    @param:DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val bankApi: BankApi,
 ) : BankRemoteDataSource {
     override suspend fun getLocations(

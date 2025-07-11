@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltWrapBindModule
 internal class UserService @Inject constructor(
-    @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
+    @param:DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val firebaseAuth: FirebaseAuth,
 ) : UserRemoteDataSource {
     override suspend fun getCurrentUser(): UserResponse? {

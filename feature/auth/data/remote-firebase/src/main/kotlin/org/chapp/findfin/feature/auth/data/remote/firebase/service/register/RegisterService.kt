@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltWrapBindModule
 internal class RegisterService @Inject constructor(
-    @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
+    @param:DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val firebaseAuth: FirebaseAuth,
 ) : RegisterRemoteDataSource {
     override suspend fun emailPasswordRegister(

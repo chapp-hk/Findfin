@@ -16,7 +16,7 @@ import kotlin.math.cos
 
 @HiltWrapBindModule
 internal class GetNearByServicesUseCaseImpl @Inject constructor(
-    @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
+    @param:DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
     private val locationProviderManager: LocationProviderManager,
     private val bankRepository: BankRepository,
 ) : GetNearByServicesUseCase {

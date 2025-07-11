@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltWrapBindModule
 internal class BankLocalDataSourceImpl @Inject constructor(
-    @DispatcherIo private val ioDispatcher: CoroutineDispatcher,
+    @param:DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val bankDao: BankDao,
 ) : BankLocalDataSource {
     private val bankLocalMapper = Mappers.getMapper(BankLocalMapper::class.java)

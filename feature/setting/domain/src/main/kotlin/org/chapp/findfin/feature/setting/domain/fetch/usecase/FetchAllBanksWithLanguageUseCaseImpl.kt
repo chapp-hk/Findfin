@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltWrapBindModule
 class FetchAllBanksWithLanguageUseCaseImpl @Inject constructor(
-    @DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
+    @param:DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,
     private val bankRepository: BankRepository,
     private val localeProviderManager: LocaleProviderManager,
 ) : FetchAllBanksWithLanguageUseCase {

@@ -10,7 +10,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
 import org.chapp.findfin.core.preferences.ui.foundation.ListPreference
 import org.chapp.findfin.core.preferences.ui.foundation.ListPreferenceItem
-import org.chapp.findfin.feature.setting.data.repo.preferece.model.Theme
+import org.chapp.findfin.feature.setting.data.repo.preference.model.Theme
 import org.chapp.findfin.feature.setting.presentation.R
 
 @Composable
