@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.chapp.findfin.core.preferences.storage.AppPreferencesManager
+import org.chapp.findfin.core.preferences.provider.AppPreferencesManager
 import javax.inject.Inject
 
 @HiltViewModel

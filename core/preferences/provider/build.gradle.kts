@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "org.chapp.findfin.core.preferences.storage"
+    namespace = "org.chapp.findfin.core.preferences.provider"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

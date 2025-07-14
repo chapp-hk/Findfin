@@ -35,7 +35,7 @@ include(":core:logging:startup")
 include(":core:map")
 include(":core:navigation")
 include(":core:network")
-include(":core:preferences:storage")
+include(":core:preferences:provider")
 include(":core:preferences:ui-foundation")
 include(":core:threading")
 

@@ -1,4 +1,4 @@
-package org.chapp.findfin.core.preferences.storage
+package org.chapp.findfin.core.preferences.provider
 
 import kotlinx.coroutines.flow.Flow
 

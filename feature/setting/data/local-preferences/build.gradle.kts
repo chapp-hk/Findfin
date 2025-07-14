@@ -14,7 +14,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.preferences.storage)
+    implementation(projects.core.preferences.provider)
     implementation(projects.feature.setting.data.repo)
 
     testImplementation(libs.junit.jupiter)

@@ -29,7 +29,7 @@ android {
 dependencies {
     implementation(projects.core.design.uiFoundation)
     implementation(projects.core.locale.api)
-    implementation(projects.core.preferences.storage)
+    implementation(projects.core.preferences.provider)
     implementation(projects.feature.bank.data.localDatabase)
     implementation(projects.feature.bank.data.remoteNetwork)
     implementation(projects.feature.setting.domain)
