@@ -29,7 +29,6 @@ dependencies {
     implementation(projects.core.design.uiFoundation)
     implementation(projects.core.imageloader)
     implementation(projects.core.location.provider.api)
-    implementation(projects.core.location.provider.impl)
     implementation(projects.core.location.uiFoundation)
     implementation(projects.core.navigation)
     implementation(projects.feature.home.domain)

@@ -1,7 +1,7 @@
 package org.chapp.findfin.feature.setting.data.local.preferences
 
 import kotlinx.coroutines.flow.Flow
-import org.chapp.findfin.core.preferences.provider.AppPreferencesManager
+import org.chapp.findfin.core.preferences.provider.api.AppPreferencesManager
 import org.chapp.findfin.feature.setting.data.repo.preference.local.datasource.UserSettingLocalDataSource
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
