@@ -1,4 +1,4 @@
-package org.chapp.findfin.core.preferences.provider
+package org.chapp.findfin.core.preferences.provider.impl
 
 import android.content.Context
 import androidx.datastore.core.DataStore
