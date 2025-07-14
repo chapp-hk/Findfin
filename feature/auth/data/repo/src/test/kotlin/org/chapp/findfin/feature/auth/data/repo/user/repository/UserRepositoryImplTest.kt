@@ -18,7 +18,6 @@ class UserRepositoryImplTest {
 
     private val userRepositoryImpl =
         UserRepositoryImpl(
-            ioDispatcher = testDispatcher,
             userRemoteDataSource = userRemoteDataSource,
         )
 
