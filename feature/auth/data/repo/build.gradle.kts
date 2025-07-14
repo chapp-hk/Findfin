@@ -7,6 +7,7 @@ plugins {
 
 dependencies {
     implementation(libs.kotlinx.coroutines.core)
+    implementation(projects.core.threading)
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.assertions.core)

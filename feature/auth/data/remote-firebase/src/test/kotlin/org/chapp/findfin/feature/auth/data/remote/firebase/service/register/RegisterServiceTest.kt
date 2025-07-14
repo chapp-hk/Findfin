@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.feature.auth.data.repo.register.remote.response.RegisterResponse
 import org.chapp.findfin.testing.google.play.services.task.mockTaskError
@@ -19,12 +18,10 @@ import org.junit.jupiter.api.Test
 
 @DisplayName("RegisterService unit tests")
 class RegisterServiceTest {
-    private val testDispatcher = StandardTestDispatcher()
     private val firebaseAuth = mockk<FirebaseAuth>()
 
     private val registerService =
         RegisterService(
-            ioDispatcher = testDispatcher,
             firebaseAuth = firebaseAuth,
         )
 
@@ -34,7 +31,7 @@ class RegisterServiceTest {
             "then emailPasswordRegister() should return AuthResponse",
     )
     fun testEmailPasswordRegisterSuccess() =
-        runTest(testDispatcher) {
+        runTest {
             val result =
                 mockk<AuthResult>(relaxed = true) {
                     every { user?.isAnonymous } returns true
@@ -55,7 +52,7 @@ class RegisterServiceTest {
             "then emailPasswordRegister() should return RegisterResponse.Error.WeakPassword",
     )
     fun testEmailPasswordRegisterErrorWeakPassword() =
-        runTest(testDispatcher) {
+        runTest {
             val exception = mockk<FirebaseAuthWeakPasswordException>()
 
             every { firebaseAuth.createUserWithEmailAndPassword(any(), any()) } returns
@@ -73,7 +70,7 @@ class RegisterServiceTest {
             "then emailPasswordRegister() should return RegisterResponse.Error.InvalidEmail",
     )
     fun testEmailPasswordRegisterErrorInvalidEmail() =
-        runTest(testDispatcher) {
+        runTest {
             val exception = mockk<FirebaseAuthInvalidCredentialsException>()
 
             every { firebaseAuth.createUserWithEmailAndPassword(any(), any()) } returns
@@ -91,7 +88,7 @@ class RegisterServiceTest {
             "then emailPasswordRegister() should return RegisterResponse.Error.UserCollision",
     )
     fun testEmailPasswordRegisterErrorUserCollision() =
-        runTest(testDispatcher) {
+        runTest {
             val exception = mockk<FirebaseAuthUserCollisionException>()
 
             every { firebaseAuth.createUserWithEmailAndPassword(any(), any()) } returns
@@ -109,7 +106,7 @@ class RegisterServiceTest {
             "then emailPasswordRegister() should return RegisterResponse.Error.Unknown",
     )
     fun testEmailPasswordRegisterErrorUnknown() =
-        runTest(testDispatcher) {
+        runTest {
             val exception = mockk<FirebaseAuthException>()
 
             every { firebaseAuth.createUserWithEmailAndPassword(any(), any()) } returns

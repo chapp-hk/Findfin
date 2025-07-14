@@ -13,9 +13,14 @@ import org.junit.jupiter.api.Test
 
 @DisplayName("UserRepositoryImpl unit tests")
 class UserRepositoryImplTest {
+    private val testDispatcher = StandardTestDispatcher()
     private val userRemoteDataSource = mockk<UserRemoteDataSource>()
 
-    private val userRepositoryImpl = UserRepositoryImpl(userRemoteDataSource = userRemoteDataSource)
+    private val userRepositoryImpl =
+        UserRepositoryImpl(
+            ioDispatcher = testDispatcher,
+            userRemoteDataSource = userRemoteDataSource,
+        )
 
     @Test
     @DisplayName(
@@ -23,7 +28,7 @@ class UserRepositoryImplTest {
             "getCurrentUser() should return non null UserResponse",
     )
     fun `test getCurrentUser(), non null case`() =
-        runTest(StandardTestDispatcher()) {
+        runTest(context = testDispatcher) {
             coEvery { userRemoteDataSource.getCurrentUser() } returns mockk(relaxed = true)
 
             userRepositoryImpl.getCurrentUser() shouldBe instanceOf<UserModel>()
@@ -35,7 +40,7 @@ class UserRepositoryImplTest {
             "getCurrentUser() should return null",
     )
     fun `test getCurrentUser(), null case`() =
-        runTest(StandardTestDispatcher()) {
+        runTest(context = testDispatcher) {
             coEvery { userRemoteDataSource.getCurrentUser() } returns null
 
             userRepositoryImpl.getCurrentUser() shouldBe null
