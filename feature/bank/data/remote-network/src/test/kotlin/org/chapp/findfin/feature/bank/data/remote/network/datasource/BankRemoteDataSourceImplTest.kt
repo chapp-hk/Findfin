@@ -5,7 +5,6 @@ import io.kotest.matchers.types.shouldBeInstanceOf
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.feature.bank.data.remote.network.api.BankApi
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemote
@@ -17,12 +16,10 @@ import org.junit.jupiter.api.Test
 
 @DisplayName("BankLocationRemoteDataSourceImpl unit tests")
 class BankRemoteDataSourceImplTest {
-    private val testDispatcher = StandardTestDispatcher()
     private val bankApi = mockk<BankApi>()
 
     private val locatorRemoteDataSource =
         BankRemoteDataSourceImpl(
-            ioDispatcher = testDispatcher,
             bankApi = bankApi,
         )
 
@@ -32,7 +29,7 @@ class BankRemoteDataSourceImplTest {
             "getLocations() should return bank branch list",
     )
     fun testGetLocationsSuccess() =
-        runTest(testDispatcher.scheduler) {
+        runTest {
             mockApiResponse("branch/success.json")
 
             val result =
@@ -54,7 +51,7 @@ class BankRemoteDataSourceImplTest {
             "getLocations() should return LocationResult.Error",
     )
     fun testGetLocationsError() =
-        runTest(testDispatcher.scheduler) {
+        runTest {
             mockApiResponse("branch/error.json")
 
             val result =
@@ -74,7 +71,7 @@ class BankRemoteDataSourceImplTest {
             "getLocations() should return empty list",
     )
     fun testGetLocationsEmptyResult() =
-        runTest(testDispatcher.scheduler) {
+        runTest {
             mockApiResponse("branch/empty-result-records.json")
 
             val result =
@@ -94,7 +91,7 @@ class BankRemoteDataSourceImplTest {
             "getLocations() should return LocationResult.Error",
     )
     fun testGetLocationsEmptyJson() =
-        runTest(testDispatcher.scheduler) {
+        runTest {
             mockApiResponse("branch/all-empty.json")
 
             val result =
@@ -114,7 +111,7 @@ class BankRemoteDataSourceImplTest {
             "getLocations() should return list items with default values",
     )
     fun testGetLocationsWithMissingFields() =
-        runTest(testDispatcher.scheduler) {
+        runTest {
             mockApiResponse("branch/success-missing-field.json")
 
             val result =
@@ -156,7 +153,7 @@ class BankRemoteDataSourceImplTest {
             "getLocations() should return list",
     )
     fun testGetLocationsAtmsSuccess() =
-        runTest(testDispatcher.scheduler) {
+        runTest {
             mockApiResponse("atm/success.json")
 
             val result =
@@ -178,7 +175,7 @@ class BankRemoteDataSourceImplTest {
             "should pass \"banks-branch-locator\" to BankLocationApi.getLocations()",
     )
     fun testGetLocationsWithBranchType() =
-        runTest(testDispatcher.scheduler) {
+        runTest {
             mockApiResponse("branch/success.json")
 
             locatorRemoteDataSource.getLocations(
@@ -204,7 +201,7 @@ class BankRemoteDataSourceImplTest {
             "should pass \"banks-atm-locator\" to BankLocationApi.getLocations()",
     )
     fun testGetLocationsWithAtmType() =
-        runTest(testDispatcher.scheduler) {
+        runTest {
             mockApiResponse("atm/success.json")
 
             locatorRemoteDataSource.getLocations(

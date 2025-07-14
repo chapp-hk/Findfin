@@ -8,7 +8,6 @@ import io.mockk.coVerify
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.slot
-import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.feature.bank.data.local.database.dao.BankDao
 import org.chapp.findfin.feature.bank.data.local.database.datasource.BankLocalDataSourceImpl
@@ -26,12 +25,10 @@ import java.util.stream.Stream
 
 @DisplayName("BankLocalDataSourceImpl unit tests")
 class BankLocalDataSourceImplTest {
-    private val testDispatcher = StandardTestDispatcher()
     private val bankDao = mockk<BankDao>()
 
     private val locatorLocalDataSourceImpl =
         BankLocalDataSourceImpl(
-            ioDispatcher = testDispatcher,
             bankDao = bankDao,
         )
 
@@ -41,7 +38,7 @@ class BankLocalDataSourceImplTest {
             "should convert to list of LocatorEntity and invoke BankDao.insertAll()",
     )
     fun testInsertAll() =
-        runTest(testDispatcher) {
+        runTest {
             val bankEntityListSlot = slot<List<BankEntity>>()
 
             coEvery {
@@ -61,7 +58,7 @@ class BankLocalDataSourceImplTest {
             "should catch the exception and not propagate it",
     )
     fun testInsertAllErrorHandling() =
-        runTest(testDispatcher) {
+        runTest {
             coEvery {
                 bankDao.insertAll(any())
             } throws Exception("Test exception")
@@ -76,7 +73,7 @@ class BankLocalDataSourceImplTest {
     @Test
     @DisplayName("When invoke getAllBanks() successfully, should return the list of banks")
     fun testGetAllBanksSuccess() =
-        runTest(testDispatcher) {
+        runTest {
             val expectedBanks = listOf("Bank A", "Bank B", "Bank C")
 
             coEvery { bankDao.getDistinctBankNames(language = any()) } returns expectedBanks
@@ -94,7 +91,7 @@ class BankLocalDataSourceImplTest {
             "should catch the exception and return an empty list",
     )
     fun testGetAllBanksErrorHandling() =
-        runTest(testDispatcher) {
+        runTest {
             coEvery { bankDao.getDistinctBankNames(language = any()) } throws Exception("Test exception")
 
             val result = locatorLocalDataSourceImpl.getAllBanks(language = "zh")
@@ -106,7 +103,7 @@ class BankLocalDataSourceImplTest {
 
     @Test
     fun `Test getBanksWithParameters() with error `() =
-        runTest(testDispatcher) {
+        runTest {
             coEvery { bankDao.getBanksWithQuery(any()) } throws Error()
 
             val result = locatorLocalDataSourceImpl.getBanksWithParameters(BankQueryParameters(language = "en"))
@@ -121,7 +118,7 @@ class BankLocalDataSourceImplTest {
         params: BankQueryParameters,
         expectedSql: String,
         expectedArgCount: Int,
-    ) = runTest(testDispatcher) {
+    ) = runTest {
         val querySlot = slot<SupportSQLiteQuery>()
         coEvery { bankDao.getBanksWithQuery(capture(querySlot)) } returns emptyList()
 

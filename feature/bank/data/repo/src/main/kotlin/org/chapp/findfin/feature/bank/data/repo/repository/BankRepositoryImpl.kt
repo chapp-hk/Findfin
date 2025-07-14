@@ -1,6 +1,9 @@
 package org.chapp.findfin.feature.bank.data.repo.repository
 
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 import org.chapp.findfin.core.locale.api.LocaleProviderManager
+import org.chapp.findfin.core.threading.DispatcherIo
 import org.chapp.findfin.feature.bank.data.repo.datasource.local.datasource.BankLocalDataSource
 import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankQueryParameters
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.datasource.BankRemoteDataSource
@@ -19,6 +22,7 @@ import javax.inject.Inject
 
 @HiltWrapBindModule
 internal class BankRepositoryImpl @Inject constructor(
+    @param:DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val localeProviderManager: LocaleProviderManager,
     private val bankLocalDataSource: BankLocalDataSource,
     private val bankRemoteDataSource: BankRemoteDataSource,
@@ -29,44 +33,48 @@ internal class BankRepositoryImpl @Inject constructor(
         page: Int,
         pageSize: Int,
     ): BankFetchResult {
-        val locatorPath = type.toRemoteLocationPath()
+        return withContext(context = ioDispatcher) {
+            val locatorPath = type.toRemoteLocationPath()
 
-        val remoteResult =
-            bankRemoteDataSource.getLocations(
-                path = locatorPath,
-                language = localeTag.toApiLang(),
-                pageSize = pageSize,
-                offset = page * pageSize,
-            )
+            val remoteResult =
+                bankRemoteDataSource.getLocations(
+                    path = locatorPath,
+                    language = localeTag.toApiLang(),
+                    pageSize = pageSize,
+                    offset = page * pageSize,
+                )
 
-        return when (remoteResult) {
-            BankRemoteResult.Error -> {
-                BankFetchResult.Error
-            }
+            when (remoteResult) {
+                BankRemoteResult.Error -> {
+                    BankFetchResult.Error
+                }
 
-            is BankRemoteResult.Success -> {
-                remoteResult
-                    .data
-                    .map {
-                        it.toBankLocal(
-                            language = localeTag,
-                            type = locatorPath,
-                        )
-                    }
-                    .also { bankLocalDataSource.insertAll(it) }
-                    .let { list ->
-                        if (list.size < pageSize) {
-                            BankFetchResult.End
-                        } else {
-                            BankFetchResult.HasNext
+                is BankRemoteResult.Success -> {
+                    remoteResult
+                        .data
+                        .map {
+                            it.toBankLocal(
+                                language = localeTag,
+                                type = locatorPath,
+                            )
                         }
-                    }
+                        .also { bankLocalDataSource.insertAll(it) }
+                        .let { list ->
+                            if (list.size < pageSize) {
+                                BankFetchResult.End
+                            } else {
+                                BankFetchResult.HasNext
+                            }
+                        }
+                }
             }
         }
     }
 
     override suspend fun getAllBanks(): List<String> {
-        return bankLocalDataSource.getAllBanks(language = localeProviderManager.getCurrentLocaleTag())
+        return withContext(context = ioDispatcher) {
+            bankLocalDataSource.getAllBanks(language = localeProviderManager.getCurrentLocaleTag())
+        }
     }
 
     override suspend fun getBanksByParameters(
@@ -85,6 +93,8 @@ internal class BankRepositoryImpl @Inject constructor(
                 maxLongitude = bound?.maxLongitude,
             )
 
-        return bankLocalDataSource.getBanksWithParameters(params).map { it.toBankModel() }
+        return withContext(context = ioDispatcher) {
+            bankLocalDataSource.getBanksWithParameters(params).map { it.toBankModel() }
+        }
     }
 }
