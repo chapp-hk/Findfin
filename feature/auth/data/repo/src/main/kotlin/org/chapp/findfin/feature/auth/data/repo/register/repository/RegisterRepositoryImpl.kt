@@ -18,20 +18,20 @@ internal class RegisterRepositoryImpl @Inject constructor(
         email: String,
         password: String,
     ): RegisterResult {
-        return withContext(ioDispatcher) {
-            val response =
+        val response =
+            withContext(context = ioDispatcher) {
                 registerRemoteDataSource.emailPasswordRegister(
                     email = email,
                     password = password,
                 )
-
-            when (response) {
-                RegisterResponse.Error.InvalidEmail -> RegisterResult.Error.InvalidEmail
-                RegisterResponse.Error.Unknown -> RegisterResult.Error.Unknown
-                RegisterResponse.Error.UserCollision -> RegisterResult.Error.EmailAlreadyInUse
-                RegisterResponse.Error.WeakPassword -> RegisterResult.Error.WeakPassword
-                RegisterResponse.Success -> RegisterResult.Authorized
             }
+
+        return when (response) {
+            RegisterResponse.Error.InvalidEmail -> RegisterResult.Error.InvalidEmail
+            RegisterResponse.Error.Unknown -> RegisterResult.Error.Unknown
+            RegisterResponse.Error.UserCollision -> RegisterResult.Error.EmailAlreadyInUse
+            RegisterResponse.Error.WeakPassword -> RegisterResult.Error.WeakPassword
+            RegisterResponse.Success -> RegisterResult.Authorized
         }
     }
 }

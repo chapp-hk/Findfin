@@ -18,20 +18,20 @@ internal class LoginRepositoryImpl @Inject constructor(
         email: String,
         password: String,
     ): LoginResult {
-        return withContext(ioDispatcher) {
-            val loginResponse =
+        val loginResponse =
+            withContext(context = ioDispatcher) {
                 loginRemoteDataSource.emailPasswordLogin(
                     email = email,
                     password = password,
                 )
-
-            when (loginResponse) {
-                LoginResponse.Error.AccountDisabled -> LoginResult.Error.AccountDisabled
-                LoginResponse.Error.InvalidCredential -> LoginResult.Error.InvalidCredential
-                LoginResponse.Error.TooManyRequest -> LoginResult.Error.TooManyRequest
-                LoginResponse.Error.Unknown -> LoginResult.Error.Unknown
-                LoginResponse.Success -> LoginResult.Success
             }
+
+        return when (loginResponse) {
+            LoginResponse.Error.AccountDisabled -> LoginResult.Error.AccountDisabled
+            LoginResponse.Error.InvalidCredential -> LoginResult.Error.InvalidCredential
+            LoginResponse.Error.TooManyRequest -> LoginResult.Error.TooManyRequest
+            LoginResponse.Error.Unknown -> LoginResult.Error.Unknown
+            LoginResponse.Success -> LoginResult.Success
         }
     }
 }
