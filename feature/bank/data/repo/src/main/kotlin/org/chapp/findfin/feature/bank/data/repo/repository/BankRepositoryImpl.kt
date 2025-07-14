@@ -33,40 +33,44 @@ internal class BankRepositoryImpl @Inject constructor(
         page: Int,
         pageSize: Int,
     ): BankFetchResult {
-        return withContext(context = ioDispatcher) {
-            val locatorPath = type.toRemoteLocationPath()
+        val locatorPath = type.toRemoteLocationPath()
 
-            val remoteResult =
+        val remoteResult =
+            withContext(context = ioDispatcher) {
                 bankRemoteDataSource.getLocations(
                     path = locatorPath,
                     language = localeTag.toApiLang(),
                     pageSize = pageSize,
                     offset = page * pageSize,
                 )
+            }
 
-            when (remoteResult) {
-                BankRemoteResult.Error -> {
-                    BankFetchResult.Error
-                }
+        return when (remoteResult) {
+            BankRemoteResult.Error -> {
+                BankFetchResult.Error
+            }
 
-                is BankRemoteResult.Success -> {
-                    remoteResult
-                        .data
-                        .map {
-                            it.toBankLocal(
-                                language = localeTag,
-                                type = locatorPath,
-                            )
+            is BankRemoteResult.Success -> {
+                remoteResult
+                    .data
+                    .map {
+                        it.toBankLocal(
+                            language = localeTag,
+                            type = locatorPath,
+                        )
+                    }
+                    .also {
+                        withContext(context = ioDispatcher) {
+                            bankLocalDataSource.insertAll(locators = it)
                         }
-                        .also { bankLocalDataSource.insertAll(it) }
-                        .let { list ->
-                            if (list.size < pageSize) {
-                                BankFetchResult.End
-                            } else {
-                                BankFetchResult.HasNext
-                            }
+                    }
+                    .let { list ->
+                        if (list.size < pageSize) {
+                            BankFetchResult.End
+                        } else {
+                            BankFetchResult.HasNext
                         }
-                }
+                    }
             }
         }
     }
