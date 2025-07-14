@@ -19,9 +19,14 @@ import java.util.stream.Stream
 
 @DisplayName("RegisterRepositoryImpl unit tests")
 class RegisterRepositoryImplTest {
+    private val testDispatcher = StandardTestDispatcher()
     private val registerRemoteDataSource = mockk<RegisterRemoteDataSource>()
 
-    private val registerRepository = RegisterRepositoryImpl(registerRemoteDataSource = registerRemoteDataSource)
+    private val registerRepository =
+        RegisterRepositoryImpl(
+            ioDispatcher = testDispatcher,
+            registerRemoteDataSource = registerRemoteDataSource,
+        )
 
     @ParameterizedTest(
         name =
@@ -32,7 +37,7 @@ class RegisterRepositoryImplTest {
     fun testEmailPasswordRegister(
         mockRemoteDataSourceResponse: RegisterResponse,
         expectedResult: RegisterResult,
-    ) = runTest(StandardTestDispatcher()) {
+    ) = runTest(context = testDispatcher) {
         coEvery {
             registerRemoteDataSource.emailPasswordRegister(
                 email = any(),

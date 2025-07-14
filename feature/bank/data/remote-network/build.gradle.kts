@@ -7,7 +7,6 @@ plugins {
 
 dependencies {
     implementation(projects.core.network)
-    implementation(projects.core.threading)
     implementation(projects.core.logging.api)
     implementation(projects.feature.bank.data.repo)
     implementation(libs.kotlinx.serialization.json)

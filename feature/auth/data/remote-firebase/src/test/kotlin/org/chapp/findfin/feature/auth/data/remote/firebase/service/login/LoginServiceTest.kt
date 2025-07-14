@@ -8,7 +8,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.chapp.findfin.feature.auth.data.repo.login.remote.response.LoginResponse
 import org.chapp.findfin.testing.google.play.services.task.mockTaskError
@@ -26,12 +25,10 @@ import java.util.stream.Stream
 
 @DisplayName("LoginService unit tests")
 class LoginServiceTest {
-    private val testDispatcher = StandardTestDispatcher()
     private val firebaseAuth = mockk<FirebaseAuth>()
 
     private val loginService =
         LoginService(
-            ioDispatcher = testDispatcher,
             firebaseAuth = firebaseAuth,
         )
 
@@ -41,7 +38,7 @@ class LoginServiceTest {
             "then emailPasswordLogin() should return LoginResponse.Success",
     )
     fun testEmailPasswordLoginSuccess() =
-        runTest(testDispatcher) {
+        runTest {
             val result =
                 mockk<AuthResult>(relaxed = true) {
                     every { user?.isAnonymous } returns false
@@ -65,7 +62,7 @@ class LoginServiceTest {
     fun testEmailPasswordLoginError(
         mockError: Exception,
         expectedResult: LoginResponse,
-    ) = runTest(testDispatcher) {
+    ) = runTest {
         every { firebaseAuth.signInWithEmailAndPassword(any(), any()) } returns
             mockTaskError<AuthResult>(mockError)
 

@@ -19,9 +19,14 @@ import java.util.stream.Stream
 
 @DisplayName("LoginRepositoryImpl unit tests")
 class LoginRepositoryImplTest {
+    private val testDispatcher = StandardTestDispatcher()
     private val loginRemoteDataSource = mockk<LoginRemoteDataSource>()
 
-    private val loginRepository = LoginRepositoryImpl(loginRemoteDataSource = loginRemoteDataSource)
+    private val loginRepository =
+        LoginRepositoryImpl(
+            ioDispatcher = testDispatcher,
+            loginRemoteDataSource = loginRemoteDataSource,
+        )
 
     @ParameterizedTest(
         name =
@@ -32,7 +37,7 @@ class LoginRepositoryImplTest {
     fun testEmailPasswordRegister(
         mockRemoteDataSourceResponse: LoginResponse,
         expectedResult: LoginResult,
-    ) = runTest(StandardTestDispatcher()) {
+    ) = runTest(context = testDispatcher) {
         coEvery {
             loginRemoteDataSource.emailPasswordLogin(
                 email = any(),

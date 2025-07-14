@@ -1,5 +1,8 @@
 package org.chapp.findfin.feature.auth.data.repo.login.repository
 
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
+import org.chapp.findfin.core.threading.DispatcherIo
 import org.chapp.findfin.feature.auth.data.repo.login.model.LoginResult
 import org.chapp.findfin.feature.auth.data.repo.login.remote.datasource.LoginRemoteDataSource
 import org.chapp.findfin.feature.auth.data.repo.login.remote.response.LoginResponse
@@ -8,6 +11,7 @@ import javax.inject.Inject
 
 @HiltWrapBindModule
 internal class LoginRepositoryImpl @Inject constructor(
+    @param:DispatcherIo private val ioDispatcher: CoroutineDispatcher,
     private val loginRemoteDataSource: LoginRemoteDataSource,
 ) : LoginRepository {
     override suspend fun emailPasswordLogin(
@@ -15,10 +19,12 @@ internal class LoginRepositoryImpl @Inject constructor(
         password: String,
     ): LoginResult {
         val loginResponse =
-            loginRemoteDataSource.emailPasswordLogin(
-                email = email,
-                password = password,
-            )
+            withContext(context = ioDispatcher) {
+                loginRemoteDataSource.emailPasswordLogin(
+                    email = email,
+                    password = password,
+                )
+            }
 
         return when (loginResponse) {
             LoginResponse.Error.AccountDisabled -> LoginResult.Error.AccountDisabled

@@ -26,12 +26,14 @@ import org.junit.jupiter.api.Test
 
 @DisplayName("BankRepositoryImpl unit tests")
 class BankRepositoryImplTest {
+    private val testDispatcher = StandardTestDispatcher()
     private val localeProviderManager = mockk<LocaleProviderManager>()
     private val bankLocalDataSource = mockk<BankLocalDataSource>()
     private val bankRemoteDataSource = mockk<BankRemoteDataSource>()
 
     private val bankRepositoryImpl =
         BankRepositoryImpl(
+            ioDispatcher = testDispatcher,
             localeProviderManager = localeProviderManager,
             bankLocalDataSource = bankLocalDataSource,
             bankRemoteDataSource = bankRemoteDataSource,
@@ -49,7 +51,7 @@ class BankRepositoryImplTest {
             "page * pageSize",
     )
     fun testOffsetValue() =
-        runTest(StandardTestDispatcher()) {
+        runTest(context = testDispatcher) {
             coEvery {
                 bankRemoteDataSource.getLocations(
                     path = any(),
@@ -82,7 +84,7 @@ class BankRepositoryImplTest {
             "fetchLocations() should return LocationResult.Error",
     )
     fun testFetchBanksError() =
-        runTest(StandardTestDispatcher()) {
+        runTest(context = testDispatcher) {
             coEvery {
                 bankRemoteDataSource.getLocations(
                     path = any(),
@@ -109,7 +111,7 @@ class BankRepositoryImplTest {
             "then fetchLocations() should return LocationResult.HasNext",
     )
     fun testFetchBanksResultListEqualsPageSize() =
-        runTest(StandardTestDispatcher()) {
+        runTest(context = testDispatcher) {
             val pageSize = 1000
 
             coEvery {
@@ -141,7 +143,7 @@ class BankRepositoryImplTest {
             "then fetchLocations() should return LocationResult.HasNext",
     )
     fun testFetchBanksResultListLargerThanPageSize() =
-        runTest(StandardTestDispatcher()) {
+        runTest(context = testDispatcher) {
             val pageSize = 1000
 
             coEvery {
@@ -173,7 +175,7 @@ class BankRepositoryImplTest {
             "then fetchLocations() should return LocationResult.End",
     )
     fun testFetchBanksEnd() =
-        runTest(StandardTestDispatcher()) {
+        runTest(context = testDispatcher) {
             val pageSize = 1000
 
             coEvery {
@@ -202,7 +204,7 @@ class BankRepositoryImplTest {
     @Test
     @DisplayName("When getAllBanks() is successful, should return the list of banks")
     fun testGetAllBanksSuccess() =
-        runTest(StandardTestDispatcher()) {
+        runTest(context = testDispatcher) {
             val expectedBanks = listOf("Bank A", "Bank B", "Bank C")
 
             coEvery { bankLocalDataSource.getAllBanks(language = any()) } returns expectedBanks
@@ -216,7 +218,7 @@ class BankRepositoryImplTest {
 
     @Test
     fun `getBanksByParameters should return empty list when data source returns empty`() =
-        runTest {
+        runTest(context = testDispatcher) {
             val expectedParams =
                 BankQueryParameters(
                     language = "en",
@@ -241,7 +243,7 @@ class BankRepositoryImplTest {
 
     @Test
     fun `getBanksByParameters should return list when data source returns non-empty list`() =
-        runTest {
+        runTest(context = testDispatcher) {
             val mockBankLocal = mockk<BankLocal>(relaxed = true)
             val expectedParams =
                 BankQueryParameters(
@@ -271,7 +273,7 @@ class BankRepositoryImplTest {
 
     @Test
     fun `getBanksByParameters should handle null name and type but non-null bound`() =
-        runTest {
+        runTest(context = testDispatcher) {
             val mockBankLocal = mockk<BankLocal>(relaxed = true)
             val expectedParams =
                 BankQueryParameters(
@@ -301,7 +303,7 @@ class BankRepositoryImplTest {
 
     @Test
     fun `getBanksByParameters should handle null bound but non-null name and type`() =
-        runTest {
+        runTest(context = testDispatcher) {
             val mockBankLocal = mockk<BankLocal>(relaxed = true)
             val expectedParams =
                 BankQueryParameters(
