@@ -49,6 +49,8 @@ dependencies {
 
     // wiring impl modules here
     implementation(projects.core.locale.impl)
+    implementation(projects.core.location.provider.impl)
+    implementation(projects.core.preferences.provider.impl)
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.assertions.core)

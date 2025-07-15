@@ -29,7 +29,7 @@ android {
 dependencies {
     implementation(projects.core.design.uiFoundation)
     implementation(projects.core.locale.api)
-    implementation(projects.core.preferences.storage)
+    implementation(projects.core.preferences.provider.api)
     implementation(projects.feature.bank.data.localDatabase)
     implementation(projects.feature.bank.data.remoteNetwork)
     implementation(projects.feature.setting.domain)
@@ -55,6 +55,7 @@ dependencies {
     androidTestImplementation(libs.kotest.assertions.core)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    // todo: investigate to remove this dependency
+    // todo: investigate to remove these dependencies
     androidTestImplementation(projects.core.locale.impl)
+    androidTestImplementation(projects.core.preferences.provider.impl)
 }

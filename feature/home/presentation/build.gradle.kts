@@ -29,7 +29,6 @@ dependencies {
     implementation(projects.core.design.uiFoundation)
     implementation(projects.core.imageloader)
     implementation(projects.core.location.provider.api)
-    implementation(projects.core.location.provider.impl)
     implementation(projects.core.location.uiFoundation)
     implementation(projects.core.navigation)
     implementation(projects.feature.home.domain)
@@ -62,6 +61,8 @@ dependencies {
     androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    // todo: investigate to remove this dependency
+    // todo: investigate to remove these dependencies
     androidTestImplementation(projects.core.locale.impl)
+    androidTestImplementation(projects.core.location.provider.impl)
+    androidTestImplementation(projects.core.preferences.provider.impl)
 }

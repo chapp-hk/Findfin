@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "org.chapp.findfin.feature.setting.data.local.preferences"
+    namespace = "org.chapp.findfin.core.preferences.provider.impl"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
@@ -15,13 +15,12 @@ android {
 
 dependencies {
     implementation(projects.core.preferences.provider.api)
-    implementation(projects.feature.setting.data.repo)
+    implementation(projects.core.threading)
+    implementation(libs.androidx.datastore.preferences)
 
-    testImplementation(libs.junit.jupiter)
-    testImplementation(libs.kotest.assertions.core)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.mockk)
-
-    // TODO - Remove this dependency
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.kotest.assertions.core)
+    androidTestImplementation(libs.turbine)
     androidTestImplementation(libs.androidx.test.runner)
 }

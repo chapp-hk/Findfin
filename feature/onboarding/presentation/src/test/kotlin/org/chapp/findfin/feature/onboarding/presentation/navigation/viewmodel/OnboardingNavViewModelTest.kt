@@ -9,7 +9,7 @@ import io.mockk.verify
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
-import org.chapp.findfin.core.preferences.storage.AppPreferencesManager
+import org.chapp.findfin.core.preferences.provider.api.AppPreferencesManager
 import org.chapp.findfin.testing.extension.MainDispatcherExtension
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
