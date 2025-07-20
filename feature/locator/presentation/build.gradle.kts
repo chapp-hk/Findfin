@@ -22,6 +22,7 @@ dependencies {
     implementation(projects.core.navigation)
     implementation(projects.core.map)
     implementation(projects.feature.bank.data.repo)
+    implementation(libs.androidx.compose.material)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 

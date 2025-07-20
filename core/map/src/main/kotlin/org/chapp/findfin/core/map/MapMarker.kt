@@ -25,21 +25,41 @@ data class MapMarker<T>(
 )
 
 /**
+ * Extended ClusterItem interface that includes the original marker type.
+ */
+interface MapCluster<T> : ClusterItem {
+    val originalMarker: MapMarker<T>
+}
+
+/**
  * Converts a [MapMarker] to a [ClusterItem] for use in clustering on Google Maps.
  *
- * This function creates an anonymous implementation of the [ClusterItem] interface,
+ * This function creates an anonymous implementation of the [MapCluster] interface,
  * allowing the marker to be used in clustering algorithms provided by the Google Maps Android API.
  *
- * @return A [ClusterItem] representation of this [MapMarker].
+ * @return A [MapCluster] representation of this [MapMarker].
  */
-internal fun <T> MapMarker<T>.toClusterItem(): ClusterItem {
-    return object : ClusterItem {
-        override fun getPosition(): LatLng = LatLng(markerPosition.latitude, markerPosition.longitude)
+internal fun <T> MapMarker<T>.toClusterItem(): MapCluster<T> {
+    val marker = this
+    return object : MapCluster<T> {
+        override fun getPosition(): LatLng = LatLng(marker.markerPosition.latitude, marker.markerPosition.longitude)
 
-        override fun getTitle(): String? = markerTitle
+        override fun getTitle(): String? = marker.markerTitle
 
         override fun getSnippet(): String? = null
 
         override fun getZIndex(): Float? = null
+
+        override val originalMarker: MapMarker<T>
+            get() = marker
     }
+}
+
+/**
+ * Converts a [MapCluster] back to a [MapMarker].
+ *
+ * @return The original [MapMarker] that was converted to a cluster item.
+ */
+internal fun <T> MapCluster<T>.toMapMarker(): MapMarker<T> {
+    return originalMarker
 }

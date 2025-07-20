@@ -1,5 +1,6 @@
 package org.chapp.findfin.core.map
 
+import android.Manifest
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -28,6 +29,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
  * @param initPosition The initial camera position as a [Position].
  * @param initZoom The initial zoom level for the camera.
  * @param onBoundsChange Callback invoked with the current [PositionBounds]
+ * @param markerContent Composable function to render the content of each marker.
  * when the camera becomes idle or the map is loaded.
  */
 @OptIn(MapsComposeExperimentalApi::class, ExperimentalPermissionsApi::class)
@@ -39,8 +41,9 @@ fun <T> AppMap(
     initPosition: Position,
     initZoom: Float,
     onBoundsChange: (PositionBounds) -> Unit,
+    markerContent: @Composable (MapMarker<T>) -> Unit,
 ) {
-    val permissionState = rememberPermissionState(android.Manifest.permission.ACCESS_FINE_LOCATION)
+    val permissionState = rememberPermissionState(Manifest.permission.ACCESS_FINE_LOCATION)
     val properties by remember {
         derivedStateOf {
             MapProperties(
@@ -96,6 +99,9 @@ fun <T> AppMap(
     ) {
         Clustering(
             items = markers.map { it.toClusterItem() },
+            clusterItemContent = { item ->
+                markerContent(item.toMapMarker())
+            },
         )
     }
 }
