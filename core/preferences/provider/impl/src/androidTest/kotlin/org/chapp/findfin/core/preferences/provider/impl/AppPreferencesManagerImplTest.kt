@@ -36,7 +36,7 @@ class AppPreferencesManagerImplTest {
         }
 
     @Test
-    fun testBoolean() =
+    fun test_boolean() =
         testScope.runTest {
             appPreferences.setBoolean("boolean", true)
             appPreferences.getBoolean(key = "boolean", defaultValue = false).test {
@@ -57,7 +57,7 @@ class AppPreferencesManagerImplTest {
         }
 
     @Test
-    fun testString() =
+    fun test_String() =
         testScope.runTest {
             appPreferences.setString("string", "test_value")
             appPreferences.getString(key = "string", defaultValue = "").test {

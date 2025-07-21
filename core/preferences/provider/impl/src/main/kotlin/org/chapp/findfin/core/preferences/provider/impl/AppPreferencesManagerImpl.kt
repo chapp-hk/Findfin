@@ -9,6 +9,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import org.chapp.findfin.core.logging.appLogger
 import org.chapp.findfin.core.preferences.provider.api.AppPreferencesManager
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
@@ -25,9 +26,15 @@ internal class AppPreferencesManagerImpl @Inject constructor(
             dataStore.edit { preferences ->
                 preferences[booleanPreferencesKey(key)] = value
             }
-        }.getOrElse { exception ->
-            if (exception is CancellationException) {
-                throw exception
+        }.getOrElse { error ->
+            appLogger.error(
+                tag = javaClass.simpleName,
+                message = "Failed to set boolean preference for key: $key",
+                throwable = error,
+            )
+
+            if (error is CancellationException) {
+                throw error
             } else {
                 // no-op or handle the error as needed
             }
@@ -42,9 +49,15 @@ internal class AppPreferencesManagerImpl @Inject constructor(
             dataStore.data.map { preferences ->
                 preferences[booleanPreferencesKey(key)] ?: defaultValue
             }
-        }.getOrElse { exception ->
-            if (exception is CancellationException) {
-                throw exception
+        }.getOrElse { error ->
+            appLogger.error(
+                tag = javaClass.simpleName,
+                message = "Failed to get boolean preference for key: $key",
+                throwable = error,
+            )
+
+            if (error is CancellationException) {
+                throw error
             } else {
                 flowOf(defaultValue)
             }
@@ -59,9 +72,15 @@ internal class AppPreferencesManagerImpl @Inject constructor(
             dataStore.edit { preferences ->
                 preferences[stringPreferencesKey(key)] = value
             }
-        }.getOrElse { exception ->
-            if (exception is CancellationException) {
-                throw exception
+        }.getOrElse { error ->
+            appLogger.error(
+                tag = javaClass.simpleName,
+                message = "Failed to set string preference for key: $key",
+                throwable = error,
+            )
+
+            if (error is CancellationException) {
+                throw error
             } else {
                 // no-op or handle the error as needed
             }
@@ -76,9 +95,15 @@ internal class AppPreferencesManagerImpl @Inject constructor(
             dataStore.data.map { preferences ->
                 preferences[stringPreferencesKey(key)] ?: defaultValue
             }
-        }.getOrElse { exception ->
-            if (exception is CancellationException) {
-                throw exception
+        }.getOrElse { error ->
+            appLogger.error(
+                tag = javaClass.simpleName,
+                message = "Failed to get string preference for key: $key",
+                throwable = error,
+            )
+
+            if (error is CancellationException) {
+                throw error
             } else {
                 flowOf(defaultValue)
             }

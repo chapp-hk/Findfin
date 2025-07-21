@@ -15,6 +15,7 @@ android {
 
 dependencies {
     implementation(projects.core.preferences.provider.api)
+    implementation(projects.core.logging.api)
     implementation(projects.core.threading)
     implementation(libs.androidx.datastore.preferences)
 
