@@ -57,7 +57,7 @@ class AppPreferencesManagerImplTest {
         }
 
     @Test
-    fun test_String() =
+    fun test_string() =
         testScope.runTest {
             appPreferences.setString("string", "test_value")
             appPreferences.getString(key = "string", defaultValue = "").test {
