@@ -1,21 +1,21 @@
 [versions]
 activity-compose = "1.10.1"
 agp = "8.11.1"
-androidx-navigation = "2.9.1"
+androidx-navigation = "2.9.2"
 appcompat = "1.7.1"
 core-ktx = "1.16.0"
-hilt = "2.56.2"
+hilt = "2.57"
 kermit = "2.0.6"
 kotlin = "2.2.0"
 kotlinPoet = "2.2.0"
 kotlinxCoroutines = "1.10.2"
 ktlint = "1.1.1"
-ktor = "3.2.1"
-mapsCompose = "6.6.0"
+ktor = "3.2.2"
+mapsCompose = "6.7.0"
 mapStruct = "1.6.3"
 material = "1.12.0"
 # mockk 1.14.4 cannot pass CI, so we use 1.14.2
-mockk = "1.14.2"
+mockk = "1.14.5"
 jacoco = "0.8.13"
 room = "2.7.2"
 
@@ -27,7 +27,7 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version = "1.2.0-rc01" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2025.06.01" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2025.07.00" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
@@ -114,7 +114,7 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.56.2" }
+dagger-hilt-android = { id = "com.google.dagger.hilt.android", version = "2.57" }
 ksp = { id = "com.google.devtools.ksp", version = "2.2.0-2.0.2" }
 google-gms-services = { id = "com.google.gms.google-services", version = "4.4.3" }
 google-secrets = { id  = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version = "2.0.1" }
