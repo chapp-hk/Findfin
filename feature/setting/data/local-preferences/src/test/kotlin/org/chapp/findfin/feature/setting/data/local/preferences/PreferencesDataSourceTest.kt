@@ -32,8 +32,12 @@ class PreferencesDataSourceTest {
     fun `getLanguagePreference should return the correct Flow from AppPreferencesManager`() {
         runTest {
             val language = "en"
-            coEvery { appPreferencesManager.getString("setting_pref_key_language") } returns
-                flowOf(language)
+            coEvery {
+                appPreferencesManager.getString(
+                    key = "setting_pref_key_language",
+                    defaultValue = any(),
+                )
+            } returns flowOf(language)
 
             val result = preferencesDataSource.getLanguagePreference()
 
@@ -56,8 +60,12 @@ class PreferencesDataSourceTest {
     fun `getThemePreference should return the correct Flow from AppPreferencesManager`() {
         runTest {
             val theme = "DARK"
-            coEvery { appPreferencesManager.getString("setting_pref_key_theme") } returns
-                flowOf(theme)
+            coEvery {
+                appPreferencesManager.getString(
+                    key = "setting_pref_key_theme",
+                    defaultValue = any(),
+                )
+            } returns flowOf(theme)
 
             val result = preferencesDataSource.getThemePreference()
 

@@ -15,7 +15,7 @@ internal class PreferencesDataSource @Inject constructor(
     }
 
     override fun getLanguagePreference(): Flow<String> {
-        return appPreferencesManager.getString(SETTING_PREF_KEY_LANGUAGE)
+        return appPreferencesManager.getString(key = SETTING_PREF_KEY_LANGUAGE, defaultValue = "")
     }
 
     override suspend fun setThemePreference(theme: String) {
@@ -23,7 +23,7 @@ internal class PreferencesDataSource @Inject constructor(
     }
 
     override fun getThemePreference(): Flow<String> {
-        return appPreferencesManager.getString(SETTING_PREF_KEY_THEME)
+        return appPreferencesManager.getString(key = SETTING_PREF_KEY_THEME, defaultValue = "")
     }
 
     private companion object {

@@ -23,12 +23,17 @@ class OnboardingNavViewModelTest {
     @Test
     fun `test navState IsFinishedOnboard`() {
         runTest {
-            every { appPreferencesManager.getBoolean(any()) } returns flowOf(true)
+            every {
+                appPreferencesManager.getBoolean(key = any(), defaultValue = any())
+            } returns flowOf(true)
 
             val onboardingNavViewModel = createOnboardingNavViewModel()
 
             verify {
-                appPreferencesManager.getBoolean("onboarding_pref_key_is_finished_onboard")
+                appPreferencesManager.getBoolean(
+                    key = "onboarding_pref_key_is_finished_onboard",
+                    defaultValue = false,
+                )
             }
 
             onboardingNavViewModel.navState.test {
@@ -42,12 +47,17 @@ class OnboardingNavViewModelTest {
     @Test
     fun `test navState NotFinishedOnboard`() {
         runTest {
-            every { appPreferencesManager.getBoolean(any()) } returns flowOf(false)
+            every {
+                appPreferencesManager.getBoolean(key = any(), defaultValue = any())
+            } returns flowOf(false)
 
             val onboardingNavViewModel = createOnboardingNavViewModel()
 
             verify {
-                appPreferencesManager.getBoolean("onboarding_pref_key_is_finished_onboard")
+                appPreferencesManager.getBoolean(
+                    key = "onboarding_pref_key_is_finished_onboard",
+                    defaultValue = false,
+                )
             }
 
             onboardingNavViewModel.navState.test {
@@ -61,7 +71,9 @@ class OnboardingNavViewModelTest {
     @Test
     fun `test completeOnboarding`() {
         runTest {
-            every { appPreferencesManager.getBoolean(any()) } returns flowOf(false)
+            every {
+                appPreferencesManager.getBoolean(key = any(), defaultValue = any())
+            } returns flowOf(false)
 
             val onboardingNavViewModel = createOnboardingNavViewModel()
 

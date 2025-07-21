@@ -24,9 +24,12 @@ internal class AppPreferencesManagerImpl @Inject constructor(
         }
     }
 
-    override fun getBoolean(key: String): Flow<Boolean> {
+    override fun getBoolean(
+        key: String,
+        defaultValue: Boolean,
+    ): Flow<Boolean> {
         return dataStore.data.map { preferences ->
-            preferences[booleanPreferencesKey(key)] ?: false
+            preferences[booleanPreferencesKey(key)] ?: defaultValue
         }
     }
 
@@ -39,9 +42,12 @@ internal class AppPreferencesManagerImpl @Inject constructor(
         }
     }
 
-    override fun getString(key: String): Flow<String> {
+    override fun getString(
+        key: String,
+        defaultValue: String,
+    ): Flow<String> {
         return dataStore.data.map { preferences ->
-            preferences[stringPreferencesKey(key)].orEmpty()
+            preferences[stringPreferencesKey(key)] ?: defaultValue
         }
     }
 }
