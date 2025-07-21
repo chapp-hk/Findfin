@@ -7,7 +7,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import org.chapp.findfin.core.logging.appLogger
 import org.chapp.findfin.core.preferences.provider.api.AppPreferencesManager
@@ -35,8 +35,6 @@ internal class AppPreferencesManagerImpl @Inject constructor(
 
             if (error is CancellationException) {
                 throw error
-            } else {
-                // no-op or handle the error as needed
             }
         }
     }
@@ -45,23 +43,23 @@ internal class AppPreferencesManagerImpl @Inject constructor(
         key: String,
         defaultValue: Boolean,
     ): Flow<Boolean> {
-        return runCatching {
-            dataStore.data.map { preferences ->
+        return dataStore.data
+            .map { preferences ->
                 preferences[booleanPreferencesKey(key)] ?: defaultValue
             }
-        }.getOrElse { error ->
-            appLogger.error(
-                tag = javaClass.simpleName,
-                message = "Failed to get boolean preference for key: $key",
-                throwable = error,
-            )
+            .catch { error ->
+                appLogger.error(
+                    tag = javaClass.simpleName,
+                    message = "Failed to get boolean preference for key: $key",
+                    throwable = error,
+                )
 
-            if (error is CancellationException) {
-                throw error
-            } else {
-                flowOf(defaultValue)
+                if (error is CancellationException) {
+                    throw error
+                } else {
+                    emit(defaultValue)
+                }
             }
-        }
     }
 
     override suspend fun setString(
@@ -81,8 +79,6 @@ internal class AppPreferencesManagerImpl @Inject constructor(
 
             if (error is CancellationException) {
                 throw error
-            } else {
-                // no-op or handle the error as needed
             }
         }
     }
@@ -91,22 +87,22 @@ internal class AppPreferencesManagerImpl @Inject constructor(
         key: String,
         defaultValue: String,
     ): Flow<String> {
-        return runCatching {
-            dataStore.data.map { preferences ->
+        return dataStore.data
+            .map { preferences ->
                 preferences[stringPreferencesKey(key)] ?: defaultValue
             }
-        }.getOrElse { error ->
-            appLogger.error(
-                tag = javaClass.simpleName,
-                message = "Failed to get string preference for key: $key",
-                throwable = error,
-            )
+            .catch { error ->
+                appLogger.error(
+                    tag = javaClass.simpleName,
+                    message = "Failed to get string preference for key: $key",
+                    throwable = error,
+                )
 
-            if (error is CancellationException) {
-                throw error
-            } else {
-                flowOf(defaultValue)
+                if (error is CancellationException) {
+                    throw error
+                } else {
+                    emit(defaultValue)
+                }
             }
-        }
     }
 }
