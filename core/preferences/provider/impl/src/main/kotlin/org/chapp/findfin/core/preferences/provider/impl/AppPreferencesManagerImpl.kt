@@ -5,7 +5,9 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import org.chapp.findfin.core.preferences.provider.api.AppPreferencesManager
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
@@ -19,8 +21,16 @@ internal class AppPreferencesManagerImpl @Inject constructor(
         key: String,
         value: Boolean,
     ) {
-        dataStore.edit { preferences ->
-            preferences[booleanPreferencesKey(key)] = value
+        runCatching {
+            dataStore.edit { preferences ->
+                preferences[booleanPreferencesKey(key)] = value
+            }
+        }.getOrElse { exception ->
+            if (exception is CancellationException) {
+                throw exception
+            } else {
+                // no-op or handle the error as needed
+            }
         }
     }
 
@@ -28,8 +38,16 @@ internal class AppPreferencesManagerImpl @Inject constructor(
         key: String,
         defaultValue: Boolean,
     ): Flow<Boolean> {
-        return dataStore.data.map { preferences ->
-            preferences[booleanPreferencesKey(key)] ?: defaultValue
+        return runCatching {
+            dataStore.data.map { preferences ->
+                preferences[booleanPreferencesKey(key)] ?: defaultValue
+            }
+        }.getOrElse { exception ->
+            if (exception is CancellationException) {
+                throw exception
+            } else {
+                flowOf(defaultValue)
+            }
         }
     }
 
@@ -37,8 +55,16 @@ internal class AppPreferencesManagerImpl @Inject constructor(
         key: String,
         value: String,
     ) {
-        dataStore.edit { preferences ->
-            preferences[stringPreferencesKey(key)] = value
+        runCatching {
+            dataStore.edit { preferences ->
+                preferences[stringPreferencesKey(key)] = value
+            }
+        }.getOrElse { exception ->
+            if (exception is CancellationException) {
+                throw exception
+            } else {
+                // no-op or handle the error as needed
+            }
         }
     }
 
@@ -46,8 +72,16 @@ internal class AppPreferencesManagerImpl @Inject constructor(
         key: String,
         defaultValue: String,
     ): Flow<String> {
-        return dataStore.data.map { preferences ->
-            preferences[stringPreferencesKey(key)] ?: defaultValue
+        return runCatching {
+            dataStore.data.map { preferences ->
+                preferences[stringPreferencesKey(key)] ?: defaultValue
+            }
+        }.getOrElse { exception ->
+            if (exception is CancellationException) {
+                throw exception
+            } else {
+                flowOf(defaultValue)
+            }
         }
     }
 }
