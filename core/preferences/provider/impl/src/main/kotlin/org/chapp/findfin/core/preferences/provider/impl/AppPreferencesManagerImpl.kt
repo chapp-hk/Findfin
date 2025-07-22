@@ -22,35 +22,42 @@ internal class AppPreferencesManagerImpl @Inject constructor(
         key: String,
         value: Boolean,
     ) {
-        runCatching {
-            dataStore.edit { preferences ->
-                preferences[booleanPreferencesKey(key)] = value
-            }
-        }.getOrElse { error ->
-            appLogger.error(
-                tag = javaClass.simpleName,
-                message = "Failed to set boolean preference for key: $key",
-                throwable = error,
-            )
-
-            if (error is CancellationException) {
-                throw error
-            }
-        }
+        setPreference(key = booleanPreferencesKey(name = key), value = value)
     }
 
     override fun getBoolean(
         key: String,
         defaultValue: Boolean,
     ): Flow<Boolean> {
+        return getPreference(key = booleanPreferencesKey(name = key), defaultValue = defaultValue)
+    }
+
+    override suspend fun setString(
+        key: String,
+        value: String,
+    ) {
+        setPreference(stringPreferencesKey(key), value)
+    }
+
+    override fun getString(
+        key: String,
+        defaultValue: String,
+    ): Flow<String> {
+        return getPreference(stringPreferencesKey(key), defaultValue)
+    }
+
+    private fun <T> getPreference(
+        key: Preferences.Key<T>,
+        defaultValue: T,
+    ): Flow<T> {
         return dataStore.data
             .map { preferences ->
-                preferences[booleanPreferencesKey(key)] ?: defaultValue
+                preferences[key] ?: defaultValue
             }
             .catch { error ->
                 appLogger.error(
                     tag = javaClass.simpleName,
-                    message = "Failed to get boolean preference for key: $key",
+                    message = "Failed to get preference for key: ${key.name}",
                     throwable = error,
                 )
 
@@ -62,18 +69,18 @@ internal class AppPreferencesManagerImpl @Inject constructor(
             }
     }
 
-    override suspend fun setString(
-        key: String,
-        value: String,
+    private suspend fun <T> setPreference(
+        key: Preferences.Key<T>,
+        value: T,
     ) {
         runCatching {
             dataStore.edit { preferences ->
-                preferences[stringPreferencesKey(key)] = value
+                preferences[key] = value
             }
         }.getOrElse { error ->
             appLogger.error(
                 tag = javaClass.simpleName,
-                message = "Failed to set string preference for key: $key",
+                message = "Failed to set preference for key: ${key.name}",
                 throwable = error,
             )
 
@@ -81,28 +88,5 @@ internal class AppPreferencesManagerImpl @Inject constructor(
                 throw error
             }
         }
-    }
-
-    override fun getString(
-        key: String,
-        defaultValue: String,
-    ): Flow<String> {
-        return dataStore.data
-            .map { preferences ->
-                preferences[stringPreferencesKey(key)] ?: defaultValue
-            }
-            .catch { error ->
-                appLogger.error(
-                    tag = javaClass.simpleName,
-                    message = "Failed to get string preference for key: $key",
-                    throwable = error,
-                )
-
-                if (error is CancellationException) {
-                    throw error
-                } else {
-                    emit(defaultValue)
-                }
-            }
     }
 }
