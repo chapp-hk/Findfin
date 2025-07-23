@@ -29,17 +29,17 @@ class AppPreferencesManagerImplTest {
     @Test
     fun test_initial_boolean_value() =
         testScope.runTest {
-            appPreferences.getBoolean("boolean").test {
+            appPreferences.getBoolean(key = "boolean", defaultValue = false).test {
                 awaitItem() shouldBe false
                 cancelAndIgnoreRemainingEvents()
             }
         }
 
     @Test
-    fun testBoolean() =
+    fun test_boolean() =
         testScope.runTest {
             appPreferences.setBoolean("boolean", true)
-            appPreferences.getBoolean("boolean").test {
+            appPreferences.getBoolean(key = "boolean", defaultValue = false).test {
                 awaitItem() shouldBe true
                 cancelAndIgnoreRemainingEvents()
             }
@@ -50,17 +50,17 @@ class AppPreferencesManagerImplTest {
     @Test
     fun test_initial_string_value() =
         testScope.runTest {
-            appPreferences.getString("string").test {
+            appPreferences.getString(key = "string", defaultValue = "").test {
                 awaitItem() shouldBe ""
                 cancelAndIgnoreRemainingEvents()
             }
         }
 
     @Test
-    fun testString() =
+    fun test_string() =
         testScope.runTest {
             appPreferences.setString("string", "test_value")
-            appPreferences.getString("string").test {
+            appPreferences.getString(key = "string", defaultValue = "").test {
                 awaitItem() shouldBe "test_value"
                 cancelAndIgnoreRemainingEvents()
             }

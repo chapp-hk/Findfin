@@ -19,7 +19,7 @@ internal class OnboardingNavViewModel @Inject constructor(
 
     val navState: StateFlow<OnboardingNavState> =
         appPreferencesManager
-            .getBoolean(key = prefKeyIsFinishedOnboard)
+            .getBoolean(key = prefKeyIsFinishedOnboard, defaultValue = false)
             .map {
                 if (it) {
                     OnboardingNavState.IsFinishedOnboard

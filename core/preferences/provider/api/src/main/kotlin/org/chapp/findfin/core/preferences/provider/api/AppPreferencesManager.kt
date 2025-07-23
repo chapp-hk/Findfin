@@ -23,9 +23,13 @@ interface AppPreferencesManager {
      * Retrieves a boolean value from the preferences.
      *
      * @param key The key for the preference.
+     * @param defaultValue The default value to return if the key does not exist.
      * @return A [Flow] emitting the boolean value associated with the key.
      */
-    fun getBoolean(key: String): Flow<Boolean>
+    fun getBoolean(
+        key: String,
+        defaultValue: Boolean,
+    ): Flow<Boolean>
 
     /**
      * Sets a string value in the preferences.
@@ -42,7 +46,11 @@ interface AppPreferencesManager {
      * Retrieves a string value from the preferences.
      *
      * @param key The key for the preference.
+     * @param defaultValue The default value to return if the key does not exist.
      * @return A [Flow] emitting the string value associated with the key.
      */
-    fun getString(key: String): Flow<String>
+    fun getString(
+        key: String,
+        defaultValue: String,
+    ): Flow<String>
 }
