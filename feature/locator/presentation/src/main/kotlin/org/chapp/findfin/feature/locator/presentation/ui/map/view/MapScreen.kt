@@ -1,13 +1,11 @@
 package org.chapp.findfin.feature.locator.presentation.ui.map.view
 
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.chapp.findfin.core.map.AppMap
@@ -33,24 +31,11 @@ internal fun MapScreen(
             mapViewModel.getBanksWithinBound(bounds)
         },
         markerContent = { marker: MapMarker<BankType> ->
-            when (marker.type) {
-                BankType.ATM -> {
-                    Icon(
-                        painter = painterResource(id = R.drawable.locator_ic_atm_marker),
-                        contentDescription = "ATM at ${marker.markerTitle}",
-                        modifier = Modifier.size(36.dp),
-                        tint = Color.Unspecified,
-                    )
-                }
-                BankType.BRANCH -> {
-                    Icon(
-                        painter = painterResource(id = R.drawable.locator_ic_bank_marker),
-                        contentDescription = "Bank branch at ${marker.markerTitle}",
-                        modifier = Modifier.size(36.dp),
-                        tint = Color.Unspecified,
-                    )
-                }
-            }
+            Icon(
+                painter = painterResource(id = R.drawable.locator_ic_map_pin),
+                contentDescription = marker.markerTitle,
+                tint = MaterialTheme.colorScheme.primary,
+            )
         },
     )
 }
