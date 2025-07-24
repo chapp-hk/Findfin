@@ -9,9 +9,7 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 internal class BankDatabaseDiModule {
     @Provides
-    fun provideBankDatabase(bankDatabaseProvider: BankDatabaseProvider): BankDatabase {
-        return bankDatabaseProvider.createDatabase()
-    }
+    fun provideBankDatabase(bankDatabaseProvider: BankDatabaseProvider) = bankDatabaseProvider.createDatabase()
 
     @Provides
     fun provideBankDao(bankDatabase: BankDatabase) = bankDatabase.bankDao
