@@ -10,7 +10,9 @@ import org.chapp.findfin.feature.setting.data.repo.preference.local.datasource.U
 import org.chapp.findfin.feature.setting.data.repo.preference.model.Theme
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 @HiltWrapBindModule
 internal class UserSettingRepositoryImpl @Inject constructor(
     @param:DispatcherIo private val ioDispatcher: CoroutineDispatcher,

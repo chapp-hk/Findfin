@@ -9,6 +9,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 internal val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "preferences_datastore")
 
@@ -16,6 +17,7 @@ internal val Context.dataStore: DataStore<Preferences> by preferencesDataStore(n
 @InstallIn(SingletonComponent::class)
 internal class DataStoreHiltModule {
     @Provides
+    @Singleton
     fun provideDataStore(
         @ApplicationContext context: Context,
     ) = context.dataStore

@@ -10,6 +10,7 @@ import org.chapp.findfin.core.location.provider.api.LocationProviderManager
 import org.chapp.findfin.core.location.provider.api.LocationResult
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Implementation of the [LocationProviderManager] interface that provides location data using the
@@ -17,6 +18,7 @@ import javax.inject.Inject
  *
  * @property fusedLocationProviderClient The client used to access location data.
  */
+@Singleton
 @HiltWrapBindModule
 internal class LocationProviderManagerImpl @Inject constructor(
     private val fusedLocationProviderClient: FusedLocationProviderClient,

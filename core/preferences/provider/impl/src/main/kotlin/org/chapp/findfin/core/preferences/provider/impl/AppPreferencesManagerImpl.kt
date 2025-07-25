@@ -13,7 +13,9 @@ import org.chapp.findfin.core.logging.appLogger
 import org.chapp.findfin.core.preferences.provider.api.AppPreferencesManager
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 @HiltWrapBindModule
 internal class AppPreferencesManagerImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>,

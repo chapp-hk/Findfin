@@ -5,7 +5,9 @@ import org.chapp.findfin.feature.auth.data.repo.user.remote.datasource.UserRemot
 import org.chapp.findfin.feature.auth.data.repo.user.remote.response.UserResponse
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 @HiltWrapBindModule
 internal class UserService @Inject constructor(
     private val firebaseAuth: FirebaseAuth,

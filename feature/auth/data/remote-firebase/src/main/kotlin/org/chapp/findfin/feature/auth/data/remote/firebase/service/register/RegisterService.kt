@@ -9,7 +9,9 @@ import org.chapp.findfin.feature.auth.data.repo.register.remote.datasource.Regis
 import org.chapp.findfin.feature.auth.data.repo.register.remote.response.RegisterResponse
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 @HiltWrapBindModule
 internal class RegisterService @Inject constructor(
     private val firebaseAuth: FirebaseAuth,

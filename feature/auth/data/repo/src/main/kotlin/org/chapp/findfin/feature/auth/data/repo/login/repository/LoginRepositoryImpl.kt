@@ -8,7 +8,9 @@ import org.chapp.findfin.feature.auth.data.repo.login.remote.datasource.LoginRem
 import org.chapp.findfin.feature.auth.data.repo.login.remote.response.LoginResponse
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 @HiltWrapBindModule
 internal class LoginRepositoryImpl @Inject constructor(
     @param:DispatcherIo private val ioDispatcher: CoroutineDispatcher,

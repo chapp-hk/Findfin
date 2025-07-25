@@ -9,7 +9,9 @@ import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.BankRemo
 import org.chapp.findfin.feature.bank.data.repo.datasource.remote.model.TypePath
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 @HiltWrapBindModule
 internal class BankRemoteDataSourceImpl @Inject constructor(
     private val bankApi: BankApi,

@@ -5,7 +5,9 @@ import org.chapp.findfin.core.preferences.provider.api.AppPreferencesManager
 import org.chapp.findfin.feature.setting.data.repo.preference.local.datasource.UserSettingLocalDataSource
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 @HiltWrapBindModule
 internal class PreferencesDataSource @Inject constructor(
     private val appPreferencesManager: AppPreferencesManager,
