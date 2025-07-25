@@ -100,7 +100,7 @@ fun <T> AppMap(
         Clustering(
             items = markers.map { it.toClusterItem() },
             clusterItemContent = { item ->
-                markerContent(item.toMapMarker())
+                markerContent(item.originalMarker)
             },
         )
     }

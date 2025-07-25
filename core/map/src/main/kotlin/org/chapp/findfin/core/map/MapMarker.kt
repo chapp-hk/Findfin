@@ -40,26 +40,15 @@ interface MapCluster<T> : ClusterItem {
  * @return A [MapCluster] representation of this [MapMarker].
  */
 internal fun <T> MapMarker<T>.toClusterItem(): MapCluster<T> {
-    val marker = this
     return object : MapCluster<T> {
-        override fun getPosition(): LatLng = LatLng(marker.markerPosition.latitude, marker.markerPosition.longitude)
+        override fun getPosition(): LatLng = LatLng(markerPosition.latitude, markerPosition.longitude)
 
-        override fun getTitle(): String? = marker.markerTitle
+        override fun getTitle(): String? = markerTitle
 
         override fun getSnippet(): String? = null
 
         override fun getZIndex(): Float? = null
 
-        override val originalMarker: MapMarker<T>
-            get() = marker
+        override val originalMarker: MapMarker<T> = this@toClusterItem
     }
-}
-
-/**
- * Converts a [MapCluster] back to a [MapMarker].
- *
- * @return The original [MapMarker] that was converted to a cluster item.
- */
-internal fun <T> MapCluster<T>.toMapMarker(): MapMarker<T> {
-    return originalMarker
 }
