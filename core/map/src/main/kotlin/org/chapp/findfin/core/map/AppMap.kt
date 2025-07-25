@@ -29,8 +29,8 @@ import com.google.maps.android.compose.rememberCameraPositionState
  * @param initPosition The initial camera position as a [Position].
  * @param initZoom The initial zoom level for the camera.
  * @param onBoundsChange Callback invoked with the current [PositionBounds]
- * @param markerContent Composable function to render the content of each marker.
  * when the camera becomes idle or the map is loaded.
+ * @param markerContent Composable function to render the content of each marker.
  */
 @OptIn(MapsComposeExperimentalApi::class, ExperimentalPermissionsApi::class)
 @Composable
