@@ -19,7 +19,9 @@ import org.chapp.findfin.feature.bank.data.repo.model.BankModel
 import org.chapp.findfin.feature.bank.data.repo.model.BankType
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 @HiltWrapBindModule
 internal class BankRepositoryImpl @Inject constructor(
     @param:DispatcherIo private val ioDispatcher: CoroutineDispatcher,

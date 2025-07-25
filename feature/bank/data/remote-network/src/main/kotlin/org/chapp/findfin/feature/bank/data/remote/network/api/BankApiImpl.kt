@@ -9,7 +9,9 @@ import org.chapp.findfin.feature.bank.data.remote.network.model.BankResponse
 import org.chapp.findfin.feature.bank.data.remote.network.model.Response
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 @HiltWrapBindModule
 internal class BankApiImpl @Inject constructor(
     private val httpClientFactory: HttpClientFactory,

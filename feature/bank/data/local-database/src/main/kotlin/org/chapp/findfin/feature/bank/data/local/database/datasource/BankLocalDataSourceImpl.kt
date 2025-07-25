@@ -10,7 +10,9 @@ import org.chapp.findfin.feature.bank.data.repo.datasource.local.model.BankQuery
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 @HiltWrapBindModule
 internal class BankLocalDataSourceImpl @Inject constructor(
     private val bankDao: BankDao,

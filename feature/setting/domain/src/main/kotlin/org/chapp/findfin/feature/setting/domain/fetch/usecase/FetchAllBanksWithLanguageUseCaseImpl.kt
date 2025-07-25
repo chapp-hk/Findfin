@@ -9,7 +9,9 @@ import org.chapp.findfin.feature.bank.data.repo.model.BankType
 import org.chapp.findfin.feature.bank.data.repo.repository.BankRepository
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 @HiltWrapBindModule
 class FetchAllBanksWithLanguageUseCaseImpl @Inject constructor(
     @param:DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,

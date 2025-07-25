@@ -12,8 +12,10 @@ import org.chapp.findfin.feature.home.domain.nearby.model.NearByResult
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import org.mapstruct.factory.Mappers
 import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.math.cos
 
+@Singleton
 @HiltWrapBindModule
 internal class GetNearByServicesUseCaseImpl @Inject constructor(
     @param:DispatcherDefault private val defaultDispatcher: CoroutineDispatcher,

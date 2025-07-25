@@ -8,7 +8,9 @@ import org.chapp.findfin.core.locale.api.LocaleResult
 import org.chapp.library.hiltwrap.annotation.HiltWrapBindModule
 import java.util.Locale
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 @HiltWrapBindModule
 internal class LocaleProviderManagerImpl @Inject constructor() : LocaleProviderManager {
     override fun setLocale(locale: String) {
