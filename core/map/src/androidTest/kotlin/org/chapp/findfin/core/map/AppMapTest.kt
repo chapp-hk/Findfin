@@ -24,6 +24,7 @@ class AppMapTest {
                 initPosition = Position(37.7749, -122.4194),
                 initZoom = 10f,
                 onBoundsChange = mockOnBoundsChange,
+                markerContent = {},
             )
         }
 
