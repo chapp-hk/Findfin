@@ -27,20 +27,20 @@ data class MapMarker<T>(
 /**
  * Extended ClusterItem interface that includes the original marker type.
  */
-interface MapCluster<T> : ClusterItem {
+interface MapClusterItem<T> : ClusterItem {
     val originalMarker: MapMarker<T>
 }
 
 /**
  * Converts a [MapMarker] to a [ClusterItem] for use in clustering on Google Maps.
  *
- * This function creates an anonymous implementation of the [MapCluster] interface,
+ * This function creates an anonymous implementation of the [MapClusterItem] interface,
  * allowing the marker to be used in clustering algorithms provided by the Google Maps Android API.
  *
- * @return A [MapCluster] representation of this [MapMarker].
+ * @return A [MapClusterItem] representation of this [MapMarker].
  */
-internal fun <T> MapMarker<T>.toClusterItem(): MapCluster<T> {
-    return object : MapCluster<T> {
+internal fun <T> MapMarker<T>.toClusterItem(): MapClusterItem<T> {
+    return object : MapClusterItem<T> {
         override fun getPosition(): LatLng = LatLng(markerPosition.latitude, markerPosition.longitude)
 
         override fun getTitle(): String? = markerTitle
