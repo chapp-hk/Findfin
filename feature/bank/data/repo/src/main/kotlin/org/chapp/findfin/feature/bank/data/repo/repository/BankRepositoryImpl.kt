@@ -62,9 +62,7 @@ internal class BankRepositoryImpl @Inject constructor(
                         )
                     }
                     .also {
-                        withContext(context = ioDispatcher) {
-                            bankLocalDataSource.insertAll(locators = it)
-                        }
+                        bankLocalDataSource.insertAll(locators = it)
                     }
                     .let { list ->
                         if (list.size < pageSize) {
@@ -78,9 +76,7 @@ internal class BankRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAllBanks(): List<String> {
-        return withContext(context = ioDispatcher) {
-            bankLocalDataSource.getAllBanks(language = localeProviderManager.getCurrentLocaleTag())
-        }
+        return bankLocalDataSource.getAllBanks(language = localeProviderManager.getCurrentLocaleTag())
     }
 
     override suspend fun getBanksByParameters(
@@ -99,8 +95,6 @@ internal class BankRepositoryImpl @Inject constructor(
                 maxLongitude = bound?.maxLongitude,
             )
 
-        return withContext(context = ioDispatcher) {
-            bankLocalDataSource.getBanksWithParameters(params).map { it.toBankModel() }
-        }
+        return bankLocalDataSource.getBanksWithParameters(params).map { it.toBankModel() }
     }
 }
