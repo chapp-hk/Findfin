@@ -21,7 +21,7 @@ sealed class UiText {
      * @property resId The resource ID of the string.
      */
     data class ResourceString(
-        @StringRes val resId: Int,
+        @param:StringRes val resId: Int,
     ) : UiText()
 }
 
