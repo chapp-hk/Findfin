@@ -3,7 +3,7 @@ package org.chapp.findfin.feature.home.presentation.ui.user.view
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.chapp.findfin.feature.home.presentation.ui.user.state.UserUiState
 import org.chapp.findfin.feature.home.presentation.ui.user.viewmodel.UserViewModel
