@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import org.chapp.findfin.core.design.ui.foundation.modifier.contentDescription
 import org.chapp.findfin.core.design.ui.foundation.text.UiText
 import org.chapp.findfin.core.design.ui.foundation.text.asString
