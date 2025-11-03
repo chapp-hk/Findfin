@@ -11,7 +11,7 @@ kotlinPoet = "2.2.0"
 kotlinxCoroutines = "1.10.2"
 ktlint = "1.1.1"
 ktor = "3.3.1"
-mapsCompose = "6.7.2"
+mapsCompose = "6.12.1"
 mapStruct = "1.6.3"
 material = "1.13.0"
 mockk = "1.14.6"
@@ -26,7 +26,7 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version = "1.2.0-rc01" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2025.07.00" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2025.10.01" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
@@ -45,8 +45,8 @@ androidx-test-core = { module = "androidx.test:core", version = "1.7.0" }
 androidx-test-rules = { module = "androidx.test:rules", version = "1.7.0" }
 android-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 coil-compose = { module = "io.coil-kt:coil-compose", version = "2.7.0" }
-junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version = "6.0.0" }
-junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version = "6.0.0" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version = "6.0.1" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version = "6.0.1" }
 kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version = "6.0.4" }
 #hilt
 dagger-hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
@@ -54,7 +54,7 @@ dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", vers
 dagger-hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 #firebase
-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "34.4.0" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version = "34.5.0" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
 play-services-base = { module = "com.google.android.gms:play-services-base", version = "18.9.0" }
 play-services-tasks = { module = "com.google.android.gms:play-services-tasks", version = "18.4.0" }
@@ -88,7 +88,7 @@ turbine = { module = "app.cash.turbine:turbine", version = "1.2.1" }
 #konsist
 konsist = { module = "com.lemonappdev:konsist", version = "0.17.3" }
 #lottie
-android-lottie-compose = { module = "com.airbnb.android:lottie-compose", version = "6.6.10" }
+android-lottie-compose = { module = "com.airbnb.android:lottie-compose", version = "6.7.1" }
 #kermit
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kermit-test = { module = "co.touchlab:kermit-test", version.ref = "kermit" }
