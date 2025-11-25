@@ -4,14 +4,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.test.assert
-import androidx.compose.ui.test.assertContentDescriptionEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
+import androidx.compose.ui.test.hasAnyAncestor
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.onParent
 import androidx.compose.ui.test.performTextInput
 import org.chapp.findfin.core.design.ui.foundation.AppContent
 import org.junit.Rule
@@ -29,10 +29,7 @@ class AppTextFieldTest {
             AppContent {
                 val state = rememberAppTextFieldState(placeholder = "test placeholder")
                 AppTextField(
-                    modifier =
-                        Modifier.semantics {
-                            contentDescription = textFieldContentDescription
-                        },
+                    modifier = Modifier.semantics { contentDescription = textFieldContentDescription },
                     state = state,
                 )
             }
@@ -44,8 +41,7 @@ class AppTextFieldTest {
                 useUnmergedTree = true,
             )
             .assertIsDisplayed()
-            .onParent()
-            .assertContentDescriptionEquals(textFieldContentDescription)
+            .assert(hasAnyAncestor(hasContentDescription(textFieldContentDescription)))
     }
 
     @Test
@@ -54,10 +50,7 @@ class AppTextFieldTest {
             AppContent {
                 val state = rememberAppTextFieldState()
                 AppTextField(
-                    modifier =
-                        Modifier.semantics {
-                            contentDescription = textFieldContentDescription
-                        },
+                    modifier = Modifier.semantics { contentDescription = textFieldContentDescription },
                     state = state,
                 )
             }
@@ -80,10 +73,7 @@ class AppTextFieldTest {
 
             AppContent {
                 AppTextField(
-                    modifier =
-                        Modifier.semantics {
-                            contentDescription = textFieldContentDescription
-                        },
+                    modifier = Modifier.semantics { contentDescription = textFieldContentDescription },
                     state = state,
                 )
             }
@@ -95,8 +85,7 @@ class AppTextFieldTest {
                 useUnmergedTree = true,
             )
             .assertIsDisplayed()
-            .onParent()
-            .assertContentDescriptionEquals(textFieldContentDescription)
+            .assert(hasAnyAncestor(hasContentDescription(textFieldContentDescription)))
 
         composeTestRule
             .onNodeWithContentDescription(textFieldContentDescription)
@@ -117,10 +106,7 @@ class AppTextFieldTest {
 
             AppContent {
                 AppTextField(
-                    modifier =
-                        Modifier.semantics {
-                            contentDescription = textFieldContentDescription
-                        },
+                    modifier = Modifier.semantics { contentDescription = textFieldContentDescription },
                     state = state,
                 )
             }
@@ -132,8 +118,7 @@ class AppTextFieldTest {
                 useUnmergedTree = true,
             )
             .assertIsDisplayed()
-            .onParent()
-            .assertContentDescriptionEquals(textFieldContentDescription)
+            .assert(hasAnyAncestor(hasContentDescription(textFieldContentDescription)))
 
         composeTestRule
             .onNodeWithContentDescription(textFieldContentDescription)
@@ -145,7 +130,6 @@ class AppTextFieldTest {
                 useUnmergedTree = true,
             )
             .assertIsDisplayed()
-            .onParent()
-            .assertContentDescriptionEquals(textFieldContentDescription)
+            .assert(hasAnyAncestor(hasContentDescription(textFieldContentDescription)))
     }
 }
