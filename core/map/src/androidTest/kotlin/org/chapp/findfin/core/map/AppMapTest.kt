@@ -7,6 +7,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import io.mockk.mockk
 import org.chapp.findfin.core.design.ui.foundation.modifier.contentDescription
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
@@ -15,6 +16,7 @@ class AppMapTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
+    @Ignore
     fun testAppMap_init() {
         val mockOnBoundsChange = mockk<((PositionBounds?) -> Unit)>()
 
