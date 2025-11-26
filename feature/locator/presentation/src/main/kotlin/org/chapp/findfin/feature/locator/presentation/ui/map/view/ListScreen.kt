@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.sp
 import org.chapp.findfin.feature.bank.data.repo.model.BankModel
 
 @Composable
-internal fun BankListView(
+internal fun ListScreen(
     modifier: Modifier = Modifier,
     banks: List<BankModel>,
     selectedBank: BankModel? = null,
