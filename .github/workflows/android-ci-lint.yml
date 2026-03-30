@@ -18,7 +18,7 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
       - name: Create Google Services JSON File
 
         env:
@@ -42,7 +42,7 @@ jobs:
           java-version: '21'
           distribution: 'zulu'
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
       - name: ktlint check
         run: |
           echo "JACOCO_INSTRUMENT_TEST_TYPE=CONNECTED_DEVICE" >> ./local.properties
@@ -59,7 +59,7 @@ jobs:
           java-version: '21'
           distribution: 'zulu'
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
       - name: detekt check
         run: |
           echo "JACOCO_INSTRUMENT_TEST_TYPE=CONNECTED_DEVICE" >> ./local.properties
@@ -76,7 +76,7 @@ jobs:
           java-version: '21'
           distribution: 'zulu'
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
       - name: konsist check
         run: |
           echo "JACOCO_INSTRUMENT_TEST_TYPE=CONNECTED_DEVICE" >> ./local.properties
